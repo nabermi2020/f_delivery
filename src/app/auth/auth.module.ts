@@ -19,7 +19,7 @@ import { AuthenticationComponent } from './authentication/authentication.compone
         AuthRoutingModule
     ],
     exports: [
-        FormsModule
+           
     ]
 })
 

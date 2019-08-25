@@ -1,3 +1,4 @@
+import { AuthGuard } from './auth/auth-guard.service';
 import { AuthModule } from './auth/auth.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -8,18 +9,20 @@ import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { FormsModule} from '@angular/forms';
 import { ProductDashboardComponent } from './dashboard/product-dashboard/product-dashboard.component';
+import { ProfileComponent } from './userprofile/profile/profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductDashboardComponent
+    ProductDashboardComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AuthModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
