@@ -1,3 +1,4 @@
+import { AuthModule } from './auth/auth.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -9,14 +10,12 @@ import { FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    SignInComponent,
-    SignUpComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]
