@@ -1,0 +1,47 @@
+#signInUp {
+    width: 60%;
+    height: 500px;
+    margin: 0 auto;
+    margin-top: 10%;
+    background: white;
+    border-radius: 8px;
+
+    #formsNav {
+        border: 1px solid black;
+
+        li {
+            list-style-type: none;
+            display: inline;
+            margin-left: 5px;
+
+          
+        }
+         
+        a {
+            color: black;
+        }
+        
+        .activeTab {
+           
+            a {
+                color: red;
+               
+            
+                &:hover {
+                    cursor: pointer;
+                    color: red;
+                   
+                }
+
+            }
+        }
+         
+    }
+}
+
+
+
+ 
+
+ 
+
