@@ -1,7 +1,8 @@
 <div class="col-xs-12 col-md-12">
     <form
     id="signIn"
-    #f=ngForm>
+    #f=ngForm
+    (ngSubmit)="onLogin(f)">
     
     <div class="form-group">
         <label for="login">
