@@ -21,21 +21,20 @@
 
       <div class="col-md-6 col-xs-6">
         <div class="form-group">
-          <label for="address">
-            Address:
-            <input 
-              type="text"
-              id="address"
-              name="address"
-              class="form-control"
-              placeholder="Enter address"
-              ngModel
-              >
-          </label>
-
+            <label for="login">
+                Login:
+                <input 
+                  type="text"
+                  placeholder="Enter login"
+                  class="form-control"
+                  id="login"
+                  name="login"
+                  ngModel>
+              </label>
         </div>
-      </div>
+    </div>
 
+    
       <div class="col-md-6 col-xs-6">
           <div class="form-group">
             <label for="password">
@@ -46,6 +45,23 @@
                 name="password"
                 class="form-control"
                 placeholder="Enter password"
+                ngModel
+                >
+            </label>
+  
+          </div>
+        </div>
+
+        <div class="col-md-6 col-xs-6">
+          <div class="form-group">
+            <label for="passwordRepeat">
+                Repeat password:
+              <input 
+                type="text"
+                id="passwordRepeat"
+                name="passwordRepeat"
+                class="form-control"
+                placeholder="Repeat password"
                 ngModel
                 >
             </label>
@@ -85,23 +101,25 @@
           </div>
       </div>
 
-
       <div class="col-md-6 col-xs-6">
-          <div class="form-group">
-            <label for="passwordRepeat">
-                Repeat password:
-              <input 
-                type="text"
-                id="passwordRepeat"
-                name="passwordRepeat"
-                class="form-control"
-                placeholder="Repeat password"
-                ngModel
-                >
-            </label>
-  
-          </div>
+        <div class="form-group">
+          <label for="address">
+            Address:
+            <input 
+              type="text"
+              id="address"
+              name="address"
+              class="form-control"
+              placeholder="Enter address"
+              ngModel
+              >
+          </label>
+
         </div>
+      </div>
+
+
+
     </div>
     
     <button 
