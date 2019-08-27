@@ -21,6 +21,14 @@
         line-height: 50px;
         right: 0;
 
+        a {
+            &:hover {
+                cursor: pointer;
+                color: rgb(48, 81, 228);
+                text-decoration: underline;
+
+            }
+        }
         #cart {
             height: 100%;
             text-align: center;

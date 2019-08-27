@@ -35,6 +35,7 @@ export class AuthService {
 
   logOut() {
     this.isAuthenticated = false;
+    this.router.navigate(['']);
   }
 
   isAuthorized(): boolean {
