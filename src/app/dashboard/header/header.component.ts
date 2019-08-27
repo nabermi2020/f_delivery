@@ -8,14 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  activeCategory: string = "Pizza";
+  //activeCategory: string = "Pizza";
   activeUser: User;
+  id: number;
 
 
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.activeUser = this.authService.getCurrentUser();
+    this.id = this.activeUser.userId;
     console.log(this.activeUser);
   
   }

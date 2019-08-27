@@ -7,8 +7,7 @@ import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { ProductDashboardComponent } from './dashboard/product-dashboard/product-dashboard.component';
 
 const routes: Routes = [
-  { path: 'dashboard', component: ProductDashboardComponent, canActivate: [AuthGuard] },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] }
+
    
 ];
 

@@ -21,11 +21,10 @@ export class AuthService {
   constructor(private router: Router) { }
 
   signIn(login: string, password: string) {
-    login = 'john_smith777';
-    password = 'john777';
+    
 
     this.users.forEach( (userData: User) => {
-      console.log(userData);
+      //console.log(userData);
       if (userData.login === login && userData.password === password) {
         this.currentUser = userData;
         
@@ -35,10 +34,6 @@ export class AuthService {
 
     console.log(this.isAuthenticated);
     this.isUserAuthorized.next(this.isAuthenticated);
-    
-    //console.log(this.currentUser);
-    
-    
   }
 
   logOut() {
@@ -53,5 +48,14 @@ export class AuthService {
   getCurrentUser(): User {
     return this.currentUser;
   }
-  
+
+  getUserById(id: number): User {  
+    let activeUser;
+    this.users.map((item) => {
+      if (item["userId"] == id) {
+        activeUser =  item;
+      };
+    })  
+    return activeUser;
+  } 
 }
