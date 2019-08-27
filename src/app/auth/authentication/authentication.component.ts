@@ -16,7 +16,7 @@ export class AuthenticationComponent implements OnInit {
     this.authService.isUserAuthorized.subscribe (
       sub => {
         if (sub) {
-          this.router.navigate(['/profile']);
+          this.router.navigate(['/dashboard']);
         } else {
           this.router.navigate(['']);
         }

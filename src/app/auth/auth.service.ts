@@ -20,6 +20,8 @@ export class AuthService {
   constructor(private router: Router) { }
 
   signIn(login: string, password: string) {
+    login = 'test';
+    password = '1234';
     this.users.forEach( userData => {
       console.log(userData);
       if (userData.login === login && userData.password === password) {

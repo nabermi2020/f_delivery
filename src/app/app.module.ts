@@ -11,12 +11,14 @@ import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { FormsModule} from '@angular/forms';
 import { ProductDashboardComponent } from './dashboard/product-dashboard/product-dashboard.component';
 import { ProfileComponent } from './userprofile/profile/profile.component';
+import { SideBarComponent } from './dashboard/side-bar/side-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductDashboardComponent,
-    ProfileComponent
+    ProfileComponent,
+    SideBarComponent
   ],
   imports: [
     BrowserModule,
