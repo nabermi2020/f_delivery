@@ -12,13 +12,15 @@ import { FormsModule} from '@angular/forms';
 import { ProductDashboardComponent } from './dashboard/product-dashboard/product-dashboard.component';
 import { ProfileComponent } from './userprofile/profile/profile.component';
 import { SideBarComponent } from './dashboard/side-bar/side-bar.component';
+import { HeaderComponent } from './dashboard/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductDashboardComponent,
     ProfileComponent,
-    SideBarComponent
+    SideBarComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

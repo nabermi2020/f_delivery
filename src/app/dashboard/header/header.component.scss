@@ -1,0 +1,41 @@
+#headerSection {
+    height: 50px;
+    width: 100%;
+    position: relative;
+    background: white(214, 205, 183);
+    box-shadow: 0 0 10px black;
+
+    #activeCategory {
+        left: 2%;
+        line-height: 50px;
+        position: absolute;
+        text-align: center;
+        width: 150px;
+        color: lightslategray;
+    }
+
+    #controlsWrapper {
+        width: 30%;
+        height: 100%;
+        position: absolute;
+        line-height: 50px;
+        right: 0;
+
+        #cart {
+            height: 100%;
+            text-align: center;
+            line-height: 50px;
+            width: 40%;
+            display: inline-block;
+        }
+
+        #activeUser {
+            width: 60%;
+            display: inline-block;
+            text-align: center;
+        }
+
+    }
+
+    
+}
