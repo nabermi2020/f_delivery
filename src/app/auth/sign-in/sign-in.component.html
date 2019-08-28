@@ -13,10 +13,14 @@
                 class="form-control"
                 id="login"
                 name="login"
-                ngModel>
+                required
+                login
+                ngModel
+                #login="ngModel"
+                >
             </label>
       </div>
-      
+      <p *ngIf="!login.valid && login.touched" class="validationError">Login is not valid!</p>
     
       <div class="form-group">
           <label for="password">
@@ -26,14 +30,20 @@
                 placeholder="Enter password"
                 class="form-control"
                 id="password"
+                required
+                password
+                #password="ngModel"
                 name="password"
                 ngModel>
             </label>
       </div>
+      <p *ngIf="!password.valid && password.touched" class="validationError">Password is not valid!</p>
 
+      <p *ngIf="authStatus == 'error'" class="validationError">There isn't user with such login and password!</p>
       <button 
         class="btn btn-primary"
-        type="submit">
+        type="submit"
+        [disabled]="!f.valid">
           Log In
       </button>
       

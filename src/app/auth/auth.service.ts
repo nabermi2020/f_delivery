@@ -22,21 +22,24 @@ export class AuthService {
     console.log(this.users);
    }
 
-  signIn(login: string, password: string) {
-    login = "john_smith777";
-    password = "john777";
+  signIn(login: string, password: string): string {
+    // login = "john_smith777";
+    // password = "john777";
 
     this.users.forEach( (userData: User) => {
-      //console.log(userData);
+ 
       if (userData.login === login && userData.password === password) {
         this.currentUser = userData;
         
         this.isAuthenticated = true;
-      }
+        this.isUserAuthorized.next(this.isAuthenticated);
+        return 'success';
+      } 
     })
+    return 'error';
 
     console.log(this.isAuthenticated);
-    this.isUserAuthorized.next(this.isAuthenticated);
+   // this.isUserAuthorized.next(this.isAuthenticated);
   }
 
   logOut() {
