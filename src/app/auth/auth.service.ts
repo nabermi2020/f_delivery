@@ -21,7 +21,8 @@ export class AuthService {
   constructor(private router: Router) { }
 
   signIn(login: string, password: string) {
-    
+    login = "michael777";
+    password = "test123";
 
     this.users.forEach( (userData: User) => {
       //console.log(userData);
