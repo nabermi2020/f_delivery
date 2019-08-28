@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
     this.activeUser = this.authService.getCurrentUser();
     this.id = this.activeUser.userId;
     console.log(this.activeUser);
+    console.log(this.id);
   
   }
 

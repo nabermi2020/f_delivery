@@ -13,16 +13,18 @@ export class AuthService {
   currentUser: User;
   
   users = [
-    new User("John Smith", "john_smith777", "john777", "+380501654784", "john777@gmail.com", "NY, Green Valley 15/64"),
-    new User("M.Naberezhnyi", "michael777", "test123", "+380501865210", "mnabe777@gmail.com", "LA, Red Valley 7/32"),
-    new User("John Doe", "johnl777", "demo1234", "+380502565210", "john_doe@gmail.com", "Las Vegas, Yellow Road 7/32")
+    new User("John Smith", "john_smith777", "john777", "+380501654784", "john777@gmail.com", "NY, Green Valley 15/64", 1),
+    new User("M.Naberezhnyi", "michael777", "test123", "+380501865210", "mnabe777@gmail.com", "LA, Red Valley 7/32", 2),
+    new User("John Doe", "johnl777", "demo1234", "+380502565210", "john_doe@gmail.com", "Las Vegas, Yellow Road 7/32", 3)
   ];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+    console.log(this.users);
+   }
 
   signIn(login: string, password: string) {
-    login = "michael777";
-    password = "test123";
+    login = "john_smith777";
+    password = "john777";
 
     this.users.forEach( (userData: User) => {
       //console.log(userData);

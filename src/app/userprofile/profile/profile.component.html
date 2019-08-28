@@ -3,22 +3,37 @@
       <li>
           <a>Profile Info</a>
       </li>
-      <li>
-          <a>Orders History</a>  
-      </li>
+       
     </ul>
-    
-  </div>
+    <div id="userDetail">
+        <div class="row">
+            <!--User Name-->
+            <div class="col-md-3"><h5>User name</h5></div>
+            <div class="col-md-6"> {{ userData.username }} </div>
+            <div class="col-md-3"></div>
 
+            <!--Login-->
+            <div class="col-md-3"><h5>Login</h5></div>
+            <div class="col-md-6"> {{ userData.login }} </div>
+            <div class="col-md-3"></div>
 
+            <!--Phone number-->
+            <div class="col-md-3"><h5>Phone number</h5></div>
+            <div class="col-md-6"> {{ userData.phone }} </div>
+            <div class="col-md-3"></div>
 
-<!--
-<p> {{ userData.username }} </p>
-<p> {{ userData.login }} </p>
-<p> {{ userData.phone }} </p>
-<p> {{ userData.email }} </p>
-<p> {{ userData.address }} </p>
--->
+            <!--Email-->
+            <div class="col-md-3"><h5>Email</h5></div>
+            <div class="col-md-6"> {{ userData.email }} </div>
+            <div class="col-md-3"></div>
 
+            <!--Address-->
+            <div class="col-md-3"><h5>Address</h5></div>
+            <div class="col-md-6"> {{ userData.address }} </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+</div>
+ 
 
 

@@ -9,14 +9,14 @@ export class User {
 
     constructor(name: string, login: string,
                 password: string, phone: string,
-                email: string, address: string) {
+                email: string, address: string, id: number) {
         this.username = name;
         this.login = login;
         this.password = password;
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.userId = this.randomId(1000, 0);
+        this.userId = id;
     }
 
     randomId(upperLimit: number, lowerLimit: number) {
