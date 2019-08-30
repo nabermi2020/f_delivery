@@ -1,0 +1,35 @@
+<div id="products-grid">
+    <div class="row">
+        <div class="col-md-4 col-sm-6" *ngFor="let product of products">
+            <div class="product">
+              <div class="imgWrapper">
+                <img [src]= 'product.productImgSrc' alt="pizza1">
+              </div>
+    
+              <div class="productDescription">
+                <div class="productInfoAndPrice">
+                  <div class="productWeight">{{ product.productWeightAndSize }}</div>
+                  <div class="prPrice">{{ product.productPrice }} грн</div>
+                </div>
+              
+                <div class="productTitle"><h4>{{ product.productTitle }}</h4></div>
+                <div class="ingredients">{{ product.productDescription }}</div>
+              </div>
+    
+              <div class="addToCartWrapper">
+                <div class="productQuantity">
+                  - 1 +
+                </div>
+    
+                <div class="addToCart">
+                  Add To Cart
+                </div>
+    
+                <div class="productPrice">
+                  175$
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+  </div>
