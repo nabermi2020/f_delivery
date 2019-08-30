@@ -3,12 +3,12 @@
         <div class="col-md-4 col-sm-6" *ngFor="let product of products">
             <div class="product">
               <div class="imgWrapper">
-                <img [src]= 'product.productImgSrc' alt="pizza1">
+                <img [src]= 'product.imgPath' alt="pizza1">
               </div>
     
               <div class="productDescription">
                 <div class="productInfoAndPrice">
-                  <div class="productWeight">{{ product.productWeightAndSize }}</div>
+                  <div class="productWeight">{{ product.productWeight }} gram {{ product.productSize }} sm</div>
                   <div class="prPrice">{{ product.productPrice }} грн</div>
                 </div>
               

@@ -16,7 +16,7 @@ export class User {
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.userId = id;
+        this.userId = this.randomId(1000, 1);
     }
 
     randomId(upperLimit: number, lowerLimit: number) {
