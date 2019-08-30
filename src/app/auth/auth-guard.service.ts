@@ -14,8 +14,12 @@ export class AuthGuard implements CanActivate {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-       // console.log('here ' + this.authService.isAuthenticated);
-        if (this.authService.isAuthorized()) {
+        console.log('here ' + this.authService.isAuthenticated);
+        //ASK ABOUT SITUATION WHEN WE HAVE A FEW TABS
+        // IN CHROME BUT USER IS NOT AUTHORIZED AND FOR ONE TAB EVERYHING
+        // IS OK BUT FOR ANOTHER AUTHOMATIC LOG OUT DOESN'T WORK EVEN WITH SUBSCRUPTION
+        
+        if (this.authService.isAuthorized() && localStorage.getItem("userInfo")) {
             return true; 
         } else {
             this.router.navigate([''], {relativeTo: this.route});

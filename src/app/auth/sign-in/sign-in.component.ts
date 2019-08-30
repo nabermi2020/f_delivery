@@ -1,6 +1,7 @@
 import { AuthService } from './../auth.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+ 
 
 @Component({
   selector: 'app-sign-in',
@@ -8,7 +9,8 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
-  authStatus: boolean;
+  authStatus: boolean = true;
+   
 
   constructor(private authService: AuthService) { }
 
@@ -17,8 +19,14 @@ export class SignInComponent implements OnInit {
   onLogin(form: NgForm) {
     let login = form.value.login;
     let password = form.value.password;
+    let credentials = {
+      "login": login,
+      "password": password
+    }
     this.authStatus = this.authService.signIn(login, password); 
-      
+    if (this.authService) {
+      localStorage.setItem("userInfo", JSON.stringify(credentials));
+    }  
      // console.log("status " + this.authStatus); 
   }
 

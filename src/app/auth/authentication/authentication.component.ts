@@ -25,5 +25,19 @@ export class AuthenticationComponent implements OnInit{
         }
       }
     )
+
+    this.isAuthenticated();
+  }
+
+  isAuthenticated() {
+    let userData = localStorage.getItem("userInfo");
+    if(userData) {
+      console.log(userData);
+      let userCredentials = JSON.parse(userData);
+      this.authService.signIn(userCredentials.login, userCredentials.password);
+    } else {
+      console.log('Nothing!');
+    }
+    //console.log(userData);
   }
 }

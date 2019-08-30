@@ -48,6 +48,7 @@ export class AuthService {
   logOut() {
     this.isAuthenticated = false;
     this.isUserAuthorized.next(this.isAuthenticated);
+    localStorage.removeItem("userInfo");
   }
 
   addNewUser(user: User) {
