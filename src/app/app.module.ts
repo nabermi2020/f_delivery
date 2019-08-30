@@ -1,7 +1,7 @@
 import { ProductService } from './shared/servives/products.service';
  
 import { ProfileModule } from './userprofile/profile.module';
-import { DashboardModule } from './dashboard/dashboard.module';
+//import { DashboardModule } from './dashboard/dashboard.module';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth-guard.service';
 import { AuthModule } from './auth/auth.module';
@@ -23,7 +23,7 @@ import { ProfileComponent } from './userprofile/profile/profile.component';
     BrowserModule,
     AppRoutingModule,
     AuthModule,
-    DashboardModule
+   // DashboardModule
     
   ],
   providers: [AuthGuard, AuthService, ProductService],

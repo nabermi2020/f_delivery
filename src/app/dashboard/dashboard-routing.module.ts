@@ -7,7 +7,7 @@ import { NgModule } from '@angular/core';
 import { ProductGridComponent } from './product-grid/product-grid.component';
 
 const dashboardRoutes: Routes = [
-    { path: 'dashboard', component: ProductDashboardComponent, canActivate: [AuthGuard], children: [
+    { path: '', component: ProductDashboardComponent, canActivate: [AuthGuard], children: [
         { path: 'profile', component: ProfileComponent, children: [
             { path: ':id', component: ProfileDetailComponent, canActivate: [AuthGuard]}
         ]},
