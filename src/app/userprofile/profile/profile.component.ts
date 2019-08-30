@@ -21,7 +21,6 @@ export class ProfileComponent implements OnInit {
     "Address": ''
   }
 
-
   constructor(private route: ActivatedRoute,
               private router: Router,
               private authService: AuthService) { }

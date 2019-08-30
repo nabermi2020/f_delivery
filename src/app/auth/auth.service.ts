@@ -7,37 +7,39 @@ import { User } from './user.model';
   providedIn: 'root'
 })
 export class AuthService {
-  isAuthenticated: boolean = false;
+  isAuthenticated: boolean;
   isUserAuthorized = new Subject<any>();
   userData = new Subject<any>();
   currentUser: User;
   
   
   users = [
-    new User("John", "Smith", "john_smith777", "john777", "+380501654784", "john777@gmail.com", "NY, Green Valley 15/64", 1),
-    new User("Michael", "Naberezhnyi", "michael777", "test123", "+380501865210", "mnabe777@gmail.com", "LA, Red Valley 7/32", 2),
-    new User("John", "Doe", "johnl777", "demo1234", "+380502565210", "john_doe@gmail.com", "Las Vegas, Yellow Road 7/32", 3)
+    new User("John", "Smith", "john_smith777", "john777", "+380501654784", "john777@gmail.com", "NY, Green Valley 15/64"),
+    new User("Michael", "Naberezhnyi", "michael777", "test123", "+380501865210", "mnabe777@gmail.com", "LA, Red Valley 7/32"),
+    new User("John", "Doe", "johnl777", "demo1234", "+380502565210", "john_doe@gmail.com", "Las Vegas, Yellow Road 7/32")
   ];
 
   constructor(private router: Router) {
    // console.log(this.users);
    }
 
-  signIn(login: string, password: string): string {
-    login = "john_smith777";
-    password = "john777";
+  signIn(login: string, password: string): boolean {
+    // login = "john_smith777";
+    // password = "john777";
+    let authStatus;
 
-    this.users.forEach( (userData: User) => {
+    let user = this.users.find( (userData:User) => {
  
-      if (userData.login === login && userData.password === password) {
+      if (userData.login == login && userData.password == password) {
         this.currentUser = userData;
-        
         this.isAuthenticated = true;
         this.isUserAuthorized.next(this.isAuthenticated);
-        return 'success';
+        authStatus =  true;
+        return true;
       } 
-    })
-    return 'error';
+    });
+   console.log(user);
+   return authStatus ? true : false; 
 
     console.log(this.isAuthenticated);
    // this.isUserAuthorized.next(this.isAuthenticated);
@@ -48,8 +50,9 @@ export class AuthService {
     this.isUserAuthorized.next(this.isAuthenticated);
   }
 
-  addNewUser() {
-
+  addNewUser(user: User) {
+    this.users.push(user);
+    console.log(this.users);
   }
 
   isAuthorized(): boolean {

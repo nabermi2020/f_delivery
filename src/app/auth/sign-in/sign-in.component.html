@@ -35,7 +35,7 @@
       </label>
     </div>
     <p *ngIf="!password.valid && password.touched" class="validationError">Password is not valid!</p>
-    <p *ngIf="authStatus == 'error'" class="validationError">Your login and password are incorect!</p>
+    <p *ngIf="authStatus" class="validationError">Your login and password are incorect!</p>
 
     <button class="btn btn-primary"
             type="submit"

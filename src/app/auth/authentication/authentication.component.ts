@@ -16,8 +16,11 @@ export class AuthenticationComponent implements OnInit{
     this.authService.isUserAuthorized.subscribe (
       sub => {
         if (sub) {
+         // console.log(sub);
           this.router.navigate(['/dashboard/products']);
-        } else {
+        } 
+        else {
+         // console.log("auth error");
           this.router.navigate(['']);
         }
       }

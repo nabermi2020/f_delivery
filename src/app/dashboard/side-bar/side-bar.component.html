@@ -5,9 +5,9 @@
       <a routerLink="/dashboard/products">Logo</a>
     </div>
     <ul>
-      <li>Pizza</li>
-      <li>Drinks</li>
-      <li>Salads</li>
+      <li><a [routerLink]="['/dashboard/products', 'pizza']">Pizza</a></li>
+      <li><a [routerLink]="['/dashboard/products', 'drinks']">Drinks</a></li>
+      <li><a [routerLink]="['/dashboard/products', 'salads']">Salads</a></li>
   </ul>
   </nav>
 </div>

@@ -10,7 +10,7 @@ export class User {
 
     constructor(fName: string,  lName: string, login: string,
                 password: string, phone: string,
-                email: string, address: string, id: number) {
+                email: string, address: string) {
         this.firstName = fName;
         this.lastName = lName;
         this.login = login;

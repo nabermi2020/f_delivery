@@ -1,3 +1,4 @@
+import { ActivatedRoute, Params } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/shared/servives/products.service';
 
@@ -7,12 +8,18 @@ import { ProductService } from 'src/app/shared/servives/products.service';
   styleUrls: ['./product-grid.component.scss']
 })
 export class ProductGridComponent implements OnInit {
-  products: any[];
-  constructor(private productsService: ProductService) { }
+  products: any;
+  activeCategory: string = "pizza";
+  constructor(private productsService: ProductService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.getProducts();
-   // console.log(this.products);
+    //console.log(this.products[this.activeCategory]);
+    // this.route.params
+    //   .subscribe( (par: Params) => {
+    //     console.log(par.category);
+    //   }) 
   }
 
   getProducts() {
@@ -20,3 +27,4 @@ export class ProductGridComponent implements OnInit {
   }
 
 }
+      
