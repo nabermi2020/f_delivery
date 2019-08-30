@@ -12,6 +12,7 @@ export class AuthService {
   userData = new Subject<any>();
   currentUser: User;
   
+  
   users = [
     new User("John Smith", "john_smith777", "john777", "+380501654784", "john777@gmail.com", "NY, Green Valley 15/64", 1),
     new User("M.Naberezhnyi", "michael777", "test123", "+380501865210", "mnabe777@gmail.com", "LA, Red Valley 7/32", 2),
@@ -23,8 +24,8 @@ export class AuthService {
    }
 
   signIn(login: string, password: string): string {
-    // login = "john_smith777";
-    // password = "john777";
+    login = "john_smith777";
+    password = "john777";
 
     this.users.forEach( (userData: User) => {
  

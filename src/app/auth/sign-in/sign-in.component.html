@@ -1,53 +1,49 @@
-   <div class="col-xs-12 col-md-12">
-      <form
-      id="signIn"
-      #f=ngForm
-      (ngSubmit)="onLogin(f)">
-      
-      <div class="form-group">
-          <label for="login">
-              Login:
-              <input 
-                type="text"
-                placeholder="Enter login"
-                class="form-control"
-                id="login"
-                name="login"
-                required
-                login
-                ngModel
-                #login="ngModel"
-                >
-            </label>
-      </div>
-      <p *ngIf="!login.valid && login.touched" class="validationError">Login is not valid!</p>
-    
-      <div class="form-group">
-          <label for="password">
-              Password:
-              <input 
-                type="password"
-                placeholder="Enter password"
-                class="form-control"
-                id="password"
-                required
-                password
-                #password="ngModel"
-                name="password"
-                ngModel>
-            </label>
-      </div>
-      <p *ngIf="!password.valid && password.touched" class="validationError">Password is not valid!</p>
+<div class="col-xs-12 col-md-12">
+  <form id="signIn"
+        #f=ngForm
+        (ngSubmit)="onLogin(f)">
 
-      <p *ngIf="authStatus == 'error'" class="validationError">Your login and password are incorect!</p>
-      <button 
-        class="btn btn-primary"
-        type="submit"
-        [disabled]="!f.valid">
-          Log In
-      </button>
-      
-    </form>
-  </div>
- 
- 
+    <div class="form-group">
+      <label for="login">
+        Login:
+        <input type="text"
+             placeholder="Enter login"
+             class="form-control"
+             id="login"
+             name="login"
+             required
+             login
+             ngModel
+             #login="ngModel">
+      </label>
+    </div>
+
+    <p *ngIf="!login.valid && login.touched" class="validationError">Login is not valid!</p>
+
+    <div class="form-group">
+      <label for="password">
+        Password:
+          <input type="password"
+                 placeholder="Enter password"
+                 class="form-control"
+                 id="password"
+                 required
+                 password
+                 #password="ngModel"
+                 name="password"
+                 ngModel>
+      </label>
+    </div>
+    <p *ngIf="!password.valid && password.touched" class="validationError">Password is not valid!</p>
+    <p *ngIf="authStatus == 'error'" class="validationError">Your login and password are incorect!</p>
+
+    <button class="btn btn-primary"
+            type="submit"
+            >
+      Log In
+    </button>
+
+  </form>
+</div>
+
+<!--</button>[disabled]="!f.valid"-->
