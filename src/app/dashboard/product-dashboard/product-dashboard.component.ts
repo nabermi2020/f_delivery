@@ -1,3 +1,4 @@
+import { ProductService } from './../../shared/servives/products.service';
 import { AuthService } from './../../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -7,11 +8,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product-dashboard.component.scss']
 })
 export class ProductDashboardComponent implements OnInit {
+  products: any[];
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,
+              private productsService: ProductService) { }
 
   ngOnInit() {
     console.log(this.authService.users);
+    this.getProducts();
+    console.log(this.products);
+  }
+
+  getProducts() {
+    this.products = this.productsService.getProducts();
   }
 
 }

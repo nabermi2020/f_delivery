@@ -1,3 +1,5 @@
+import { ProductService } from './shared/servives/products.service';
+ 
 import { ProfileModule } from './userprofile/profile.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { AuthService } from './auth/auth.service';
@@ -24,7 +26,7 @@ import { ProfileComponent } from './userprofile/profile/profile.component';
     DashboardModule
     
   ],
-  providers: [AuthGuard, AuthService],
+  providers: [AuthGuard, AuthService, ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

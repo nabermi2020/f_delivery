@@ -6,7 +6,7 @@
 
 #leftSection {
     width: 15%;
-    position: absolute;
+    position: relative;
     background-color: black; 
     height: 100%;
 }
@@ -18,5 +18,7 @@
     position: absolute;
      z-index: 5;
     left: 15%;
+    overflow-x: hidden;
     top: 0; 
 }
+
