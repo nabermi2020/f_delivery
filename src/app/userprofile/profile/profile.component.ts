@@ -11,6 +11,15 @@ import { Component, OnInit } from '@angular/core';
 export class ProfileComponent implements OnInit {
   id: number;
   userData: User;
+  objectKeys = Object.keys;
+  userViewTemplate = {
+    "First Name": '',
+    "Last Name": '',
+    "Login": '',
+    "Phone": '',
+    "Email": '',
+    "Address": ''
+  }
 
 
   constructor(private route: ActivatedRoute,
@@ -20,7 +29,17 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.id = this.route.snapshot.children[0].params.id;
     this.userData = this.authService.getCurrentUser();
-     
+    console.log(this.userData); 
+    this.userDataMap();
+  }
+
+  userDataMap() {
+     this.userViewTemplate["First Name"] = this.userData.firstName;
+     this.userViewTemplate["Last Name"] = this.userData.lastName;
+     this.userViewTemplate["Login"] = this.userData.login;
+     this.userViewTemplate["Phone"] = this.userData.phone;
+     this.userViewTemplate["Email"] = this.userData.email;
+     this.userViewTemplate["Address"] = this.userData.address;
   }
 
 }

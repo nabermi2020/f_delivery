@@ -14,7 +14,7 @@ export class ProductDashboardComponent implements OnInit {
               private productsService: ProductService) { }
 
   ngOnInit() {
-    console.log(this.authService.users);
+   // console.log(this.authService.users);
   
   }
 

@@ -12,7 +12,7 @@ export class ProductGridComponent implements OnInit {
 
   ngOnInit() {
     this.getProducts();
-    console.log(this.products);
+   // console.log(this.products);
   }
 
   getProducts() {
