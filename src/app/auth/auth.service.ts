@@ -14,9 +14,9 @@ export class AuthService {
   
   
   users = [
-    new User("John Smith", "john_smith777", "john777", "+380501654784", "john777@gmail.com", "NY, Green Valley 15/64", 1),
-    new User("M.Naberezhnyi", "michael777", "test123", "+380501865210", "mnabe777@gmail.com", "LA, Red Valley 7/32", 2),
-    new User("John Doe", "johnl777", "demo1234", "+380502565210", "john_doe@gmail.com", "Las Vegas, Yellow Road 7/32", 3)
+    new User("John", "Smith", "john_smith777", "john777", "+380501654784", "john777@gmail.com", "NY, Green Valley 15/64", 1),
+    new User("Michael", "Naberezhnyi", "michael777", "test123", "+380501865210", "mnabe777@gmail.com", "LA, Red Valley 7/32", 2),
+    new User("John", "Doe", "johnl777", "demo1234", "+380502565210", "john_doe@gmail.com", "Las Vegas, Yellow Road 7/32", 3)
   ];
 
   constructor(private router: Router) {
@@ -46,6 +46,10 @@ export class AuthService {
   logOut() {
     this.isAuthenticated = false;
     this.isUserAuthorized.next(this.isAuthenticated);
+  }
+
+  addNewUser() {
+
   }
 
   isAuthorized(): boolean {

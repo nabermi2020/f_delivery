@@ -15,12 +15,9 @@ export class ProductDashboardComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.authService.users);
-    this.getProducts();
-    console.log(this.products);
+  
   }
 
-  getProducts() {
-    this.products = this.productsService.getProducts();
-  }
+   
 
 }

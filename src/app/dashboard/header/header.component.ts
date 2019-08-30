@@ -1,6 +1,7 @@
 import { User } from './../../auth/user.model';
 import { AuthService } from './../../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,7 @@ export class HeaderComponent implements OnInit {
   id: number;
 
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.activeUser = this.authService.getCurrentUser();
@@ -25,6 +26,7 @@ export class HeaderComponent implements OnInit {
 
   logOut() {
     this.authService.logOut();
+    this.router.navigate(['/']);
   }
 
 }

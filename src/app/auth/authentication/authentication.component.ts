@@ -1,5 +1,5 @@
 import { AuthService } from './../auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,8 +7,8 @@ import { Router } from '@angular/router';
   templateUrl: './authentication.component.html',
   styleUrls: ['./authentication.component.scss']
 })
-export class AuthenticationComponent implements OnInit {
-
+export class AuthenticationComponent implements OnInit{
+  
   constructor(private authService: AuthService,
               private router: Router) { }
 
@@ -23,5 +23,4 @@ export class AuthenticationComponent implements OnInit {
       }
     )
   }
-
 }
