@@ -1,16 +1,18 @@
+import { Subscription } from 'rxjs';
 import { AuthService } from './../../auth/auth.service';
 import { User } from './../../auth/user.model';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   id: number;
   userData: User;
+  subscription: Subscription;
   objectKeys = Object.keys;
   userViewTemplate = {
     "First Name": '',
@@ -26,7 +28,10 @@ export class ProfileComponent implements OnInit {
               private authService: AuthService) { }
 
   ngOnInit() {
-    this.id = this.route.snapshot.children[0].params.id;
+    this.subscription = this.route.firstChild.params.subscribe( (par: Params) => {
+      this.id = par["id"]; 
+    });
+  //  this.id = this.route.snapshot.children[0].params.id;
     this.userData = this.authService.getCurrentUser();
     console.log(this.id); 
     this.userDataMap();
@@ -39,6 +44,10 @@ export class ProfileComponent implements OnInit {
      this.userViewTemplate["Phone"] = this.userData.phone;
      this.userViewTemplate["Email"] = this.userData.email;
      this.userViewTemplate["Address"] = this.userData.address;
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }
