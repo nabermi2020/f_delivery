@@ -18,11 +18,6 @@ export class AuthGuard implements CanActivate {
         //ASK ABOUT SITUATION WHEN WE HAVE A FEW TABS
         // IN CHROME BUT USER IS NOT AUTHORIZED AND FOR ONE TAB EVERYHING
         // IS OK BUT FOR ANOTHER AUTHOMATIC LOG OUT DOESN'T WORK EVEN WITH SUBSCRUPTION
-        // this.route.paramMap.subscribe(
-        //     (params: ParamMap) => {
-        //        console.log(params);
-        //     }
-        // )
         if (this.authService.isAuthorized() && localStorage.getItem("userInfo")) {
             return true; 
         } else {

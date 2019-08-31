@@ -18,7 +18,14 @@ export class ProductGridComponent implements OnInit {
     this.getProducts();
     //console.log(this.products[this.activeCategory]);
    this.route.firstChild.params.subscribe( (par: Params) => {
-     console.log(par);
+     this.activeCategory = par["cat"];
+     this.productsService.getProductsByCategory(this.activeCategory)
+     .subscribe(res => {
+        this.products = res;
+     },
+     err => {
+        console.log(err);
+     });
    })
   }
 
