@@ -17,7 +17,7 @@ export class AuthenticationComponent implements OnInit{
       sub => {
         if (sub) {
          // console.log(sub);
-          this.router.navigate(['/dashboard/products']);
+          this.router.navigate(['/dashboard/products/pizza']);
         } 
         else {
          // console.log("auth error");

@@ -12,7 +12,7 @@ const dashboardRoutes: Routes = [
             { path: ':id', component: ProfileDetailComponent, canActivate: [AuthGuard]}
         ]},
         { path: "products", component: ProductGridComponent, children: [
-            { path: ':category', component: ProductGridComponent, canActivate: [AuthGuard]}
+            { path: ':cat', component: ProductGridComponent, canActivate: [AuthGuard]}
         ] } 
     ]},
     

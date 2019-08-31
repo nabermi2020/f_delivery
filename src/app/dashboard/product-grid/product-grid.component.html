@@ -1,6 +1,6 @@
 <div id="products-grid">
     <div class="row">
-        <div class="col-md-4 col-sm-6" *ngFor="let product of products[activeCategory]">
+        <div class="col-md-4 col-sm-6" *ngFor="let product of products">
             <div class="product">
               <div class="imgWrapper">
                 <img [src]= 'product.imgPath' alt="pizza1">
@@ -9,7 +9,7 @@
               <div class="productDescription">
                 <div class="productInfoAndPrice">
                   <div class="productWeight">{{ product.productWeight }} gram {{ product.productSize }} sm</div>
-                  <div class="prPrice">{{ product.productPrice }} грн</div>
+                  <div class="prPrice">{{ product.productPrice }} $</div>
                 </div>
               
                 <div class="productTitle"><h4>{{ product.productTitle }}</h4></div>

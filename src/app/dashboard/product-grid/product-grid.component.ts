@@ -7,6 +7,7 @@ import { ProductService } from 'src/app/shared/servives/products.service';
   templateUrl: './product-grid.component.html',
   styleUrls: ['./product-grid.component.scss']
 })
+
 export class ProductGridComponent implements OnInit {
   products: any;
   activeCategory: string = "pizza";
@@ -16,15 +17,25 @@ export class ProductGridComponent implements OnInit {
   ngOnInit() {
     this.getProducts();
     //console.log(this.products[this.activeCategory]);
-    // this.route.params
-    //   .subscribe( (par: Params) => {
-    //     console.log(par.category);
-    //   }) 
+   this.route.firstChild.params.subscribe( (par: Params) => {
+     console.log(par);
+   })
   }
 
   getProducts() {
-    this.products = this.productsService.getProducts();
+    this.productsService.getProducts()
+    .subscribe(
+      res => {
+          this.products = res;
+          console.log(res);
+      }, 
+      err => {
+          console.log(err);
+      }
+  )
+  console.log(this.products);
   }
+ 
 
 }
       

@@ -1,20 +1,45 @@
 import { Product } from './../product.model';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpHeaderResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class ProductService {
+    apiUrl: any = "http://localhost:3000";
+    
     products = {
-        pizza: [
-            new Product("Піца Емілія", "./../../assets/pizza1.jpg", "550", "30", "Шинка, моцарела, помідори, кукурудза, соус часниковий", 200),
-            new Product("Чотири Сири Класична", "./../../assets/pizza3.jpg", "550", "30", " Моцарела, пармезан, сир чедер, сир дорблю, соус вершковий, білий сир Брі", 199),
-            new Product("Піца Емілія", "./../../assets/pizza1.jpg", "550", "30", "Шинка, моцарела, помідори, кукурудза, соус часниковий", 200),
-            new Product("Чотири Сири Класична", "./../../assets/pizza3.jpg", "550", "30", " Моцарела, пармезан, сир чедер, сир дорблю, соус вершковий, білий сир Брі", 199),
-            new Product("Піца Емілія", "./../../assets/pizza1.jpg", "550", "30", "Шинка, моцарела, помідори, кукурудза, соус часниковий", 200)    
-        ]
+        // pizza: [
+        //     new Product("Піца Емілія", "./../../assets/pizza1.jpg", "550", "30", "Шинка, моцарела, помідори, кукурудза, соус часниковий", 200),
+        //     new Product("Чотири Сири Класична", "./../../assets/pizza3.jpg", "550", "30", " Моцарела, пармезан, сир чедер, сир дорблю, соус вершковий, білий сир Брі", 199),
+        //     new Product("Піца Емілія", "./../../assets/pizza1.jpg", "550", "30", "Шинка, моцарела, помідори, кукурудза, соус часниковий", 200),
+        //     new Product("Чотири Сири Класична", "./../../assets/pizza3.jpg", "550", "30", " Моцарела, пармезан, сир чедер, сир дорблю, соус вершковий, білий сир Брі", 199),
+        //     new Product("Піца Емілія", "./../../assets/pizza1.jpg", "550", "30", "Шинка, моцарела, помідори, кукурудза, соус часниковий", 200)    
+        // ]
         
     }
+
+    constructor(private http: HttpClient) { }
  
+    saveProducts() {
+        const headers = new HttpHeaders({'Content-type': 'application/json'});
+        this.http.post(this.apiUrl, this.products, { headers: headers})
+            .subscribe(
+                res => {   
+                    console.log(res);
+                },
+                err => {
+                    console.log(err);
+                }
+            ) 
+    }
+    
     getProducts() {
-        return this.products;
+        const headers = new HttpHeaders({'Content-type': 'application/json'});
+        return this.http.get(`${this.apiUrl}/pizza`, {headers: headers});
+    }
+
+    getProductsByCategory(category: string): Observable<any> {
+        const headers = new HttpHeaders({'Content-type': 'application/json'});
+        return this.http.get(`${this.apiUrl}/${category}`, {headers: headers});
     }
 }

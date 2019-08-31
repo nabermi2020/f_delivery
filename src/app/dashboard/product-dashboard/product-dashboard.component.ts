@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { ProductService } from './../../shared/servives/products.service';
 import { AuthService } from './../../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -11,11 +12,10 @@ export class ProductDashboardComponent implements OnInit {
   products: any[];
 
   constructor(private authService: AuthService,
-              private productsService: ProductService) { }
+              private productsService: ProductService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
-   // console.log(this.authService.users);
-  
   }
 
    

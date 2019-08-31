@@ -1,5 +1,5 @@
 export class Product {
-    public productId: number;
+    public id: number;
     public imgPath: string;
     public productWeight: string;
     public productSize: string;
@@ -11,7 +11,7 @@ export class Product {
                 productWeight: string, productSize: string,
                 productDescription: string, price: number) {
         
-        this.productId = this.randomId(1000, 1);
+        this.id = this.randomId(1000, 1);
         this.productTitle = title;
         this.imgPath = imgSrc;
         this.productWeight = productWeight;
