@@ -1,3 +1,4 @@
+import { EditModalService } from './shared/servives/edit-modal.service';
 import { ProductService } from './shared/servives/products.service';
  
 import { ProfileModule } from './userprofile/profile.module';
@@ -13,6 +14,8 @@ import { AppComponent } from './app.component';
 import { FormsModule} from '@angular/forms';
 
 import { ProfileComponent } from './userprofile/profile/profile.component';
+import { ProductCart } from './shared/servives/product-cart.service';
+import { EditProfileComponent } from './userprofile/edit-profile/edit-profile.component';
 
 
 @NgModule({
@@ -27,7 +30,7 @@ import { ProfileComponent } from './userprofile/profile/profile.component';
    // DashboardModule
     
   ],
-  providers: [AuthGuard, AuthService, ProductService],
+  providers: [AuthGuard, AuthService, ProductService, ProductCart, EditModalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

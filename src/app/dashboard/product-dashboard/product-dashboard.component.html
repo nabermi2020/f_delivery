@@ -1,4 +1,8 @@
 <div id="dashboard">
+  <ng-container *ngIf="isModalEnabled">
+      <div id="edit-modal-shadow">
+      </div>
+  </ng-container>
   <div id="leftSection">
       <app-side-bar></app-side-bar>
   </div>
@@ -7,6 +11,6 @@
     <app-header></app-header>
     <router-outlet></router-outlet>
   </div> 
-  
+ 
 </div>
  

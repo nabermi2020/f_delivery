@@ -2,6 +2,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductService } from './../../shared/servives/products.service';
 import { AuthService } from './../../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { EditModalService } from 'src/app/shared/servives/edit-modal.service';
 
 @Component({
   selector: 'app-product-dashboard',
@@ -10,12 +11,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductDashboardComponent implements OnInit {
   products: any[];
+  isModalEnabled: any;
 
   constructor(private authService: AuthService,
               private productsService: ProductService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private editModal: EditModalService) { }
 
   ngOnInit() {
+    this.editModal.onEditChange.subscribe(
+      res => {
+        this.isModalEnabled = res;
+      }
+    )
   }
 
    

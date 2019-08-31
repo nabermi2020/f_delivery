@@ -3,6 +3,7 @@ import { AuthService } from './../../auth/auth.service';
 import { User } from './../../auth/user.model';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { EditModalService } from 'src/app/shared/servives/edit-modal.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,6 +12,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   id: number;
+  editMode: any;
   userData: User;
   subscription: Subscription;
   objectKeys = Object.keys;
@@ -25,7 +27,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private editModal: EditModalService) { }
 
   ngOnInit() {
     this.subscription = this.route.firstChild.params.subscribe( (par: Params) => {
@@ -35,6 +38,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.userData = this.authService.getCurrentUser();
     console.log(this.id); 
     this.userDataMap();
+
+    this.editModal.onEditChange.subscribe(
+      res => {
+        console.log('HEREEEE');
+        this.editMode = res;
+      }
+    )
   }
 
   userDataMap() {
@@ -48,6 +58,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  editProfile() {
+    console.log('Edit Profile ' + this.id);
+    this.editModal.toggleEditMode();
   }
 
 }
