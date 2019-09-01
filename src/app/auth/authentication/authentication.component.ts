@@ -34,7 +34,7 @@ export class AuthenticationComponent implements OnInit{
     if(userData) {
       console.log(userData);
       let userCredentials = JSON.parse(userData);
-      this.authService.signIn(userCredentials.login, userCredentials.password);
+      this.authService.signInn(userCredentials.login, userCredentials.password);
     } else {
       console.log('Nothing!');
     }

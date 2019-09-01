@@ -23,7 +23,7 @@ export class SignInComponent implements OnInit {
       "login": login,
       "password": password
     }
-    this.authStatus = this.authService.signIn(login, password); 
+    this.authStatus =  this.authService.signInn(login, password); 
     if (this.authService) {
       localStorage.setItem("userInfo", JSON.stringify(credentials));
     }  

@@ -13,7 +13,7 @@ export class AuthService {
   isAuthenticated: boolean;
   isUserAuthorized = new Subject<any>();
   userData = new Subject<any>();
-  currentUser: User;
+  currentUser: any;
   
   
   users = [
@@ -27,6 +27,8 @@ export class AuthService {
    // console.log(this.users);
    }
 
+
+   //It's mock - you should add http
   signIn(login: string, password: string): boolean {
     // login = "john_smith777";
     // password = "john777";
@@ -47,6 +49,27 @@ export class AuthService {
 
     console.log(this.isAuthenticated);
    // this.isUserAuthorized.next(this.isAuthenticated);
+  }
+
+  signInn(login: string, password: string) {
+    const headers = new HttpHeaders({'Content-type': 'application/json'});
+    let authStatus;
+    this.http.get(`${this.apiUrl}/users?login=${login}&&password=${password}`, {headers: headers})
+      .subscribe(
+        res => {
+          this.currentUser = res[0];
+          this.isAuthenticated = true;
+          this.isUserAuthorized.next(this.isAuthenticated);
+          authStatus =  true;
+          return true;
+        },
+        err => {
+          console.log(err);
+        }
+      );
+      console.log(this.currentUser);
+      console.log(authStatus);
+      return authStatus ? true : false; 
   }
 
   logOut() {
@@ -73,6 +96,8 @@ export class AuthService {
         }
       );
   }
+
+ 
 
   checkUser(login: User): Observable<any> {
     const headers = new HttpHeaders({'Content-type': 'application/json'});

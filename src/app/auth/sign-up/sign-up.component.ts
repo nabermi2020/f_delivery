@@ -180,7 +180,7 @@ export class SignUpComponent implements OnInit {
     console.log(this.registrationForm);
     let userInfo = this.registrationForm.value;
     let newUser = new User(userInfo.firstName, userInfo.lastName,
-                           userInfo.login, userInfo.password,
+                           userInfo.login, userInfo.passwords.password,
                            userInfo.phone, userInfo.email,
                            userInfo.address);
     //You should proceed with validations!!!

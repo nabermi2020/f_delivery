@@ -197,6 +197,38 @@
       "address": "LA, New Walley 145/85",
       "userId": 91,
       "id": 6
+    },
+    {
+      "firstName": "Michael",
+      "lastName": "Nabere",
+      "login": "michael699",
+      "phone": "0501865210",
+      "email": "test@i.op",
+      "address": "NY, Red Valley 145",
+      "userId": 847,
+      "id": 7
+    },
+    {
+      "firstName": "michael",
+      "lastName": "nabere",
+      "login": "test123",
+      "password": "test",
+      "phone": "0501865210",
+      "email": "naber2008@ukr.net",
+      "address": "LA, New Walley 145/85",
+      "userId": 909,
+      "id": 8
+    },
+    {
+      "firstName": "John",
+      "lastName": "Does",
+      "login": "doe7777",
+      "password": "test123",
+      "phone": "0501865210",
+      "email": "nab@i.op",
+      "address": "LA, New Walley 145/85",
+      "userId": 835,
+      "id": 9
     }
   ]
 }
