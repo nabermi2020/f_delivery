@@ -186,6 +186,17 @@
       "address": "asasasasasas",
       "userId": 940,
       "id": 5
+    },
+    {
+      "firstName": "Michael",
+      "lastName": "Naber",
+      "login": "michael777",
+      "password": "test123",
+      "phone": "0501865210",
+      "email": "nab@i.ua",
+      "address": "LA, New Walley 145/85",
+      "userId": 91,
+      "id": 6
     }
   ]
 }

@@ -74,7 +74,15 @@ export class AuthService {
       );
   }
 
+  checkUser(login: User): Observable<any> {
+    const headers = new HttpHeaders({'Content-type': 'application/json'});
+    return this.http.get(`${this.apiUrl}/users?login=${login}`, {headers: headers});
+  }
 
+  checkEmail(email: string): Observable<any>{
+    const headers = new HttpHeaders({'Content-type': 'application/json'});
+    return this.http.get(`${this.apiUrl}/users?email=${email}`, {headers: headers});
+  }
 
   isAuthorized(): boolean {
     return this.isAuthenticated;

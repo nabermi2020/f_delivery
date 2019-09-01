@@ -51,56 +51,72 @@
                    formControlName="login">
           </label>
         </div>
-        <p *ngIf="!login.valid && login.touched" class="validationError">Login isn't valid!</p>
-        <p *ngIf="login.errors && login.touched" class="validationError">Minimal length should be at least 5!</p>
+         
+          <p *ngIf="login.errors && login.touched " class="validationError">Login isn't valid!</p>
+          <p *ngIf="login?.errors?.minlength && login.touched " class="validationError">Min length should be 4 !</p>
+          <p *ngIf="login?.errors?.loginIsForbidden && login.touched " class="validationError">User with such login is already exist!</p>
+              
+       
       </div>
-
- 
       <div class="col-md-6 col-xs-6">
         <div class="form-group">
-          <label for="password">
-            Password:
+          <label for="phone">
+            Phone:
+          <input type="text"
+                 id="phone"
+                 name="phone"
+                 class="form-control"
+                 placeholder="Enter phone"
+                 formControlName="phone">
+        </label>
+        </div>
+        <p *ngIf="phone.errors && phone.touched " class="validationError">Phone isn't valid!</p>
+        <p *ngIf="phone?.errors?.minlength && phone.touched " class="validationError">Min length should be 10 !</p>
+      </div>
 
-            <input type="text"
-                   id="password"
-                   name="password"
-                   type="password"
-                   class="form-control"
-                   placeholder="Enter password"
-                   formControlName="password">
+      <div formGroupName = passwords class="col-md-12 col-xs-12" >
+        <div class="row">
+        <div class="col-md-6 col-xs-6">
+          <div class="form-group">
+            <label for="password">
+              Password:
+
+              <input type="text"
+                    id="password"
+                    name="password"
+                    type="password"
+                    class="form-control"
+                    placeholder="Enter password"
+                    formControlName="password">
+            </label>
+          </div>
+          <p *ngIf="password.errors && password.touched " class="validationError">Password isn't valid!</p>
+          <p *ngIf="password?.errors?.minlength && password.touched " class="validationError">Min length should be 4 !</p>
+          <p *ngIf="passwords?.errors?.doesMatchPassword && password.touched " class="validationError">Passwords don't match!</p>
+        </div>
+
+        <div class="col-md-6 col-xs-6">
+          <div class="form-group">
+            <label for="passwordRepeat">
+              Repeat password:
+              
+              <input type="text"
+                    id="passwordRepeat"
+                    name="passwordRepeat"
+                    type="password"
+                    class="form-control"
+                    placeholder="Repeat password"
+                    formControlName="passwordRepeat">
           </label>
         </div>
+        <p *ngIf="passwordRepeat.errors && passwordRepeat.touched " class="validationError">Password isn't valid!</p>
+        <p *ngIf="passwordRepeat?.errors?.minlength && passwordRepeat.touched " class="validationError">Min length should be 4 !</p>
+        <p *ngIf="passwords?.errors?.doesMatchPassword && password.touched " class="validationError">Passwords don't match!</p>
       </div>
-
-      <div class="col-md-6 col-xs-6">
-        <div class="form-group">
-          <label for="passwordRepeat">
-            Repeat password:
-            
-            <input type="text"
-                   id="passwordRepeat"
-                   name="passwordRepeat"
-                   type="password"
-                   class="form-control"
-                   placeholder="Repeat password"
-                   formControlName="repeatPassword">
-        </label>
       </div>
     </div>
 
-    <div class="col-md-6 col-xs-6">
-      <div class="form-group">
-        <label for="phone">
-          Phone:
-        <input type="text"
-               id="phone"
-               name="phone"
-               class="form-control"
-               placeholder="Enter phone"
-               formControlName="phone">
-      </label>
-      </div>
-    </div>
+
 
     <div class="col-md-6 col-xs-6">
       <div class="form-group">
@@ -114,6 +130,10 @@
                formControlName="email">
         </label>
       </div>
+      <p *ngIf="email.errors && email.touched " class="validationError">Email isn't valid!</p>
+      <p *ngIf="email?.errors?.minlength && email.touched " class="validationError">Min length should be 4 !</p>
+      <p *ngIf="email?.errors?.emailIsForbidden && email.touched " class="validationError">User with such email is already exist!</p>
+      <p *ngIf="email?.errors?.email && email.touched " class="validationError">Email doensn't much the pattern!</p>
     </div>
 
     <div class="col-md-6 col-xs-6">
@@ -128,8 +148,10 @@
                formControlName="address">
         </label>
       </div>
+      <p *ngIf="address.errors && address.touched " class="validationError">Address isn't valid!</p>
+      <p *ngIf="address?.errors?.minlength && address.touched " class="validationError">Min length should be 4 !</p>
     </div>
-
+   
   </div>
 
     <button class="btn btn-success"
