@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class ProductService {
-    apiUrl: any = "http://localhost:3000";
+    apiUrl: string = "http://localhost:3000";
     
     products = {
         // pizza: [

@@ -1,12 +1,15 @@
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { User } from './user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  apiUrl: any = "http://localhost:3000";
+  
   isAuthenticated: boolean;
   isUserAuthorized = new Subject<any>();
   userData = new Subject<any>();
@@ -19,7 +22,8 @@ export class AuthService {
     new User("John", "Doe", "johnl777", "demo1234", "+380502565210", "john_doe@gmail.com", "Las Vegas, Yellow Road 7/32")
   ];
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private http: HttpClient) {
    // console.log(this.users);
    }
 
@@ -51,10 +55,26 @@ export class AuthService {
     localStorage.removeItem("userInfo");
   }
 
-  addNewUser(user: User) {
-    this.users.push(user);
-    console.log(this.users);
+  // signUp(user: User) {
+  //   this.users.push(user);
+  //   console.log(this.users);
+  //   this.addNewUser(this.users).subscribe();
+  // }
+
+  signUp(users) {
+    const headers = new HttpHeaders({'Content-type': 'application/json'});
+    this.http.post(`${this.apiUrl}/users`, users, {headers: headers})
+      .subscribe(
+        res => {
+          this.router.navigate(['']);
+
+        }, err => {
+          alert('Something went wrong, try again!!!')
+        }
+      );
   }
+
+
 
   isAuthorized(): boolean {
     return this.isAuthenticated;

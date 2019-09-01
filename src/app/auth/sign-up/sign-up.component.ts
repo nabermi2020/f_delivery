@@ -21,13 +21,29 @@ export class SignUpComponent implements OnInit {
     this.registrationForm = new FormGroup({
       "firstName": new FormControl('', [Validators.required, Validators.minLength(4)]),
       "lastName": new FormControl('', [Validators.required, Validators.minLength(4)]),
-      "login": new FormControl('', [Validators.required, Validators.required, Validators.minLength(5)]),
+      "login": new FormControl('', [Validators.required, Validators.minLength(5)]),
       "password": new FormControl('', Validators.required),
       "repeatPassword": new FormControl('', Validators.required),
       "phone": new FormControl(''),
       "email": new FormControl('', [Validators.required, Validators.email]),
       "address": new FormControl('')
     });
+  }
+
+  get firstName() {
+    return this.registrationForm.get('firstName');
+  }
+
+  get lastName() {
+    return this.registrationForm.get('lastName');
+  }
+
+  get login() {
+    return this.registrationForm.get('login');
+  }
+
+  get password() {
+    return this.registrationForm.get('password');  
   }
 
   onSignUp() {
@@ -38,9 +54,12 @@ export class SignUpComponent implements OnInit {
                            userInfo.login, userInfo.password,
                            userInfo.phone, userInfo.email,
                            userInfo.address);
+    //You should proceed with validations!!!
     if (this.registrationForm.valid) {
-      this.authService.addNewUser(newUser);
-    }                           
+      this.authService.signUp(newUser);
+    } else {
+     // this.authService.signUp(newUser);
+    }                          
   }
 
 }
