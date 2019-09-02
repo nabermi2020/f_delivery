@@ -7,13 +7,15 @@ import { NgModule } from '@angular/core';
 import { ProductDashboardComponent } from './product-dashboard/product-dashboard.component';
 import { ProductGridComponent } from './product-grid/product-grid.component';
 import { EditProfileComponent } from '../userprofile/edit-profile/edit-profile.component';
+import { ProductItemComponent } from './product-item/product-item.component';
 
 @NgModule({
     declarations: [
        ProductDashboardComponent,
        HeaderComponent,
        SideBarComponent,
-       ProductGridComponent 
+       ProductGridComponent,
+       ProductItemComponent 
     ],
     imports: [
         CommonModule,
