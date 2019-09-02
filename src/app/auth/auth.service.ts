@@ -56,13 +56,17 @@ export class AuthService {
     let authStatus;
     this.http.get(`${this.apiUrl}/users?login=${login}&&password=${password}`, {headers: headers})
       .subscribe(
-        res => {
-          this.currentUser = res[0];
+        (res: Array<any>) => {
+          if (res && res.length >0 ) {
+            this.currentUser = res[0];
           this.isAuthenticated = true;
           this.isUserAuthorized.next(this.isAuthenticated);
           authStatus =  true;
           return true;
-        },
+          } else {
+            console.log('no');
+          }
+                  },
         err => {
           console.log(err);
         }
