@@ -15,6 +15,10 @@ export class ProductCart {
         this.onProductAdded.next(this.products);
        // console.log(this.products);
     }
+
+    getProducts(): Array<Product> {
+        return this.products;
+    }
     
 
 }

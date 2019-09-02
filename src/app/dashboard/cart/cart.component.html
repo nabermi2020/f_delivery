@@ -1,3 +1,7 @@
-<p>
-  cart works!
-</p>
+<div *ngFor="let product of cart">
+    {{ product.productTitle }}
+    {{ product.productPrice }}
+    {{ product>Description }}
+    <img [src]="product.imgPath" style="width: 150px">
+<hr>
+</div>
