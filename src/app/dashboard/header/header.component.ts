@@ -1,3 +1,4 @@
+import { ProductCart } from './../../shared/servives/product-cart.service';
 import { User } from './../../auth/user.model';
 import { AuthService } from './../../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -12,13 +13,26 @@ export class HeaderComponent implements OnInit {
   //activeCategory: string = "Pizza";
   activeUser: User;
   id: number;
+  productsQuantity: any;
 
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService,
+              private router: Router,
+              private productCartService: ProductCart) { }
 
   ngOnInit() {
     this.activeUser = this.authService.getCurrentUser();
     this.id = this.activeUser.userId;
+    this.productCartService.onProductAdded  
+      .subscribe( 
+        res => {
+          this.productsQuantity = res.length;
+          console.log(res);
+        },
+        err => {
+          alert('something went wrong!');
+        }
+      )
     // console.log(this.activeUser);
     // console.log(this.id);
   
@@ -27,6 +41,10 @@ export class HeaderComponent implements OnInit {
   logOut() {
     this.authService.logOut();
     this.router.navigate(['/']);
+  }
+
+  openCart() {
+    this.router.navigate(['dashboard/cart']);
   }
 
 }

@@ -8,6 +8,7 @@ import { ProductDashboardComponent } from './product-dashboard/product-dashboard
 import { ProductGridComponent } from './product-grid/product-grid.component';
 import { EditProfileComponent } from '../userprofile/edit-profile/edit-profile.component';
 import { ProductItemComponent } from './product-item/product-item.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
     declarations: [
@@ -15,7 +16,8 @@ import { ProductItemComponent } from './product-item/product-item.component';
        HeaderComponent,
        SideBarComponent,
        ProductGridComponent,
-       ProductItemComponent 
+       ProductItemComponent,
+       CartComponent 
     ],
     imports: [
         CommonModule,

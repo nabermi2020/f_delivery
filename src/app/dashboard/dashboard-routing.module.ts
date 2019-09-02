@@ -1,3 +1,4 @@
+import { CartComponent } from './cart/cart.component';
 import { ProfileDetailComponent } from './../userprofile/profile-detail/profile-detail.component';
 import { AuthGuard } from './../auth/auth-guard.service';
 import { ProfileComponent } from './../userprofile/profile/profile.component';
@@ -12,8 +13,10 @@ const dashboardRoutes: Routes = [
             { path: ':id', component: ProfileDetailComponent, canActivate: [AuthGuard]}
         ]},
         { path: "products", component: ProductGridComponent, children: [
-            { path: ':cat', component: ProductGridComponent, canActivate: [AuthGuard]}
-        ] } 
+            { path: ':cat', component: ProductGridComponent, canActivate: [AuthGuard]},
+           
+        ] },
+        { path: 'cart', component: CartComponent}
     ]},
     
 
