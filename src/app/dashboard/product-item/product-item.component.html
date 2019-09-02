@@ -1,3 +1,29 @@
-<p>
-  product-item works!
-</p>
+<div class="product">
+  <div class="imgWrapper">
+    <img [src]= 'productData.imgPath' alt="pizza1">
+  </div>
+
+  <div class="productDescription">
+    <div class="productInfoAndPrice">
+      <div class="productWeight">{{ productData.productWeight }} gram {{ productData.productSize }} sm</div>
+      <div class="prPrice">{{ productData.productPrice }} $</div>
+    </div>
+  
+    <div class="productTitle"><h4>{{ productData.productTitle }}</h4></div>
+    <div class="ingredients">{{ productData.productDescription }}</div>
+  </div>
+
+  <div class="addToCartWrapper">
+    <div class="productQuantity">
+      - 1 +
+    </div>
+
+    <div class="addToCart">
+      Add To Cart
+    </div>
+
+    <div class="productPrice">
+      {{ productData.productPrice }}
+    </div>
+  </div>
+</div>
