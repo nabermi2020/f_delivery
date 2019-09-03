@@ -1,7 +1,57 @@
+<!--
+
+
 <div *ngFor="let product of cart">
     {{ product.productTitle }}
     {{ product.productPrice }}
     {{ product>Description }}
     <img [src]="product.imgPath" style="width: 150px">
 <hr>
+</div>
+-->
+<div id="productCart">
+    <div id="productCartHeader">
+        <header> 
+            <h4>Product Cart</h4>
+        </header>
+    </div>
+
+    <div id="products">
+        <div id="emptyCart" *ngIf="cart.length == 0">
+            <h2>Cart is empty</h2>
+        </div>
+         
+            <div *ngFor="let product of cart"
+                 class="product">
+                 <div class="row">
+                    <div class="col-md-4">
+                        <div class="productLogoWrapper">
+                                <img [src]="product.imgPath" class="img-responsive"  >
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                            {{ product.productTitle }}
+                            <br>
+                            {{ product.productPrice }}
+                    </div>
+                    
+                    
+                    <div class="col-md-4">
+                            -  1  +
+                    </div>
+
+                    <div class="col-md-1">
+                        <button class="btn btn-danger" (click)="deleteCurrentProduct(product)">X</button>
+                    </div>
+                    
+                
+                </div>
+            </div> 
+              
+        
+    </div>
+    <div id="controls">
+        <button class="btn btn-success" id="buyProducts">BUY</button>
+    </div>
 </div>

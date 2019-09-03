@@ -2,14 +2,11 @@
   <div id="activeCategory">
     <h2>{{ activeCategory }}</h2>
   </div>
-
   <div id="controlsWrapper">
     <div id="activeUser">Hello <a [routerLink]="['profile', id]"><b>{{ activeUser.firstName}} {{ activeUser.lastName }}</b></a> / <a (click)="logOut()">Log Out</a></div>
     <div id="cart" (click)="openCart()">
       <div id="cartCounter">{{ productsQuantity || 0 }}</div>
       <img src="./../../../assets/cart.png">
     </div>
-
-    <!--Product Cart - {{ productsQuantity || 0 }}-->
   </div>
 </header>

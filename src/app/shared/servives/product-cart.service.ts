@@ -19,6 +19,19 @@ export class ProductCart {
     getProducts(): Array<Product> {
         return this.products;
     }
+
+    deleteProductById(id) {
+        let deleteWithId;
+        this.products.forEach( (item, index) => {
+            if ( item.id == id ) {
+                deleteWithId = index;
+            }
+        });
+        this.products.splice(deleteWithId, 1);
+        console.log(this.products);
+        this.onProductAdded.next(this.products);
+
+    }
     
 
 }

@@ -15,4 +15,10 @@ export class CartComponent implements OnInit {
     this.cart = this.productCart.getProducts();
   }
 
+  deleteCurrentProduct(product: Product) {
+    let productId = product.id;
+    console.log(productId);
+    this.productCart.deleteProductById(productId);
+  }
+
 }
