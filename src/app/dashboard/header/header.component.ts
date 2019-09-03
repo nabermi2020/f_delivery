@@ -26,8 +26,8 @@ export class HeaderComponent implements OnInit {
     this.productCartService.onProductAdded  
       .subscribe( 
         res => {
-          this.productsQuantity = res.length;
-          console.log(res);
+          this.productsQuantity = this.productCartService.calculateProductsQuantity();
+          console.log(this.productsQuantity);
         },
         err => {
           alert('something went wrong!');

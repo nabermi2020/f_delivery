@@ -5,15 +5,52 @@ import { Subject } from 'rxjs';
 
 @Injectable()
 export class ProductCart {
-    products: Array<Product> = [];
+    products: Array<any> = [];
     onProductAdded = new Subject<any>();
 
     constructor() {}
         
     addProduct(product: Product) {
-        this.products.push(product);
+        let productId = product.id;
+       
+        if (!this.checkForDublicates(productId)) {
+            product["productQuantity"] = 1;
+            this.products.push(product);
+            console.log(this.products);
+        } else {
+            // product["productQuantity"] = this.checkForDublicates(productId);
+            // this.products.push(product);
+            this.products.forEach( item => {
+                if (item.id == productId ) {
+                    item["productQuantity"] += 1;
+                }
+            })
+            
+        }
+        
         this.onProductAdded.next(this.products);
        // console.log(this.products);
+    }
+
+    checkForDublicates(id) {
+        let isDublicated = false;
+        this.products.forEach( item => {
+            if (item.id == id) {
+                isDublicated = true
+            }
+        });
+    
+        return isDublicated;
+    }
+
+    calculateProductsQuantity(): number {
+        let productQuantity = 0;
+
+        this.products.forEach( item => {
+            productQuantity += item.productQuantity;
+        });
+
+        return productQuantity;
     }
 
     getProducts(): Array<Product> {
@@ -28,9 +65,7 @@ export class ProductCart {
             }
         });
         this.products.splice(deleteWithId, 1);
-        console.log(this.products);
         this.onProductAdded.next(this.products);
-
     }
     
 

@@ -8,7 +8,7 @@ import { Product } from 'src/app/shared/product.model';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
-  cart: Array<Product> = [];
+  cart: Array<any> = [];
   constructor(private productCart: ProductCart) { }
 
   ngOnInit() {
