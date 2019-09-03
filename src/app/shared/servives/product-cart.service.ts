@@ -32,7 +32,6 @@ export class ProductCart {
         }
         
         this.calculateTotalPrice();
-         
         this.onProductAdded.next(this.products);
        // console.log(this.products);
     }
@@ -86,6 +85,4 @@ export class ProductCart {
         this.calculateTotalPrice();
         return this.totalPrice;
     }
-    
-
 }

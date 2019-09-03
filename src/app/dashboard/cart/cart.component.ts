@@ -19,7 +19,7 @@ export class CartComponent implements OnInit {
 
   deleteCurrentProduct(product: Product) {
     let productId = product.id;
-    console.log(productId);
+    //console.log(productId);
     this.productCart.deleteProductById(productId);
     this.totalPrice = this.productCart.getTotalPrice();
   }

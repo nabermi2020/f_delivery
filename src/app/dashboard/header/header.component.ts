@@ -14,6 +14,7 @@ export class HeaderComponent implements OnInit {
   activeUser: User;
   id: number;
   productsQuantity: any;
+  totalPrice: any;
 
 
   constructor(private authService: AuthService,
@@ -27,6 +28,7 @@ export class HeaderComponent implements OnInit {
       .subscribe( 
         res => {
           this.productsQuantity = this.productCartService.calculateProductsQuantity();
+          this.totalPrice = this.productCartService.getTotalPrice();
           console.log(this.productsQuantity);
         },
         err => {
