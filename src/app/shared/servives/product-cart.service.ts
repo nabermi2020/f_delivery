@@ -7,6 +7,8 @@ import { Subject } from 'rxjs';
 export class ProductCart {
     products: Array<any> = [];
     onProductAdded = new Subject<any>();
+    onPriceChanged = new Subject<any>();
+    totalPrice: number;
 
     constructor() {}
         
@@ -16,6 +18,7 @@ export class ProductCart {
         if (!this.checkForDublicates(productId)) {
             product["productQuantity"] = 1;
             this.products.push(product);
+            
             console.log(this.products);
         } else {
             // product["productQuantity"] = this.checkForDublicates(productId);
@@ -28,6 +31,8 @@ export class ProductCart {
             
         }
         
+        this.calculateTotalPrice();
+         
         this.onProductAdded.next(this.products);
        // console.log(this.products);
     }
@@ -66,6 +71,20 @@ export class ProductCart {
         });
         this.products.splice(deleteWithId, 1);
         this.onProductAdded.next(this.products);
+    }
+
+    calculateTotalPrice() {
+        let price = 0;
+        this.products.forEach( item => {
+            price += item.productPrice * item.productQuantity;
+        });
+
+        this.totalPrice = price;
+    }
+
+    getTotalPrice() {
+        this.calculateTotalPrice();
+        return this.totalPrice;
     }
     
 

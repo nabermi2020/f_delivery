@@ -26,7 +26,7 @@
             -->   
 
             <div class="productPrice">
-                <h5>{{ product.productPrice }} $</h5>
+                <h5>{{ product.productPrice * product.productQuantity}} $</h5>
             </div>
 
             <div class="deleteItem">
@@ -37,6 +37,8 @@
     </div>
 
     <div id="controls" *ngIf="!cart.length == 0">
+         
         <button class="btn btn-success" id="buyProducts">BUY</button>
+        <div id="totalPrice">{{ totalPrice }} $</div>
     </div>
 </div>
