@@ -1,5 +1,104 @@
 <div id="editModal">
-    Lorem ipsum dolor sit amet.
-    <button class="btn btn-danger" (click)="closeModal()">X</button>
-    <h3>Edit</h3>
+    <div id="editModalHeader">
+        <header> 
+            <h4 id="editModalTitle">Product Cart</h4>
+            <button class="btn btn-danger" (click)="closeModal()">X</button>
+        </header> 
+    </div>
+ 
+    <form>
+        <div class="row">
+            <div class="col-md-6 col-xs-6">
+                <div class="form-group">
+                    <label for="First Name">
+                        First Name:
+                        
+                        <input type="text"
+                               placeholder="Enter First Name"
+                               class="form-control"
+                               id="firstName"
+                               name="firstName">
+                      </label>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xs-6">
+                <div class="form-group">
+                    <label for="Last Name">
+                        Last Name:
+                        
+                        <input type="text"
+                               placeholder="Enter Last Name"
+                               class="form-control"
+                               id="lastName"
+                               name="lastName">
+                      </label>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xs-6">
+                <div class="form-group">
+                    <label for="phone">
+                        Phone:
+                        
+                        <input type="text"
+                               placeholder="Enter phone"
+                               class="form-control"
+                               id="phone"
+                               name="phone">
+                      </label>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xs-6">
+                <div class="form-group">
+                    <label for="address">
+                        Address:
+                        
+                        <input type="text"
+                               placeholder="Enter address"
+                               class="form-control"
+                               id="address"
+                               name="address">
+                      </label>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xs-6">
+                <div class="form-group">
+                    <label for="password">
+                        Password:
+                        
+                        <input type="text"
+                               placeholder="Enter password"
+                               class="form-control"
+                               id="password"
+                               type="password"
+                               name="password">
+                      </label>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xs-6">
+                <div class="form-group">
+                    <label for="passwordRepeat">
+                        Password:
+                        
+                        <input type="text"
+                               placeholder="Repeat password"
+                               class="form-control"
+                               id="passwordRepeat"
+                               type="password"
+                               name="passwordRepeat">
+                      </label>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-xs-12 " style="text-align: center">
+                <button class="btn btn-success " id="editSave">Save</button>
+            </div>
+        </div>
+    </form>
+    
+   
 </div>

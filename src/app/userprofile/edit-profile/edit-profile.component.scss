@@ -5,7 +5,36 @@
     height: 350px;
     width: 60%;
     top: 8%;
-    border: 1px solid red;
+   // border: 1px solid red;
     left: 15%;
+
+    #editModalHeader {
+        height: 35px;
+        width: 100%;
+        background: rgb(127, 80, 216); 
+        color: white;
+        text-align: center;
+
+        #editModalTitle {
+            display: inline-block;
+        }
+
+        button {
+            position: absolute;
+            right: 0;
+            height: 35px;
+        }
+
+        .controls {
+            text-align: center;
+        }
+        
+    }
+
     
+}
+
+form {
+    padding-left: 20px;
+    padding-top: 10px;
 }
