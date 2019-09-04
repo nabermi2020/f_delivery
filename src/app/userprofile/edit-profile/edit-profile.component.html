@@ -1,12 +1,12 @@
 <div id="editModal">
     <div id="editModalHeader">
         <header> 
-            <h4 id="editModalTitle">Product Cart</h4>
+            <h4 id="editModalTitle">Edit profile</h4>
             <button class="btn btn-danger" (click)="closeModal()">X</button>
         </header> 
     </div>
  
-    <form>
+    <form [formGroup]="editForm">
         <div class="row">
             <div class="col-md-6 col-xs-6">
                 <div class="form-group">
@@ -17,7 +17,8 @@
                                placeholder="Enter First Name"
                                class="form-control"
                                id="firstName"
-                               name="firstName">
+                               name="firstName"
+                               formControlName="firstName">
                       </label>
                 </div>
             </div>
@@ -31,7 +32,8 @@
                                placeholder="Enter Last Name"
                                class="form-control"
                                id="lastName"
-                               name="lastName">
+                               name="lastName"
+                               formControlName="lastName">
                       </label>
                 </div>
             </div>
@@ -45,7 +47,8 @@
                                placeholder="Enter phone"
                                class="form-control"
                                id="phone"
-                               name="phone">
+                               name="phone"
+                               formControlName="phone">
                       </label>
                 </div>
             </div>
@@ -59,12 +62,15 @@
                                placeholder="Enter address"
                                class="form-control"
                                id="address"
-                               name="address">
+                               name="address"
+                               formControlName="address">
                       </label>
                 </div>
             </div>
 
-            <div class="col-md-6 col-xs-6">
+            <div formGroupName = passwords class="col-md-12 col-xs-12" >
+            <div class="row">
+                <div class="col-md-6 col-xs-6">
                 <div class="form-group">
                     <label for="password">
                         Password:
@@ -74,7 +80,8 @@
                                class="form-control"
                                id="password"
                                type="password"
-                               name="password">
+                               name="password"
+                               formControlName="password">
                       </label>
                 </div>
             </div>
@@ -82,20 +89,24 @@
             <div class="col-md-6 col-xs-6">
                 <div class="form-group">
                     <label for="passwordRepeat">
-                        Password:
+                        Repeat Password:
                         
                         <input type="text"
                                placeholder="Repeat password"
                                class="form-control"
                                id="passwordRepeat"
                                type="password"
-                               name="passwordRepeat">
+                               name="passwordRepeat"
+                               formControlName="passwordRepeat">
                       </label>
+                </div>
+            </div>
                 </div>
             </div>
 
             <div class="col-md-12 col-xs-12 " style="text-align: center">
-                <button class="btn btn-success " id="editSave">Save</button>
+                <button class="btn btn-success"
+                        type="button">Save</button>
             </div>
         </div>
     </form>
