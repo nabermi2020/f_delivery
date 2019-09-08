@@ -13,16 +13,16 @@
     <div class="ingredients">{{ productData.productDescription }}</div>
   </div>
 
-  <div class="addToCartWrapper">
+  <div class="addToCartWrapper" [ngStyle]="{'background-color': success ? 'green' : 'red'}">
     <div class="productQuantity">
      <!-- - 1 +-->
     </div>
 
     <div class="addToCart" (click)="addProductToCart()">
-      Add To Cart
+      {{ success ? 'Product is added!': 'Add To Cart'}}
     </div>
 
-    <div class="productPrice">
+    <div class="productPrice" *ngIf="!success">
       {{ productData.productPrice }} $
     </div>
   </div>

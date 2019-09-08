@@ -6,10 +6,13 @@
     text-align: center;
     margin-top: 20px;
     position: relative;
+   
 }
 
 .product:hover .imgWrapper {
     cursor: pointer;
+    transition: all 0.25s ease-in-out .05s;
+    transform: scale(1.1);
     opacity: 0.85;
 }
 
@@ -37,11 +40,14 @@
     line-height: 40px;
     bottom: 0;
     width: 100%;
-    transition: opacity 2s ease-in 1s;
+    opacity: 0;
+   
 }
 
 .product:hover .addToCartWrapper {
     visibility: visible;
+    transition: opacity .15s ease-in .05s;
+     opacity: 1;
     cursor: pointer;
 }
 
@@ -60,6 +66,7 @@
     width: 50%;
     height: 100%;
     color: white;
+    transition: margin-top .5s ease-in .3s;
 }
 
 .productPrice {

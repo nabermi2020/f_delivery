@@ -229,24 +229,34 @@
       "userId": 179,
       "cart": [
         {
-          "id": 468,
-          "productTitle": "Carbonara",
-          "imgPath": "https://pizzaletta.com/uploads/pizza/image/19/pl-pizza-12.jpg",
+          "id": 448,
+          "productTitle": "Emilia's Pizza",
+          "imgPath": "./../../assets/pizza1.jpg",
           "productWeight": "550",
           "productSize": "30",
           "productDescription": "Ham, mozzarella, tomatoes, corn, garlic sauce",
           "productPrice": 200,
-          "productQuantity": 2
+          "productQuantity": 3
         },
         {
-          "id": 2,
-          "productTitle": "Cesar with Chicken",
-          "imgPath": "https://pizzaletta.com/uploads/salat/image/1/%D0%A6%D0%B5%D0%B7%D0%B0%D1%80_%D0%B7_%D0%BA%D1%83%D1%80%D0%BA%D0%BE%D1%8E_150%D0%B3.JPG",
+          "id": 417,
+          "productTitle": "Four Cheeses Classic",
+          "imgPath": "./../../assets/pizza3.jpg",
           "productWeight": "550",
           "productSize": "30",
           "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
           "productPrice": 199,
-          "productQuantity": 2
+          "productQuantity": 1
+        },
+        {
+          "id": 3,
+          "productTitle": "With Prosciutto",
+          "imgPath": "https://pizzaletta.com/uploads/salat/image/5/%D0%97_%D0%BF%D1%80%D0%BE%D1%88%D1%83%D1%82%D0%BE_150%D0%B3.JPG",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
+          "productPrice": 199,
+          "productQuantity": 1
         }
       ],
       "id": 6
