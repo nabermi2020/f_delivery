@@ -80,6 +80,7 @@ export class ProductCart {
     getProductsFromServer() {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
         let userData = this.authService.getCurrentUser();
+        console.log(userData);
         return this.http.get(`${this.apiUrl}/users/${userData.id}`, { headers: headers });   
     }
 

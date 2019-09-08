@@ -172,9 +172,6 @@ export class SignUpComponent implements OnInit {
     return null;
 }
   
-
-
-
   onSignUp() {
     console.log(this.registrationForm.value);
     console.log(this.registrationForm);
@@ -183,12 +180,10 @@ export class SignUpComponent implements OnInit {
                            userInfo.login, userInfo.passwords.password,
                            userInfo.phone, userInfo.email,
                            userInfo.address);
-    //You should proceed with validations!!!
+    newUser.cart = [];
+
     if (this.registrationForm.valid) {
       this.authService.signUp(newUser);
-    } else {
-     // this.authService.signUp(newUser);
-    }                          
+    }                         
   }
-
 }

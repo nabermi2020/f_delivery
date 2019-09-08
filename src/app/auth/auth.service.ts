@@ -10,13 +10,10 @@ import { User } from './user.model';
 })
 export class AuthService {
   apiUrl: any = "http://localhost:3000";
-  
   isAuthenticated: boolean;
   isUserAuthorized = new Subject<any>();
-
   userData = new Subject<any>();
   currentUser: any;
-  
   
   users = [
     new User("John", "Smith", "john_smith777", "john777", "+380501654784", "john777@gmail.com", "NY, Green Valley 15/64"),
@@ -103,6 +100,7 @@ export class AuthService {
 
   signUp(users) {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
+     
     this.http.post(`${this.apiUrl}/users`, users, {headers: headers})
       .subscribe(
         res => {

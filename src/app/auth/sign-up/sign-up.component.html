@@ -8,15 +8,16 @@
         <div class="form-group">
           <label for="First Name">
             First Name:
-            
-            <input type="text"
-                   placeholder="Enter First Name"
-                   class="form-control"
-                   id="firstName"
-                   name="firstName"
-                   formControlName="firstName">
+
+          <input type="text"
+                 placeholder="Enter First Name"
+                 class="form-control"
+                 id="firstName"
+                 name="firstName"
+                 formControlName="firstName">
           </label>
         </div>
+        
         <p *ngIf="!firstName.valid && firstName.touched" class="validationError">First name is not valid!</p>
         <p *ngIf="firstName.errors && firstName.touched" class="validationError">Minimal length should be at least 4!</p>
       </div>
@@ -25,15 +26,16 @@
         <div class="form-group">
           <label for="Last Name">
             Last Name:
-            
-            <input type="text"
-                   placeholder="Enter Last Name"
-                   class="form-control"
-                   id="lastName"
-                   name="lastName"
-                   formControlName="lastName">
+
+          <input type="text"
+                 placeholder="Enter Last Name"
+                 class="form-control"
+                 id="lastName"
+                 name="lastName"
+                 formControlName="lastName">
           </label>
         </div>
+
         <p *ngIf="!lastName.valid && lastName.touched" class="validationError">Last name is not valid!</p>
         <p *ngIf="lastName.errors && lastName.touched" class="validationError">Minimal length should be at least 4!</p>
       </div>
@@ -43,53 +45,54 @@
           <label for="login">
             Login:
 
-            <input type="text"
-                   placeholder="Enter login"
-                   class="form-control"
-                   id="login"
-                   name="login"
-                   formControlName="login">
+          <input type="text"
+                 placeholder="Enter login"
+                 class="form-control"
+                 id="login"
+                 name="login"
+                 formControlName="login">
           </label>
         </div>
-         
-          <p *ngIf="login.errors && login.touched " class="validationError">Login isn't valid!</p>
-          <p *ngIf="login?.errors?.minlength && login.touched " class="validationError">Min length should be 4 !</p>
-          <p *ngIf="login?.errors?.loginIsForbidden && login.touched " class="validationError">User with such login is already exist!</p>
-              
-       
-      </div>
-      <div class="col-md-6 col-xs-6">
-        <div class="form-group">
-          <label for="phone">
-            Phone:
-          <input type="text"
-                 id="phone"
-                 name="phone"
-                 class="form-control"
-                 placeholder="Enter phone"
-                 formControlName="phone">
-        </label>
-        </div>
-        <p *ngIf="phone.errors && phone.touched " class="validationError">Phone isn't valid!</p>
-        <p *ngIf="phone?.errors?.minlength && phone.touched " class="validationError">Min length should be 10 !</p>
+
+        <p *ngIf="login.errors && login.touched " class="validationError">Login isn't valid!</p>
+        <p *ngIf="login?.errors?.minlength && login.touched " class="validationError">Min length should be 4 !</p>
+        <p *ngIf="login?.errors?.loginIsForbidden && login.touched " class="validationError">User with such login is already exist!</p>
       </div>
 
-      <div formGroupName = passwords class="col-md-12 col-xs-12" >
-        <div class="row">
+    <div class="col-md-6 col-xs-6">
+      <div class="form-group">
+        <label for="phone">
+          Phone:
+        <input type="text"
+               id="phone"
+               name="phone"
+               class="form-control"
+               placeholder="Enter phone"
+               formControlName="phone">
+        </label>
+      </div>
+
+      <p *ngIf="phone.errors && phone.touched " class="validationError">Phone isn't valid!</p>
+      <p *ngIf="phone?.errors?.minlength && phone.touched " class="validationError">Min length should be 10 !</p>
+    </div>
+
+    <div formGroupName = passwords class="col-md-12 col-xs-12" >
+      <div class="row">
         <div class="col-md-6 col-xs-6">
           <div class="form-group">
-            <label for="password">
-              Password:
+          <label for="password">
+            Password:
 
-              <input type="text"
-                    id="password"
-                    name="password"
-                    type="password"
-                    class="form-control"
-                    placeholder="Enter password"
-                    formControlName="password">
-            </label>
+          <input type="text"
+                id="password"
+                name="password"
+                type="password"
+                class="form-control"
+                placeholder="Enter password"
+                formControlName="password">
+          </label>
           </div>
+          
           <p *ngIf="password.errors && password.touched " class="validationError">Password isn't valid!</p>
           <p *ngIf="password?.errors?.minlength && password.touched " class="validationError">Min length should be 4 !</p>
           <p *ngIf="passwords?.errors?.doesMatchPassword && password.touched " class="validationError">Passwords don't match!</p>
@@ -99,20 +102,21 @@
           <div class="form-group">
             <label for="passwordRepeat">
               Repeat password:
-              
-              <input type="text"
-                    id="passwordRepeat"
-                    name="passwordRepeat"
-                    type="password"
-                    class="form-control"
-                    placeholder="Repeat password"
-                    formControlName="passwordRepeat">
-          </label>
+
+            <input type="text"
+                   id="passwordRepeat"
+                   name="passwordRepeat"
+                   type="password"
+                   class="form-control"
+                   placeholder="Repeat password"
+                   formControlName="passwordRepeat">
+            </label>
+          </div>
+
+          <p *ngIf="passwordRepeat.errors && passwordRepeat.touched " class="validationError">Password isn't valid!</p>
+          <p *ngIf="passwordRepeat?.errors?.minlength && passwordRepeat.touched " class="validationError">Min length should be 4 !</p>
+          <p *ngIf="passwords?.errors?.doesMatchPassword && password.touched " class="validationError">Passwords don't match!</p>
         </div>
-        <p *ngIf="passwordRepeat.errors && passwordRepeat.touched " class="validationError">Password isn't valid!</p>
-        <p *ngIf="passwordRepeat?.errors?.minlength && passwordRepeat.touched " class="validationError">Min length should be 4 !</p>
-        <p *ngIf="passwords?.errors?.doesMatchPassword && password.touched " class="validationError">Passwords don't match!</p>
-      </div>
       </div>
     </div>
 
@@ -130,6 +134,7 @@
                formControlName="email">
         </label>
       </div>
+
       <p *ngIf="email.errors && email.touched " class="validationError">Email isn't valid!</p>
       <p *ngIf="email?.errors?.minlength && email.touched " class="validationError">Min length should be 4 !</p>
       <p *ngIf="email?.errors?.emailIsForbidden && email.touched " class="validationError">User with such email is already exist!</p>
@@ -148,15 +153,16 @@
                formControlName="address">
         </label>
       </div>
+
       <p *ngIf="address.errors && address.touched " class="validationError">Address isn't valid!</p>
       <p *ngIf="address?.errors?.minlength && address.touched " class="validationError">Min length should be 4 !</p>
     </div>
-   
-  </div>
+
+    </div>
 
     <button class="btn btn-success"
             type="submit"
-        >
+            [disabled]="!registrationForm.valid">
       Sign Up
     </button>
   </form>

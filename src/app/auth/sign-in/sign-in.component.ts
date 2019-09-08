@@ -11,7 +11,6 @@ import { NgForm } from '@angular/forms';
 export class SignInComponent implements OnInit {
   authStatus: boolean = true;
    
-
   constructor(private authService: AuthService) { }
 
   ngOnInit() {}
@@ -23,12 +22,11 @@ export class SignInComponent implements OnInit {
       "login": login,
       "password": password
     }
-    console.log(credentials);
+   
     this.authStatus =  this.authService.signInn(login, password); 
     if (this.authService) {
       localStorage.setItem("userInfo", JSON.stringify(credentials));
-    }  
-     // console.log("status " + this.authStatus); 
+    }   
   }
 
 }

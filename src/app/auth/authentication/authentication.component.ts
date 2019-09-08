@@ -33,11 +33,11 @@ export class AuthenticationComponent implements OnInit{
     let userData = localStorage.getItem("userInfo");
     if(userData) {
       console.log(userData);
+
       let userCredentials = JSON.parse(userData);
       this.authService.signInn(userCredentials.login, userCredentials.password);
     } else {
-      console.log('Nothing!');
+      console.log('No active session data available!');
     }
-    //console.log(userData);
   }
 }

@@ -275,16 +275,94 @@
       "id": 9
     },
     {
-      "firstName": "test",
+      "firstName": "testssssss",
       "lastName": "user",
       "login": "test",
       "password": "test123",
       "phone": "0501865210",
       "email": "d@op.p",
       "address": "LA, New Walley 145/85",
-      "userId": 584,
-      "id": 10,
-      "cart": []
+      "userId": 264,
+      "id": 10
+    },
+    {
+      "firstName": "Orest",
+      "lastName": "Kapko",
+      "login": "orest777",
+      "password": "test123",
+      "phone": "0501865210",
+      "email": "orest@i.ua",
+      "address": "LA, New Walley 145/85",
+      "userId": 363,
+      "id": 11
+    },
+    {
+      "firstName": "miki",
+      "lastName": "smith",
+      "login": "smith777",
+      "password": "test123",
+      "phone": "0501865210",
+      "email": "naber2008@ukr.n",
+      "address": "LA, New Walley 145/85",
+      "userId": 461,
+      "cart": [],
+      "id": 12
+    },
+    {
+      "firstName": "Ostin",
+      "lastName": "smith",
+      "login": "john888",
+      "password": "test123",
+      "phone": "5656565656",
+      "email": "naber2008@ukr",
+      "address": "LA, New Walley 145/85",
+      "userId": 891,
+      "id": 13,
+      "cart": [
+        {
+          "id": 3,
+          "productTitle": "With Prosciutto",
+          "imgPath": "https://pizzaletta.com/uploads/salat/image/5/%D0%97_%D0%BF%D1%80%D0%BE%D1%88%D1%83%D1%82%D0%BE_150%D0%B3.JPG",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
+          "productPrice": 199,
+          "productQuantity": 3
+        },
+        {
+          "id": 2,
+          "productTitle": "Cesar with Chicken",
+          "imgPath": "https://pizzaletta.com/uploads/salat/image/1/%D0%A6%D0%B5%D0%B7%D0%B0%D1%80_%D0%B7_%D0%BA%D1%83%D1%80%D0%BA%D0%BE%D1%8E_150%D0%B3.JPG",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
+          "productPrice": 199,
+          "productQuantity": 1
+        }
+      ]
+    },
+    {
+      "firstName": "Sean",
+      "lastName": "Mendes",
+      "login": "sean999",
+      "password": "test123",
+      "phone": "+380501865210",
+      "email": "naber201725@gmail.com",
+      "address": "NY, Red Valley 145",
+      "userId": 12,
+      "cart": [
+        {
+          "id": 3,
+          "productTitle": "Doctor Pepper Cherry",
+          "imgPath": "https://pizzaletta.com/uploads/drink/image/18/IMG_5887.JPG",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
+          "productPrice": 199,
+          "productQuantity": 1
+        }
+      ],
+      "id": 14
     }
   ]
 }

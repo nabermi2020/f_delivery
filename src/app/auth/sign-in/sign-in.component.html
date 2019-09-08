@@ -6,7 +6,7 @@
     <div class="form-group">
       <label for="login">
         Login:
-        <input type="text"
+      <input type="text"
              placeholder="Enter login"
              class="form-control"
              id="login"
@@ -23,15 +23,15 @@
     <div class="form-group">
       <label for="password">
         Password:
-          <input type="password"
-                 placeholder="Enter password"
-                 class="form-control"
-                 id="password"
-                 required
-                 password
-                 #password="ngModel"
-                 name="password"
-                 ngModel>
+      <input type="password"
+             placeholder="Enter password"
+             class="form-control"
+             id="password"
+             required
+             password
+             #password="ngModel"
+             name="password"
+             ngModel>
       </label>
     </div>
     <p *ngIf="!password.valid && password.touched" class="validationError">Password is not valid!</p>
@@ -42,8 +42,7 @@
             [disabled]="!form.valid">
       Log In
     </button>
-
   </form>
 </div>
 
-<!--</button>[disabled]="!f.valid"-->
+ 
