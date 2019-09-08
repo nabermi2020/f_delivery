@@ -19,14 +19,16 @@ export class EditProfileComponent implements OnInit {
               private authService: AuthService) { }
 
   ngOnInit() {
-    this.route.firstChild.params.subscribe( (par: Params) => {
-      this.id = par["id"];
-      this.currentUser = this.authService.getCurrentUser();
-      console.log(this.currentUser);
-      this.initForm();
+    this.route.firstChild.params.subscribe( 
+      (par: Params) => {
+        this.id = par["id"];
+        this.currentUser = this.authService.getCurrentUser();
+        this.initForm();
+        //console.log(this.currentUser);
     });
   }
 
+  //Needs to extend validation logic for all fields except passwords validation
   initForm() {
     this.editForm = new FormGroup({
       'firstName': new FormControl(this.currentUser["firstName"]),
@@ -39,7 +41,7 @@ export class EditProfileComponent implements OnInit {
         }, {
           validators: this.validatePasswords.bind(this)
         }
-        )
+      )
     });
   }
 
@@ -56,12 +58,9 @@ export class EditProfileComponent implements OnInit {
   }
 
   validatePasswords(registrationFormGroup: FormGroup) {
-    console.log();
     let password = registrationFormGroup.controls.password.value;
     let repeatPassword = registrationFormGroup.controls.passwordRepeat.value;
-    console.log(password);
-    console.log(repeatPassword);
-    //console.log(repeatPassword);
+  
     if (repeatPassword.length <= 0) {
         return null;
     }
@@ -79,33 +78,31 @@ export class EditProfileComponent implements OnInit {
   }
 
   saveChanges() {
-    console.log('Save changes!!!');
     let formData = this.editForm.value;
-    //console.log(formData);
+  
     this.authService.checkUserInfo(formData)
       .subscribe(
         res => {
-          console.log(res);
+          //console.log(res);
           if (res.length > 0 ) {
-            console.log('EDIT!');
             this.authService.updateUserInfo(formData)
               .subscribe(
                 res => {
                   console.log(res);
                   this.closeModal();
                   this.authService.updateUserData();
-
                 },
+
                 err => {
                   console.log('something went wrong!!!');
                 }
               )
           }
         }, 
+
         err => {
           console.log('Something went wrong!');
         }
       )
   }
-
 }

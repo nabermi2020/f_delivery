@@ -22,8 +22,9 @@ export class ProductCart {
                 res => {
                     this.products = res["cart"];
                     this.onProductAdded.next(this.products);
-                    console.log(this.products);
+                    //console.log(this.products);
                 },
+
                 err => {
                     alert('Error products!');
                 }
@@ -36,22 +37,20 @@ export class ProductCart {
                        this.product.unsubscribe(); 
                     }
                 },
+
                 err => {
                     alert(err);
                 }
             )
-                }
-
- 
-        
+    }
+     
     addProduct(product: Product) {
         let productId = product.id;
        
         if (!this.checkForDublicates(productId)) {
             product["productQuantity"] = 1;
             this.products.push(product);
-            
-            console.log(this.products);
+            //console.log(this.products);
         } else {
             // product["productQuantity"] = this.checkForDublicates(productId);
             // this.products.push(product);
@@ -59,17 +58,16 @@ export class ProductCart {
                 if (item.id == productId ) {
                     item["productQuantity"] += 1;
                 }
-            })
-            
-          
+            }) 
         }
+
         this.synchronizeCartWithServer()
             .subscribe(
                 res => {
                     console.log('SUCCESS CART UPDATED!')
                 },
                 err => {
-                    alert('Error!');
+                    alert('Error - cart isn\'t synchronized!');
                 }
             )
         this.calculateTotalPrice();
@@ -85,14 +83,12 @@ export class ProductCart {
     }
 
     synchronizeCartWithServer() {
-        let login = this.authService.getCurrentUser()["login"];
-        let password = this.authService.getCurrentUser()["password"];
         const headers = new HttpHeaders({'Content-type': 'application/json'});
         let userData = this.authService.getCurrentUser();
         userData.cart = this.products;
 
         return this.http.put(`${this.apiUrl}/users/${userData.id}`, userData, { headers: headers});
-        console.log(userData);
+        //console.log(userData);
     }
 
     checkForDublicates(id) {
@@ -144,7 +140,5 @@ export class ProductCart {
     getTotalPrice() {
         this.calculateTotalPrice();
         return this.totalPrice;
-    }
-
-   
+    }  
 }

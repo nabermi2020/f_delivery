@@ -36,12 +36,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
   //  this.id = this.route.snapshot.children[0].params.id;
     this.userData = this.authService.getCurrentUser();
-    console.log(this.id); 
+    //console.log(this.id); 
     this.userDataMap();
 
     this.editModal.onEditChange.subscribe(
       res => {
-        console.log('HEREEEE');
+        console.log('Edit mode - true');
         this.editMode = res;
       }
     )
