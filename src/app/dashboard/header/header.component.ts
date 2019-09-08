@@ -19,17 +19,32 @@ export class HeaderComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private router: Router,
-              private productCartService: ProductCart) { }
+              private productCartService: ProductCart) {
+                 this.productsQuantity = this.productCartService.calculateProductsQuantity();
+               }
 
   ngOnInit() {
     this.activeUser = this.authService.getCurrentUser();
+     
+    this.authService.userData
+      .subscribe(
+        res => {
+          this.activeUser =  this.authService.getCurrentUser();
+          this.productsQuantity = this.productCartService.calculateProductsQuantity();
+          console.log(this.productsQuantity);
+          console.log(res);
+        },   
+        err => {
+          alert('Something went wrong!');
+        }
+      )
     this.id = this.activeUser.userId;
     this.productCartService.onProductAdded  
       .subscribe( 
         res => {
           this.productsQuantity = this.productCartService.calculateProductsQuantity();
           this.totalPrice = this.productCartService.getTotalPrice();
-          console.log(this.productsQuantity);
+          //console.log(this.productsQuantity);
         },
         err => {
           alert('something went wrong!');

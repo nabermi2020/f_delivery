@@ -1,6 +1,6 @@
 import { AuthService } from './../../auth/auth.service';
 import { ActivatedRoute, Params } from '@angular/router';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { EditModalService } from 'src/app/shared/servives/edit-modal.service';
 
@@ -34,11 +34,45 @@ export class EditProfileComponent implements OnInit {
       'phone': new FormControl(this.currentUser["phone"]),
       'address': new FormControl(this.currentUser["address"]),
       passwords: new FormGroup({
-        "password": new FormControl(''),
-        "passwordRepeat": new FormControl(''),
-        })
+        "password": new FormControl('', [Validators.required, Validators.minLength(4) ]),
+        "passwordRepeat": new FormControl('', [Validators.required, Validators.minLength(4) ]),
+        }, {
+          validators: this.validatePasswords.bind(this)
+        }
+        )
     });
   }
+
+  get password() {
+    return this.editForm.get('passwords.password');  
+  }
+
+  get passwordRepeat() {
+    return this.editForm.get('passwords.passwordRepeat');  
+  }
+
+  get passwords() {
+    return this.editForm.get('passwords');
+  }
+
+  validatePasswords(registrationFormGroup: FormGroup) {
+    console.log();
+    let password = registrationFormGroup.controls.password.value;
+    let repeatPassword = registrationFormGroup.controls.passwordRepeat.value;
+    console.log(password);
+    console.log(repeatPassword);
+    //console.log(repeatPassword);
+    if (repeatPassword.length <= 0) {
+        return null;
+    }
+
+    if (repeatPassword !== password) {
+        return {
+            doesMatchPassword: true
+        };
+    }
+    return null;
+}
 
   closeModal() {
     this.editProfile.toggleEditMode();
@@ -46,6 +80,32 @@ export class EditProfileComponent implements OnInit {
 
   saveChanges() {
     console.log('Save changes!!!');
+    let formData = this.editForm.value;
+    //console.log(formData);
+    this.authService.checkUserInfo(formData)
+      .subscribe(
+        res => {
+          console.log(res);
+          if (res.length > 0 ) {
+            console.log('EDIT!');
+            this.authService.updateUserInfo(formData)
+              .subscribe(
+                res => {
+                  console.log(res);
+                  this.closeModal();
+                  this.authService.updateUserData();
+
+                },
+                err => {
+                  console.log('something went wrong!!!');
+                }
+              )
+          }
+        }, 
+        err => {
+          console.log('Something went wrong!');
+        }
+      )
   }
 
 }

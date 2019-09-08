@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
+import { AuthService } from './../../auth/auth.service';
+import { Injectable  } from '@angular/core';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Product } from '../product.model';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 
 
 @Injectable()
@@ -8,9 +10,39 @@ export class ProductCart {
     products: Array<any> = [];
     onProductAdded = new Subject<any>();
     onPriceChanged = new Subject<any>();
+    product = new Subscription();
+    apiUrl: any = "http://localhost:3000";
     totalPrice: number;
 
-    constructor() {}
+    constructor(private authService: AuthService,
+                private http: HttpClient) {
+        
+        this.product = this.getProductsFromServer()
+            .subscribe(
+                res => {
+                    this.products = res["cart"];
+                    this.onProductAdded.next(this.products);
+                    console.log(this.products);
+                },
+                err => {
+                    alert('Error products!');
+                }
+            );
+
+        this.authService.isUserAuthorized
+            .subscribe(
+                res => {
+                    if (!res) {
+                       this.product.unsubscribe(); 
+                    }
+                },
+                err => {
+                    alert(err);
+                }
+            )
+                }
+
+ 
         
     addProduct(product: Product) {
         let productId = product.id;
@@ -29,11 +61,37 @@ export class ProductCart {
                 }
             })
             
+          
         }
-        
+        this.synchronizeCartWithServer()
+            .subscribe(
+                res => {
+                    console.log('SUCCESS CART UPDATED!')
+                },
+                err => {
+                    alert('Error!');
+                }
+            )
         this.calculateTotalPrice();
         this.onProductAdded.next(this.products);
        // console.log(this.products);
+    }
+
+    getProductsFromServer() {
+        const headers = new HttpHeaders({'Content-type': 'application/json'});
+        let userData = this.authService.getCurrentUser();
+        return this.http.get(`${this.apiUrl}/users/${userData.id}`, { headers: headers });   
+    }
+
+    synchronizeCartWithServer() {
+        let login = this.authService.getCurrentUser()["login"];
+        let password = this.authService.getCurrentUser()["password"];
+        const headers = new HttpHeaders({'Content-type': 'application/json'});
+        let userData = this.authService.getCurrentUser();
+        userData.cart = this.products;
+
+        return this.http.put(`${this.apiUrl}/users/${userData.id}`, userData, { headers: headers});
+        console.log(userData);
     }
 
     checkForDublicates(id) {
@@ -70,6 +128,7 @@ export class ProductCart {
         });
         this.products.splice(deleteWithId, 1);
         this.onProductAdded.next(this.products);
+        this.synchronizeCartWithServer().subscribe();
     }
 
     calculateTotalPrice() {
@@ -85,4 +144,6 @@ export class ProductCart {
         this.calculateTotalPrice();
         return this.totalPrice;
     }
+
+   
 }

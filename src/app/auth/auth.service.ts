@@ -1,3 +1,4 @@
+import { ProductCart } from './../shared/servives/product-cart.service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -12,6 +13,7 @@ export class AuthService {
   
   isAuthenticated: boolean;
   isUserAuthorized = new Subject<any>();
+
   userData = new Subject<any>();
   currentUser: any;
   
@@ -23,7 +25,8 @@ export class AuthService {
   ];
 
   constructor(private router: Router,
-              private http: HttpClient) {
+              private http: HttpClient 
+               ) {
    // console.log(this.users);
    }
 
@@ -38,6 +41,7 @@ export class AuthService {
  
       if (userData.login == login && userData.password == password) {
         this.currentUser = userData;
+        
         this.isAuthenticated = true;
         this.isUserAuthorized.next(this.isAuthenticated);
         authStatus =  true;
@@ -59,9 +63,13 @@ export class AuthService {
         (res: Array<any>) => {
           if (res && res.length >0 ) {
             this.currentUser = res[0];
+            console.log(this.currentUser);
+          
+         //   this.userData.next(this.currentUser);
           this.isAuthenticated = true;
           this.isUserAuthorized.next(this.isAuthenticated);
           authStatus =  true;
+          this.userData.next(res[0]);
           return true;
           } else {
             console.log('no');
@@ -71,15 +79,20 @@ export class AuthService {
           console.log(err);
         }
       );
-      console.log(this.currentUser);
-      console.log(authStatus);
+      //console.log(this.currentUser);
+      //console.log(authStatus);
       return authStatus ? true : false; 
+  }
+
+  updateUserData() {
+    this.signInn(this.currentUser.login, this.currentUser.password);
   }
 
   logOut() {
     this.isAuthenticated = false;
     this.isUserAuthorized.next(this.isAuthenticated);
     localStorage.removeItem("userInfo");
+    
   }
 
   // signUp(user: User) {
@@ -101,8 +114,6 @@ export class AuthService {
       );
   }
 
- 
-
   checkUser(login: User): Observable<any> {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
     return this.http.get(`${this.apiUrl}/users?login=${login}`, {headers: headers});
@@ -117,8 +128,30 @@ export class AuthService {
     return this.isAuthenticated;
   }
 
-  getCurrentUser(): User {
+  getCurrentUser(): any {
     return this.currentUser;
+  }
+
+  checkUserInfo(userData): Observable<any> {
+    console.log(userData);
+    const headers = new HttpHeaders({'Content-type': 'application/json'});
+    let login = this.currentUser.login;
+    let password = userData.passwords.password;
+    console.log(login);
+    console.log(password);
+    return this.http.get(`${this.apiUrl}/users?login=${login}&&password=${password}`, { headers: headers});
+  }
+
+  updateUserInfo(userData): Observable<any> {
+   console.log(this.currentUser.id);
+    let user = new User(userData.firstName, userData.lastName, 
+                this.currentUser.login, userData.passwords.password,
+                userData.phone, this.currentUser.email, userData.address);
+                console.log(user);
+    const headers = new HttpHeaders({'Content-type': 'application/json'});
+    let login = this.currentUser.login;
+    let password = userData.passwords.password;
+    return this.http.put(`${this.apiUrl}/users/${this.currentUser.id}`,  user, { headers: headers});
   }
 
   getUserById(id: number): User {  

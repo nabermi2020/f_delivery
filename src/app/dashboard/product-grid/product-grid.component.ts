@@ -34,13 +34,13 @@ export class ProductGridComponent implements OnInit {
     .subscribe(
       res => {
           this.products = res;
-          console.log(res);
+        //  console.log(res);
       }, 
       err => {
-          console.log(err);
+          //console.log(err);
       }
   )
-  console.log(this.products);
+  //console.log(this.products);
   }
  
 

@@ -7,6 +7,7 @@ export class User {
     public phone: string;
     public email: string;
     public address: string;
+    public cart: Array<any>;
 
     constructor(fName: string,  lName: string, login: string,
                 password: string, phone: string,

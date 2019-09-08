@@ -84,6 +84,9 @@
                                formControlName="password">
                       </label>
                 </div>
+                <p *ngIf="password.errors && password.touched " class="validationError">Password isn't valid!</p>
+                <p *ngIf="password?.errors?.minlength && password.touched " class="validationError">Min length should be 4 !</p>
+                <p *ngIf="passwords?.errors?.doesMatchPassword && password.touched " class="validationError">Passwords don't match!</p>
             </div>
 
             <div class="col-md-6 col-xs-6">
@@ -100,13 +103,20 @@
                                formControlName="passwordRepeat">
                       </label>
                 </div>
+                <p *ngIf="passwordRepeat.errors && passwordRepeat.touched " class="validationError">Password isn't valid!</p>
+                <p *ngIf="passwordRepeat?.errors?.minlength && passwordRepeat.touched " class="validationError">Min length should be 4 !</p>
+                <p *ngIf="passwords?.errors?.doesMatchPassword && password.touched " class="validationError">Passwords don't match!</p>
             </div>
+
+           
                 </div>
             </div>
 
             <div class="col-md-12 col-xs-12 " style="text-align: center">
                 <button class="btn btn-success"
-                        type="button">Save</button>
+                        type="button"
+                        (click)="saveChanges()"
+                        [disabled]="!editForm.valid">Save</button>
             </div>
         </div>
     </form>
