@@ -16,17 +16,20 @@ export class ProductGridComponent implements OnInit {
 
   ngOnInit() {
     this.getProducts();
-    //console.log(this.products[this.activeCategory]);
-   this.route.firstChild.params.subscribe( (par: Params) => {
-     this.activeCategory = par["cat"];
-     this.productsService.getProductsByCategory(this.activeCategory)
-     .subscribe(res => {
-        this.products = res;
-     },
-     err => {
-        console.log(err);
-     });
-   })
+     this.route.firstChild.params
+       .subscribe( 
+         (par: Params) => {
+           this.activeCategory = par["cat"];
+           this.productsService.getProductsByCategory(this.activeCategory)
+             .subscribe(
+               res => {
+                this.products = res;
+               },
+               
+               err => {
+                console.log(err);
+               });
+       })
   }
 
   getProducts() {
@@ -34,15 +37,11 @@ export class ProductGridComponent implements OnInit {
     .subscribe(
       res => {
           this.products = res;
-        //  console.log(res);
       }, 
       err => {
-          //console.log(err);
+          console.log(err);
       }
-  )
-  //console.log(this.products);
+    )
   }
- 
-
 }
       

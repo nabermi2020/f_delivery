@@ -18,9 +18,6 @@ const dashboardRoutes: Routes = [
         ] },
         { path: 'cart', component: CartComponent}
     ]},
-    
-
-   
 ]
 
 @NgModule({

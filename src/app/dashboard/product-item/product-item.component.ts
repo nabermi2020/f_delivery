@@ -12,9 +12,7 @@ export class ProductItemComponent implements OnInit {
 
   constructor(private productCartService: ProductCart) { }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() { }
 
   addProductToCart() {
     this.productCartService.addProduct(this.productData);

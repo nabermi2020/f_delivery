@@ -226,8 +226,7 @@
       "phone": "0501865210",
       "email": "nab@i.ua",
       "address": "LA, New Walley 145/85",
-      "userId": 550,
-      "id": 6,
+      "userId": 429,
       "cart": [
         {
           "id": 5,
@@ -238,8 +237,29 @@
           "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
           "productPrice": 199,
           "productQuantity": 2
+        },
+        {
+          "id": 448,
+          "productTitle": "Super Meat",
+          "imgPath": "https://pizzaletta.com/uploads/pizza/image/55/IMG_5128p.jpg",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Ham, mozzarella, tomatoes, corn, garlic sauce",
+          "productPrice": 200,
+          "productQuantity": 1
+        },
+        {
+          "id": 468,
+          "productTitle": "Carbonara",
+          "imgPath": "https://pizzaletta.com/uploads/pizza/image/19/pl-pizza-12.jpg",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Ham, mozzarella, tomatoes, corn, garlic sauce",
+          "productPrice": 200,
+          "productQuantity": 2
         }
-      ]
+      ],
+      "id": 6
     },
     {
       "firstName": "Michael",
@@ -342,26 +362,14 @@
       ]
     },
     {
-      "firstName": "Sean",
+      "firstName": "Sean Mn",
       "lastName": "Mendes",
       "login": "sean999",
       "password": "test123",
       "phone": "+380501865210",
       "email": "naber201725@gmail.com",
       "address": "NY, Red Valley 145",
-      "userId": 12,
-      "cart": [
-        {
-          "id": 3,
-          "productTitle": "Doctor Pepper Cherry",
-          "imgPath": "https://pizzaletta.com/uploads/drink/image/18/IMG_5887.JPG",
-          "productWeight": "550",
-          "productSize": "30",
-          "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
-          "productPrice": 199,
-          "productQuantity": 1
-        }
-      ],
+      "userId": 236,
       "id": 14
     }
   ]
