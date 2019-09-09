@@ -38,6 +38,18 @@ export class Cart {
         
     }
 
+    deleteProductById(id) {
+        let deleteWithId;
+        this.products.forEach( (item, index) => {
+            if ( item.id == id ) {
+                deleteWithId = index;
+            }
+        });
+        this.products.splice(deleteWithId, 1);
+       // this.onProductAdded.next(this.products);
+        //this.synchronizeCartWithServer().subscribe();
+    }
+
     checkForDublicates(id): boolean {
         let isDublicated = false;
         this.products.forEach( item => {
@@ -56,5 +68,20 @@ export class Cart {
         });
 
         this.totalPrice = price;
+    }
+
+    getTotalPrice() {
+        this.calculateTotalPrice();
+        return this.totalPrice;
+    }  
+
+    calculateProductsQuantity(): number {
+        let productQuantity = 0;
+
+        this.products.forEach( item => {
+            productQuantity += item.productQuantity;
+        });
+
+        return productQuantity;
     }
 }
