@@ -1,3 +1,4 @@
+import { Cart } from './../../cart/cart/cart.model';
 import { AuthService } from './../../auth/auth.service';
 import { Injectable  } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
@@ -8,6 +9,7 @@ import { Subject, Subscription } from 'rxjs';
 @Injectable()
 export class ProductCart {
     products: Array<any> = [];
+    cart = new Cart();
     onProductAdded = new Subject<any>();
     onPriceChanged = new Subject<any>();
     product = new Subscription();
@@ -22,7 +24,9 @@ export class ProductCart {
                 res => {
                     this.products = res["cart"];
                     this.onProductAdded.next(this.products);
-                    //console.log(this.products);
+                    
+                    this.cart.setProducts(this.products);
+                    this.cart.getCart();
                 },
 
                 err => {
@@ -42,6 +46,7 @@ export class ProductCart {
                     alert(err);
                 }
             )
+            
     }
      
     addProduct(product: Product) {
@@ -50,10 +55,10 @@ export class ProductCart {
         if (!this.checkForDublicates(productId)) {
             product["productQuantity"] = 1;
             this.products.push(product);
-            //console.log(this.products);
+            
         } else {
-            // product["productQuantity"] = this.checkForDublicates(productId);
-            // this.products.push(product);
+            
+            
             this.products.forEach( item => {
                 if (item.id == productId ) {
                     item["productQuantity"] += 1;
@@ -78,7 +83,7 @@ export class ProductCart {
     getProductsFromServer() {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
         let userData = this.authService.getCurrentUser();
-        console.log(userData);
+       // console.log(userData);
         return this.http.get(`${this.apiUrl}/users/${userData.id}`, { headers: headers });   
     }
 
@@ -91,7 +96,7 @@ export class ProductCart {
         //console.log(userData);
     }
 
-    checkForDublicates(id) {
+    checkForDublicates(id): boolean {
         let isDublicated = false;
         this.products.forEach( item => {
             if (item.id == id) {
