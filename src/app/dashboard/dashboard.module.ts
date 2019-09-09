@@ -1,3 +1,4 @@
+import { CartModule } from './../cart/cart.module';
 import { ProfileModule } from './../userprofile/profile.module';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { CommonModule } from '@angular/common';
@@ -6,9 +7,7 @@ import { HeaderComponent } from './header/header.component';
 import { NgModule } from '@angular/core';
 import { ProductDashboardComponent } from './product-dashboard/product-dashboard.component';
 import { ProductGridComponent } from './product-grid/product-grid.component';
-import { EditProfileComponent } from '../userprofile/edit-profile/edit-profile.component';
 import { ProductItemComponent } from './product-item/product-item.component';
-import { CartComponent } from './cart/cart.component';
 
 @NgModule({
     declarations: [
@@ -17,12 +16,12 @@ import { CartComponent } from './cart/cart.component';
        SideBarComponent,
        ProductGridComponent,
        ProductItemComponent,
-       CartComponent 
     ],
     imports: [
         CommonModule,
         DashboardRoutingModule,
-        ProfileModule
+        ProfileModule,
+        CartModule
     ],
     exports: [
 
