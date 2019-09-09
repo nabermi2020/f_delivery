@@ -229,26 +229,6 @@
       "userId": 179,
       "cart": [
         {
-          "id": 448,
-          "productTitle": "Emilia's Pizza",
-          "imgPath": "./../../assets/pizza1.jpg",
-          "productWeight": "550",
-          "productSize": "30",
-          "productDescription": "Ham, mozzarella, tomatoes, corn, garlic sauce",
-          "productPrice": 200,
-          "productQuantity": 3
-        },
-        {
-          "id": 417,
-          "productTitle": "Four Cheeses Classic",
-          "imgPath": "./../../assets/pizza3.jpg",
-          "productWeight": "550",
-          "productSize": "30",
-          "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
-          "productPrice": 199,
-          "productQuantity": 1
-        },
-        {
           "id": 3,
           "productTitle": "With Prosciutto",
           "imgPath": "https://pizzaletta.com/uploads/salat/image/5/%D0%97_%D0%BF%D1%80%D0%BE%D1%88%D1%83%D1%82%D0%BE_150%D0%B3.JPG",
@@ -256,6 +236,16 @@
           "productSize": "30",
           "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
           "productPrice": 199,
+          "productQuantity": 1
+        },
+        {
+          "id": 468,
+          "productTitle": "Carbonara",
+          "imgPath": "https://pizzaletta.com/uploads/pizza/image/19/pl-pizza-12.jpg",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Ham, mozzarella, tomatoes, corn, garlic sauce",
+          "productPrice": 200,
           "productQuantity": 1
         }
       ],
@@ -371,6 +361,39 @@
       "address": "NY, Red Valley 145",
       "userId": 236,
       "id": 14
+    },
+    {
+      "firstName": "Michaellll",
+      "lastName": "Naber",
+      "login": "test999",
+      "password": "test123",
+      "phone": "0501865210",
+      "email": "naber2008@ukr.nettt",
+      "address": "LA, New Walley 145/85",
+      "userId": 577,
+      "cart": [
+        {
+          "id": 2,
+          "productTitle": "Schweppes Pink",
+          "imgPath": "https://pizzaletta.com/uploads/drink/image/23/5D50DFB9-0DF8-4A21-904D-48AFD33B8804.jpeg",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
+          "productPrice": 199,
+          "productQuantity": 1
+        },
+        {
+          "id": 3,
+          "productTitle": "Doctor Pepper Cherry",
+          "imgPath": "https://pizzaletta.com/uploads/drink/image/18/IMG_5887.JPG",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
+          "productPrice": 199,
+          "productQuantity": 1
+        }
+      ],
+      "id": 15
     }
   ]
 }

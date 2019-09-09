@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
   id: number;
   productsQuantity: any;
   totalPrice: any;
+  activeCategory: any;
 
 
   constructor(private authService: AuthService,
