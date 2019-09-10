@@ -199,14 +199,14 @@
       "id": 5
     },
     {
-      "firstName": "Michaelll",
-      "lastName": "Nabereee",
+      "firstName": "Michael",
+      "lastName": "Naberezhnyi",
       "login": "michael777",
       "password": "test123",
       "phone": "0501865210",
       "email": "nab@i.ua",
       "address": "LA, New Walley 145/85",
-      "userId": 179,
+      "userId": 338,
       "cart": [
         {
           "id": 417,
@@ -216,7 +216,27 @@
           "productSize": "30",
           "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
           "productPrice": 199,
-          "productQuantity": 10
+          "productQuantity": 11
+        },
+        {
+          "id": 3,
+          "productTitle": "Doctor Pepper Cherry",
+          "imgPath": "https://pizzaletta.com/uploads/drink/image/18/IMG_5887.JPG",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
+          "productPrice": 199,
+          "productQuantity": 1
+        },
+        {
+          "id": 468,
+          "productTitle": "Carbonara",
+          "imgPath": "https://pizzaletta.com/uploads/pizza/image/19/pl-pizza-12.jpg",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Ham, mozzarella, tomatoes, corn, garlic sauce",
+          "productPrice": 200,
+          "productQuantity": 1
         }
       ],
       "id": 6

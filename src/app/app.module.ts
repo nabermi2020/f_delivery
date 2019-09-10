@@ -2,7 +2,6 @@ import { EditModalService } from './shared/servives/edit-modal.service';
 import { ProductService } from './shared/servives/products.service';
  
 import { ProfileModule } from './userprofile/profile.module';
-//import { DashboardModule } from './dashboard/dashboard.module';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth-guard.service';
 import { AuthModule } from './auth/auth.module';
@@ -16,7 +15,7 @@ import { FormsModule} from '@angular/forms';
 import { ProfileComponent } from './userprofile/profile/profile.component';
 import { ProductCart } from './shared/servives/product-cart.service';
 import { EditProfileComponent } from './userprofile/edit-profile/edit-profile.component';
-import { SharedModule } from './shared/shared.module';
+ 
 
 
 @NgModule({
@@ -27,9 +26,7 @@ import { SharedModule } from './shared/shared.module';
     BrowserModule,
     AppRoutingModule,
     AuthModule,
-    HttpClientModule,
-    
-   // DashboardModule
+    HttpClientModule
     
   ],
   providers: [AuthGuard, AuthService, ProductService, ProductCart, EditModalService],
