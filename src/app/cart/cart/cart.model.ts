@@ -33,9 +33,7 @@ export class Cart {
             }) 
         }
 
-        this.calculateTotalPrice();
-        //this.onProductAdded.next(this.products);
-        
+        this.calculateTotalPrice();    
     }
 
     deleteProductById(id) {
@@ -46,7 +44,6 @@ export class Cart {
             }
         });
         this.products.splice(deleteWithId, 1);
-       // this.onProductAdded.next(this.products);
         //this.synchronizeCartWithServer().subscribe();
     }
 

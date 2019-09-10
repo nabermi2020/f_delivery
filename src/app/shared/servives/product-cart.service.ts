@@ -11,7 +11,8 @@ export class ProductCart {
     products: Array<any> = [];
     cart = new Cart();
     onProductAdded = new Subject<any>();
-    onPriceChanged = new Subject<any>();
+
+    
     product = new Subscription();
     apiUrl: any = "http://localhost:3000";
     totalPrice: number;
@@ -51,21 +52,6 @@ export class ProductCart {
      
     addProduct(product: Product) {
         this.cart.addProduct(product);
-        // let productId = product.id;
-       
-        // if (!this.checkForDublicates(productId)) {
-        //     product["productQuantity"] = 1;
-        //     this.products.push(product);
-            
-        // } else {
-            
-            
-        //     this.products.forEach( item => {
-        //         if (item.id == productId ) {
-        //             item["productQuantity"] += 1;
-        //         }
-        //     }) 
-        // }
 
         // this.synchronizeCartWithServer()
         //     .subscribe(
@@ -76,9 +62,8 @@ export class ProductCart {
         //             alert('Error - cart isn\'t synchronized!');
         //         }
         //     )
-         this.calculateTotalPrice();
+         //this.calculateTotalPrice();
          this.onProductAdded.next(this.products);
-       // console.log(this.products);
     }
 
     getProductsFromServer() {
@@ -102,13 +87,13 @@ export class ProductCart {
     }
 
     getProducts(): Array<Product> {
-        let products = this.cart.getCart();
-        return products;
+        return this.cart.getCart();
     }
 
     deleteProductById(id) {
         this.cart.deleteProductById(id);
         this.onProductAdded.next(this.products);
+        //this.synchronizeCartWithServer().subscribe();
     }
 
     calculateTotalPrice() {
@@ -116,7 +101,6 @@ export class ProductCart {
     }
 
     getTotalPrice() {
-        this.calculateTotalPrice();
         return this.cart.getTotalPrice();
     }  
 }
