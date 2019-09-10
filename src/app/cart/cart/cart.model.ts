@@ -44,7 +44,6 @@ export class Cart {
             }
         });
         this.products.splice(deleteWithId, 1);
-        //this.synchronizeCartWithServer().subscribe();
     }
 
     checkForDublicates(id): boolean {
@@ -80,5 +79,9 @@ export class Cart {
         });
 
         return productQuantity;
+    }
+
+    cleanCart() {
+        this.products = [];
     }
 }

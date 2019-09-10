@@ -144,6 +144,16 @@
       "id": 1,
       "cart": [
         {
+          "id": 417,
+          "productTitle": "Four Cheeses Classic",
+          "imgPath": "./../../assets/pizza3.jpg",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
+          "productPrice": 199,
+          "productQuantity": 1
+        },
+        {
           "id": 468,
           "productTitle": "Carbonara",
           "imgPath": "https://pizzaletta.com/uploads/pizza/image/19/pl-pizza-12.jpg",
@@ -152,36 +162,6 @@
           "productDescription": "Ham, mozzarella, tomatoes, corn, garlic sauce",
           "productPrice": 200,
           "productQuantity": 3
-        },
-        {
-          "id": 448,
-          "productTitle": "Hot Chili",
-          "imgPath": "https://pizzaletta.com/uploads/pizza/image/27/IMG_8769_compress.jpg",
-          "productWeight": "550",
-          "productSize": "30",
-          "productDescription": "Ham, mozzarella, tomatoes, corn, garlic sauce",
-          "productPrice": 200,
-          "productQuantity": 1
-        },
-        {
-          "id": 5,
-          "productTitle": "Cheese Plateau",
-          "imgPath": "https://pizzaletta.com/uploads/salat/image/6/IMG_7143.jpg",
-          "productWeight": "550",
-          "productSize": "30",
-          "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
-          "productPrice": 199,
-          "productQuantity": 2
-        },
-        {
-          "id": 3,
-          "productTitle": "With Prosciutto",
-          "imgPath": "https://pizzaletta.com/uploads/salat/image/5/%D0%97_%D0%BF%D1%80%D0%BE%D1%88%D1%83%D1%82%D0%BE_150%D0%B3.JPG",
-          "productWeight": "550",
-          "productSize": "30",
-          "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
-          "productPrice": 199,
-          "productQuantity": 1
         }
       ]
     },
@@ -232,6 +212,16 @@
           "id": 3,
           "productTitle": "Doctor Pepper Cherry",
           "imgPath": "https://pizzaletta.com/uploads/drink/image/18/IMG_5887.JPG",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
+          "productPrice": 199,
+          "productQuantity": 1
+        },
+        {
+          "id": 417,
+          "productTitle": "Four Cheeses Classic",
+          "imgPath": "./../../assets/pizza3.jpg",
           "productWeight": "550",
           "productSize": "30",
           "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",

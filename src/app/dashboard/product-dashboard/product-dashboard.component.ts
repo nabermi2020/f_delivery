@@ -1,3 +1,4 @@
+import { ProductCart } from './../../shared/servives/product-cart.service';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from './../../shared/servives/products.service';
 import { AuthService } from './../../auth/auth.service';
@@ -16,7 +17,8 @@ export class ProductDashboardComponent implements OnInit {
   constructor(private authService: AuthService,
               private productsService: ProductService,
               private route: ActivatedRoute,
-              private editModal: EditModalService) { }
+              private editModal: EditModalService,
+              private cartService: ProductCart) { }
 
   ngOnInit() {
     this.editModal.onEditChange.subscribe(
@@ -24,6 +26,7 @@ export class ProductDashboardComponent implements OnInit {
         this.isModalEnabled = res;
       }
     )
+    this.cartService.onProductsGettedFromServer();
   }
 
    

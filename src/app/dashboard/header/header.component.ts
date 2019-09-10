@@ -3,6 +3,7 @@ import { User } from './../../auth/user.model';
 import { AuthService } from './../../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +15,7 @@ export class HeaderComponent implements OnInit {
   activeUser: User;
   id: number;
   productsQuantity: any;
+  
   totalPrice: any;
   activeCategory: any;
 
@@ -40,7 +42,7 @@ export class HeaderComponent implements OnInit {
         }
       )
     this.id = this.activeUser.userId;
-    this.productCartService.onProductAdded  
+      this.productCartService.onProductAdded  
       .subscribe( 
         res => {
           this.productsQuantity = this.productCartService.calculateProductsQuantity();
@@ -55,7 +57,9 @@ export class HeaderComponent implements OnInit {
 
   logOut() {
     this.authService.logOut();
+    //this.productCartService.onProductAdded.unsubscribe();
     this.router.navigate(['/']);
+   
   }
 
   openCart() {

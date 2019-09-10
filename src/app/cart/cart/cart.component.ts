@@ -8,12 +8,13 @@ import { Product } from 'src/app/shared/product.model';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
-  cart: Array<any> = [];
+  cart: Array<Product> = [];
   totalPrice: any;
   constructor(private productCart: ProductCart) { }
 
   ngOnInit() {
     this.cart = this.productCart.getProducts();
+    console.log(this.cart);
     this.totalPrice = this.productCart.getTotalPrice();
   }
 
