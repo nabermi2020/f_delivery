@@ -3,6 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { EditModalService } from 'src/app/shared/servives/edit-modal.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-edit-profile',
@@ -45,17 +46,10 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
-  get password() {
-    return this.editForm.get('passwords.password');  
+  getDataByFieldName(data) {
+    return this.editForm.get(data);
   }
 
-  get passwordRepeat() {
-    return this.editForm.get('passwords.passwordRepeat');  
-  }
-
-  get passwords() {
-    return this.editForm.get('passwords');
-  }
 
   validatePasswords(registrationFormGroup: FormGroup) {
     let password = registrationFormGroup.controls.password.value;

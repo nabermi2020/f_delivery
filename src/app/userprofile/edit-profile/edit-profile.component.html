@@ -84,9 +84,9 @@
                                formControlName="password">
                       </label>
                 </div>
-                <p *ngIf="password.errors && password.touched " class="validationError">Password isn't valid!</p>
-                <p *ngIf="password?.errors?.minlength && password.touched " class="validationError">Min length should be 4 !</p>
-                <p *ngIf="passwords?.errors?.doesMatchPassword && password.touched " class="validationError">Passwords don't match!</p>
+                <p *ngIf="getDataByFieldName('passwords.password').errors && password.touched " class="validationError">Password isn't valid!</p>
+                <p *ngIf="getDataByFieldName('passwords.password')?.errors?.minlength && password.touched " class="validationError">Min length should be 4 !</p>
+                <p *ngIf="getDataByFieldName('passwords')?.errors?.doesMatchPassword && password.touched " class="validationError">Passwords don't match!</p>
             </div>
 
             <div class="col-md-6 col-xs-6">
@@ -103,9 +103,9 @@
                                formControlName="passwordRepeat">
                       </label>
                 </div>
-                <p *ngIf="passwordRepeat.errors && passwordRepeat.touched " class="validationError">Password isn't valid!</p>
-                <p *ngIf="passwordRepeat?.errors?.minlength && passwordRepeat.touched " class="validationError">Min length should be 4 !</p>
-                <p *ngIf="passwords?.errors?.doesMatchPassword && password.touched " class="validationError">Passwords don't match!</p>
+                <p *ngIf="getDataByFieldName('passwords.passwordRepeat').errors && passwordRepeat.touched " class="validationError">Password isn't valid!</p>
+                <p *ngIf="getDataByFieldName('passwords.passwordRepeat')?.errors?.minlength && passwordRepeat.touched " class="validationError">Min length should be 4 !</p>
+                <p *ngIf="getDataByFieldName('passwords')?.errors?.doesMatchPassword && password.touched " class="validationError">Passwords don't match!</p>
             </div>
 
            

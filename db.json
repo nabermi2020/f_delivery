@@ -161,7 +161,7 @@
           "productSize": "30",
           "productDescription": "Ham, mozzarella, tomatoes, corn, garlic sauce",
           "productPrice": 200,
-          "productQuantity": 1
+          "productQuantity": 2
         }
       ]
     },
@@ -226,17 +226,7 @@
           "productSize": "30",
           "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
           "productPrice": 199,
-          "productQuantity": 1
-        },
-        {
-          "id": 468,
-          "productTitle": "Carbonara",
-          "imgPath": "https://pizzaletta.com/uploads/pizza/image/19/pl-pizza-12.jpg",
-          "productWeight": "550",
-          "productSize": "30",
-          "productDescription": "Ham, mozzarella, tomatoes, corn, garlic sauce",
-          "productPrice": 200,
-          "productQuantity": 1
+          "productQuantity": 2
         }
       ],
       "id": 6
