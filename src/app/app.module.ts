@@ -16,6 +16,7 @@ import { FormsModule} from '@angular/forms';
 import { ProfileComponent } from './userprofile/profile/profile.component';
 import { ProductCart } from './shared/servives/product-cart.service';
 import { EditProfileComponent } from './userprofile/edit-profile/edit-profile.component';
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { EditProfileComponent } from './userprofile/edit-profile/edit-profile.co
     BrowserModule,
     AppRoutingModule,
     AuthModule,
-    HttpClientModule
+    HttpClientModule,
+    
    // DashboardModule
     
   ],
