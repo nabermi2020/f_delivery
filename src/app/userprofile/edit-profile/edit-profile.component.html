@@ -20,7 +20,13 @@
                                name="firstName"
                                formControlName="firstName">
                       </label>
+                      <div *ngIf="getDataByFieldName('firstName').touched">
+                        <p *ngIf="getDataByFieldName('firstName').errors" class="validationError">First Name isn't valid!</p>
+                        <p *ngIf="getDataByFieldName('firstName')?.errors?.minlength" class="validationError">Min length should be 4 !</p>
+                      </div>
                 </div>
+
+                
             </div>
 
             <div class="col-md-6 col-xs-6">
@@ -35,6 +41,10 @@
                                name="lastName"
                                formControlName="lastName">
                       </label>
+                      <div *ngIf="getDataByFieldName('lastName').touched">
+                        <p *ngIf="getDataByFieldName('lastName').errors" class="validationError">Last Name isn't valid!</p>
+                        <p *ngIf="getDataByFieldName('lastName')?.errors?.minlength" class="validationError">Min length should be 4 !</p>
+                      </div>
                 </div>
             </div>
 
@@ -50,6 +60,10 @@
                                name="phone"
                                formControlName="phone">
                       </label>
+                      <div *ngIf="getDataByFieldName('phone').touched">
+                        <p *ngIf="getDataByFieldName('phone').errors" class="validationError">Phone isn't valid!</p>
+                        <p *ngIf="getDataByFieldName('phone')?.errors?.minlength" class="validationError">Min length should be 10 !</p>
+                      </div>
                 </div>
             </div>
 
@@ -65,6 +79,10 @@
                                name="address"
                                formControlName="address">
                       </label>
+                      <div *ngIf="getDataByFieldName('address').touched">
+                        <p *ngIf="getDataByFieldName('address').errors" class="validationError">Address isn't valid!</p>
+                        <p *ngIf="getDataByFieldName('address')?.errors?.minlength" class="validationError">Min length should be 5 !</p>
+                      </div>
                 </div>
             </div>
 
@@ -84,9 +102,12 @@
                                formControlName="password">
                       </label>
                 </div>
-                <p *ngIf="getDataByFieldName('passwords.password').errors && password.touched " class="validationError">Password isn't valid!</p>
-                <p *ngIf="getDataByFieldName('passwords.password')?.errors?.minlength && password.touched " class="validationError">Min length should be 4 !</p>
-                <p *ngIf="getDataByFieldName('passwords')?.errors?.doesMatchPassword && password.touched " class="validationError">Passwords don't match!</p>
+                <div *ngIf="getDataByFieldName('passwords.password').touched">
+                    <p *ngIf="getDataByFieldName('passwords.password').errors" class="validationError">Password isn't valid!</p>
+                    <p *ngIf="getDataByFieldName('passwords.password')?.errors?.minlength" class="validationError">Min length should be 4 !</p>
+                    <p *ngIf="getDataByFieldName('passwords')?.errors?.doesMatchPassword" class="validationError">Passwords don't match!</p>     
+                </div>
+               
             </div>
 
             <div class="col-md-6 col-xs-6">
@@ -103,9 +124,12 @@
                                formControlName="passwordRepeat">
                       </label>
                 </div>
-                <p *ngIf="getDataByFieldName('passwords.passwordRepeat').errors && passwordRepeat.touched " class="validationError">Password isn't valid!</p>
-                <p *ngIf="getDataByFieldName('passwords.passwordRepeat')?.errors?.minlength && passwordRepeat.touched " class="validationError">Min length should be 4 !</p>
-                <p *ngIf="getDataByFieldName('passwords')?.errors?.doesMatchPassword && password.touched " class="validationError">Passwords don't match!</p>
+               
+                <div *ngIf="getDataByFieldName('passwords.passwordRepeat').touched">
+                    <p *ngIf="getDataByFieldName('passwords.passwordRepeat').errors" class="validationError">Password isn't valid!</p>
+                    <p *ngIf="getDataByFieldName('passwords.passwordRepeat')?.errors?.minlength" class="validationError">Min length should be 4 !</p>
+                    <p *ngIf="getDataByFieldName('passwords')?.errors?.doesMatchPassword" class="validationError">Passwords don't match!</p>
+                </div>
             </div>
 
            

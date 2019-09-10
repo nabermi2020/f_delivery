@@ -133,15 +133,14 @@
   ],
   "users": [
     {
-      "firstName": "john",
-      "lastName": "doe",
+      "firstName": "Johnny",
+      "lastName": "Smith",
       "login": "doe777",
       "password": "test123",
-      "phone": "056454545",
+      "phone": "0501865210",
       "email": "t@i.ua",
-      "address": "LA, New Walley 145/85",
-      "userId": 993,
-      "id": 1,
+      "address": "La, New Orlean",
+      "userId": 819,
       "cart": [
         {
           "id": 417,
@@ -163,7 +162,8 @@
           "productPrice": 200,
           "productQuantity": 2
         }
-      ]
+      ],
+      "id": 1
     },
     {
       "firstName": "sdsd",

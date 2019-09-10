@@ -3,7 +3,6 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { EditModalService } from 'src/app/shared/servives/edit-modal.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-edit-profile',
@@ -32,10 +31,10 @@ export class EditProfileComponent implements OnInit {
   //Needs to extend validation logic for all fields except passwords validation
   initForm() {
     this.editForm = new FormGroup({
-      'firstName': new FormControl(this.currentUser["firstName"]),
-      'lastName': new FormControl(this.currentUser["lastName"]),
-      'phone': new FormControl(this.currentUser["phone"]),
-      'address': new FormControl(this.currentUser["address"]),
+      'firstName': new FormControl(this.currentUser["firstName"], [Validators.required, Validators.minLength(4)]),
+      'lastName': new FormControl(this.currentUser["lastName"], [Validators.required, Validators.minLength(4)]),
+      'phone': new FormControl(this.currentUser["phone"], [Validators.required, Validators.minLength(10)]),
+      'address': new FormControl(this.currentUser["address"], [Validators.required, Validators.minLength(5)]),
       passwords: new FormGroup({
         "password": new FormControl('', [Validators.required, Validators.minLength(4) ]),
         "passwordRepeat": new FormControl('', [Validators.required, Validators.minLength(4) ]),
