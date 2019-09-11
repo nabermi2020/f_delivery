@@ -1,3 +1,5 @@
+import { Cart } from './../cart/cart/cart.model';
+
 export class User {
     public userId: number;
     public firstName: string;
@@ -7,7 +9,7 @@ export class User {
     public phone: string;
     public email: string;
     public address: string;
-    public cart: Array<any>;
+    public cart: Cart;
 
     constructor(fName: string,  lName: string, login: string,
                 password: string, phone: string,

@@ -35,7 +35,7 @@ export class AuthService {
         (res: Array<any>) => {
           if (res && res.length > 0 ) {
             this.currentUser = res[0];
-            console.log(this.currentUser);
+           // console.log(this.currentUser);
           
            //this.userData.next(this.currentUser);
             this.isAuthenticated = true;

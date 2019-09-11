@@ -26,7 +26,7 @@ export class ProductDashboardComponent implements OnInit {
         this.isModalEnabled = res;
       }
     )
-    this.cartService.onProductsGettedFromServer();
+    //this.cartService.onProductsGettedFromServer();
   }
 
    

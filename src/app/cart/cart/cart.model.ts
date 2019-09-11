@@ -3,9 +3,17 @@ import { Product } from 'src/app/shared/product.model';
 export class Cart {
     public products: Array<Product>;
     public totalPrice: number;
+    public id: number;
+    public userId: number;
 
     constructor(products?: Array<Product>) {
         this.products = products ? products : [];
+        this.id = this.randomId(1, 10000);
+        this.totalPrice = 0;
+    }
+
+    setUserId(id) {
+        this.userId = id;
     }
 
     getCart(): Array<Product> {
@@ -83,5 +91,9 @@ export class Cart {
 
     cleanCart() {
         this.products = [];
+    }
+
+    randomId(upperLimit: number, lowerLimit: number) {
+        return Math.floor(Math.random() * (upperLimit - lowerLimit) + lowerLimit);
     }
 }

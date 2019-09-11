@@ -17,7 +17,7 @@ export class ProductItemComponent implements OnInit {
 
   addProductToCart() {
     this.success = true;
-    this.productCartService.addProduct(this.productData);
+    this.productCartService.addProducts(this.productData);
     setTimeout(() => {
       this.success = false;
     }, 1000);

@@ -180,7 +180,7 @@ export class SignUpComponent implements OnInit {
                            userInfo.login, userInfo.passwords.password,
                            userInfo.phone, userInfo.email,
                            userInfo.address);
-    newUser.cart = [];
+    console.log(newUser);
 
     if (this.registrationForm.valid) {
       this.authService.signUp(newUser);

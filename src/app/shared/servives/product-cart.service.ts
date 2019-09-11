@@ -15,10 +15,62 @@ export class ProductCart {
 
     constructor(private authService: AuthService,
                 private http: HttpClient) {
-                this.onProductsGettedFromServer();
-                this.unsubscribeFromProductsGettedFromServer();       
+                // this.onProductsGettedFromServer();
+                // this.unsubscribeFromProductsGettedFromServer();  
+                
+                this.cart.setUserId(this.authService.getCurrentUser().userId);
+                console.log(this.cart);
+
+                this.checkCartExistenseByUserId();
+
+    }
+    
+    //Checking cart existense on the server
+    checkCartExistenseByUserId() {
+        let userId = this.authService.getCurrentUser().userId;
+        const headers = new HttpHeaders({'Content-type': 'application/json'});
+        this.http.get(`${this.apiUrl}/cart?userId=${userId}`, { headers: headers})
+            .subscribe(
+                (res: Array<any>) => {
+                    if (res.length != 0) {
+                        console.log(res);
+                    } else {
+                        alert('Cart doesn\'t exist!');
+                        this.createCartOnServer();
+                    }
+
+                }
+            );
+
     }
 
+    //For creating cart on the server if it doesn't exist
+    createCartOnServer() {
+        const headers = new HttpHeaders({'Content-type': 'application/json'});
+        this.http.post(`${this.apiUrl}/cart`, this.cart, { headers: headers})
+            .subscribe(
+                res => {
+                    alert('Cart is acreated!');
+                }
+            );    
+    }
+
+    addProducts(product: Product) {
+        this.cart.addProduct(product);
+        this.synchCartWithServer();
+        this.onProductAdded.next(this.cart.getCart());
+    }
+
+    synchCartWithServer() {
+        const headers = new HttpHeaders({'Content-type': 'application/json'});
+        let userData = this.authService.getCurrentUser();
+       
+        console.log('HEREEEEE');
+        console.log(userData);
+        //return this.http.put(`${this.apiUrl}/cart/${userData.id}`, userData, { headers: headers}); 
+    }
+
+/*---------------------------------------------------------------------------------------------*/
     onProductsGettedFromServer() {
         this.product = this.getProductsFromServer()
         .subscribe(
@@ -82,6 +134,11 @@ export class ProductCart {
         //console.log(userData);
     }
 
+
+
+
+
+ /*-----------------------------CART ENTITY LOGIC -------------------------------*/   
     calculateProductsQuantity(): number {
         return this.cart.calculateProductsQuantity();
     }
