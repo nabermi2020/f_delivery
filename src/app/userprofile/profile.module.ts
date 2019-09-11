@@ -4,16 +4,19 @@ import { ProfileComponent } from './profile/profile.component';
 import { NgModule } from '@angular/core';
 import { ProfileDetailComponent } from './profile-detail/profile-detail.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { SharedModule } from '../shared/shared.module';
+import { FormatPhonePipe } from '../shared/format-phone.pipe';
  
 @NgModule({
     declarations: [
         ProfileComponent,
         ProfileDetailComponent,
-         EditProfileComponent         
+         EditProfileComponent  
     ],
     imports:[
         CommonModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        SharedModule
       
     ],
     exports: [

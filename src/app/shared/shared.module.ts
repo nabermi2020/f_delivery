@@ -5,6 +5,7 @@ import { HeaderComponent } from './../shared/header/header.component';
 
 import { NgModule } from '@angular/core';
 import { ShortenPipe } from './shorten.pipe';
+import { FormatPhonePipe } from './format-phone.pipe';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import { ShortenPipe } from './shorten.pipe';
        HeaderComponent,
        SideBarComponent,
        ShortenPipe,
+       FormatPhonePipe,
         
     ],
     imports: [
@@ -20,7 +22,8 @@ import { ShortenPipe } from './shorten.pipe';
     ], 
     exports: [
         HeaderComponent,
-        SideBarComponent
+        SideBarComponent,
+        FormatPhonePipe
     ]
 
 })

@@ -5,9 +5,9 @@
       <a [routerLink]="['/dashboard/products', 'pizza']">Logo</a>
     </div>
     <ul>
-      <li routerLinkActive = "activeTab" [routerLink]="['/dashboard', 'products', 'pizza']"><a  >Pizza</a></li>
-      <li routerLinkActive = "activeTab" [routerLink]="['/dashboard/products/', 'drinks']"><a >Drinks</a></li>
-      <li routerLinkActive = "activeTab" [routerLink]="['/dashboard/products/', 'salads']"><a >Salads</a></li>
+      <li routerLinkActive = "activeTab" [routerLink]="['/dashboard', 'products', 'pizza']"><a  >{{ 'Pizza' | uppercase }}</a></li>
+      <li routerLinkActive = "activeTab" [routerLink]="['/dashboard/products/', 'drinks']"><a >{{ 'Drinks' | uppercase }}</a></li>
+      <li routerLinkActive = "activeTab" [routerLink]="['/dashboard/products/', 'salads']"><a >{{ 'Salads' | uppercase }}</a></li>
   </ul>
   </nav>
 </div>
