@@ -5,13 +5,11 @@ import { NgModule } from '@angular/core';
 import { ProfileDetailComponent } from './profile-detail/profile-detail.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
  
-
 @NgModule({
     declarations: [
         ProfileComponent,
         ProfileDetailComponent,
-         EditProfileComponent
-         
+         EditProfileComponent         
     ],
     imports:[
         CommonModule,

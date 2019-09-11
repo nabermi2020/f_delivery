@@ -49,7 +49,6 @@ export class EditProfileComponent implements OnInit {
     return this.editForm.get(data);
   }
 
-
   validatePasswords(registrationFormGroup: FormGroup) {
     let password = registrationFormGroup.controls.password.value;
     let repeatPassword = registrationFormGroup.controls.passwordRepeat.value;

@@ -15,8 +15,8 @@ export class ProductCart {
 
     constructor(private authService: AuthService,
                 private http: HttpClient) {
-            this.onProductsGettedFromServer();
-            this.unsubscribeFromProductsGettedFromServer();       
+                this.onProductsGettedFromServer();
+                this.unsubscribeFromProductsGettedFromServer();       
     }
 
     onProductsGettedFromServer() {
