@@ -206,7 +206,7 @@
       "phone": "0501865210",
       "email": "naber2008@ukr.n",
       "address": "LA, New Walley 145/85",
-      "userId": 934,
+      "userId": 857,
       "id": 22
     }
   ],
@@ -306,11 +306,32 @@
       "userId": 692
     },
     {
-      "products": [],
-      "cartId": 6879,
-      "totalPrice": 0,
+      "products": [
+        {
+          "id": 3,
+          "productTitle": "With Prosciutto",
+          "imgPath": "https://pizzaletta.com/uploads/salat/image/5/%D0%97_%D0%BF%D1%80%D0%BE%D1%88%D1%83%D1%82%D0%BE_150%D0%B3.JPG",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
+          "productPrice": 199,
+          "productQuantity": 2
+        },
+        {
+          "id": 4,
+          "productTitle": "Vegetable Plateau",
+          "imgPath": "https://pizzaletta.com/uploads/salat/image/8/IMG_7157.jpg",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
+          "productPrice": 199,
+          "productQuantity": 1
+        }
+      ],
+      "cartId": 9453,
+      "totalPrice": 597,
       "id": 22,
-      "userId": 934
+      "userId": 857
     }
   ]
 }

@@ -27,16 +27,16 @@ export class ProductCart {
     //Checking cart existense on the server
     checkCartExistenseByUserId() {
         this.cart.setUserId(this.authService.getCurrentUser());
-        let userId = this.authService.getCurrentUser().userId;
+        let userId = this.authService.getCurrentUser().id;
         const headers = new HttpHeaders({'Content-type': 'application/json'});
-        this.http.get(`${this.apiUrl}/cart?userId=${userId}`, { headers: headers})
+        this.http.get(`${this.apiUrl}/cart?id=${userId}`, { headers: headers})
             .subscribe(
                 (res: Array<any>) => {
                     if (res.length != 0) {
-                        //alert('Cart exists!');
+                     //  alert('Cart exists!');
                         console.log(res);
                     } else {
-                        //alert('Cart doesn\'t exist!');
+                       // alert('Cart doesn\'t exist!');
                         this.createCartOnServer();
                     }
                 }

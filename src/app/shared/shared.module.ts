@@ -4,11 +4,15 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './../shared/header/header.component';
 
 import { NgModule } from '@angular/core';
+import { ShortenPipe } from './shorten.pipe';
+
 
 @NgModule({
     declarations: [
        HeaderComponent,
-       SideBarComponent
+       SideBarComponent,
+       ShortenPipe,
+        
     ],
     imports: [
         CommonModule,
