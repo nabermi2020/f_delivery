@@ -9,7 +9,6 @@ export class User {
     public phone: string;
     public email: string;
     public address: string;
-    public cart: Cart;
 
     constructor(fName: string,  lName: string, login: string,
                 password: string, phone: string,

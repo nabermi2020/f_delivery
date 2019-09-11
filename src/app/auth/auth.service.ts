@@ -68,12 +68,6 @@ export class AuthService {
     localStorage.removeItem("userInfo");
   }
 
-  // signUp(user: User) {
-  //   this.users.push(user);
-  //   console.log(this.users);
-  //   this.addNewUser(this.users).subscribe();
-  // }
-
   signUp(users) {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
      
@@ -121,7 +115,7 @@ export class AuthService {
                         userData.phone, this.currentUser.email, userData.address);
     
     const headers = new HttpHeaders({'Content-type': 'application/json'});
-    user.cart = this.currentUser.cart;
+    
     
     return this.http.put(`${this.apiUrl}/users/${this.currentUser.id}`,  user, { headers: headers});
   }

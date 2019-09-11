@@ -10,38 +10,37 @@ import { Subject, Subscription } from 'rxjs';
 export class ProductCart {
     cart = new Cart();
     onProductAdded = new Subject<any>();
-    product = new Subscription();
+    gettingProducts = new Subscription();
     apiUrl: any = "http://localhost:3000";
 
     constructor(private authService: AuthService,
                 private http: HttpClient) {
-                // this.onProductsGettedFromServer();
-                // this.unsubscribeFromProductsGettedFromServer();  
-                
-                this.cart.setUserId(this.authService.getCurrentUser().userId);
-                console.log(this.cart);
+                //this.unsubscribeFromProductsGettedFromServer();  
+            
+               // console.log(this.cart);
 
                 this.checkCartExistenseByUserId();
+                this.getCartFromServer();
 
     }
     
     //Checking cart existense on the server
     checkCartExistenseByUserId() {
+        this.cart.setUserId(this.authService.getCurrentUser());
         let userId = this.authService.getCurrentUser().userId;
         const headers = new HttpHeaders({'Content-type': 'application/json'});
         this.http.get(`${this.apiUrl}/cart?userId=${userId}`, { headers: headers})
             .subscribe(
                 (res: Array<any>) => {
                     if (res.length != 0) {
+                        //alert('Cart exists!');
                         console.log(res);
                     } else {
-                        alert('Cart doesn\'t exist!');
+                        //alert('Cart doesn\'t exist!');
                         this.createCartOnServer();
                     }
-
                 }
             );
-
     }
 
     //For creating cart on the server if it doesn't exist
@@ -50,7 +49,7 @@ export class ProductCart {
         this.http.post(`${this.apiUrl}/cart`, this.cart, { headers: headers})
             .subscribe(
                 res => {
-                    alert('Cart is acreated!');
+                    alert('Cart is  created!');
                 }
             );    
     }
@@ -64,34 +63,48 @@ export class ProductCart {
     synchCartWithServer() {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
         let userData = this.authService.getCurrentUser();
-       
-        console.log('HEREEEEE');
-        console.log(userData);
-        //return this.http.put(`${this.apiUrl}/cart/${userData.id}`, userData, { headers: headers}); 
+
+        console.log(userData);   
+
+        this.http.put(`${this.apiUrl}/cart/${this.cart.id}`, this.cart, { headers: headers})
+            .subscribe(
+                res => {
+                   // alert('successfully added');
+                },
+                err => {
+                    //alert('error added');
+                }
+            );
     }
 
-/*---------------------------------------------------------------------------------------------*/
-    onProductsGettedFromServer() {
-        this.product = this.getProductsFromServer()
-        .subscribe(
-            res => {
-                this.cart.setProducts(res["cart"]);
-                this.onProductAdded.next(this.cart.getCart()); 
-                console.log(this.cart);
-            },
+    getCartFromServer() {
+        const headers = new HttpHeaders({'Content-type': 'application/json'});
+        let userId = this.authService.getCurrentUser().id;
+        this.gettingProducts = this.http.get(`${this.apiUrl}/cart/${userId}`, { headers: headers})
+            .subscribe(
+                res => {
+                    console.log('Getted from server!');
 
-            err => {
-                alert('Error products!');
-            }
-        );
+                    this.cart.setProducts(res["products"]);
+                    this.cart.setCartId(res["cartId"]);
+                    this.onProductAdded.next(this.cart.getCart()); 
+                    
+                    console.log(this.cart);
+                //    alert('Success getting cart!!!');
+                },
+                err => {
+                    alert('Error while getting cart from server!');
+                }
+            ) 
     }
+
 
     unsubscribeFromProductsGettedFromServer() {
         this.authService.isUserAuthorized
         .subscribe(
             res => {
                 if (!res) {
-                   this.product.unsubscribe(); 
+                   this.gettingProducts.unsubscribe(); 
                 }
             },
 
@@ -101,44 +114,7 @@ export class ProductCart {
         )
     }
      
-    addProduct(product: Product) {
-        this.cart.addProduct(product);
-
-        this.synchronizeCartWithServer()
-            .subscribe(
-                res => {
-                    console.log('SUCCESS CART UPDATED!')
-                },
-                err => {
-                    alert('Error - cart isn\'t synchronized!');
-                }
-            )
-
-         this.onProductAdded.next(this.cart.getCart());
-    }
-
-    getProductsFromServer() {
-        const headers = new HttpHeaders({'Content-type': 'application/json'});
-        let userData = this.authService.getCurrentUser();
-        // console.log(userData.cart);
-        
-        return this.http.get(`${this.apiUrl}/users/${userData.id}`, { headers: headers });   
-    }
-
-    synchronizeCartWithServer() {
-        const headers = new HttpHeaders({'Content-type': 'application/json'});
-        let userData = this.authService.getCurrentUser();
-        userData.cart = this.cart.getCart();
-
-        return this.http.put(`${this.apiUrl}/users/${userData.id}`, userData, { headers: headers});
-        //console.log(userData);
-    }
-
-
-
-
-
- /*-----------------------------CART ENTITY LOGIC -------------------------------*/   
+  
     calculateProductsQuantity(): number {
         return this.cart.calculateProductsQuantity();
     }
@@ -150,7 +126,7 @@ export class ProductCart {
     deleteProductById(id) {
         this.cart.deleteProductById(id);
         this.onProductAdded.next(this.cart.getCart());
-        this.synchronizeCartWithServer().subscribe();
+        this.synchCartWithServer();
     }
 
     getTotalPrice() {

@@ -5,24 +5,30 @@ export class Cart {
     public totalPrice: number;
     public id: number;
     public userId: number;
+    public cartId: number;
 
     constructor(products?: Array<Product>) {
         this.products = products ? products : [];
-        this.id = this.randomId(1, 10000);
+        this.cartId = this.randomId(1, 10000);
         this.totalPrice = 0;
     }
 
-    setUserId(id) {
-        this.userId = id;
+    setUserId(userData) {
+        this.id = userData.id;
+        this.userId = userData.userId;
+    }
+
+    setCartId(id) {
+        this.cartId = id;
     }
 
     getCart(): Array<Product> {
-        console.log(this.products);
+       // console.log(this.products);
         return this.products;
     }
 
     setProducts(products) {
-        console.log(products);
+       // console.log(products);
         this.products = products;
     }
 

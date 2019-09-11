@@ -153,9 +153,164 @@
       "address": "LA, New Walley 145/85",
       "userId": 133,
       "id": 17
+    },
+    {
+      "firstName": "orest",
+      "lastName": "Kapko",
+      "login": "o777",
+      "password": "test123",
+      "phone": "0501865210",
+      "email": "naber2008@ukr.netaa",
+      "address": "LA, New Walley 145/85",
+      "userId": 112,
+      "id": 18
+    },
+    {
+      "firstName": "test555",
+      "lastName": "user",
+      "login": "test555",
+      "password": "test123",
+      "phone": "0501865210",
+      "email": "naber2019@ukr.nett",
+      "address": "LA, New Walley 145/85",
+      "userId": 82,
+      "id": 19
+    },
+    {
+      "firstName": "miki",
+      "lastName": "rash",
+      "login": "miki777",
+      "password": "test123",
+      "phone": "0501865210",
+      "email": "naber2008@ukr.nes",
+      "address": "LA, New Walley 145/85",
+      "userId": 232,
+      "id": 20
+    },
+    {
+      "firstName": "mini",
+      "lastName": "kolet",
+      "login": "mini777",
+      "password": "test123",
+      "phone": "0501865210",
+      "email": "naber201725@gmail.comcc",
+      "address": "LA, New Walley 145/85",
+      "userId": 692,
+      "id": 21
+    },
+    {
+      "firstName": "Sara",
+      "lastName": "Ohern",
+      "login": "sara777",
+      "password": "test123",
+      "phone": "0501865210",
+      "email": "naber2008@ukr.n",
+      "address": "LA, New Walley 145/85",
+      "userId": 934,
+      "id": 22
     }
   ],
   "cart": [
-
+    {
+      "products": [],
+      "cartId": 1748,
+      "totalPrice": 0,
+      "id": 18,
+      "userId": 112
+    },
+    {
+      "products": [],
+      "cartId": 7909,
+      "totalPrice": 0,
+      "id": 17,
+      "userId": 133
+    },
+    {
+      "products": [
+        {
+          "id": 3,
+          "productTitle": "With Prosciutto",
+          "imgPath": "https://pizzaletta.com/uploads/salat/image/5/%D0%97_%D0%BF%D1%80%D0%BE%D1%88%D1%83%D1%82%D0%BE_150%D0%B3.JPG",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
+          "productPrice": 199,
+          "productQuantity": 1
+        },
+        {
+          "id": 2,
+          "productTitle": "Cesar with Chicken",
+          "imgPath": "https://pizzaletta.com/uploads/salat/image/1/%D0%A6%D0%B5%D0%B7%D0%B0%D1%80_%D0%B7_%D0%BA%D1%83%D1%80%D0%BA%D0%BE%D1%8E_150%D0%B3.JPG",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
+          "productPrice": 199,
+          "productQuantity": 1
+        },
+        {
+          "id": 4,
+          "productTitle": "Vegetable Plateau",
+          "imgPath": "https://pizzaletta.com/uploads/salat/image/8/IMG_7157.jpg",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
+          "productPrice": 199,
+          "productQuantity": 1
+        }
+      ],
+      "cartId": 6891,
+      "totalPrice": 597,
+      "id": 16,
+      "userId": 832
+    },
+    {
+      "products": [],
+      "cartId": 1391,
+      "totalPrice": 0,
+      "id": 19,
+      "userId": 82
+    },
+    {
+      "products": [],
+      "cartId": 7386,
+      "totalPrice": 0,
+      "id": 20,
+      "userId": 232
+    },
+    {
+      "products": [
+        {
+          "id": 417,
+          "productTitle": "Four Cheeses Classic",
+          "imgPath": "./../../assets/pizza3.jpg",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
+          "productPrice": 199,
+          "productQuantity": 2
+        },
+        {
+          "id": 468,
+          "productTitle": "Carbonara",
+          "imgPath": "https://pizzaletta.com/uploads/pizza/image/19/pl-pizza-12.jpg",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Ham, mozzarella, tomatoes, corn, garlic sauce",
+          "productPrice": 200,
+          "productQuantity": 1
+        }
+      ],
+      "cartId": 1172,
+      "totalPrice": 598,
+      "id": 21,
+      "userId": 692
+    },
+    {
+      "products": [],
+      "cartId": 6879,
+      "totalPrice": 0,
+      "id": 22,
+      "userId": 934
+    }
   ]
 }
