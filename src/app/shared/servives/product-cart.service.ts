@@ -3,7 +3,7 @@ import { AuthService } from './../../auth/auth.service';
 import { Injectable  } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Product } from '../product.model';
-import { Subject, Subscription } from 'rxjs';
+import { Subject, Subscription, Observable } from 'rxjs';
 
 
 @Injectable()
@@ -21,6 +21,17 @@ export class ProductCart {
 
                 this.checkCartExistenseByUserId();
                 this.getCartFromServer();
+
+                // this.testObservable()
+                //     .subscribe(
+                //         res => {
+                //             console.log(res);
+                //         },
+                //         err => {
+                //             alert(err);
+                //         }
+                        
+                //     )
 
     }
     
@@ -132,4 +143,16 @@ export class ProductCart {
     getTotalPrice() {
         return this.cart.getTotalPrice();
     }  
+
+    testObservable(): Observable<any> {
+        let test = new Observable(observer => {
+            let i = 0;
+            setInterval(() =>{
+                observer.next(++i);
+        
+            }, 1000);
+        
+        });
+        return test;
+    }
 }

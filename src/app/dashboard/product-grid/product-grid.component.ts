@@ -11,6 +11,7 @@ import { ProductService } from 'src/app/shared/servives/products.service';
 export class ProductGridComponent implements OnInit {
   products: any;
   activeCategory: string = "pizza";
+  activeFilter: string = "All";
   constructor(private productsService: ProductService,
               private route: ActivatedRoute) { }
 
@@ -24,6 +25,8 @@ export class ProductGridComponent implements OnInit {
              .subscribe(
                res => {
                 this.products = res;
+                this.activeFilter = "All";
+                console.log(this.products);
                },
                
                err => {
@@ -43,5 +46,13 @@ export class ProductGridComponent implements OnInit {
       }
     )
   }
+
+  setFilterCategory(cat) {
+    this.activeFilter = cat;
+    console.log(cat);
+    console.log(this.products);
+  }
+
+
 }
       

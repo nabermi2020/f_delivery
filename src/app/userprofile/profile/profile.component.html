@@ -2,6 +2,7 @@
     <ul id="profileNav">
         <li>
             <a>Profile Info</a>
+            <a>Order History</a>
         </li>
     </ul>
     <div id="editProfile" (click)="editProfile()">Edit</div>
@@ -17,7 +18,7 @@
     <ng-container *ngIf="editMode">
         <app-edit-profile></app-edit-profile>
     </ng-container>
-    
+    <app-order-history></app-order-history>
 </div>
  
 

@@ -8,6 +8,8 @@ import { NgModule } from '@angular/core';
 import { ProductDashboardComponent } from './product-dashboard/product-dashboard.component';
 import { ProductGridComponent } from './product-grid/product-grid.component';
 import { ProductItemComponent } from './product-item/product-item.component';
+import { FiltersComponent } from './filters/filters.component';
+import { FilterProductsPipe } from './filter-products.pipe';
 
 @NgModule({
     declarations: [
@@ -15,6 +17,8 @@ import { ProductItemComponent } from './product-item/product-item.component';
      //  SideBarComponent,
        ProductGridComponent,
        ProductItemComponent,
+       FiltersComponent,
+       FilterProductsPipe,
     ],
     imports: [
         CommonModule,
