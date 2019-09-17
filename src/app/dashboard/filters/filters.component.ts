@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./filters.component.scss']
 })
 export class FiltersComponent implements OnInit {
-  activeCategory: string;
+  activeCategory: string = 'All';
   @Output() onActiveCategorySelected = new EventEmitter();
   activeFilter: [];
   filters =  {
@@ -25,18 +25,22 @@ export class FiltersComponent implements OnInit {
           
           this.activeCategory = res["cat"];
           this.activeFilter = this.filters[this.activeCategory];
-          
+          this.activeCategory = 'All';
 
         console.log(this.activeCategory);
           
           console.log(this.activeFilter);
         }
       )
+      
        
   }
 
   filterProductsByCategory(filter) {
     //console.log(filter);
+    this.activeCategory = filter;
+    console.log(this.activeCategory);
+    console.log(filter);
     this.onActiveCategorySelected.emit(filter);
   }
 
