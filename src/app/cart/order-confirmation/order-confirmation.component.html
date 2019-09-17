@@ -145,11 +145,15 @@
                     </div>
 
                     <div class="productTitle">
-                        {{ product.productTitle }}
+                        {{ product.productTitle }} X {{ product.productQuantity || ''}}
                     </div>
 
                     <div class="productPrice">
                         {{ product.productPrice * product.productQuantity }} $
+                    </div>
+
+                    <div class="deleteItem">
+                        <button class="btn btn-danger btn-sm">X</button>
                     </div>
                 </div>
               </div>

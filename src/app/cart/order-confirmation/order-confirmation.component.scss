@@ -86,7 +86,7 @@
                 }
 
                 .productTitle {
-                    width: 65%;
+                    width: 50%;
                     display: inline-block;
                     text-align: center;
                     line-height: 100%;
@@ -95,6 +95,13 @@
 
                 .productPrice {
                     width: 20%;
+                    display: inline-block;
+                }
+
+                .deleteItem {
+                    //border: 1px solid red;
+                    text-align: center;
+                    width: 10%;
                     display: inline-block;
                 }
             }
