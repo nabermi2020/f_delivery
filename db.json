@@ -359,26 +359,6 @@
           "productQuantity": 2
         },
         {
-          "id": 2,
-          "productTitle": "Cesar with Chicken",
-          "imgPath": "https://pizzaletta.com/uploads/salat/image/1/%D0%A6%D0%B5%D0%B7%D0%B0%D1%80_%D0%B7_%D0%BA%D1%83%D1%80%D0%BA%D0%BE%D1%8E_150%D0%B3.JPG",
-          "productWeight": "550",
-          "productSize": "30",
-          "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
-          "productPrice": 199,
-          "productQuantity": 1
-        },
-        {
-          "id": 448,
-          "productTitle": "Hot Chili",
-          "imgPath": "https://pizzaletta.com/uploads/pizza/image/27/IMG_8769_compress.jpg",
-          "productWeight": "550",
-          "productSize": "30",
-          "productDescription": "Ham, mozzarella, tomatoes, corn, garlic sauce",
-          "productPrice": 200,
-          "productQuantity": 1
-        },
-        {
           "id": 3,
           "productTitle": "Doctor Pepper Cherry",
           "imgPath": "https://pizzaletta.com/uploads/drink/image/18/IMG_5887.JPG",
@@ -404,11 +384,11 @@
             "All",
             "Vegetarian"
           ],
-          "productQuantity": 1
+          "productQuantity": 3
         }
       ],
       "cartId": 9453,
-      "totalPrice": 1195,
+      "totalPrice": 1194,
       "id": 22,
       "userId": 857
     }
