@@ -1,0 +1,5 @@
+<ul>
+    <li *ngFor="let filter of activeFilter" (click)="filterProductsByCategory(filter)">
+        {{ filter }}
+    </li>
+</ul>
