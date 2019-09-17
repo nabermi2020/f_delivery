@@ -37,7 +37,7 @@
     </div>
 
     <div id="controls" *ngIf="cart.length">
-        <button class="btn btn-success" id="buyProducts" style="min-width:180px">BUY</button>
+        <button class="btn btn-success" id="buyProducts" style="min-width:180px"(click)="makeAnOrder()">BUY</button>
         <div id="totalPrice">{{ totalPrice }} $</div>
     </div>
 </div>

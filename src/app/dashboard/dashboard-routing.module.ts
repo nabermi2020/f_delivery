@@ -1,3 +1,4 @@
+import { OrderConfirmationComponent } from './../cart/order-confirmation/order-confirmation.component';
 import { CartComponent } from '../cart/cart/cart.component';
 import { ProfileDetailComponent } from './../userprofile/profile-detail/profile-detail.component';
 import { AuthGuard } from './../auth/auth-guard.service';
@@ -16,7 +17,8 @@ const dashboardRoutes: Routes = [
            { path: ':cat', component: ProductGridComponent, canActivate: [AuthGuard]},
            
         ] },
-        { path: 'cart', component: CartComponent}
+        { path: 'cart', component: CartComponent },
+        { path: 'order-confirmation', component: OrderConfirmationComponent}
     ]},
 ]
 

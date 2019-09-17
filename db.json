@@ -356,7 +356,7 @@
           "productSize": "30",
           "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
           "productPrice": 199,
-          "productQuantity": 2
+          "productQuantity": 3
         },
         {
           "id": 3,
@@ -388,7 +388,7 @@
         }
       ],
       "cartId": 9453,
-      "totalPrice": 1194,
+      "totalPrice": 1393,
       "id": 22,
       "userId": 857
     }
