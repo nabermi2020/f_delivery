@@ -27,9 +27,8 @@ export class FiltersComponent implements OnInit {
           this.activeFilter = this.filters[this.activeCategory];
           this.activeCategory = 'All';
 
-        console.log(this.activeCategory);
-          
-          console.log(this.activeFilter);
+          // console.log(this.activeCategory);   
+          // console.log(this.activeFilter);
         }
       )
       
@@ -37,10 +36,7 @@ export class FiltersComponent implements OnInit {
   }
 
   filterProductsByCategory(filter) {
-    //console.log(filter);
     this.activeCategory = filter;
-    console.log(this.activeCategory);
-    console.log(filter);
     this.onActiveCategorySelected.emit(filter);
   }
 
