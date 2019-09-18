@@ -4,6 +4,7 @@ import { Injectable  } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Product } from '../product.model';
 import { Subject, Subscription, Observable } from 'rxjs';
+import { Order } from 'src/app/cart/order.model';
 
 
 @Injectable()
@@ -143,6 +144,25 @@ export class ProductCart {
     getTotalPrice() {
         return this.cart.getTotalPrice();
     }  
+
+
+    onOrderSuccess() {
+        //TODO
+    }
+
+    onOrderError() {
+        //TODO
+    }
+
+    getProductCart(): Cart {
+        return this.cart;
+    }
+
+    cleanCart() {
+        this.cart.cleanCart();
+        this.synchCartWithServer();
+        this.onProductAdded.next(this.cart);
+    }
 
     testObservable(): Observable<any> {
         let test = new Observable(observer => {

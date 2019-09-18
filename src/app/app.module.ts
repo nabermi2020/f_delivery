@@ -1,3 +1,4 @@
+import { OrdersService } from './shared/servives/orders.service';
 import { EditModalService } from './shared/servives/edit-modal.service';
 import { ProductService } from './shared/servives/products.service';
 import { AuthService } from './auth/auth.service';
@@ -21,7 +22,14 @@ import { ProductCart } from './shared/servives/product-cart.service';
     HttpClientModule
     
   ],
-  providers: [AuthGuard, AuthService, ProductService, ProductCart, EditModalService],
+  providers: [
+    AuthGuard,
+    AuthService,
+    ProductService,
+    ProductCart,
+    EditModalService,
+    OrdersService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
