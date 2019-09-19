@@ -4,6 +4,7 @@ import { AuthService } from './../../auth/auth.service';
 import { Injectable } from '@angular/core';
 import { Order } from 'src/app/cart/order.model';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,13 @@ export class OrdersService {
                 alert('Something went wrong!');
             }
         );
-}
+  }
+
+//Need to test
+  getOrders(): Observable<any> {
+    const headers = new HttpHeaders({'Content-type': 'application/json'});
+    let id = this.authService.getCurrentUser().id;
+    return this.http.get(`${this.apiUrl}/orders?userId=${id}`, { headers: headers });
+  }
 
 }
