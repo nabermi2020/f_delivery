@@ -16,6 +16,7 @@
         min-height: 400px;
         height: auto;
 
+      
 
         #orderInfo {
             margin-left: 15px;
@@ -139,4 +140,9 @@
             }
         }
     }
+}
+
+.validationError {
+    color: rgb(138, 34, 34)(197, 31, 31);
+    font-weight: 600;
 }

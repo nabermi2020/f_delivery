@@ -26,9 +26,11 @@
                                    name="firstName"
                                    ngModel>
                         </label>
+                        <div *ngIf="!firstName.valid && firstName.touched" class="validationErrors">First name isn't valid!</div>
                     </div>
                 </div>
 
+             
                 <div class="col-md-6 col-xs-6">
                     <div class="form-group">
                         <label for="Last Name">
@@ -43,6 +45,7 @@
                                    name="lastName"
                                    ngModel>
                         </label>
+                        <div *ngIf="!lastName.valid && lastName.touched" class="validationErrors">Last name isn't valid!</div>
                     </div>
                 </div>
 
@@ -60,6 +63,7 @@
                                    name="email"
                                    ngModel>
                         </label>
+                        <div *ngIf="!email.valid && email.touched" class="validationErrors">Email isn't valid!</div>
                     </div>
                 </div>
 
@@ -77,6 +81,7 @@
                                    name="phone"
                                    ngModel>
                         </label>
+                        <div *ngIf="!phone.valid && phone.touched" class="validationErrors">Phone isn't valid!</div>
                     </div>
                 </div>
 
@@ -94,6 +99,7 @@
                                        name="address"
                                        ngModel>
                             </label>
+                            <div *ngIf="!address.valid && address.touched" class="validationErrors">Address isn't valid!</div>
                         </div>
                     </div>
 
@@ -115,6 +121,7 @@
                                         <option value="1600">16 00</option>
                                         <option value="1700">17 00</option>    
                                     </select>
+                                    <div *ngIf="!orderTime.valid && orderTime.touched" class="validationErrors">Delivery time is required!</div>
                                 </label>
                             </div>
                         </div>
@@ -123,7 +130,8 @@
                   <div class="controlWrapper">
                     <button class="btn btn-danger"
                         type="submit"
-                        id="orderControl">Order</button>
+                        id="orderControl" 
+                        [disabled]="!form.valid">Order</button>
                   </div>
                   
                 </div>
