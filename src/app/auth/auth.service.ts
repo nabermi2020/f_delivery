@@ -25,7 +25,12 @@ export class AuthService {
               private http: HttpClient 
                ) { }
 
-
+/**
+ * User authentication
+ * @param {String} user's login
+ * @param {String} user's password
+ * @return {Boolean} returns authentication status
+ */               
   signInn(login: string, password: string) {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
     let authStatus;
@@ -58,16 +63,27 @@ export class AuthService {
       return authStatus ? true : false; 
   }
 
+/**
+ * Update user data
+ */
   updateUserData() {
     this.signInn(this.currentUser.login, this.currentUser.password);
   }
 
+/**
+ * Logout user from the active session
+ */  
   logOut() {
     this.isAuthenticated = false;
     this.isUserAuthorized.next(this.isAuthenticated);
     localStorage.removeItem("userInfo");
   }
 
+
+ /**
+ * Register new user and navigate to the 'sign-in'
+ * @param {User} new user instance
+ */ 
   signUp(users) {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
      
@@ -82,24 +98,48 @@ export class AuthService {
       );
   }
 
+
+/**
+ * Check user's login existence in DB
+ * @param {User} user's login 
+ * @return {Observable} result with array of 1 user if there's user with the same login
+ */
   checkUser(login: User): Observable<any> {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
     return this.http.get(`${this.apiUrl}/users?login=${login}`, {headers: headers});
   }
 
+/**
+ * Check existense of user email in DB
+ * @param {string} user's email 
+ * @return {Observable} array with 1 email if there's user withthe same email
+ */
   checkEmail(email: string): Observable<any>{
     const headers = new HttpHeaders({'Content-type': 'application/json'});
     return this.http.get(`${this.apiUrl}/users?email=${email}`, {headers: headers});
   }
 
+/**
+ * Return user's authentication status
+ * @return {boolean} auth status;
+ */
   isAuthorized(): boolean {
     return this.isAuthenticated;
   }
 
+ /**
+  *  Return current user's info
+  * @return {obj} user's data 
+  */ 
   getCurrentUser(): any {
     return this.currentUser;
   }
 
+ /**
+  * Check user credentials
+  * @param {obj} object with credentials
+  * @return {Observable} array of 1 user if search was successfull 
+  */ 
   checkUserInfo(userData): Observable<any> {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
     let login = this.currentUser.login;
@@ -107,6 +147,11 @@ export class AuthService {
     return this.http.get(`${this.apiUrl}/users?login=${login}&&password=${password}`, { headers: headers});
   }
 
+/**
+ * Update user info for user with appropriate id
+ * @param {Obj} user's data
+ * @return {Observable} updating result
+ */
   updateUserInfo(userData): Observable<any> {
     //console.log(this.currentUser.id);
     

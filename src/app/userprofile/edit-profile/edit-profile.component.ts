@@ -19,7 +19,7 @@ export class EditProfileComponent implements OnInit {
               private authService: AuthService) { }
 
   ngOnInit() {
-    this.route.firstChild.params.subscribe( 
+    this.route.params.subscribe( 
       (par: Params) => {
         this.id = par["id"];
         this.currentUser = this.authService.getCurrentUser();

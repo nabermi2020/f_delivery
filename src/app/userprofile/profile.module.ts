@@ -1,3 +1,4 @@
+import { DashboardRoutingModule } from './../dashboard/dashboard-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ProfileComponent } from './profile/profile.component';
@@ -18,8 +19,8 @@ import { OrderHistoryComponent } from './order-history/order-history.component';
     imports:[
         CommonModule,
         ReactiveFormsModule,
-        SharedModule
-      
+        SharedModule,
+        DashboardRoutingModule
     ],
     exports: [
 

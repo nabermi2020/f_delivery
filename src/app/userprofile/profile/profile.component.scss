@@ -10,18 +10,7 @@
     box-shadow: 0 0 10px black;
     position: relative;
 
-    #editProfile {
-        position: absolute;
-        display: inline-block;
-      //  border: 1px solid red;
-        right: 3%;
-        font-weight: 600;
-        color: red;
-
-        &:hover {
-            cursor: pointer;
-        }
-    }
+ 
 
     #profileNav {
         height: 35px;
@@ -42,11 +31,6 @@
             color: white;
         }
     }
-
-    #userDetail {
-        width: 80%;
-        height: 100%;
-        margin: 0 auto;
-    }
+ 
 
 }

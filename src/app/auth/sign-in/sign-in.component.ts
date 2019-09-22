@@ -15,6 +15,10 @@ export class SignInComponent implements OnInit {
 
   ngOnInit() {}
 
+/**
+ * Provide user login using appropriate credentials
+ * @param {NgForm} login and password.
+ */
   onLogin(form: NgForm) {
     let login = form.value.login;
     let password = form.value.password;

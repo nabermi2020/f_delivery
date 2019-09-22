@@ -7,12 +7,17 @@ import { ProductDashboardComponent } from './product-dashboard/product-dashboard
 import { Routes, RouterModule, ActivatedRoute } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { ProductGridComponent } from './product-grid/product-grid.component';
+import { OrderHistoryComponent } from '../userprofile/order-history/order-history.component';
 
 const dashboardRoutes: Routes = [
     { path: '', component: ProductDashboardComponent, canActivate: [AuthGuard], children: [
         { path: 'profile', component: ProfileComponent, children: [
-            { path: ':id', component: ProfileDetailComponent, canActivate: [AuthGuard]}
+            { path: '', component: ProfileDetailComponent},
+           // { path: ':id', component: ProfileDetailComponent, canActivate: [AuthGuard]},
+           { path: 'order-history', component: OrderHistoryComponent },
+            
         ]},
+        
         { path: "products", component: ProductGridComponent, children: [
            { path: ':cat', component: ProductGridComponent, canActivate: [AuthGuard]},
            

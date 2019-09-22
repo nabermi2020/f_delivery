@@ -10,20 +10,20 @@ import { EditModalService } from 'src/app/shared/servives/edit-modal.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit, OnDestroy {
-  id: number;
-  editMode: any;
-  userData: User;
-  subscription: Subscription;
-  objectKeys = Object.keys;
-  userViewTemplate = {
-    "First Name": '',
-    "Last Name": '',
-    "Login": '',
-    "Phone": '',
-    "Email": '',
-    "Address": ''
-  }
+export class ProfileComponent implements OnInit{
+   id: number;
+  // editMode: any;
+  // userData: User;
+  // subscription: Subscription;
+  // objectKeys = Object.keys;
+  // userViewTemplate = {
+  //   "First Name": '',
+  //   "Last Name": '',
+  //   "Login": '',
+  //   "Phone": '',
+  //   "Email": '',
+  //   "Address": ''
+  // }
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -31,38 +31,49 @@ export class ProfileComponent implements OnInit, OnDestroy {
               private editModal: EditModalService) { }
 
   ngOnInit() {
-    this.subscription = this.route.firstChild.params.subscribe( (par: Params) => {
-      this.id = par["id"]; 
-    });
-  //  this.id = this.route.snapshot.children[0].params.id;
-    this.userData = this.authService.getCurrentUser();
-    //console.log(this.id); 
-    this.userDataMap();
+    // this.route.firstChild.params.subscribe( (par: Params) => {
+    //   this.id = par["id"]; 
+    //   console.log(this.authService.getCurrentUser().id);
+    // });
+  // //  this.id = this.route.snapshot.children[0].params.id;
+  //   this.userData = this.authService.getCurrentUser();
+  //   //console.log(this.id); 
+  //   this.userDataMap();
 
-    this.editModal.onEditChange.subscribe(
-      res => {
-        console.log('Edit mode - true');
-        this.editMode = res;
-      }
-    )
+  //   this.editModal.onEditChange.subscribe(
+  //     res => {
+  //       console.log('Edit mode - true');
+  //       this.editMode = res;
+  //     }
+  //   )
   }
 
-  userDataMap() {
-     this.userViewTemplate["First Name"] = this.userData.firstName;
-     this.userViewTemplate["Last Name"] = this.userData.lastName;
-     this.userViewTemplate["Login"] = this.userData.login;
-     this.userViewTemplate["Phone"] = this.userData.phone;
-     this.userViewTemplate["Email"] = this.userData.email;
-     this.userViewTemplate["Address"] = this.userData.address;
+  // userDataMap() {
+  //    this.userViewTemplate["First Name"] = this.userData.firstName;
+  //    this.userViewTemplate["Last Name"] = this.userData.lastName;
+  //    this.userViewTemplate["Login"] = this.userData.login;
+  //    this.userViewTemplate["Phone"] = this.userData.phone;
+  //    this.userViewTemplate["Email"] = this.userData.email;
+  //    this.userViewTemplate["Address"] = this.userData.address;
+  // }
+
+  // ngOnDestroy() {
+  //   this.subscription.unsubscribe();
+  // }
+
+  // editProfile() {
+  //   console.log('Edit Profile ' + this.id);
+  //   this.editModal.toggleEditMode();
+  // }
+
+  navigateToOrderHistory() {
+    this.router.navigate(['dashboard/profile/order-history']);
+    console.log('here');
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
+  navigateToProfile() {
+    this.router.navigate([`dashboard/profile/`]);
+    console.log('here2');
+    console.log(this.id);
   }
-
-  editProfile() {
-    console.log('Edit Profile ' + this.id);
-    this.editModal.toggleEditMode();
-  }
-
 }

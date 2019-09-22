@@ -21,6 +21,9 @@ export class SignUpComponent implements OnInit {
     this.initForm();
   }
 
+/**
+ * Initialize 'sign up' form's controls and appropriate validators
+ */
   private initForm() {
     this.registrationForm = new FormGroup({
       "firstName": new FormControl('', [Validators.required, Validators.minLength(4)]),
@@ -39,42 +42,59 @@ export class SignUpComponent implements OnInit {
     });
   }
 
+  //Need refactoring
   get firstName() {
     return this.registrationForm.get('firstName');
   }
 
+ //Need refactoring
   get lastName() {
     return this.registrationForm.get('lastName');
   }
 
+//Need refactoring
   get login() {
     return this.registrationForm.get('login');
   }
 
+//Need refactoring
   get email() {
     return this.registrationForm.get('email');
   }
 
+//Need refactoring  
   get password() {
     return this.registrationForm.get('passwords.password');  
   }
 
+//Need refactoring  
   get passwordRepeat() {
     return this.registrationForm.get('passwords.passwordRepeat');  
   }
 
+//Need refactoring  
   get phone() {
     return this.registrationForm.get('phone');
   }
 
+//Need refactoring  
   get address() {
     return this.registrationForm.get('address');
   }
 
+/**
+ * Return passwords from appropriate fields
+ * @return {FormGroup} return FormGroup with represents passwords  
+ */  
   get passwords() {
     return this.registrationForm.get('passwords');
   }
 
+/**
+ * Check existence user with the same login
+ * @param {FormControl} user's login
+ * @return {Promise | Observable} returns checking results
+ */
   forbiddenLogin(control: FormControl): Promise<any> | Observable<any> {
 //    
     let login = control.value;
@@ -109,6 +129,11 @@ export class SignUpComponent implements OnInit {
     return promise;
   }
 
+/**
+ * Check existence user with the same login
+ * @param {FormControl} user's email
+ * @return {Promise | Observable} returns checking results
+ */
   forbiddenEmail(control: FormControl): Promise<any> | Observable<any> {
     let email = control.value;
     let queryResult;
@@ -135,6 +160,7 @@ export class SignUpComponent implements OnInit {
     return promise;
   }
   
+  //It's not used
   forbiddenPassword(control: FormControl):  Promise<any> | Observable<any> {
     this.userPassword = control.value;
     let promise = new Promise( (resolve, reject) => {
@@ -149,12 +175,18 @@ export class SignUpComponent implements OnInit {
     return promise;
   }
 
+  //It's not used
   forbiddenRepeatedPassword(control: FormControl):  {[s: string]: boolean} {
     this.userRepeatedPassword = control.value;
     console.log(this.userRepeatedPassword);
     return {'password': true};
   }
 
+ /**
+ * Compare two passwords which were entered by user in appropriate fields
+ * @param {FormGroup} users' passwords
+ * @return {null || Obj} returns checking results
+ */ 
   validatePasswords(registrationFormGroup: FormGroup) {
     let password = registrationFormGroup.controls.password.value;
     let repeatPassword = registrationFormGroup.controls.passwordRepeat.value;
@@ -171,7 +203,10 @@ export class SignUpComponent implements OnInit {
     }
     return null;
 }
-  
+
+/**
+ * Create new user object and sign up it using 'authService'
+ */
   onSignUp() {
     console.log(this.registrationForm.value);
     console.log(this.registrationForm);

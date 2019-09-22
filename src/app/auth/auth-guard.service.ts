@@ -13,6 +13,12 @@ export class AuthGuard implements CanActivate {
         //this.isAuthorized = this.authService.isAuthorized();
     }
 
+    /**
+     * Check user authentication status
+     * @param {ActivatedRouteSnapshot} route snapshot 
+     * @param {RouterStateSnapshot} router state
+     * @return {boolean} return authentication status
+     */
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
        // console.log('here ' + this.authService.isAuthenticated);
         if (this.authService.isAuthorized() && localStorage.getItem("userInfo")) {
