@@ -10,6 +10,7 @@ import { OrdersService } from 'src/app/shared/servives/orders.service';
 export class OrderHistoryComponent implements OnInit, OnDestroy {
   orders: Array<any>;
   orderSubscription = new Subscription();
+  showCurrentOrderDetail: boolean = false;
 
   constructor(private orderService: OrdersService) { }
 
@@ -22,7 +23,8 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
       .subscribe(
         res => {
           this.orders = res;
-          //console.log(res);
+
+          console.log(res);
         },
         err => {
           alert('Something went wrong!');
@@ -32,6 +34,21 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.orderSubscription.unsubscribe();
+  }
+
+  getDate(date) {
+    let orderDate = (new Date(date)).toLocaleDateString();
+    return orderDate;
+  }
+
+  getTime(date) {
+    let orderTime = (new Date(date)).toLocaleTimeString();
+    return orderTime;
+  }
+
+  getProductsQuantity(item) {
+    let productQuantity = item["products"].length;
+    return productQuantity;
   }
 
 }
