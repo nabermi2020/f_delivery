@@ -18,19 +18,42 @@
         border-top-right-radius: 8px;
         border-top-left-radius: 8px;
         background: rgb(241, 81, 81); 
+        color: black;
 
 
         li {
             list-style-type: none;
             display: inline;
             margin-left: 5px; 
+            color: black;
+          
         }
 
+        .activeTabs {
+            color: white;
+        
         a {
             margin-left: 5px;
             color: white;
+            text-decoration: none;
+
+            &:hover {
+                cursor: pointer;
+                color:black;
+            }
         }
+
+        }
+
+        a {
+            color: black;
+        }
+
+        
+
+      
     }
  
 
 }
+

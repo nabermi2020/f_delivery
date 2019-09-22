@@ -1,9 +1,13 @@
 <div id="profileInfoWrapper">
     <ul id="profileNav">
-        <li>
-            <a (click)="navigateToProfile()">Profile Info</a>
-            <a (click)="navigateToOrderHistory()">Order History</a>
+        <li routerLinkActive="activeTabs">
+            <a [routerLink]="['user-info']">Profile Info</a>
         </li>
+
+        <li routerLinkActive="activeTabs">
+            <a [routerLink]="['order-history']">Order History</a>
+        </li>
+        
     </ul>
     <router-outlet></router-outlet>
 </div>
