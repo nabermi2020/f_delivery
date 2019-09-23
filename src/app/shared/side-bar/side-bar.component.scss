@@ -17,13 +17,11 @@
             opacity: 1;
         }
 
-        /* position: absolute;*/
         #logo {
             text-align: center;
             
             .sideBarLogo {
-                width: 150px;
-                
+                width: 150px;                
             }
         }
 
@@ -37,7 +35,6 @@
             text-decoration: none;
             list-style-type: none;
             color: white;
-            /*border: 1px solid red;*/
             height: 211px;  
             
             li {
@@ -46,7 +43,6 @@
                 opacity: 1;
                 line-height: 40px;
                 width: 100%;
-                /*border: 1px solid red;*/
                 text-align: center;    
 
                 &:hover {
@@ -57,4 +53,3 @@
         }
     }
  }
-

@@ -13,8 +13,7 @@ import { FormatPhonePipe } from './format-phone.pipe';
        HeaderComponent,
        SideBarComponent,
        ShortenPipe,
-       FormatPhonePipe,
-        
+       FormatPhonePipe,     
     ],
     imports: [
         CommonModule,

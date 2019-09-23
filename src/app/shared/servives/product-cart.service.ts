@@ -17,23 +17,8 @@ export class ProductCart {
     constructor(private authService: AuthService,
                 private http: HttpClient) {
                 //this.unsubscribeFromProductsGettedFromServer();  
-            
-               // console.log(this.cart);
-
                 this.checkCartExistenseByUserId();
                 this.getCartFromServer();
-
-                // this.testObservable()
-                //     .subscribe(
-                //         res => {
-                //             console.log(res);
-                //         },
-                //         err => {
-                //             alert(err);
-                //         }
-                        
-                //     )
-
     }
     
     //Checking cart existense on the server
@@ -95,21 +80,18 @@ export class ProductCart {
         this.gettingProducts = this.http.get(`${this.apiUrl}/cart/${userId}`, { headers: headers})
             .subscribe(
                 res => {
-                    console.log('Getted from server!');
-
+                    //console.log('Getted from server!');
                     this.cart.setProducts(res["products"]);
                     this.cart.setCartId(res["cartId"]);
-                    this.onProductAdded.next(this.cart.getCart()); 
-                    
-                    console.log(this.cart);
-                //    alert('Success getting cart!!!');
+                    this.onProductAdded.next(this.cart.getCart());     
+                    //console.log(this.cart);
+                    // alert('Success getting cart!!!');
                 },
                 err => {
                     alert('Error while getting cart from server!');
                 }
             ) 
     }
-
 
     unsubscribeFromProductsGettedFromServer() {
         this.authService.isUserAuthorized
@@ -126,7 +108,6 @@ export class ProductCart {
         )
     }
      
-  
     calculateProductsQuantity(): number {
         return this.cart.calculateProductsQuantity();
     }
@@ -145,11 +126,12 @@ export class ProductCart {
         return this.cart.getTotalPrice();
     }  
 
-
+    //It's not realized
     onOrderSuccess() {
         //TODO
     }
 
+    //It's not realized
     onOrderError() {
         //TODO
     }
@@ -164,15 +146,4 @@ export class ProductCart {
         this.onProductAdded.next(this.cart);
     }
 
-    testObservable(): Observable<any> {
-        let test = new Observable(observer => {
-            let i = 0;
-            setInterval(() =>{
-                observer.next(++i);
-        
-            }, 1000);
-        
-        });
-        return test;
-    }
 }

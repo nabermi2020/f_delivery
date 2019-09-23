@@ -18,7 +18,6 @@ export class OrdersService {
               private router: Router) {
   }
 
-
   makeAnOrder(order: Order) {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
     let id = this.authService.getCurrentUser().id;
@@ -28,19 +27,18 @@ export class OrdersService {
     this.http.post(`${this.apiUrl}/orders`, order, { headers: headers})
         .subscribe(
             res => {
-                console.log(res);
+                //console.log(res);
                 alert('Your order is succesfully done!');
                 this.productCart.cleanCart();
                 this.router.navigate(['dashboard/products/pizza']);
             },
             err => {
-                console.log(err);
+                //console.log(err);
                 alert('Something went wrong!');
             }
         );
   }
 
-//Need to test
   getOrders(): Observable<any> {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
     let id = this.authService.getCurrentUser().id;

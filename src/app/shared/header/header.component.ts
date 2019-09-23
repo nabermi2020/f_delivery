@@ -14,11 +14,9 @@ export class HeaderComponent implements OnInit {
   //activeCategory: string = "Pizza";
   activeUser: User;
   id: number;
-  productsQuantity: any;
-  
+  productsQuantity: any;  
   totalPrice: any;
   activeCategory: any;
-
 
   constructor(private authService: AuthService,
               private router: Router,
@@ -58,8 +56,7 @@ export class HeaderComponent implements OnInit {
   logOut() {
     this.authService.logOut();
     //this.productCartService.onProductAdded.unsubscribe();
-    this.router.navigate(['/']);
-   
+    this.router.navigate(['/']); 
   }
 
   openCart() {
