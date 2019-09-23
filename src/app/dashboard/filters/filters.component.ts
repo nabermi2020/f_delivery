@@ -22,17 +22,11 @@ export class FiltersComponent implements OnInit {
     this.activeRoute.children[0].params
       .subscribe(
         res => {
-          
           this.activeCategory = res["cat"];
           this.activeFilter = this.filters[this.activeCategory];
           this.activeCategory = 'All';
-
-          // console.log(this.activeCategory);   
-          // console.log(this.activeFilter);
         }
       )
-      
-       
   }
 
   filterProductsByCategory(filter) {

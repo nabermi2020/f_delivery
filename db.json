@@ -428,9 +428,24 @@
       "userId": 335
     },
     {
-      "products": [],
+      "products": [
+        {
+          "id": 4,
+          "productTitle": "Doctor Pepper Cherry",
+          "imgPath": "https://pizzaletta.com/uploads/drink/image/18/IMG_5887.JPG",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
+          "productPrice": 199,
+          "productCategories": [
+            "All",
+            "Alcoholic"
+          ],
+          "productQuantity": 1
+        }
+      ],
       "cartId": 9453,
-      "totalPrice": 398,
+      "totalPrice": 199,
       "id": 24,
       "userId": 790
     }

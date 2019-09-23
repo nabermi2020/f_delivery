@@ -31,6 +31,4 @@ export class ProductDashboardComponent implements OnInit {
     this.cartService.getCartFromServer();
   }
 
-   
-
 }

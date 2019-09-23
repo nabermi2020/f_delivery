@@ -26,7 +26,6 @@ export class ProductGridComponent implements OnInit {
                res => {
                 this.products = res;
                 this.activeFilter = "All";
-               // console.log(this.products);
                },
                
                err => {
@@ -50,7 +49,6 @@ export class ProductGridComponent implements OnInit {
   setFilterCategory(cat) {
     this.activeFilter = cat;
   }
-
 
 }
       

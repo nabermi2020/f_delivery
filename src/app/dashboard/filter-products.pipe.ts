@@ -14,7 +14,7 @@ export class FilterProductsPipe implements PipeTransform {
         }
       });
     }
+
     return filteredProducts;
   }
-
 }

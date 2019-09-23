@@ -11,19 +11,14 @@
         opacity: 0.7;
         text-align: center;
 
-   
-
         &:hover {
             cursor: pointer;
             opacity: 1;
             background: rgb(250, 128, 128);
             color: white;
         }
-        
-
-   
+           
     }
-
 
     .activeCat {
         opacity: 1;
