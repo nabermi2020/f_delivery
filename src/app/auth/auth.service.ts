@@ -40,9 +40,6 @@ export class AuthService {
         (res: Array<any>) => {
           if (res && res.length > 0 ) {
             this.currentUser = res[0];
-           // console.log(this.currentUser);
-          
-           //this.userData.next(this.currentUser);
             this.isAuthenticated = true;
             this.isUserAuthorized.next(this.isAuthenticated);
             authStatus =  true;
@@ -58,8 +55,6 @@ export class AuthService {
         }
       );
       
-      // console.log(this.currentUser);
-      //console.log(authStatus);
       return authStatus ? true : false; 
   }
 
@@ -153,51 +148,13 @@ export class AuthService {
  * @return {Observable} updating result
  */
   updateUserInfo(userData): Observable<any> {
-    //console.log(this.currentUser.id);
-    
     let user = new User(userData.firstName, userData.lastName, 
                         this.currentUser.login, userData.passwords.password,
                         userData.phone, this.currentUser.email, userData.address);
     
     const headers = new HttpHeaders({'Content-type': 'application/json'});
-    
-    
+     
     return this.http.put(`${this.apiUrl}/users/${this.currentUser.id}`,  user, { headers: headers});
   }
 
-//It's not used
-  getUserById(id: number): User {  
-    let activeUser;
-    this.users.map((item) => {
-      if (item["userId"] == id) {
-        activeUser =  item;
-      };
-    })  
-    return activeUser;
-  } 
-
-
-   //It's mock - you should add http
-  // signIn(login: string, password: string): boolean {
-  //   // login = "john_smith777";
-  //   // password = "john777";
-  //   let authStatus;
-
-  //   let user = this.users.find( (userData:User) => {
- 
-  //     if (userData.login == login && userData.password == password) {
-  //       this.currentUser = userData;
-        
-  //       this.isAuthenticated = true;
-  //       this.isUserAuthorized.next(this.isAuthenticated);
-  //       authStatus =  true;
-  //       return true;
-  //     } 
-  //   });
-  //  console.log(user);
-  //  return authStatus ? true : false; 
-
-  //   console.log(this.isAuthenticated);
-  //  // this.isUserAuthorized.next(this.isAuthenticated);
-  // }
 }
