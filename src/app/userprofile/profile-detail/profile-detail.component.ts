@@ -36,13 +36,14 @@ export class ProfileDetailComponent implements OnInit {
     //   this.id = par["id"]; 
     // });
   //  this.id = this.route.snapshot.children[0].params.id;
-    this.userData = this.authService.getCurrentUser();
-    //console.log(this.id); 
+    //console.log(this.id);
+
+    this.userData = this.authService.getCurrentUser(); 
     this.userDataMap();
 
     this.editModal.onEditChange.subscribe(
       res => {
-        console.log('Edit mode - true');
+        //console.log('Edit mode - true');
         this.editMode = res;
       }
     )

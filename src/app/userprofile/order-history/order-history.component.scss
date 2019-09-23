@@ -5,14 +5,12 @@
     margin-top: -17px;
     position: relative;
    
-
    .orderItem {
        min-height: 45px;
        height: auto;
        line-height: 45px;
        width: 100%;
        border-bottom: 1px solid lightgrey;
-      // border: 1px solid green;
        position: relative;
 
        &:first-child {
@@ -26,15 +24,11 @@
        .orderId {
         display: inline-block;
         padding-left: 15px;
-       // border: 2px solid red;
-
        }
 
        .orderDate {
            display: inline-block;
-          // border: 2px solid red;
            margin-left: 10%;
-           
        }
 
        .orderTime {
@@ -46,12 +40,10 @@
        .productsQuantity {
            display: inline-block;
            margin-left: 20px;
-          // border: 1px solid red;
        }
        
        .totalOrderAmount {
             display: inline-block;
-           // border: 2px solid red;
             margin-left: 25px;
        }
 
@@ -59,11 +51,8 @@
            position: absolute;
            right: 0;
            display: inline-block;
-
        }
-
   
    }
 
- 
 }
