@@ -24,7 +24,7 @@ export class AuthenticationComponent implements OnInit{
           this.router.navigate(['']);
         }
       }
-    )
+    ) 
 
     this.isAuthenticated();
   }

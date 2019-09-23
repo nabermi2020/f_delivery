@@ -14,7 +14,6 @@ export class SignUpComponent implements OnInit {
   userPassword: string;
   userRepeatedPassword: string;
 
-
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
@@ -95,8 +94,7 @@ export class SignUpComponent implements OnInit {
  * @param {FormControl} user's login
  * @return {Promise | Observable} returns checking results
  */
-  forbiddenLogin(control: FormControl): Promise<any> | Observable<any> {
-//    
+  forbiddenLogin(control: FormControl): Promise<any> | Observable<any> {    
     let login = control.value;
     let queryResult;
     let promise = new Promise( (resolve, reject) => {
@@ -104,21 +102,16 @@ export class SignUpComponent implements OnInit {
         this.authService.checkUser(login).subscribe(
           res => {
             console.log('Result=');
-            //console.log(res);
             queryResult = res[0];
-            if(res[0]) {
-              if (res[0].login==login) {
+            if (res[0]) {
+              if (res[0].login == login) {
                 resolve({'loginIsForbidden': true});
-                
               }
             } else {
-             
                 resolve(null);
-              
             }
-            
-            
           },
+
           err => {
             alert('Something went wrong!');
           }
@@ -136,7 +129,6 @@ export class SignUpComponent implements OnInit {
  */
   forbiddenEmail(control: FormControl): Promise<any> | Observable<any> {
     let email = control.value;
-    let queryResult;
     let promise  = new Promise( (resolve, reject) => {
       if (email.length >= 6) {
         this.authService.checkEmail(email).subscribe(
@@ -160,28 +152,6 @@ export class SignUpComponent implements OnInit {
     return promise;
   }
   
-  //It's not used
-  forbiddenPassword(control: FormControl):  Promise<any> | Observable<any> {
-    this.userPassword = control.value;
-    let promise = new Promise( (resolve, reject) => {
-      if (this.userPassword != this.userRepeatedPassword) {
-        resolve({"isPasswordDifferent": true});
-        console.log('y');
-      } else {
-        console.log('n');
-        resolve(null);
-      }
-    });
-    return promise;
-  }
-
-  //It's not used
-  forbiddenRepeatedPassword(control: FormControl):  {[s: string]: boolean} {
-    this.userRepeatedPassword = control.value;
-    console.log(this.userRepeatedPassword);
-    return {'password': true};
-  }
-
  /**
  * Compare two passwords which were entered by user in appropriate fields
  * @param {FormGroup} users' passwords
@@ -190,8 +160,8 @@ export class SignUpComponent implements OnInit {
   validatePasswords(registrationFormGroup: FormGroup) {
     let password = registrationFormGroup.controls.password.value;
     let repeatPassword = registrationFormGroup.controls.passwordRepeat.value;
-    console.log(password);
-    console.log(repeatPassword);
+    // console.log(password);
+    // console.log(repeatPassword);
     if (repeatPassword.length <= 0) {
         return null;
     }
@@ -221,4 +191,26 @@ export class SignUpComponent implements OnInit {
       this.authService.signUp(newUser);
     }                         
   }
+
+    //It's not used
+    forbiddenPassword(control: FormControl):  Promise<any> | Observable<any> {
+      this.userPassword = control.value;
+      let promise = new Promise( (resolve, reject) => {
+        if (this.userPassword != this.userRepeatedPassword) {
+          resolve({"isPasswordDifferent": true});
+          console.log('y');
+        } else {
+          console.log('n');
+          resolve(null);
+        }
+      });
+      return promise;
+    }
+  
+    //It's not used
+    forbiddenRepeatedPassword(control: FormControl):  {[s: string]: boolean} {
+      this.userRepeatedPassword = control.value;
+      console.log(this.userRepeatedPassword);
+      return {'password': true};
+    }
 }
