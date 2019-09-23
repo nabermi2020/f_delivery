@@ -46,7 +46,6 @@ export class OrderConfirmationComponent implements OnInit {
   }
 
   onOrderSubmit(form) {
-    // console.log(form);
     let firstName = form.value.firstName;
     let lastName = form.value.lastName;
     let email = form.value.email;
@@ -60,16 +59,17 @@ export class OrderConfirmationComponent implements OnInit {
                           this.productCart.getProductCart());
                       
     this.ordersService.makeAnOrder(order);
-
-    console.log(order);
+    // console.log(order);
   }
   
   deleteProductFromList(product: Product) {
     let productId = product.id;
     this.productCart.deleteProductById(productId);
     this.totalPrice = this.productCart.getTotalPrice();
+
     if (this.cart.length == 0 ) {
       this.router.navigate(['dashboard/products/pizza']);
     }
+    
   }
 }

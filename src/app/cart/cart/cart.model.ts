@@ -28,7 +28,6 @@ export class Cart {
     }
 
     setProducts(products) {
-       // console.log(products);
         this.products = products;
     }
 
@@ -38,7 +37,6 @@ export class Cart {
         if (!this.checkForDublicates(productId)) {
             product["productQuantity"] = 1;
             this.products.push(product);
-            
         } else {
             this.products.forEach( item => {
                 if (item.id == productId ) {
@@ -57,6 +55,7 @@ export class Cart {
                 deleteWithId = index;
             }
         });
+
         this.products.splice(deleteWithId, 1);
     }
 
