@@ -12,6 +12,7 @@ import { OrderHistoryComponent } from '../userprofile/order-history/order-histor
 const dashboardRoutes: Routes = [
     { path: '', component: ProductDashboardComponent, canActivate: [AuthGuard], children: [
         { path: 'profile', component: ProfileComponent, children: [
+           
            { path: 'user-info', component: ProfileDetailComponent },
            { path: 'order-history', component: OrderHistoryComponent }, 
         ]},

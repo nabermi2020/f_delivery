@@ -28,7 +28,9 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
-  //Needs to extend validation logic for all fields except passwords validation
+/**
+ * Init form on the component initialization
+ */
   initForm() {
     this.editForm = new FormGroup({
       'firstName': new FormControl(this.currentUser["firstName"], [Validators.required, Validators.minLength(4)]),
@@ -45,10 +47,20 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
+/**
+ * Get data from appropriate input
+ * @param {String} control's name 
+ * @return {FormControl} return control's info
+ */ 
   getDataByFieldName(data) {
     return this.editForm.get(data);
   }
 
+ /**
+  * Compare 2 passwords
+  * @param {registrationFormGroup} password and repeated password which were entered in the edit form 
+  * @return { Obj | null } passwords' comparison result
+  */ 
   validatePasswords(registrationFormGroup: FormGroup) {
     let password = registrationFormGroup.controls.password.value;
     let repeatPassword = registrationFormGroup.controls.passwordRepeat.value;
@@ -65,10 +77,16 @@ export class EditProfileComponent implements OnInit {
     return null;
 }
 
+/**
+ * Close modal window
+ */
   closeModal() {
     this.editProfile.toggleEditMode();
   }
 
+/**
+ * Save changes after editing user's profile info 
+ */ 
   saveChanges() {
     let formData = this.editForm.value;
   

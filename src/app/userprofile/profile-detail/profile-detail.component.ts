@@ -49,6 +49,9 @@ export class ProfileDetailComponent implements OnInit {
     )
   }
 
+ /**
+  * Map appropriate values getted from 'authService' with values from viewModel
+  */ 
   userDataMap() {
      this.userViewTemplate["First Name"] = this.userData.firstName;
      this.userViewTemplate["Last Name"] = this.userData.lastName;
@@ -58,13 +61,19 @@ export class ProfileDetailComponent implements OnInit {
      this.userViewTemplate["Address"] = this.userData.address;
   }
 
-  ngOnDestroy() {
-    //this.subscription.unsubscribe();
-  }
-
+/**
+ *  Show modal window for editting user data
+ */
   editProfile() {
     console.log('Edit Profile ' + this.id);
     this.editModal.toggleEditMode();
+  }
+
+/**
+ * Destroy subsription
+ */ 
+  ngOnDestroy() {
+    //this.subscription.unsubscribe();
   }
 
 }

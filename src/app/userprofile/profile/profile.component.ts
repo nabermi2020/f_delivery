@@ -11,7 +11,7 @@ import { EditModalService } from 'src/app/shared/servives/edit-modal.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit{
-   id: number;
+  id: number;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
