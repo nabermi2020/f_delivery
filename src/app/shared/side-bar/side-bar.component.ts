@@ -11,7 +11,6 @@ export class SideBarComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-   
     this.route.params.subscribe((params: Params) => {
       //console.log(params);
     })

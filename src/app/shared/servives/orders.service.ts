@@ -18,6 +18,10 @@ export class OrdersService {
               private router: Router) {
   }
 
+/**
+ * Make an order and send it on server in case of success clean order cart
+ * @param { Order} order 
+ */  
   makeAnOrder(order: Order) {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
     let id = this.authService.getCurrentUser().id;
@@ -39,6 +43,10 @@ export class OrdersService {
         );
   }
 
+/**
+ * Get order history for appropriate user
+ * @return {Observable} user's orders
+ */  
   getOrders(): Observable<any> {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
     let id = this.authService.getCurrentUser().id;

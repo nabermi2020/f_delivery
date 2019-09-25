@@ -53,12 +53,18 @@ export class HeaderComponent implements OnInit {
       )
   }
 
+/**
+ * Provide logout option and navigating to 'Auth screen'
+ */  
   logOut() {
     this.authService.logOut();
     //this.productCartService.onProductAdded.unsubscribe();
     this.router.navigate(['/']); 
   }
 
+ /**
+  * Navigate tp 'cart' component
+  */ 
   openCart() {
     this.router.navigate(['dashboard/cart']);
   }

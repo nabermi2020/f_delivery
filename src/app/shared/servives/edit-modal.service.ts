@@ -10,6 +10,9 @@ export class EditModalService {
         this.onEditChange.next(this.editMode);
     }
 
+/**
+ * Toggle 'edit profile' popup
+ */    
     toggleEditMode() {
         this.editMode = !this.editMode;
         this.onEditChange.next(this.editMode);

@@ -21,7 +21,9 @@ export class ProductCart {
                 this.getCartFromServer();
     }
     
-    //Checking cart existense on the server
+/**
+ * Checking cart existense on the server
+ */
     checkCartExistenseByUserId() {
         this.cart.setUserId(this.authService.getCurrentUser());
         let userId = this.authService.getCurrentUser().id;
@@ -40,7 +42,9 @@ export class ProductCart {
             );
     }
 
-    //For creating cart on the server if it doesn't exist
+/**
+ * Create cart on the server if it doesn't exist
+ */
     createCartOnServer() {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
         this.http.post(`${this.apiUrl}/cart`, this.cart, { headers: headers})
@@ -51,12 +55,18 @@ export class ProductCart {
             );    
     }
 
+ /**
+  * Add products to the cart and sync it with server
+  */     
     addProducts(product: Product) {
         this.cart.addProduct(product);
         this.synchCartWithServer();
         this.onProductAdded.next(this.cart.getCart());
     }
 
+ /**
+  * Sync current cart with user's carton the server
+  */   
     synchCartWithServer() {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
         let userData = this.authService.getCurrentUser();
@@ -74,6 +84,9 @@ export class ProductCart {
             );
     }
 
+ /**
+  * Get appropriate cart from server
+  */   
     getCartFromServer() {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
         let userId = this.authService.getCurrentUser().id;
@@ -93,6 +106,9 @@ export class ProductCart {
             ) 
     }
 
+/**
+ * Unsubscribe from subscription in case of user isn't authorized 
+ */     
     unsubscribeFromProductsGettedFromServer() {
         this.authService.isUserAuthorized
         .subscribe(
@@ -107,24 +123,58 @@ export class ProductCart {
             }
         )
     }
-     
+  
+/**
+ * Calculate product's quantity in the cart
+ * @return {number} product's quantity
+ */    
     calculateProductsQuantity(): number {
         return this.cart.calculateProductsQuantity();
     }
 
+/**
+ * Get products from cart
+ * @return {Cart} product's cart
+ */    
     getProducts(): Array<Product> {
         return this.cart.getCart();
     }
 
+
+/**
+ * Delete product with appropriate number
+ * @param {number} product's number 
+ */    
     deleteProductById(id) {
         this.cart.deleteProductById(id);
         this.onProductAdded.next(this.cart.getCart());
         this.synchCartWithServer();
     }
 
+ /**
+  * Get total cart's price
+  * @return {number} total price
+  */   
     getTotalPrice() {
         return this.cart.getTotalPrice();
     }  
+
+ /**
+  * Get product cart
+  * @return {Cart} cart
+  */   
+    getProductCart(): Cart {
+        return this.cart;
+    }
+
+ /**
+  * Clear product cart
+  */   
+    cleanCart() {
+        this.cart.cleanCart();
+        this.synchCartWithServer();
+        this.onProductAdded.next(this.cart);
+    }
 
     //It's not realized
     onOrderSuccess() {
@@ -134,16 +184,5 @@ export class ProductCart {
     //It's not realized
     onOrderError() {
         //TODO
-    }
-
-    getProductCart(): Cart {
-        return this.cart;
-    }
-
-    cleanCart() {
-        this.cart.cleanCart();
-        this.synchCartWithServer();
-        this.onProductAdded.next(this.cart);
-    }
-
+    }    
 }
