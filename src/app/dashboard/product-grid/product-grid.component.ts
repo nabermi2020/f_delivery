@@ -34,6 +34,9 @@ export class ProductGridComponent implements OnInit {
        })
   }
 
+/**
+ * Get products using 'productService'
+ */  
   getProducts() {
     this.productsService.getProducts()
     .subscribe(
@@ -46,6 +49,10 @@ export class ProductGridComponent implements OnInit {
     )
   }
 
+ /**
+  * Set filter category
+  * @param {String} product category 
+  */ 
   setFilterCategory(cat) {
     this.activeFilter = cat;
   }

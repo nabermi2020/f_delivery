@@ -29,6 +29,10 @@ export class FiltersComponent implements OnInit {
       )
   }
 
+ /**
+  * Set active category
+  * @param {String} product's category 
+  */ 
   filterProductsByCategory(filter) {
     this.activeCategory = filter;
     this.onActiveCategorySelected.emit(filter);

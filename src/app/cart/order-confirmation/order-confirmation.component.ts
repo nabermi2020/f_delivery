@@ -32,6 +32,9 @@ export class OrderConfirmationComponent implements OnInit {
     console.log(this.cart);
   }
 
+/**
+ * Prefill order confirmation screen
+ */  
   preFillForm() {
      setTimeout( () => {
       this.form.setValue({
@@ -45,6 +48,10 @@ export class OrderConfirmationComponent implements OnInit {
      },); 
   }
 
+/**
+ * Order confirmation
+ * @param {ngForm} form data
+ */  
   onOrderSubmit(form) {
     let firstName = form.value.firstName;
     let lastName = form.value.lastName;
@@ -62,6 +69,10 @@ export class OrderConfirmationComponent implements OnInit {
     // console.log(order);
   }
   
+ /**
+  * Delete product by id
+  * @param {Product} selected product 
+  */ 
   deleteProductFromList(product: Product) {
     let productId = product.id;
     this.productCart.deleteProductById(productId);

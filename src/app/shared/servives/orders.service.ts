@@ -35,6 +35,7 @@ export class OrdersService {
                 alert('Your order is succesfully done!');
                 this.productCart.cleanCart();
                 this.router.navigate(['dashboard/products/pizza']);
+                
             },
             err => {
                 //console.log(err);

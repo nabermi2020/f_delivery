@@ -11,7 +11,9 @@ import { Router } from '@angular/router';
 export class CartComponent implements OnInit {
   cart: Array<Product> = [];
   totalPrice: any;
-  constructor(private productCart: ProductCart, private router: Router) { }
+ 
+  constructor(private productCart: ProductCart,
+              private router: Router) { }
 
   ngOnInit() {
     this.cart = this.productCart.getProducts();
@@ -19,12 +21,19 @@ export class CartComponent implements OnInit {
     this.totalPrice = this.productCart.getTotalPrice();
   }
 
+ /**
+  * 
+  * @param {Product} selected product 
+  */ 
   deleteCurrentProduct(product: Product) {
     let productId = product.id;
     this.productCart.deleteProductById(productId);
     this.totalPrice = this.productCart.getTotalPrice();
   }
 
+/**
+ * Navigating to 'dashboard' after order is made
+ */  
   makeAnOrder() {
     this.router.navigate(['/dashboard/order-confirmation']);
   }
