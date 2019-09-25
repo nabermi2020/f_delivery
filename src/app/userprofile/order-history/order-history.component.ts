@@ -62,7 +62,11 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
  * @return { number} product's quantity;
  */
   getProductsQuantity(item) {
-    let productQuantity = item["products"].length;
+    let productQuantity = 0; 
+    item["products"].forEach( product => {
+      productQuantity += product.productQuantity;
+    })
+    console.log(item);
     return productQuantity;
   }
 
