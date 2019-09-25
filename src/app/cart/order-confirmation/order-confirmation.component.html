@@ -8,7 +8,7 @@
             </div>
             <form id="order"
                   #form=ngForm
-                  (ngSubmit)="onOrderSubmit(form)">
+                  (ngSubmit)="showConfirmationPopUp(form)">
                   <div id="orderInfo">
                   <div class="row">
 
@@ -181,3 +181,7 @@
       </div>
   </div>
 </div>
+
+<ng-container *ngIf="isConfirmationPopUpEnabled">
+    <app-confirmation-popup (onOrderConfirmed)="submitAnOrder($event)"></app-confirmation-popup>
+</ng-container>

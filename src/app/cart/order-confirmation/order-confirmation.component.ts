@@ -7,6 +7,7 @@ import { OrdersService } from 'src/app/shared/servives/orders.service';
  
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { EditModalService } from 'src/app/shared/servives/edit-modal.service';
 
 @Component({
   selector: 'app-order-confirmation',
@@ -15,14 +16,17 @@ import { Router } from '@angular/router';
 })
 export class OrderConfirmationComponent implements OnInit {
   cart: Array<Product> = [];
+  formData: NgForm;
   userData: any;
   totalPrice: any;
+  isConfirmationPopUpEnabled: boolean = false;
   @ViewChild('form') form: NgForm;
 
   constructor(private productCart: ProductCart,
               private ordersService: OrdersService,
               private authService: AuthService,
-              private router: Router) { }
+              private router: Router,
+              private editModal: EditModalService) { }
 
   ngOnInit() {
     this.cart = this.productCart.getProducts();
@@ -30,6 +34,11 @@ export class OrderConfirmationComponent implements OnInit {
     this.userData = this.authService.getCurrentUser();
     this.preFillForm();
     console.log(this.cart);
+
+    this.editModal.onEditChange.subscribe(
+      (res: boolean) => {
+        this.isConfirmationPopUpEnabled = res;
+      })
   }
 
 /**
@@ -67,6 +76,19 @@ export class OrderConfirmationComponent implements OnInit {
                       
     this.ordersService.makeAnOrder(order);
     // console.log(order);
+  }
+
+
+  submitAnOrder(formConfirmation) {
+    this.onOrderSubmit(this.formData);
+  }
+
+  showConfirmationPopUp(form) {
+    this.formData = form;
+    console.log(this.formData);
+    this.isConfirmationPopUpEnabled = !this.isConfirmationPopUpEnabled;
+    this.editModal.toggleEditMode();
+    //alert('Hello');
   }
   
  /**
