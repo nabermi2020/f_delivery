@@ -8,7 +8,7 @@
       <a (click)="logOut()">Log Out</a>
     </div>
     <div id="cart" (click)="openCart()">
-      <span id="cartCounter">{{ productsQuantity || 0 }}</span>
+      <span id="cartCounter" *ngIf="productsQuantity != 0">{{ productsQuantity || 0 }}</span>
      <!--
       <div id="price">
           {{ totalPrice || 0 }}  $
