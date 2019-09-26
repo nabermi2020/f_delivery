@@ -10,7 +10,7 @@ import { EditModalService } from 'src/app/shared/servives/edit-modal.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit{
+export class ProfileComponent implements OnInit {
   id: number;
 
   constructor(private route: ActivatedRoute,
@@ -22,13 +22,13 @@ export class ProfileComponent implements OnInit{
 
   }
 
-  //It's not used
+  // It's not used
   navigateToOrderHistory() {
     this.router.navigate(['dashboard/profile/order-history']);
     console.log('here');
   }
 
-  //It's not used
+  // It's not used
   navigateToProfile() {
     this.router.navigate([`dashboard/profile/`]);
     console.log('here2');

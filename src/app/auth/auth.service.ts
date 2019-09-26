@@ -139,12 +139,12 @@ export class AuthService {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
     let login = this.currentUser.login;
     let password = userData.passwords.password;
-    return this.http.get(`${this.apiUrl}/users?login=${login}&&password=${password}`, { headers: headers});
+    return this.http.get(`${this.apiUrl}/users?login=${login}&&password=${password}`, {headers: headers});
   }
 
 /**
  * Update user info for user with appropriate id
- * @param {Obj} user's data
+ * @param user's data
  * @return {Observable} updating result
  */
   updateUserInfo(userData): Observable<any> {

@@ -7,15 +7,15 @@ import { ProfileDetailComponent } from './profile-detail/profile-detail.componen
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { SharedModule } from '../shared/shared.module';
 import { OrderHistoryComponent } from './order-history/order-history.component';
- 
+
 @NgModule({
     declarations: [
         ProfileComponent,
         ProfileDetailComponent,
         EditProfileComponent,
-        OrderHistoryComponent  
+        OrderHistoryComponent
     ],
-    imports:[
+    imports: [
         CommonModule,
         ReactiveFormsModule,
         SharedModule,
