@@ -1,7 +1,7 @@
 import { EditModalService } from './../../shared/servives/edit-modal.service';
 import { AuthService } from './../../auth/auth.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { User } from 'src/app/auth/user.model';
 import { Subscription } from 'rxjs';
 
@@ -10,19 +10,19 @@ import { Subscription } from 'rxjs';
   templateUrl: './profile-detail.component.html',
   styleUrls: ['./profile-detail.component.scss']
 })
-export class ProfileDetailComponent implements OnInit {
+export class ProfileDetailComponent implements OnInit, OnDestroy {
   id: number;
   editMode: any;
   userData: User;
   subscription: Subscription;
   objectKeys = Object.keys;
   userViewTemplate = {
-    "First Name": '',
-    "Last Name": '',
-    "Login": '',
-    "Phone": '',
-    "Email": '',
-    "Address": ''
+    'First Name': '',
+    'Last Name': '',
+    'Login': '',
+    'Phone': '',
+    'Email': '',
+    'Address': ''
   }
 
   constructor(private route: ActivatedRoute,
@@ -36,29 +36,29 @@ export class ProfileDetailComponent implements OnInit {
     //   this.id = par["id"]; 
     // });
   //  this.id = this.route.snapshot.children[0].params.id;
-    //console.log(this.id);
+    // console.log(this.id);
 
-    this.userData = this.authService.getCurrentUser(); 
+    this.userData = this.authService.getCurrentUser();
     this.userDataMap();
 
     this.editModal.onEditChange.subscribe(
       res => {
-        //console.log('Edit mode - true');
+        // console.log('Edit mode - true');
         this.editMode = res;
       }
-    )
+    );
   }
 
  /**
   * Map appropriate values getted from 'authService' with values from viewModel
-  */ 
+  */
   userDataMap() {
-     this.userViewTemplate["First Name"] = this.userData.firstName;
-     this.userViewTemplate["Last Name"] = this.userData.lastName;
-     this.userViewTemplate["Login"] = this.userData.login;
-     this.userViewTemplate["Phone"] = this.userData.phone;
-     this.userViewTemplate["Email"] = this.userData.email;
-     this.userViewTemplate["Address"] = this.userData.address;
+     this.userViewTemplate['First Name'] = this.userData.firstName;
+     this.userViewTemplate['Last Name'] = this.userData.lastName;
+     this.userViewTemplate['Login'] = this.userData.login;
+     this.userViewTemplate['Phone'] = this.userData.phone;
+     this.userViewTemplate['Email'] = this.userData.email;
+     this.userViewTemplate['Address'] = this.userData.address;
   }
 
 /**
@@ -71,9 +71,9 @@ export class ProfileDetailComponent implements OnInit {
 
 /**
  * Destroy subsription
- */ 
+ */
   ngOnDestroy() {
-    //this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
   }
 
 }

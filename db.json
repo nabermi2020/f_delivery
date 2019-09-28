@@ -428,9 +428,67 @@
       "userId": 335
     },
     {
-      "products": [],
+      "products": [
+        {
+          "id": 4,
+          "productTitle": "Doctor Pepper Cherry",
+          "imgPath": "https://pizzaletta.com/uploads/drink/image/18/IMG_5887.JPG",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
+          "productPrice": 199,
+          "productCategories": [
+            "All",
+            "Alcoholic"
+          ],
+          "productQuantity": 1
+        },
+        {
+          "id": 5,
+          "productTitle": "Cesar with Chicken",
+          "imgPath": "https://pizzaletta.com/uploads/salat/image/1/%D0%A6%D0%B5%D0%B7%D0%B0%D1%80_%D0%B7_%D0%BA%D1%83%D1%80%D0%BA%D0%BE%D1%8E_150%D0%B3.JPG",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
+          "productPrice": 199,
+          "productCategories": [
+            "All",
+            "Seafood",
+            "With Meat"
+          ],
+          "productQuantity": 1
+        },
+        {
+          "id": 6,
+          "productTitle": "With Prosciutto",
+          "imgPath": "https://pizzaletta.com/uploads/salat/image/5/%D0%97_%D0%BF%D1%80%D0%BE%D1%88%D1%83%D1%82%D0%BE_150%D0%B3.JPG",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
+          "productPrice": 199,
+          "productCategories": [
+            "All",
+            "Seafood"
+          ],
+          "productQuantity": 1
+        },
+        {
+          "id": 7,
+          "productTitle": "Vegetable Plateau",
+          "imgPath": "https://pizzaletta.com/uploads/salat/image/8/IMG_7157.jpg",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
+          "productPrice": 199,
+          "productCategories": [
+            "All",
+            "With Meat"
+          ],
+          "productQuantity": 1
+        }
+      ],
       "cartId": 9453,
-      "totalPrice": 1200,
+      "totalPrice": 796,
       "id": 24,
       "userId": 300
     }

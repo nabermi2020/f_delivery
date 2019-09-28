@@ -6,6 +6,7 @@ import { HeaderComponent } from './../shared/header/header.component';
 import { NgModule } from '@angular/core';
 import { ShortenPipe } from './shorten.pipe';
 import { FormatPhonePipe } from './format-phone.pipe';
+import { FooterComponent } from './footer/footer.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { FormatPhonePipe } from './format-phone.pipe';
        HeaderComponent,
        SideBarComponent,
        ShortenPipe,
-       FormatPhonePipe,     
+       FormatPhonePipe,
+       FooterComponent,     
     ],
     imports: [
         CommonModule,
@@ -22,7 +24,8 @@ import { FormatPhonePipe } from './format-phone.pipe';
     exports: [
         HeaderComponent,
         SideBarComponent,
-        FormatPhonePipe
+        FormatPhonePipe,
+        FooterComponent
     ]
 
 })
