@@ -1,9 +1,11 @@
+import { LoadingService } from './../shared/servives/loading.service';
 import { ProductCart } from './../shared/servives/product-cart.service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, Observable } from 'rxjs';
 import { User } from './user.model';
+import { EditModalService } from '../shared/servives/edit-modal.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +24,9 @@ export class AuthService {
   ];
 
   constructor(private router: Router,
-              private http: HttpClient 
+              private http: HttpClient,
+              private loadingService: LoadingService,
+              private editModal: EditModalService
                ) { }
 
 /**
@@ -34,6 +38,11 @@ export class AuthService {
   signInn(login: string, password: string) {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
     let authStatus;
+ 
+
+
+    // this.loadingService.toggleLoading();
+    //this.editModal.toggleEditMode();
 
     this.http.get(`${this.apiUrl}/users?login=${login}&&password=${password}`, {headers: headers})
       .subscribe(
@@ -44,6 +53,14 @@ export class AuthService {
             this.isUserAuthorized.next(this.isAuthenticated);
             authStatus =  true;
             this.userData.next(res[0]);
+            //this.loadingService.toggleLoading();
+
+            setTimeout(
+              () => {
+                this.loadingService.toggleLoading();
+                this.editModal.toggleEditMode();
+              }, 2000
+            )
             return true;
           } else {
             console.log('Authentication error!');

@@ -1,3 +1,4 @@
+import { LoadingService } from './shared/servives/loading.service';
 import { OrdersService } from './shared/servives/orders.service';
 import { EditModalService } from './shared/servives/edit-modal.service';
 import { ProductService } from './shared/servives/products.service';
@@ -10,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductCart } from './shared/servives/product-cart.service';
+import { SharedModule } from './shared/shared.module';
  
 @NgModule({
   declarations: [
@@ -19,7 +21,7 @@ import { ProductCart } from './shared/servives/product-cart.service';
     BrowserModule,
     AppRoutingModule,
     AuthModule,
-    HttpClientModule
+    HttpClientModule 
     
   ],
   providers: [
@@ -28,7 +30,8 @@ import { ProductCart } from './shared/servives/product-cart.service';
     ProductService,
     ProductCart,
     EditModalService,
-    OrdersService
+    OrdersService,
+    LoadingService
   ],
   bootstrap: [AppComponent]
 })

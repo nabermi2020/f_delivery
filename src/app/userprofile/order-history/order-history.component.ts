@@ -1,6 +1,8 @@
+import { LoadingService } from './../../shared/servives/loading.service';
 import { Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { OrdersService } from 'src/app/shared/servives/orders.service';
+import { EditModalService } from 'src/app/shared/servives/edit-modal.service';
 
 @Component({
   selector: 'app-order-history',
@@ -12,7 +14,9 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
   orderSubscription = new Subscription();
   showCurrentOrderDetail: boolean = false;
 
-  constructor(private orderService: OrdersService) { }
+  constructor(private orderService: OrdersService,
+              private loadingService: LoadingService,
+              private editModal: EditModalService) { }
 
   ngOnInit() {
     this.getOrders();
@@ -23,11 +27,21 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
  * Get orders using 'orderService'
  */  
   getOrders() {
+    //this.loadingService.toggleLoading();
+    this.loadingService.toggleLoading();
+    this.editModal.toggleEditMode();
+    
     this.orderSubscription =  this.orderService.getOrders()
       .subscribe(
         res => {
           this.orders = res;
-
+          setTimeout(
+            () => {
+              
+              this.editModal.toggleEditMode();
+              this.loadingService.toggleLoading();
+            }, 2000
+          )
           console.log(res);
         },
         err => {
@@ -66,7 +80,7 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
     item["products"].forEach( product => {
       productQuantity += product.productQuantity;
     })
-    console.log(item);
+    //console.log(item);
     return productQuantity;
   }
 

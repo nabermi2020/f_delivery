@@ -7,6 +7,7 @@ import { NgModule } from '@angular/core';
 import { ShortenPipe } from './shorten.pipe';
 import { FormatPhonePipe } from './format-phone.pipe';
 import { FooterComponent } from './footer/footer.component';
+import { LoadingComponent } from './loading/loading.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { FooterComponent } from './footer/footer.component';
        SideBarComponent,
        ShortenPipe,
        FormatPhonePipe,
-       FooterComponent,     
+       FooterComponent,
+       LoadingComponent,     
     ],
     imports: [
         CommonModule,
@@ -25,7 +27,8 @@ import { FooterComponent } from './footer/footer.component';
         HeaderComponent,
         SideBarComponent,
         FormatPhonePipe,
-        FooterComponent
+        FooterComponent,
+        LoadingComponent
     ]
 
 })

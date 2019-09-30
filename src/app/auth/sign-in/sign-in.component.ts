@@ -1,3 +1,4 @@
+import { LoadingService } from './../../shared/servives/loading.service';
 import { AuthService } from './../auth.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
@@ -11,7 +12,7 @@ import { NgForm } from '@angular/forms';
 export class SignInComponent implements OnInit {
   authStatus: boolean = true;
    
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private loadingService: LoadingService) { }
 
   ngOnInit() {}
 
@@ -30,6 +31,7 @@ export class SignInComponent implements OnInit {
     this.authStatus =  this.authService.signInn(login, password); 
     if (this.authService) {
       localStorage.setItem("userInfo", JSON.stringify(credentials));
+   
     }   
   }
 

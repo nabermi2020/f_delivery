@@ -1,3 +1,4 @@
+import { LoadingService } from './loading.service';
 import { ProductCart } from './product-cart.service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { AuthService } from './../../auth/auth.service';
@@ -15,7 +16,8 @@ export class OrdersService {
   constructor(private authService: AuthService,
               private http: HttpClient,
               private productCart: ProductCart,
-              private router: Router) {
+              private router: Router,
+              private loadingService: LoadingService) {
   }
 
 /**
@@ -49,6 +51,8 @@ export class OrdersService {
  * @return {Observable} user's orders
  */  
   getOrders(): Observable<any> {
+   
+
     const headers = new HttpHeaders({'Content-type': 'application/json'});
     let id = this.authService.getCurrentUser().id;
     return this.http.get(`${this.apiUrl}/orders?userId=${id}`, { headers: headers });

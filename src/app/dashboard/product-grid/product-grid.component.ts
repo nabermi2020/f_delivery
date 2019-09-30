@@ -1,6 +1,8 @@
+import { LoadingService } from './../../shared/servives/loading.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/shared/servives/products.service';
+import { EditModalService } from 'src/app/shared/servives/edit-modal.service';
 
 @Component({
   selector: 'app-product-grid',
@@ -13,10 +15,14 @@ export class ProductGridComponent implements OnInit {
   activeCategory: string = "pizza";
   activeFilter: string = "All";
   constructor(private productsService: ProductService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private editMode: EditModalService,
+              private loadingService: LoadingService) { }
 
   ngOnInit() {
     this.getProducts();
+ 
+
      this.route.firstChild.params
        .subscribe( 
          (par: Params) => {
@@ -26,6 +32,7 @@ export class ProductGridComponent implements OnInit {
                res => {
                 this.products = res;
                 this.activeFilter = "All";
+           
                },
                
                err => {
