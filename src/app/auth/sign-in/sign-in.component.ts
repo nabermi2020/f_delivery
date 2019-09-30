@@ -1,7 +1,8 @@
-import { LoadingService } from './../../shared/servives/loading.service';
+import { LoadingService } from '../../shared/services/loading.service';
 import { AuthService } from './../auth.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { EditModalService } from 'src/app/shared/services/edit-modal.service';
  
 
 @Component({
@@ -12,7 +13,7 @@ import { NgForm } from '@angular/forms';
 export class SignInComponent implements OnInit {
   authStatus: boolean = true;
    
-  constructor(private authService: AuthService, private loadingService: LoadingService) { }
+  constructor(private authService: AuthService, private loadingService: LoadingService, private editModal: EditModalService) { }
 
   ngOnInit() {}
 
@@ -33,6 +34,10 @@ export class SignInComponent implements OnInit {
       localStorage.setItem("userInfo", JSON.stringify(credentials));
    
     }   
+
+    // this.loadingService.toggleLoading();
+    // //this.loadingService.toggleLoading();
+    // this.editModal.toggleEditMode();
   }
 
 }

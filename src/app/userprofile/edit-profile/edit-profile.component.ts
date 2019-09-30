@@ -2,7 +2,7 @@ import { AuthService } from './../../auth/auth.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { EditModalService } from 'src/app/shared/servives/edit-modal.service';
+import { EditModalService } from 'src/app/shared/services/edit-modal.service';
 
 @Component({
   selector: 'app-edit-profile',

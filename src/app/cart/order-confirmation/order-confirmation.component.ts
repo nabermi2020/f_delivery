@@ -1,13 +1,13 @@
 import { AuthService } from './../../auth/auth.service';
-import { ProductCart } from 'src/app/shared/servives/product-cart.service';
+import { ProductCart } from 'src/app/shared/services/product-cart.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Product } from 'src/app/shared/product.model';
 import { Order } from '../order.model';
-import { OrdersService } from 'src/app/shared/servives/orders.service';
+import { OrdersService } from 'src/app/shared/services/orders.service';
  
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { EditModalService } from 'src/app/shared/servives/edit-modal.service';
+import { EditModalService } from 'src/app/shared/services/edit-modal.service';
 
 @Component({
   selector: 'app-order-confirmation',

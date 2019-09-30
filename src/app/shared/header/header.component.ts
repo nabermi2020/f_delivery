@@ -1,4 +1,4 @@
-import { ProductCart } from '../servives/product-cart.service';
+import { ProductCart } from '../services/product-cart.service';
 import { User } from '../../auth/user.model';
 import { AuthService } from '../../auth/auth.service';
 import { Component, OnInit } from '@angular/core';

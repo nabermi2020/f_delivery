@@ -1,3 +1,4 @@
+import { AppRoutingModule } from './../app-routing.module';
 import { SideBarComponent } from './../shared/side-bar/side-bar.component';
 import { DashboardRoutingModule } from './../dashboard/dashboard-routing.module';
 import { CommonModule } from '@angular/common';
@@ -20,7 +21,7 @@ import { LoadingComponent } from './loading/loading.component';
        LoadingComponent,     
     ],
     imports: [
-        CommonModule,
+        CommonModule,  
         DashboardRoutingModule
     ], 
     exports: [

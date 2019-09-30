@@ -1,8 +1,8 @@
-import { LoadingService } from './../../shared/servives/loading.service';
+import { LoadingService } from '../../shared/services/loading.service';
 import { Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { OrdersService } from 'src/app/shared/servives/orders.service';
-import { EditModalService } from 'src/app/shared/servives/edit-modal.service';
+import { OrdersService } from 'src/app/shared/services/orders.service';
+import { EditModalService } from 'src/app/shared/services/edit-modal.service';
 
 @Component({
   selector: 'app-order-history',
@@ -27,21 +27,22 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
  * Get orders using 'orderService'
  */  
   getOrders() {
-    //this.loadingService.toggleLoading();
     this.loadingService.toggleLoading();
+    //this.loadingService.toggleLoading();
     this.editModal.toggleEditMode();
     
     this.orderSubscription =  this.orderService.getOrders()
       .subscribe(
         res => {
           this.orders = res;
-          setTimeout(
-            () => {
+          
+          // setTimeout(
+          //   () => {
               
               this.editModal.toggleEditMode();
               this.loadingService.toggleLoading();
-            }, 2000
-          )
+          //   }, 2000 
+          // )
           console.log(res);
         },
         err => {

@@ -1,7 +1,7 @@
-import { LoadingService } from './shared/servives/loading.service';
-import { OrdersService } from './shared/servives/orders.service';
-import { EditModalService } from './shared/servives/edit-modal.service';
-import { ProductService } from './shared/servives/products.service';
+import { LoadingService } from './shared/services/loading.service';
+import { OrdersService } from './shared/services/orders.service';
+import { EditModalService } from './shared/services/edit-modal.service';
+import { ProductService } from './shared/services/products.service';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth-guard.service';
 import { AuthModule } from './auth/auth.module';
@@ -10,7 +10,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ProductCart } from './shared/servives/product-cart.service';
+import { ProductCart } from './shared/services/product-cart.service';
 import { SharedModule } from './shared/shared.module';
  
 @NgModule({
@@ -21,7 +21,8 @@ import { SharedModule } from './shared/shared.module';
     BrowserModule,
     AppRoutingModule,
     AuthModule,
-    HttpClientModule 
+    HttpClientModule,
+
     
   ],
   providers: [

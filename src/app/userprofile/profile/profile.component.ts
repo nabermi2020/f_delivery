@@ -3,7 +3,7 @@ import { AuthService } from './../../auth/auth.service';
 import { User } from './../../auth/user.model';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { EditModalService } from 'src/app/shared/servives/edit-modal.service';
+import { EditModalService } from 'src/app/shared/services/edit-modal.service';
 
 @Component({
   selector: 'app-profile',

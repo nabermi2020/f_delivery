@@ -1,5 +1,5 @@
-import { LoadingService } from './../servives/loading.service';
-import { EditModalService } from 'src/app/shared/servives/edit-modal.service';
+import { LoadingService } from '../services/loading.service';
+import { EditModalService } from 'src/app/shared/services/edit-modal.service';
 import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 
 
@@ -9,22 +9,23 @@ import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
   styleUrls: ['./loading.component.scss']
 })
 export class LoadingComponent implements OnInit, OnDestroy {
-  showLoading: boolean = true;
+  showLoading: boolean = false;
 
   constructor(private editProfile: EditModalService, 
-              private loadingService: LoadingService ) {
+              private loadingService: LoadingService,
+              private changeDetector: ChangeDetectorRef ) {
                  
   }
   
 
   ngOnInit() {
   
-  this.editProfile.toggleEditMode();
+  //this.editProfile.toggleEditMode();
  
    this.loadingService.onLoadingChange
    .subscribe(
      (res: boolean) => {
-     
+        this.changeDetector.detectChanges();
         this.showLoading = res;
         console.log(res);
       

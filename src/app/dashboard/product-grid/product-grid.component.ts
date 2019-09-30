@@ -1,8 +1,8 @@
-import { LoadingService } from './../../shared/servives/loading.service';
+import { LoadingService } from '../../shared/services/loading.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from 'src/app/shared/servives/products.service';
-import { EditModalService } from 'src/app/shared/servives/edit-modal.service';
+import { ProductService } from 'src/app/shared/services/products.service';
+import { EditModalService } from 'src/app/shared/services/edit-modal.service';
 
 @Component({
   selector: 'app-product-grid',

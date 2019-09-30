@@ -1,4 +1,4 @@
-import { EditModalService } from './../../shared/servives/edit-modal.service';
+import { EditModalService } from '../../shared/services/edit-modal.service';
 import { AuthService } from './../../auth/auth.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';

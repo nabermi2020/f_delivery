@@ -1,10 +1,10 @@
-import { LoadingService } from './../../shared/servives/loading.service';
-import { ProductCart } from './../../shared/servives/product-cart.service';
+import { LoadingService } from '../../shared/services/loading.service';
+import { ProductCart } from '../../shared/services/product-cart.service';
 import { ActivatedRoute } from '@angular/router';
-import { ProductService } from './../../shared/servives/products.service';
+import { ProductService } from '../../shared/services/products.service';
 import { AuthService } from './../../auth/auth.service';
 import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { EditModalService } from 'src/app/shared/servives/edit-modal.service';
+import { EditModalService } from 'src/app/shared/services/edit-modal.service';
 import { Subscription } from 'rxjs';
 
 @Component({
