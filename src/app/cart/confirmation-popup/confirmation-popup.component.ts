@@ -1,3 +1,4 @@
+import { LoadingService } from './../../shared/services/loading.service';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { EditModalService } from 'src/app/shared/services/edit-modal.service';
 
@@ -10,16 +11,16 @@ export class ConfirmationPopupComponent implements OnInit {
   @Output() onOrderConfirmed = new EventEmitter();
   isOrderConfirmed: boolean = false;
 
-  constructor(private editModal: EditModalService) { }
+  constructor(private editModal: EditModalService, private loadingService: LoadingService) { }
 
   ngOnInit() {
     
   }
 
   confirmAnOrder() {
-    this.editModal.toggleEditMode(); 
-    this.isOrderConfirmed = true;
+    this.isOrderConfirmed = true; 
     this.onOrderConfirmed.emit(this.isOrderConfirmed);
+    this.closePopUp();
   }
 
   closePopUp() {

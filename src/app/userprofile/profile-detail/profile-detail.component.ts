@@ -23,7 +23,7 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
     'Phone': '',
     'Email': '',
     'Address': ''
-  }
+  };
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -33,7 +33,7 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // this.subscription = this.route.params.subscribe( (par: Params
     //   ) => {
-    //   this.id = par["id"]; 
+    //  this.id = par["id"];
     // });
   //  this.id = this.route.snapshot.children[0].params.id;
     // console.log(this.id);

@@ -40,17 +40,17 @@ export class HeaderComponent implements OnInit {
         }
       )
     this.id = this.activeUser.userId;
-      this.productCartService.onProductAdded  
+    this.productCartService.onProductAdded  
       .subscribe( 
         res => {
           this.productsQuantity = this.productCartService.calculateProductsQuantity();
           this.totalPrice = this.productCartService.getTotalPrice();
-          //console.log(this.productsQuantity);
+          // console.log(this.productsQuantity);
         },
         err => {
           alert('something went wrong!');
         }
-      )
+      );
   }
 
 /**
@@ -58,7 +58,7 @@ export class HeaderComponent implements OnInit {
  */  
   logOut() {
     this.authService.logOut();
-    //this.productCartService.onProductAdded.unsubscribe();
+    // this.productCartService.onProductAdded.unsubscribe();
     this.router.navigate(['/']); 
   }
 

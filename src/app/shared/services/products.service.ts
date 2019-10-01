@@ -1,11 +1,11 @@
-import { Product } from './../product.model';
+import { Product } from '../product.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpHeaderResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable()
 export class ProductService {
-    apiUrl: string = "http://localhost:3000";
+    apiUrl: string = "https://f-deploy.herokuapp.com";
     
     products = {
         // pizza: [
@@ -15,7 +15,7 @@ export class ProductService {
         //     new Product("Чотири Сири Класична", "./../../assets/pizza3.jpg", "550", "30", " Моцарела, пармезан, сир чедер, сир дорблю, соус вершковий, білий сир Брі", 199),
         //     new Product("Піца Емілія", "./../../assets/pizza1.jpg", "550", "30", "Шинка, моцарела, помідори, кукурудза, соус часниковий", 200)    
         // ]    
-    }
+    };
 
     constructor(private http: HttpClient) { }
  
@@ -24,7 +24,7 @@ export class ProductService {
   */   
     saveProducts() {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
-        this.http.post(this.apiUrl, this.products, { headers: headers})
+        this.http.post(this.apiUrl, this.products, { headers})
             .subscribe(
                 res => {   
                     console.log(res);
@@ -32,7 +32,7 @@ export class ProductService {
                 err => {
                     console.log(err);
                 }
-            ) 
+            );
     }
 
 /**
@@ -41,7 +41,7 @@ export class ProductService {
  */    
     getProducts() {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
-        return this.http.get(`${this.apiUrl}/pizza`, {headers: headers});
+        return this.http.get(`${this.apiUrl}/pizza`, {headers});
     }
 
 /**
@@ -51,8 +51,6 @@ export class ProductService {
  */    
     getProductsByCategory(category: string): Observable<any> {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
-        return this.http.get(`${this.apiUrl}/${category}`, {headers: headers});
+        return this.http.get(`${this.apiUrl}/${category}`, {headers});
     }
 }
-
- 

@@ -12,7 +12,7 @@ import { EditModalService } from 'src/app/shared/services/edit-modal.service';
 export class OrderHistoryComponent implements OnInit, OnDestroy {
   orders: Array<any>;
   orderSubscription = new Subscription();
-  showCurrentOrderDetail: boolean = false;
+  showCurrentOrderDetail = false;
 
   constructor(private orderService: OrdersService,
               private loadingService: LoadingService,
@@ -25,49 +25,46 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
 
 /**
  * Get orders using 'orderService'
- */  
+ */
   getOrders() {
     this.loadingService.toggleLoading();
-    //this.loadingService.toggleLoading();
+    // this.loadingService.toggleLoading();
     this.editModal.toggleEditMode();
-    
+
     this.orderSubscription =  this.orderService.getOrders()
       .subscribe(
         res => {
           this.orders = res;
-          
           // setTimeout(
           //   () => {
-              
-              this.editModal.toggleEditMode();
-              this.loadingService.toggleLoading();
-          //   }, 2000 
+          this.editModal.toggleEditMode();
+          this.loadingService.toggleLoading();
+          //   }, 2000
           // )
-          console.log(res);
         },
         err => {
           alert('Something went wrong!');
         }
-      )
+      );
   }
 
 /**
-* Get order's date
-* @param {String} order's date
-* @return {String} order's date
-*/   
+ * Get order's date
+ * @param {String} order's date
+ * @return {String} order's date
+ */
   getDate(date) {
-    let orderDate = (new Date(date)).toLocaleDateString();
+    const orderDate = (new Date(date)).toLocaleDateString();
     return orderDate;
   }
 
 /**
-* Get order's time
-* @param {String} order's date
-* @return {String} order's time
-*/ 
+ * Get order's time
+ * @param {String} order's date
+ * @return {String} order's time
+ */
   getTime(date) {
-    let orderTime = (new Date(date)).toLocaleTimeString();
+    const orderTime = (new Date(date)).toLocaleTimeString();
     return orderTime;
   }
 
@@ -77,17 +74,17 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
  * @return { number} product's quantity;
  */
   getProductsQuantity(item) {
-    let productQuantity = 0; 
-    item["products"].forEach( product => {
+    let productQuantity = 0;
+    item['products'].forEach( product => {
       productQuantity += product.productQuantity;
-    })
-    //console.log(item);
+    });
+    // console.log(item);
     return productQuantity;
   }
 
 /**
-* Destroy order's history subscription
-*/ 
+ * Destroy order's history subscription
+ */
   ngOnDestroy() {
     this.orderSubscription.unsubscribe();
   }

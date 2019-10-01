@@ -11,16 +11,16 @@ import { EditModalService } from '../shared/services/edit-modal.service';
   providedIn: 'root'
 })
 export class AuthService {
-  apiUrl: any = "http://localhost:3000";
+  apiUrl: any = 'https://f-deploy.herokuapp.com';
   isAuthenticated: boolean;
   isUserAuthorized = new Subject<any>();
   userData = new Subject<any>();
   currentUser: any;
   
   users = [
-    new User("John", "Smith", "john_smith777", "john777", "+380501654784", "john777@gmail.com", "NY, Green Valley 15/64"),
-    new User("Michael", "Naberezhnyi", "michael777", "test123", "+380501865210", "mnabe777@gmail.com", "LA, Red Valley 7/32"),
-    new User("John", "Doe", "johnl777", "demo1234", "+380502565210", "john_doe@gmail.com", "Las Vegas, Yellow Road 7/32")
+    new User('John', 'Smith', 'john_smith777', 'john777', '+380501654784', 'john777@gmail.com', 'NY, Green Valley 15/64'),
+    new User('Michael', 'Naberezhnyi', 'michael777', 'test123', '+380501865210', 'mnabe777@gmail.com', 'LA, Red Valley 7/32'),
+    new User('Johh', 'Doe', 'johnl777', 'demo1234', '+380502565210', 'john_doe@gmail.com', 'Las Vegas, Yellow Road 7/32')
   ];
 
   constructor(private router: Router,
@@ -79,6 +79,7 @@ export class AuthService {
  * Update user data
  */
   updateUserData() {
+    
     this.signInn(this.currentUser.login, this.currentUser.password);
   }
 
@@ -88,7 +89,7 @@ export class AuthService {
   logOut() {
     this.isAuthenticated = false;
     this.isUserAuthorized.next(this.isAuthenticated);
-    localStorage.removeItem("userInfo");
+    localStorage.removeItem('userInfo');
   }
 
 
@@ -141,7 +142,7 @@ export class AuthService {
 
  /**
   *  Return current user's info
-  * @return {obj} user's data 
+  * @return {obj} user's data
   */ 
   getCurrentUser(): any {
     return this.currentUser;
@@ -171,7 +172,7 @@ export class AuthService {
     
     const headers = new HttpHeaders({'Content-type': 'application/json'});
      
-    return this.http.put(`${this.apiUrl}/users/${this.currentUser.id}`,  user, { headers: headers});
+    return this.http.put(`${this.apiUrl}/users/${this.currentUser.id}`,  user, {headers: headers});
   }
 
 }

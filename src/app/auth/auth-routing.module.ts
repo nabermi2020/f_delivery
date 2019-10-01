@@ -9,10 +9,10 @@ const authRoutes: Routes = [
     { path: 'authentication', component: AuthenticationComponent, children: [
         { path: 'signin', component: SignInComponent },
         { path: 'signup', component: SignUpComponent },
-        { path: '', redirectTo: '/authentication/signin', pathMatch: "full" },
+        { path: '', redirectTo: '/authentication/signin', pathMatch: 'full' },
     ]},
-    { path: '', redirectTo: '/authentication/signin', pathMatch: "full" },   
-]
+    { path: '', redirectTo: '/authentication/signin', pathMatch: 'full' },
+];
 
 @NgModule({
     imports: [

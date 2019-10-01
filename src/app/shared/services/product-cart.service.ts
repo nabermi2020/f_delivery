@@ -1,5 +1,5 @@
-import { Cart } from './../../cart/cart/cart.model';
-import { AuthService } from './../../auth/auth.service';
+import { Cart } from '../../cart/cart/cart.model';
+import { AuthService } from '../../auth/auth.service';
 import { Injectable  } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Product } from '../product.model';
@@ -12,11 +12,11 @@ export class ProductCart {
     cart = new Cart();
     onProductAdded = new Subject<any>();
     gettingProducts = new Subscription();
-    apiUrl: any = "http://localhost:3000";
+    apiUrl: any = "https://f-deploy.herokuapp.com";
 
     constructor(private authService: AuthService,
                 private http: HttpClient) {
-                //this.unsubscribeFromProductsGettedFromServer();  
+                // this.unsubscribeFromProductsGettedFromServer();  
                 this.checkCartExistenseByUserId();
                 this.getCartFromServer();
     }
@@ -26,7 +26,7 @@ export class ProductCart {
  */
     checkCartExistenseByUserId() {
         this.cart.setUserId(this.authService.getCurrentUser());
-        let userId = this.authService.getCurrentUser().id;
+        const userId = this.authService.getCurrentUser().id;
         const headers = new HttpHeaders({'Content-type': 'application/json'});
         this.http.get(`${this.apiUrl}/cart?id=${userId}`, { headers: headers})
             .subscribe(
@@ -69,7 +69,7 @@ export class ProductCart {
   */   
     synchCartWithServer() {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
-        let userData = this.authService.getCurrentUser();
+        const userData = this.authService.getCurrentUser();
 
         console.log(userData);   
 
@@ -79,7 +79,7 @@ export class ProductCart {
                    // alert('successfully added');
                 },
                 err => {
-                    //alert('error added');
+                    // alert('error added');
                 }
             );
     }
@@ -89,21 +89,21 @@ export class ProductCart {
   */   
     getCartFromServer() {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
-        let userId = this.authService.getCurrentUser().id;
+        const userId = this.authService.getCurrentUser().id;
         this.gettingProducts = this.http.get(`${this.apiUrl}/cart/${userId}`, { headers: headers})
             .subscribe(
                 res => {
-                    //console.log('Getted from server!');
+                    // console.log('Getted from server!');
                     this.cart.setProducts(res["products"]);
                     this.cart.setCartId(res["cartId"]);
                     this.onProductAdded.next(this.cart.getCart());     
-                    //console.log(this.cart);
+                    // console.log(this.cart);
                     // alert('Success getting cart!!!');
                 },
                 err => {
                     alert('Error while getting cart from server!');
                 }
-            ) 
+            );
     }
 
 /**
@@ -121,7 +121,7 @@ export class ProductCart {
             err => {
                 alert(err);
             }
-        )
+        );
     }
   
 /**
@@ -176,13 +176,13 @@ export class ProductCart {
         this.onProductAdded.next(this.cart);
     }
 
-    //It's not realized
+    // It's not realized
     onOrderSuccess() {
-        //TODO
+        // TODO
     }
 
-    //It's not realized
+    // It's not realized
     onOrderError() {
-        //TODO
+        // TODO
     }    
 }

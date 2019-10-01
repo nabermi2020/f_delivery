@@ -1,3 +1,4 @@
+import { LoadingService } from './../../shared/services/loading.service';
 import { AuthService } from './../../auth/auth.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -16,7 +17,9 @@ export class EditProfileComponent implements OnInit {
 
   constructor(private editProfile: EditModalService,
               private route: ActivatedRoute,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private editModal: EditModalService,
+              private loadingService: LoadingService) { }
 
   ngOnInit() {
     this.route.params.subscribe( 
@@ -24,7 +27,7 @@ export class EditProfileComponent implements OnInit {
         this.id = par["id"];
         this.currentUser = this.authService.getCurrentUser();
         this.initForm();
-        //console.log(this.currentUser);
+        // console.log(this.currentUser);
     });
   }
 
@@ -62,9 +65,9 @@ export class EditProfileComponent implements OnInit {
   * @return { Obj | null } passwords' comparison result
   */ 
   validatePasswords(registrationFormGroup: FormGroup) {
-    let password = registrationFormGroup.controls.password.value;
-    let repeatPassword = registrationFormGroup.controls.passwordRepeat.value;
-  
+    const password = registrationFormGroup.controls.password.value;
+    const repeatPassword = registrationFormGroup.controls.passwordRepeat.value;
+    
     if (repeatPassword.length <= 0) {
         return null;
     }
@@ -85,15 +88,14 @@ export class EditProfileComponent implements OnInit {
   }
 
 /**
- * Save changes after editing user's profile info 
- */ 
+ * Save changes after editing user's profile info
+ */
   saveChanges() {
-    let formData = this.editForm.value;
-  
+    const formData = this.editForm.value;
+
     this.authService.checkUserInfo(formData)
       .subscribe(
         res => {
-          //console.log(res);
           if (res.length > 0 ) {
             this.authService.updateUserInfo(formData)
               .subscribe(
@@ -106,13 +108,13 @@ export class EditProfileComponent implements OnInit {
                 err => {
                   console.log('something went wrong!!!');
                 }
-              )
+              );
           }
-        }, 
+        },
 
         err => {
           console.log('Something went wrong!');
         }
-      )
+      );
   }
 }

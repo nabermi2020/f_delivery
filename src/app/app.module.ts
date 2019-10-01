@@ -12,7 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductCart } from './shared/services/product-cart.service';
 import { SharedModule } from './shared/shared.module';
- 
+
 @NgModule({
   declarations: [
     AppComponent
@@ -21,9 +21,7 @@ import { SharedModule } from './shared/shared.module';
     BrowserModule,
     AppRoutingModule,
     AuthModule,
-    HttpClientModule,
-
-    
+    HttpClientModule
   ],
   providers: [
     AuthGuard,

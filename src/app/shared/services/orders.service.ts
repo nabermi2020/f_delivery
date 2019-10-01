@@ -1,23 +1,25 @@
 import { LoadingService } from './loading.service';
 import { ProductCart } from './product-cart.service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { AuthService } from './../../auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 import { Injectable } from '@angular/core';
 import { Order } from 'src/app/cart/order.model';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { EditModalService } from './edit-modal.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdersService {
-  apiUrl: any = "http://localhost:3000";
+  apiUrl: any = "https://f-deploy.herokuapp.com";
 
   constructor(private authService: AuthService,
               private http: HttpClient,
               private productCart: ProductCart,
               private router: Router,
-              private loadingService: LoadingService) {
+              private loadingService: LoadingService,
+              private editModal: EditModalService) {
   }
 
 /**
@@ -26,22 +28,23 @@ export class OrdersService {
  */  
   makeAnOrder(order: Order) {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
-    let id = this.authService.getCurrentUser().id;
+    const id = this.authService.getCurrentUser().id;
     order.setUserId(id);
     console.log(order);
-    
+    // this.loadingService.toggleLoading();
+    // this.editModal.toggleEditMode();
     this.http.post(`${this.apiUrl}/orders`, order, { headers: headers})
         .subscribe(
             res => {
-                //console.log(res);
-                alert('Your order is succesfully done!');
                 this.productCart.cleanCart();
+                // this.loadingService.toggleLoading();
+                // this.editModal.toggleEditMode();   
                 this.router.navigate(['dashboard/products/pizza']);
-                
             },
+
             err => {
-                //console.log(err);
-                alert('Something went wrong!');
+                // console.log(err);
+                // alert('Something went wrong!');
             }
         );
   }
@@ -51,10 +54,8 @@ export class OrdersService {
  * @return {Observable} user's orders
  */  
   getOrders(): Observable<any> {
-   
-
     const headers = new HttpHeaders({'Content-type': 'application/json'});
-    let id = this.authService.getCurrentUser().id;
+    const id = this.authService.getCurrentUser().id;
     return this.http.get(`${this.apiUrl}/orders?userId=${id}`, { headers: headers });
   }
 
