@@ -18,6 +18,7 @@ export class ProductGridComponent implements OnInit, OnDestroy {
   urlParSubscription = new Subscription();
   productSubscription = new Subscription();
   productsByCategorySubscription = new Subscription();
+  
   constructor(private productsService: ProductService,
               private route: ActivatedRoute,
               private editMode: EditModalService,

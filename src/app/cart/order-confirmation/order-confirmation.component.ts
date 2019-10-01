@@ -1,6 +1,6 @@
 import { AuthService } from './../../auth/auth.service';
 import { ProductCart } from 'src/app/shared/services/product-cart.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Product } from 'src/app/shared/product.model';
 import { Order } from '../order.model';
 import { OrdersService } from 'src/app/shared/services/orders.service';
@@ -8,19 +8,21 @@ import { OrdersService } from 'src/app/shared/services/orders.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EditModalService } from 'src/app/shared/services/edit-modal.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-order-confirmation',
   templateUrl: './order-confirmation.component.html',
   styleUrls: ['./order-confirmation.component.scss']
 })
-export class OrderConfirmationComponent implements OnInit {
+export class OrderConfirmationComponent implements OnInit, OnDestroy {
   cart: Array<Product> = [];
   formData: NgForm;
   userData: any;
   totalPrice: any;
   isConfirmationPopUpEnabled: boolean = false;
   @ViewChild('form') form: NgForm;
+  editModalSubscription = new Subscription();
 
   constructor(private productCart: ProductCart,
               private ordersService: OrdersService,
@@ -35,7 +37,7 @@ export class OrderConfirmationComponent implements OnInit {
     this.preFillForm();
     console.log(this.cart);
 
-    this.editModal.onEditChange.subscribe(
+    this.editModalSubscription = this.editModal.onEditChange.subscribe(
       (res: boolean) => {
         this.isConfirmationPopUpEnabled = res;
       });
@@ -104,5 +106,9 @@ export class OrderConfirmationComponent implements OnInit {
       this.router.navigate(['dashboard/products/pizza']);
     }
     
+  }
+
+  ngOnDestroy() {
+    this.editModalSubscription.unsubscribe();
   }
 }

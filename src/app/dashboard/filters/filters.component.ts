@@ -1,15 +1,17 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-filters',
   templateUrl: './filters.component.html',
   styleUrls: ['./filters.component.scss']
 })
-export class FiltersComponent implements OnInit {
+export class FiltersComponent implements OnInit, OnDestroy {
   activeCategory: string = 'All';
   @Output() activeCategorySelected = new EventEmitter();
   activeFilter: [];
+  activeFilterSubscription = new Subscription();
   filters =  {
     'pizza': ['All', 'Vegetarian', 'With Meat', 'With seafood', 'With Cheese'],
     'drinks': ['All', 'Alcoholic', 'Non alcoholic', 'Lemonades'],
@@ -19,7 +21,7 @@ export class FiltersComponent implements OnInit {
   constructor(private activeRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.activeRoute.children[0].params
+    this.activeFilterSubscription = this.activeRoute.children[0].params
       .subscribe(
         res => {
           this.activeCategory = res["cat"];
@@ -36,6 +38,10 @@ export class FiltersComponent implements OnInit {
   filterProductsByCategory(filter) {
     this.activeCategory = filter;
     this.activeCategorySelected.emit(filter);
+  }
+
+  ngOnDestroy() {
+    this.activeFilterSubscription.unsubscribe();
   }
 
 }
