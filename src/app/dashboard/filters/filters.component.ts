@@ -8,13 +8,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class FiltersComponent implements OnInit {
   activeCategory: string = 'All';
-  @Output() onActiveCategorySelected = new EventEmitter();
+  @Output() activeCategorySelected = new EventEmitter();
   activeFilter: [];
   filters =  {
     'pizza': ['All', 'Vegetarian', 'With Meat', 'With seafood', 'With Cheese'],
     'drinks': ['All', 'Alcoholic', 'Non alcoholic', 'Lemonades'],
     'salads': ['All', 'Vegetarian', 'Seafood', 'With Meat']
-  }
+  };
 
   constructor(private activeRoute: ActivatedRoute) { }
 
@@ -26,7 +26,7 @@ export class FiltersComponent implements OnInit {
           this.activeFilter = this.filters[this.activeCategory];
           this.activeCategory = 'All';
         }
-      )
+      );
   }
 
  /**
@@ -35,7 +35,7 @@ export class FiltersComponent implements OnInit {
   */ 
   filterProductsByCategory(filter) {
     this.activeCategory = filter;
-    this.onActiveCategorySelected.emit(filter);
+    this.activeCategorySelected.emit(filter);
   }
 
 }

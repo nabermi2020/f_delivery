@@ -7,7 +7,7 @@ export class Product {
     public productTitle: string;
     public productPrice: number;
     public productQuantity: number;
-    public productCategories: String[];
+    public productCategories: string[];
 
     constructor(title: string, imgSrc: string,
                 productWeight: string, productSize: string,

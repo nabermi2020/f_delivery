@@ -44,7 +44,7 @@ export class AuthService {
     // this.loadingService.toggleLoading();
     // this.editModal.toggleEditMode();
 
-    this.http.get(`${this.apiUrl}/users?login=${login}&&password=${password}`, {headers: headers})
+    this.http.get(`${this.apiUrl}/users?login=${login}&&password=${password}`, { headers })
       .subscribe(
         (res: Array<any>) => {
           if (res && res.length > 0 ) {
@@ -53,14 +53,14 @@ export class AuthService {
             this.isUserAuthorized.next(this.isAuthenticated);
             authStatus =  true;
             this.userData.next(res[0]);
-            //this.loadingService.toggleLoading();
+            // this.loadingService.toggleLoading();
             
             setTimeout(
               () => {
                 // this.loadingService.toggleLoading();
                 // this.editModal.toggleEditMode();
               }, 2000
-            )
+            );
             return true;
           } else {
             console.log('Authentication error!');
@@ -72,7 +72,7 @@ export class AuthService {
         }
       );
       
-      return authStatus ? true : false; 
+    return authStatus ? true : false; 
   }
 
 /**
@@ -94,19 +94,19 @@ export class AuthService {
 
 
  /**
- * Register new user and navigate to the 'sign-in'
- * @param {User} new user instance
- */ 
+  * Register new user and navigate to the 'sign-in'
+  * @param {User} new user instance
+  */ 
   signUp(users) {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
      
-    this.http.post(`${this.apiUrl}/users`, users, {headers: headers})
+    this.http.post(`${this.apiUrl}/users`, users, { headers })
       .subscribe(
         res => {
           this.router.navigate(['']);
 
         }, err => {
-          alert('Something went wrong, try again!!!')
+          alert('Something went wrong, try again!!!');
         }
       );
   }
@@ -119,7 +119,7 @@ export class AuthService {
  */
   checkUser(login: User): Observable<any> {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
-    return this.http.get(`${this.apiUrl}/users?login=${login}`, {headers: headers});
+    return this.http.get(`${this.apiUrl}/users?login=${login}`, { headers });
   }
 
 /**
@@ -127,9 +127,9 @@ export class AuthService {
  * @param {string} user's email 
  * @return {Observable} array with 1 email if there's user withthe same email
  */
-  checkEmail(email: string): Observable<any>{
+  checkEmail(email: string): Observable<any> {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
-    return this.http.get(`${this.apiUrl}/users?email=${email}`, {headers: headers});
+    return this.http.get(`${this.apiUrl}/users?email=${email}`, { headers });
   }
 
 /**
@@ -155,9 +155,9 @@ export class AuthService {
   */ 
   checkUserInfo(userData): Observable<any> {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
-    let login = this.currentUser.login;
-    let password = userData.passwords.password;
-    return this.http.get(`${this.apiUrl}/users?login=${login}&&password=${password}`, {headers: headers});
+    const login = this.currentUser.login;
+    const password = userData.passwords.password;
+    return this.http.get(`${this.apiUrl}/users?login=${login}&&password=${password}`, { headers });
   }
 
 /**
@@ -166,13 +166,13 @@ export class AuthService {
  * @return {Observable} updating result
  */
   updateUserInfo(userData): Observable<any> {
-    let user = new User(userData.firstName, userData.lastName, 
+    const user = new User(userData.firstName, userData.lastName, 
                         this.currentUser.login, userData.passwords.password,
                         userData.phone, this.currentUser.email, userData.address);
     
     const headers = new HttpHeaders({'Content-type': 'application/json'});
      
-    return this.http.put(`${this.apiUrl}/users/${this.currentUser.id}`,  user, {headers: headers});
+    return this.http.put(`${this.apiUrl}/users/${this.currentUser.id}`,  user, { headers });
   }
 
 }

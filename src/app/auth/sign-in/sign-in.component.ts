@@ -22,12 +22,12 @@ export class SignInComponent implements OnInit {
  * @param {NgForm} login and password.
  */
   onLogin(form: NgForm) {
-    let login = form.value.login;
-    let password = form.value.password;
-    let credentials = {
+    const login = form.value.login;
+    const password = form.value.password;
+    const credentials = {
       "login": login,
       "password": password
-    }
+    };
    
     this.authStatus =  this.authService.signInn(login, password); 
     if (this.authService) {

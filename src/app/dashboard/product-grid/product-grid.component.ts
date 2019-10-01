@@ -28,25 +28,25 @@ export class ProductGridComponent implements OnInit, OnDestroy {
     this.getProducts();
  
 
-     this.urlParSubscription = this.route.firstChild.params
-       .subscribe( 
-         (par: Params) => {
-           this.activeCategory = par["cat"];
-           this.loadingService.toggleLoading();
-           this.editModal.toggleEditMode();
-           this.productsByCategorySubscription = this.productsService.getProductsByCategory(this.activeCategory)
-             .subscribe(
-               res => {
+    this.urlParSubscription = this.route.firstChild.params
+      .subscribe( 
+        (par: Params) => {
+          this.activeCategory = par["cat"];
+          this.loadingService.toggleLoading();
+          this.editModal.toggleEditMode();
+          this.productsByCategorySubscription = this.productsService.getProductsByCategory(this.activeCategory)
+            .subscribe(
+              res => {
                 this.products = res;
                 this.activeFilter = "All";
                 this.loadingService.toggleLoading();
                 this.editModal.toggleEditMode();
-               },
-               
-               err => {
-                console.log(err);
-               });
-       })
+              },
+      
+              err => {
+              console.log(err);
+              });
+      });
   }
 
 /**
@@ -65,7 +65,7 @@ export class ProductGridComponent implements OnInit, OnDestroy {
       err => {
           console.log(err);
       }
-    )
+    );
   }
 
  /**
@@ -83,4 +83,3 @@ export class ProductGridComponent implements OnInit, OnDestroy {
   }
 
 }
-      

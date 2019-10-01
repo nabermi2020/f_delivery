@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   templateUrl: './authentication.component.html',
   styleUrls: ['./authentication.component.scss']
 })
-export class AuthenticationComponent implements OnInit{
+export class AuthenticationComponent implements OnInit {
   
   constructor(private authService: AuthService,
               private router: Router) { }
@@ -18,23 +18,22 @@ export class AuthenticationComponent implements OnInit{
         if (sub) {
          // console.log(sub);
           this.router.navigate(['/dashboard/products/pizza']);
-        } 
-        else {
+        } else {
          // console.log("auth error");
           this.router.navigate(['']);
         }
       }
-    ) 
+    );
 
     this.isAuthenticated();
   }
 
   isAuthenticated() {
-    let userData = localStorage.getItem("userInfo");
-    if(userData) {
+    const userData = localStorage.getItem("userInfo");
+    if (userData) {
       console.log(userData);
 
-      let userCredentials = JSON.parse(userData);
+      const userCredentials = JSON.parse(userData);
       this.authService.signInn(userCredentials.login, userCredentials.password);
     } else {
       console.log('No active session data available!');

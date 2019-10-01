@@ -8,7 +8,7 @@ import { EditModalService } from 'src/app/shared/services/edit-modal.service';
   styleUrls: ['./confirmation-popup.component.scss']
 })
 export class ConfirmationPopupComponent implements OnInit {
-  @Output() onOrderConfirmed = new EventEmitter();
+  @Output() orderConfirmed = new EventEmitter();
   isOrderConfirmed: boolean = false;
 
   constructor(private editModal: EditModalService, private loadingService: LoadingService) { }
@@ -19,7 +19,7 @@ export class ConfirmationPopupComponent implements OnInit {
 
   confirmAnOrder() {
     this.isOrderConfirmed = true; 
-    this.onOrderConfirmed.emit(this.isOrderConfirmed);
+    this.orderConfirmed.emit(this.isOrderConfirmed);
     this.closePopUp();
   }
 

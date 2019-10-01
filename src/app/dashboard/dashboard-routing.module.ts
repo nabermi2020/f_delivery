@@ -24,7 +24,7 @@ const dashboardRoutes: Routes = [
         { path: 'cart', component: CartComponent },
         { path: 'order-confirmation', component: OrderConfirmationComponent}
     ]},
-]
+];
 
 @NgModule({
     imports: [

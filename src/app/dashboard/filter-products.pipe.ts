@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class FilterProductsPipe implements PipeTransform {
 
   transform(value: any, category?: any): any {
-    let filteredProducts = [];
+    const filteredProducts = [];
     if ( value ) {
       value.forEach( (item) => {
         if ( item.productCategories.includes(category)) {

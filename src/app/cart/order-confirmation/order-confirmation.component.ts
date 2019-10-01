@@ -38,14 +38,14 @@ export class OrderConfirmationComponent implements OnInit {
     this.editModal.onEditChange.subscribe(
       (res: boolean) => {
         this.isConfirmationPopUpEnabled = res;
-      })
+      });
   }
 
 /**
  * Prefill order confirmation screen
  */  
   preFillForm() {
-     setTimeout( () => {
+    setTimeout( () => {
       this.form.setValue({
         address: this.userData.address,
         email: this.userData.email,
@@ -54,7 +54,7 @@ export class OrderConfirmationComponent implements OnInit {
         phone: this.userData.phone,
         orderTime: ''
       });
-     },); 
+    }, );
   }
 
 /**
@@ -62,14 +62,14 @@ export class OrderConfirmationComponent implements OnInit {
  * @param {ngForm} form data
  */  
   onOrderSubmit(form) {
-    let firstName = form.value.firstName;
-    let lastName = form.value.lastName;
-    let email = form.value.email;
-    let phone = form.value.phone;
-    let address = form.value.address;
-    let orderTime = form.value.orderTime;
+    const firstName = form.value.firstName;
+    const lastName = form.value.lastName;
+    const email = form.value.email;
+    const phone = form.value.phone;
+    const address = form.value.address;
+    const orderTime = form.value.orderTime;
     
-    let order = new Order(firstName, lastName,
+    const order = new Order(firstName, lastName,
                           email, phone,
                           address, orderTime,
                           this.productCart.getProductCart());
@@ -88,7 +88,7 @@ export class OrderConfirmationComponent implements OnInit {
     console.log(this.formData);
     this.isConfirmationPopUpEnabled = !this.isConfirmationPopUpEnabled;
     this.editModal.toggleEditMode();
-    //alert('Hello');
+    // alert('Hello');
   }
   
  /**
@@ -96,7 +96,7 @@ export class OrderConfirmationComponent implements OnInit {
   * @param {Product} selected product 
   */ 
   deleteProductFromList(product: Product) {
-    let productId = product.id;
+    const productId = product.id;
     this.productCart.deleteProductById(productId);
     this.totalPrice = this.productCart.getTotalPrice();
 

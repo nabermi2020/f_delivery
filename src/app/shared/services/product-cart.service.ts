@@ -28,7 +28,7 @@ export class ProductCart {
         this.cart.setUserId(this.authService.getCurrentUser());
         const userId = this.authService.getCurrentUser().id;
         const headers = new HttpHeaders({'Content-type': 'application/json'});
-        this.http.get(`${this.apiUrl}/cart?id=${userId}`, { headers: headers})
+        this.http.get(`${this.apiUrl}/cart?id=${userId}`, { headers })
             .subscribe(
                 (res: Array<any>) => {
                     if (res.length != 0) {
@@ -47,7 +47,7 @@ export class ProductCart {
  */
     createCartOnServer() {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
-        this.http.post(`${this.apiUrl}/cart`, this.cart, { headers: headers})
+        this.http.post(`${this.apiUrl}/cart`, this.cart, { headers })
             .subscribe(
                 res => {
                     alert('Cart is  created!');
@@ -73,7 +73,7 @@ export class ProductCart {
 
         console.log(userData);   
 
-        this.http.put(`${this.apiUrl}/cart/${this.cart.id}`, this.cart, { headers: headers})
+        this.http.put(`${this.apiUrl}/cart/${this.cart.id}`, this.cart, { headers })
             .subscribe(
                 res => {
                    // alert('successfully added');
@@ -90,7 +90,7 @@ export class ProductCart {
     getCartFromServer() {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
         const userId = this.authService.getCurrentUser().id;
-        this.gettingProducts = this.http.get(`${this.apiUrl}/cart/${userId}`, { headers: headers})
+        this.gettingProducts = this.http.get(`${this.apiUrl}/cart/${userId}`, { headers })
             .subscribe(
                 res => {
                     // console.log('Getted from server!');

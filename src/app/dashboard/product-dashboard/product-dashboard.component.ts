@@ -32,7 +32,7 @@ export class ProductDashboardComponent implements OnInit, OnDestroy {
         this.changeDetector.detectChanges();
       }
     
-    )
+    );
 
     this.cartService.checkCartExistenseByUserId();
     this.cartService.getCartFromServer();

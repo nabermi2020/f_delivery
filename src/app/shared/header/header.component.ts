@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  //activeCategory: string = "Pizza";
+  // activeCategory: string = "Pizza";
   activeUser: User;
   id: number;
   productsQuantity: any;  
@@ -38,7 +38,7 @@ export class HeaderComponent implements OnInit {
         err => {
           alert('Something went wrong!');
         }
-      )
+      );
     this.id = this.activeUser.userId;
     this.productCartService.onProductAdded  
       .subscribe( 

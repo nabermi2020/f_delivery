@@ -33,7 +33,7 @@ export class OrdersService {
     console.log(order);
     // this.loadingService.toggleLoading();
     // this.editModal.toggleEditMode();
-    this.http.post(`${this.apiUrl}/orders`, order, { headers: headers})
+    this.http.post(`${this.apiUrl}/orders`, order, { headers })
         .subscribe(
             res => {
                 this.productCart.cleanCart();
@@ -56,7 +56,7 @@ export class OrdersService {
   getOrders(): Observable<any> {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
     const id = this.authService.getCurrentUser().id;
-    return this.http.get(`${this.apiUrl}/orders?userId=${id}`, { headers: headers });
+    return this.http.get(`${this.apiUrl}/orders?userId=${id}`, { headers });
   }
 
 }

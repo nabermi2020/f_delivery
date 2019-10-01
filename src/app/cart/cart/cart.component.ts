@@ -26,7 +26,7 @@ export class CartComponent implements OnInit {
   * @param {Product} selected product 
   */ 
   deleteCurrentProduct(product: Product) {
-    let productId = product.id;
+    const productId = product.id;
     this.productCart.deleteProductById(productId);
     this.totalPrice = this.productCart.getTotalPrice();
   }

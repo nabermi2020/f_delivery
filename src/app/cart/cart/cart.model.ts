@@ -32,7 +32,7 @@ export class Cart {
     }
 
     addProduct(product: Product) {
-        let productId = product.id;
+        const productId = product.id;
        
         if (!this.checkForDublicates(productId)) {
             product["productQuantity"] = 1;
@@ -42,7 +42,7 @@ export class Cart {
                 if (item.id == productId ) {
                     item["productQuantity"] += 1;
                 }
-            }) 
+            });
         }
 
         this.calculateTotalPrice();    
@@ -63,7 +63,7 @@ export class Cart {
         let isDublicated = false;
         this.products.forEach( item => {
             if (item.id == id) {
-                isDublicated = true
+                isDublicated = true;
             }
         });
     
