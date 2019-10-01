@@ -1,10 +1,6 @@
 <div id="orderHistoryWrapper">
-    <div class="orderItem" *ngFor="let order of orders">
-      <div class="orderId">№ {{ order.orderId }}</div>
-      <div class="orderDate"> <b>Date:</b> {{ getDate(order.orderTime) }}</div>
-      <div class="totalOrderAmount"><b>Total: </b> {{ order.totalPrice }} $</div>
-      <div class="productsQuantity">{{ getProductsQuantity(order) }} <i>{{ getProductsQuantity(order) == 1 ? 'product' : 'products' }}</i></div> 
-      <div class="orderTime"> <b>Time:</b> {{ getTime(order.orderTime) }}</div>
+    <div *ngFor="let order of orders">
+      <app-order-item [order]="order"></app-order-item>
     </div>
 </div>
  

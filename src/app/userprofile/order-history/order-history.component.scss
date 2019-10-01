@@ -5,54 +5,5 @@
     margin-top: -17px;
     position: relative;
    
-   .orderItem {
-       min-height: 45px;
-       height: auto;
-       line-height: 45px;
-       width: 100%;
-       border-bottom: 1px solid lightgrey;
-       position: relative;
-
-       &:first-child {
-           border-top: 1px solid lightgrey;
-       }
-
-       &:last-child {
-           border-bottom: 0;
-       }
-
-       .orderId {
-        display: inline-block;
-        padding-left: 15px;
-       }
-
-       .orderDate {
-           display: inline-block;
-           margin-left: 10%;
-       }
-
-       .orderTime {
-           display: inline-block;
-           position: absolute;
-           right: 5%;
-       }
-
-       .productsQuantity {
-           display: inline-block;
-           margin-left: 20px;
-       }
-       
-       .totalOrderAmount {
-            display: inline-block;
-            margin-left: 25px;
-       }
-
-       .toggleOrderDetail {
-           position: absolute;
-           right: 0;
-           display: inline-block;
-       }
-  
-   }
 
 }

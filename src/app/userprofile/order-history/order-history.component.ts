@@ -22,7 +22,6 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
     this.getOrders();
   }
 
-
 /**
  * Get orders using 'orderService'
  */
@@ -39,6 +38,7 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
           //   () => {
           this.editModal.toggleEditMode();
           this.loadingService.toggleLoading();
+          console.log(this.orders);
           //   }, 2000
           // )
         },
@@ -46,40 +46,6 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
           alert('Something went wrong!');
         }
       );
-  }
-
-/**
- * Get order's date
- * @param {String} order's date
- * @return {String} order's date
- */
-  getDate(date) {
-    const orderDate = (new Date(date)).toLocaleDateString();
-    return orderDate;
-  }
-
-/**
- * Get order's time
- * @param {String} order's date
- * @return {String} order's time
- */
-  getTime(date) {
-    const orderTime = (new Date(date)).toLocaleTimeString();
-    return orderTime;
-  }
-
-/**
- * Calculate products quantity
- * @param {Order} object which represent object
- * @return { number} product's quantity;
- */
-  getProductsQuantity(item) {
-    let productQuantity = 0;
-    item['products'].forEach( product => {
-      productQuantity += product.productQuantity;
-    });
-    // console.log(item);
-    return productQuantity;
   }
 
 /**
