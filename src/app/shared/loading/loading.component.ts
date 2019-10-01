@@ -21,7 +21,7 @@ export class LoadingComponent implements OnInit, OnDestroy {
    .subscribe(
      (res: boolean) => { 
         this.showLoading = res;
-        console.log(res);
+        // console.log(res);
      }
    );
   }

@@ -33,7 +33,7 @@ export class ProductCart {
                 (res: Array<any>) => {
                     if (res.length != 0) {
                      //  alert('Cart exists!');
-                        console.log(res);
+                        // console.log(res);
                     } else {
                        // alert('Cart doesn\'t exist!');
                         this.createCartOnServer();
