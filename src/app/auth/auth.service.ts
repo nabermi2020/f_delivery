@@ -7,16 +7,19 @@ import { Subject, Observable } from 'rxjs';
 import { User } from './user.model';
 import { EditModalService } from '../shared/services/edit-modal.service';
 
+// for services better to create separate folder - service, for storing all services related to some module, because at the moment it is one service, but in future they can be many of them.
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  // apiUrl looks like it should be constant
   apiUrl: any = 'https://f-deploy.herokuapp.com';
   isAuthenticated: boolean;
   isUserAuthorized = new Subject<any>();
   userData = new Subject<any>();
   currentUser: any;
-  
+
+  // maybe better to use JSON file for this purpose, what doyou think?
   users = [
     new User('John', 'Smith', 'john_smith777', 'john777', '+380501654784', 'john777@gmail.com', 'NY, Green Valley 15/64'),
     new User('Michael', 'Naberezhnyi', 'michael777', 'test123', '+380501865210', 'mnabe777@gmail.com', 'LA, Red Valley 7/32'),
@@ -34,11 +37,11 @@ export class AuthService {
  * @param {String} user's login
  * @param {String} user's password
  * @return {Boolean} returns authentication status
- */               
+ */
   signInn(login: string, password: string) {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
     let authStatus;
- 
+
 
 
     // this.loadingService.toggleLoading();
@@ -54,7 +57,7 @@ export class AuthService {
             authStatus =  true;
             this.userData.next(res[0]);
             // this.loadingService.toggleLoading();
-            
+
             setTimeout(
               () => {
                 // this.loadingService.toggleLoading();
@@ -71,21 +74,21 @@ export class AuthService {
           console.log(err);
         }
       );
-      
-    return authStatus ? true : false; 
+
+    return authStatus ? true : false;
   }
 
 /**
  * Update user data
  */
   updateUserData() {
-    
+
     this.signInn(this.currentUser.login, this.currentUser.password);
   }
 
 /**
  * Logout user from the active session
- */  
+ */
   logOut() {
     this.isAuthenticated = false;
     this.isUserAuthorized.next(this.isAuthenticated);
@@ -96,10 +99,10 @@ export class AuthService {
  /**
   * Register new user and navigate to the 'sign-in'
   * @param {User} new user instance
-  */ 
+  */
   signUp(users) {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
-     
+
     this.http.post(`${this.apiUrl}/users`, users, { headers })
       .subscribe(
         res => {
@@ -114,7 +117,7 @@ export class AuthService {
 
 /**
  * Check user's login existence in DB
- * @param {User} user's login 
+ * @param {User} user's login
  * @return {Observable} result with array of 1 user if there's user with the same login
  */
   checkUser(login: User): Observable<any> {
@@ -124,7 +127,7 @@ export class AuthService {
 
 /**
  * Check existense of user email in DB
- * @param {string} user's email 
+ * @param {string} user's email
  * @return {Observable} array with 1 email if there's user withthe same email
  */
   checkEmail(email: string): Observable<any> {
@@ -143,7 +146,7 @@ export class AuthService {
  /**
   *  Return current user's info
   * @return {obj} user's data
-  */ 
+  */
   getCurrentUser(): any {
     return this.currentUser;
   }
@@ -151,9 +154,10 @@ export class AuthService {
  /**
   * Check user credentials
   * @param {obj} object with credentials
-  * @return {Observable} array of 1 user if search was successfull 
-  */ 
+  * @return {Observable} array of 1 user if search was successfull
+  */
   checkUserInfo(userData): Observable<any> {
+    // please take a look - https://stackoverflow.com/questions/34464108/angular-set-headers-for-every-request
     const headers = new HttpHeaders({'Content-type': 'application/json'});
     const login = this.currentUser.login;
     const password = userData.passwords.password;
@@ -166,12 +170,12 @@ export class AuthService {
  * @return {Observable} updating result
  */
   updateUserInfo(userData): Observable<any> {
-    const user = new User(userData.firstName, userData.lastName, 
+    const user = new User(userData.firstName, userData.lastName,
                         this.currentUser.login, userData.passwords.password,
                         userData.phone, this.currentUser.email, userData.address);
-    
+
     const headers = new HttpHeaders({'Content-type': 'application/json'});
-     
+
     return this.http.put(`${this.apiUrl}/users/${this.currentUser.id}`,  user, { headers });
   }
 

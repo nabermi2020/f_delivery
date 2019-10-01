@@ -9,6 +9,7 @@ import { ProductGridComponent } from './product-grid/product-grid.component';
 import { ProductItemComponent } from './product-item/product-item.component';
 import { FiltersComponent } from './filters/filters.component';
 import { FilterProductsPipe } from './filter-products.pipe';
+import { PdpComponent } from './pdp/pdp.component';
 
 @NgModule({
     declarations: [
@@ -17,6 +18,7 @@ import { FilterProductsPipe } from './filter-products.pipe';
        ProductItemComponent,
        FiltersComponent,
        FilterProductsPipe,
+       PdpComponent,
     ],
     imports: [
         CommonModule,

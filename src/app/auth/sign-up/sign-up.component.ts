@@ -32,8 +32,8 @@ export class SignUpComponent implements OnInit {
         "password": new FormControl('', [Validators.required, Validators.minLength(4), ]),
         "passwordRepeat": new FormControl('', [Validators.required, Validators.minLength(4)]),
         }, {
-          validators: this.validatePasswords.bind(this) 
-        }  
+          validators: this.validatePasswords.bind(this)
+        }
     ),
       "phone": new FormControl('', [Validators.required, Validators.minLength(10)]),
       "email": new FormControl('', [Validators.required, Validators.email, Validators.minLength(4)], this.forbiddenEmail.bind(this)),
@@ -61,30 +61,30 @@ export class SignUpComponent implements OnInit {
     return this.registrationForm.get('email');
   }
 
-// Need refactoring  
+// Need refactoring
   get password() {
-    return this.registrationForm.get('passwords.password');  
+    return this.registrationForm.get('passwords.password');
   }
 
-// Need refactoring  
+// Need refactoring
   get passwordRepeat() {
-    return this.registrationForm.get('passwords.passwordRepeat');  
+    return this.registrationForm.get('passwords.passwordRepeat');
   }
 
-// Need refactoring  
+// Need refactoring
   get phone() {
     return this.registrationForm.get('phone');
   }
 
-// Need refactoring  
+// Need refactoring
   get address() {
     return this.registrationForm.get('address');
   }
 
 /**
  * Return passwords from appropriate fields
- * @return {FormGroup} return FormGroup with represents passwords  
- */  
+ * @return {FormGroup} return FormGroup with represents passwords
+ */
   get passwords() {
     return this.registrationForm.get('passwords');
   }
@@ -94,10 +94,12 @@ export class SignUpComponent implements OnInit {
  * @param {FormControl} user's login
  * @return {Promise | Observable} returns checking results
  */
-  forbiddenLogin(control: FormControl): Promise<any> | Observable<any> {    
+  forbiddenLogin(control: FormControl): Promise<any> | Observable<any> {
     const login = control.value;
     let queryResult;
+    // please refactor it to use observables
     const promise = new Promise( (resolve, reject) => {
+      // why 4, please avoid random values, better to add 4 to variable and call is something like maxLoginCharactersSize
       if (login.length >= 4) {
         this.authService.checkUser(login).subscribe(
           res => {
@@ -118,7 +120,7 @@ export class SignUpComponent implements OnInit {
         );
       }
     });
-    
+
     return promise;
   }
 
@@ -127,6 +129,7 @@ export class SignUpComponent implements OnInit {
  * @param {FormControl} user's email
  * @return {Promise | Observable} returns checking results
  */
+// this method is really simmilar to forbiddenLogin maybe we can combine them and use only one, please take a look
   forbiddenEmail(control: FormControl): Promise<any> | Observable<any> {
     const email = control.value;
     const promise  = new Promise( (resolve, reject) => {
@@ -141,7 +144,7 @@ export class SignUpComponent implements OnInit {
             } else {
               resolve(null);
             }
-          }, 
+          },
           err => {
             alert(err);
           }
@@ -151,12 +154,12 @@ export class SignUpComponent implements OnInit {
 
     return promise;
   }
-  
+
  /**
   * Compare two passwords which were entered by user in appropriate fields
   * @param {FormGroup} users' passwords
   * @return {null || Obj} returns checking results
-  */ 
+  */
   validatePasswords(registrationFormGroup: FormGroup) {
     const password = registrationFormGroup.controls.password.value;
     const repeatPassword = registrationFormGroup.controls.passwordRepeat.value;
@@ -187,9 +190,16 @@ export class SignUpComponent implements OnInit {
                            userInfo.address);
     console.log(newUser);
 
+    // again I would better do:
+    // if (!valid) {
+    //   do something
+    // }
+    //
+    // happy path
+
     if (this.registrationForm.valid) {
       this.authService.signUp(newUser);
-    }                         
+    }
   }
 
     // It's not used
@@ -206,7 +216,7 @@ export class SignUpComponent implements OnInit {
       });
       return promise;
     }
-  
+
     // It's not used
     forbiddenRepeatedPassword(control: FormControl): {[s: string]: boolean} {
       this.userRepeatedPassword = control.value;

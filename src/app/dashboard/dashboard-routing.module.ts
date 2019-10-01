@@ -1,3 +1,4 @@
+import { PdpComponent } from './pdp/pdp.component';
 import { OrderConfirmationComponent } from './../cart/order-confirmation/order-confirmation.component';
 import { CartComponent } from '../cart/cart/cart.component';
 import { ProfileDetailComponent } from './../userprofile/profile-detail/profile-detail.component';
@@ -22,6 +23,9 @@ const dashboardRoutes: Routes = [
         ] },
         
         { path: 'cart', component: CartComponent },
+        { path: 'product-details', component: PdpComponent, children: [
+            { path: ':id', component: PdpComponent }
+        ] },
         { path: 'order-confirmation', component: OrderConfirmationComponent}
     ]},
 ];

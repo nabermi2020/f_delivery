@@ -2,6 +2,7 @@ import { LoadingService } from './../../shared/services/loading.service';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { EditModalService } from 'src/app/shared/services/edit-modal.service';
 
+// suggestion - maybe better to make this component shared, because it can be used in multiple places
 @Component({
   selector: 'app-confirmation-popup',
   templateUrl: './confirmation-popup.component.html',
@@ -14,17 +15,17 @@ export class ConfirmationPopupComponent implements OnInit {
   constructor(private editModal: EditModalService, private loadingService: LoadingService) { }
 
   ngOnInit() {
-    
+
   }
 
   confirmAnOrder() {
-    this.isOrderConfirmed = true; 
+    this.isOrderConfirmed = true;
     this.orderConfirmed.emit(this.isOrderConfirmed);
     this.closePopUp();
   }
 
   closePopUp() {
-    this.editModal.toggleEditMode();  
+    this.editModal.toggleEditMode();
     this.isOrderConfirmed = false;
   }
 

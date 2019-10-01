@@ -1,12 +1,13 @@
 import { Product } from '../product.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpHeaderResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subscription, Subject } from 'rxjs';
 
 @Injectable()
 export class ProductService {
     apiUrl: string = "https://f-deploy.herokuapp.com";
-    
+    selectedProduct;
+
     products = {
         // pizza: [
         //     new Product("Піца Емілія", "./../../assets/pizza1.jpg", "550", "30", "Шинка, моцарела, помідори, кукурудза, соус часниковий", 200),
@@ -53,4 +54,13 @@ export class ProductService {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
         return this.http.get(`${this.apiUrl}/${category}`, {headers});
     }
+
+    setSelectedProduct(productInfo) {
+        this.selectedProduct = productInfo;
+    }
+
+    getSelectedProduct() {
+        return this.selectedProduct;
+    }
+    
 }

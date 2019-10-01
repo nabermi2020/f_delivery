@@ -18,7 +18,7 @@ export class ProductGridComponent implements OnInit, OnDestroy {
   urlParSubscription = new Subscription();
   productSubscription = new Subscription();
   productsByCategorySubscription = new Subscription();
-  
+
   constructor(private productsService: ProductService,
               private route: ActivatedRoute,
               private editMode: EditModalService,
@@ -27,10 +27,11 @@ export class ProductGridComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getProducts();
- 
 
+    // subscribe inside subscribe not good practice, please take a look - https://stackoverflow.com/questions/52317494/is-it-good-way-to-call-subscribe-inside-subscribe
+    // or check it more deeply
     this.urlParSubscription = this.route.firstChild.params
-      .subscribe( 
+      .subscribe(
         (par: Params) => {
           this.activeCategory = par["cat"];
           this.loadingService.toggleLoading();
@@ -43,7 +44,7 @@ export class ProductGridComponent implements OnInit, OnDestroy {
                 this.loadingService.toggleLoading();
                 this.editModal.toggleEditMode();
               },
-      
+
               err => {
               console.log(err);
               });
@@ -52,7 +53,7 @@ export class ProductGridComponent implements OnInit, OnDestroy {
 
 /**
  * Get products using 'productService'
- */  
+ */
   getProducts() {
     this.loadingService.toggleLoading();
     this.editModal.toggleEditMode();
@@ -62,7 +63,7 @@ export class ProductGridComponent implements OnInit, OnDestroy {
           this.products = res;
           this.loadingService.toggleLoading();
           this.editModal.toggleEditMode();
-      }, 
+      },
       err => {
           console.log(err);
       }
@@ -71,8 +72,8 @@ export class ProductGridComponent implements OnInit, OnDestroy {
 
  /**
   * Set filter category
-  * @param {String} product category 
-  */ 
+  * @param {String} product category
+  */
   setFilterCategory(cat) {
     this.activeFilter = cat;
   }

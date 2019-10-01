@@ -1,9 +1,9 @@
 <div id="orderConfirmation">
-        
+
   <div class="row">
       <div class="col-md-8">
           <div id="orderDetail">
-            
+
             <div id="orderDetailHeader">
                 <h4>Enter delivery info</h4>
             </div>
@@ -31,7 +31,7 @@
                     </div>
                 </div>
 
-             
+
                 <div class="col-md-6 col-xs-6">
                     <div class="form-group">
                         <label for="Last Name">
@@ -115,12 +115,13 @@
                                             #orderTime="ngModel"
                                             class="form-control"
                                             ngModel>
+<!--                                        values better get from service, because at the moment it looks like mocked (temporary solution) -->
                                         <option value="1200">12 00</option>
                                         <option value="1300">13 00</option>
                                         <option value="1400">14 00</option>
                                         <option value="1500">15 00</option>
                                         <option value="1600">16 00</option>
-                                        <option value="1700">17 00</option>    
+                                        <option value="1700">17 00</option>
                                     </select>
                                     <div *ngIf="!orderTime.valid && orderTime.touched" class="validationErrors">Delivery time is required!</div>
                                 </label>
@@ -131,13 +132,13 @@
                   <div class="controlWrapper">
                     <button class="btn btn-danger"
                         type="submit"
-                        id="orderControl" 
+                        id="orderControl"
                         [disabled]="!form.valid">Order</button>
                   </div>
-                  
+
                 </div>
-                  
-                
+
+
             </form>
           </div>
       </div>
@@ -146,7 +147,25 @@
               <div id="cartWidgetHeader">
                   <h5>Cart</h5>
               </div>
-             
+<!--              Suggestion - please avoid unnecessary empty spaces in html, I would rather do like:-->
+<!--              <div id="productList">-->
+<!--                <div *ngFor="let product of cart" class="productItem">-->
+<!--                  <div class="productImgWrapper">-->
+<!--                    <img [src]="product.imgPath"  >-->
+<!--                  </div>-->
+<!--                  <div class="productTitle">-->
+<!--                    {{ product.productTitle }} X {{ product.productQuantity || ''}}-->
+<!--                  </div>-->
+<!--                  <div class="productPrice">-->
+<!--                    {{ product.productPrice * product.productQuantity }} $-->
+<!--                  </div>-->
+<!--                  <div class="deleteItem">-->
+<!--                    <button class="btn btn-danger btn-sm" (click)="deleteProductFromList(product)">X</button>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              And formatting is not so good, for some lines is 4 spaces for some 2, code is not really readable, this comment is related to all code -->
+
               <div id="productList">
                 <div *ngFor="let product of cart" class="productItem">
                     <div class="productImgWrapper">
@@ -177,11 +196,11 @@
                     </div>
               </div>
 
-              
+
           </div>
       </div>
   </div>
-  
+
 </div>
 
 <ng-container *ngIf="isConfirmationPopUpEnabled">

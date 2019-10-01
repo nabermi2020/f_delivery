@@ -17,7 +17,7 @@
                  formControlName="firstName">
           </label>
         </div>
-        
+
         <p *ngIf="!firstName.valid && firstName.touched" class="validationError">First name is not valid!</p>
         <p *ngIf="firstName.errors && firstName.touched" class="validationError">Minimal length should be at least 4!</p>
       </div>
@@ -92,7 +92,7 @@
                 formControlName="password">
           </label>
           </div>
-          
+
           <p *ngIf="password.errors && password.touched " class="validationError">Password isn't valid!</p>
           <p *ngIf="password?.errors?.minlength && password.touched " class="validationError">Min length should be 4 !</p>
           <p *ngIf="passwords?.errors?.doesMatchPassword && password.touched " class="validationError">Passwords don't match!</p>
@@ -135,6 +135,7 @@
         </label>
       </div>
 
+<!--      I see pattern here, maybe better to create a method to check if control is not valid for example isNotValid(email) and for another control just call isNotValid(passwordRepeat) and etc-->
       <p *ngIf="email.errors && email.touched " class="validationError">Email isn't valid!</p>
       <p *ngIf="email?.errors?.minlength && email.touched " class="validationError">Min length should be 4 !</p>
       <p *ngIf="email?.errors?.emailIsForbidden && email.touched " class="validationError">User with such email is already exist!</p>

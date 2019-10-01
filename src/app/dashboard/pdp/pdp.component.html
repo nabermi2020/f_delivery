@@ -1,0 +1,73 @@
+
+<div id="productDetailWrapper">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="logoWrapper">
+          <img [src]="productDetails.imgPath" [alt]="productDetails.productTitle">
+        </div></div>
+      <div class="col-md-9">
+          <div class="productInfoWrapper">
+              <div class="productTitle">
+              {{ productDetails.productTitle  }}
+            </div>
+
+            <div class="productPrice">
+                {{ productDetails.productPrice }} $
+            </div>
+
+            <div class="addToCartWrapper">
+              <button class="btn btn-success" (click)="addToCart()">Add To Cart</button>
+            </div>
+
+            <div class="sizeAndWeightWrapper">
+                {{ productDetails.productSize }}sm {{ productDetails.productWeight }}gram
+            </div>
+
+          </div>
+        <!--          Formatting is sooooooo bad =( -->
+
+
+
+      </div>
+
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <div class="ingredientsWrapper">
+          <h4>Ingredients:</h4>
+          <ul>
+            <li *ngFor="let ingredient of ingredients">
+              {{ ingredient }}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-md-9">
+        <div class="productRecipe">
+          <h4>Description</h4>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab dolore omnis velit autem consequatur sit? Nemo temporibus earum, nisi iure optio nostrum dolore unde consequatur laboriosam ab. Provident enim voluptatem aliquam sequi voluptatibus molestias ut atque est. Expedita omnis pariatur non atque dolore odio, laborum quidem optio voluptatibus, ut veniam.
+        </div>
+
+      </div>
+    </div>
+
+
+
+
+
+
+  <!--
+ {{ productDetails.productTitle }}
+  {{ productDetails.productPrice }}
+  {{ productDetails.productSize }}
+  {{ productDetails.productWeight }}
+  {{ productDetails.imgPath }}
+  {{ productDetails.productDescription }}
+  -->
+
+</div>
+
+
