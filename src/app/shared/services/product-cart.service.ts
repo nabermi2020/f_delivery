@@ -5,6 +5,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Product } from '../product.model';
 import { Subject, Subscription, Observable } from 'rxjs';
 import { Order } from 'src/app/cart/order.model';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable()
@@ -12,7 +13,7 @@ export class ProductCart {
     cart = new Cart();
     onProductAdded = new Subject<any>();
     gettingProducts = new Subscription();
-    apiUrl: any = "https://f-deploy.herokuapp.com";
+    apiUrl: any = environment.apiUrl;
 
     constructor(private authService: AuthService,
                 private http: HttpClient) {

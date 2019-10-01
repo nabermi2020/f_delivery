@@ -7,12 +7,13 @@ import { Order } from 'src/app/cart/order.model';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { EditModalService } from './edit-modal.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdersService {
-  apiUrl: any = "https://f-deploy.herokuapp.com";
+  apiUrl: any = environment.apiUrl;
 
   constructor(private authService: AuthService,
               private http: HttpClient,

@@ -2,10 +2,11 @@ import { Product } from '../product.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpHeaderResponse } from '@angular/common/http';
 import { Observable, Subscription, Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class ProductService {
-    apiUrl: string = "https://f-deploy.herokuapp.com";
+    apiUrl: string = environment.apiUrl;
     selectedProduct;
 
     products = {

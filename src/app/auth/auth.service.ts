@@ -6,12 +6,13 @@ import { Router } from '@angular/router';
 import { Subject, Observable } from 'rxjs';
 import { User } from './user.model';
 import { EditModalService } from '../shared/services/edit-modal.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  apiUrl: any = 'https://f-deploy.herokuapp.com';
+  apiUrl: any = environment.apiUrl;
   isAuthenticated: boolean;
   isUserAuthorized = new Subject<any>();
   userData = new Subject<any>();

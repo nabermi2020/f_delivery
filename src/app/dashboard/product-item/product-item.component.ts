@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class ProductItemComponent implements OnInit {
   @Input() productData: Product;
   success: boolean = false;
-  //selectedProducts
+  
 
   constructor(private productCartService: ProductCart, private router: Router, private productService: ProductService) { }
 
@@ -23,7 +23,7 @@ export class ProductItemComponent implements OnInit {
   */ 
   addProductToCart() {
     this.success = true;
-    //console.log(this.productData);
+    // console.log(this.productData);
     this.productCartService.addProducts(this.productData);
     setTimeout(() => {
       this.success = false;

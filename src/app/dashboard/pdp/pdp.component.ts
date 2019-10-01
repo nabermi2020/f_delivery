@@ -16,8 +16,8 @@ export class PdpComponent implements OnInit {
               private productCartService: ProductCart) { }
 
   ngOnInit() {
-   this.productDetails = this.productService.getSelectedProduct();
-   this.getIngredients();
+    this.productDetails = this.productService.getSelectedProduct();
+    this.getIngredients();
     this.activeRoute.children[0].params
       .subscribe (
         res => {
