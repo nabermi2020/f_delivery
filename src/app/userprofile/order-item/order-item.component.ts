@@ -8,6 +8,7 @@ import { Order } from 'src/app/cart/order.model';
 })
 export class OrderItemComponent implements OnInit {
   @Input() order;
+  
   isOrderDetailExpanded: boolean = false;
   constructor() { }
 
