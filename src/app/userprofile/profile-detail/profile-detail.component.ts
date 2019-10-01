@@ -14,7 +14,7 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
   id: number;
   editMode: any;
   userData: User;
-  subscription: Subscription;
+  editSubscription: Subscription;
   objectKeys = Object.keys;
   userViewTemplate = {
     'First Name': '',
@@ -41,7 +41,7 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
     this.userData = this.authService.getCurrentUser();
     this.userDataMap();
 
-    this.editModal.onEditChange.subscribe(
+    this.editSubscription = this.editModal.onEditChange.subscribe(
       res => {
         // console.log('Edit mode - true');
         this.editMode = res;
@@ -74,6 +74,7 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
  */
   ngOnDestroy() {
     // this.subscription.unsubscribe();
+    this.editSubscription.unsubscribe();
   }
 
 }

@@ -2,18 +2,21 @@ import { LoadingService } from './../../shared/services/loading.service';
 import { AuthService } from './../../auth/auth.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { EditModalService } from 'src/app/shared/services/edit-modal.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.scss']
 })
-export class EditProfileComponent implements OnInit {
+export class EditProfileComponent implements OnInit, OnDestroy {
   editForm: FormGroup;
   id: any;
   currentUser: any;
+  checkUserInfoSubscription = new Subscription();
+  checkRouteParamsSub = new Subscription();
 
   constructor(private editProfile: EditModalService,
               private route: ActivatedRoute,
@@ -22,7 +25,7 @@ export class EditProfileComponent implements OnInit {
               private loadingService: LoadingService) { }
 
   ngOnInit() {
-    this.route.params.subscribe( 
+    this.checkRouteParamsSub = this.route.params.subscribe( 
       (par: Params) => {
         this.id = par["id"];
         this.currentUser = this.authService.getCurrentUser();
@@ -93,7 +96,7 @@ export class EditProfileComponent implements OnInit {
   saveChanges() {
     const formData = this.editForm.value;
 
-    this.authService.checkUserInfo(formData)
+    this.checkUserInfoSubscription = this.authService.checkUserInfo(formData)
       .subscribe(
         res => {
           if (res.length > 0 ) {
@@ -116,5 +119,10 @@ export class EditProfileComponent implements OnInit {
           console.log('Something went wrong!');
         }
       );
+  }
+
+  ngOnDestroy() {
+    this.checkUserInfoSubscription.unsubscribe();
+    this.checkRouteParamsSub.unsubscribe();
   }
 }
