@@ -1,7 +1,7 @@
 import { ProductCart } from '../services/product-cart.service';
 import { User } from '../../auth/user.model';
 import { AuthService } from '../../auth/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -17,6 +17,8 @@ export class HeaderComponent implements OnInit {
   productsQuantity: any;  
   totalPrice: any;
   activeCategory: any;
+  userDataSubscription = new Subscription();
+  checkProdutsSubscription = new Subscription();
 
   constructor(private authService: AuthService,
               private router: Router,
@@ -27,7 +29,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.activeUser = this.authService.getCurrentUser();
      
-    this.authService.userData
+    this.userDataSubscription = this.authService.userData
       .subscribe(
         res => {
           this.activeUser =  this.authService.getCurrentUser();
@@ -40,7 +42,7 @@ export class HeaderComponent implements OnInit {
         }
       );
     this.id = this.activeUser.userId;
-    this.productCartService.onProductAdded  
+    this.checkProdutsSubscription = this.productCartService.onProductAdded  
       .subscribe( 
         res => {
           this.productsQuantity = this.productCartService.calculateProductsQuantity();
@@ -59,6 +61,8 @@ export class HeaderComponent implements OnInit {
   logOut() {
     this.authService.logOut();
     // this.productCartService.onProductAdded.unsubscribe();
+    this.userDataSubscription.unsubscribe();
+    this.checkProdutsSubscription.unsubscribe();
     this.router.navigate(['/']); 
   }
 
