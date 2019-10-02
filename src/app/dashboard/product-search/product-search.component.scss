@@ -3,14 +3,13 @@
     height: 35px;
     position: absolute;
     right: 18.5%;
-    top: 21%;
+    top: 8%;
     display: inline-block;
 
     #searchQuery{
         width: 250px;
         height: 35px;
         padding-left: 35px;    
-
     }
 
     #loopIconWrapper {
@@ -26,5 +25,13 @@
             left: 10px;
 
         }
+    }
+
+    #search {
+        width: 75px;
+        height: 35px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        position: absolute;
     }
 }
