@@ -1,5 +1,6 @@
 <div id="products-grid">
   <app-filters (activeCategorySelected)="setFilterCategory($event)"></app-filters>
+  <app-product-search></app-product-search>
     <div class="row">
         <div class="col-md-4 col-sm-6" *ngFor="let product of products | filterProducts:activeFilter">
           <app-product-item [productData]='product'></app-product-item>

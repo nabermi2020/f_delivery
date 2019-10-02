@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000' 
+  apiUrl: 'https://f-deploy.herokuapp.com' 
 };
 //'https://f-deploy.herokuapp.com'
 

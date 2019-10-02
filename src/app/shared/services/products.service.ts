@@ -2,12 +2,15 @@ import { Product } from '../product.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpHeaderResponse } from '@angular/common/http';
 import { Observable, Subscription, Subject } from 'rxjs';
+import { mapTo } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { merge } from 'rxjs/operators';
 
 @Injectable()
 export class ProductService {
     apiUrl: string = environment.apiUrl;
     selectedProduct;
+    results = [];
 
     products = {
         // pizza: [
@@ -19,7 +22,9 @@ export class ProductService {
         // ]    
     };
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) { 
+        this.test();
+    }
  
  /**
   * Save products on the server
@@ -62,6 +67,28 @@ export class ProductService {
 
     getSelectedProduct() {
         return this.selectedProduct;
+    }
+
+    test() {
+        let query = "C";
+        const pizzaResults = this.http.get(`${this.apiUrl}/pizza?productTitle=With%20Prosciutto`);
+        // pizzaResults.subscribe( res =>{
+        //   //  console.log(res);
+        // });
+
+        const saladsResult = this.http.get(`${this.apiUrl}/salads?productTitle=With%20Prosciutto`);
+        // saladsResult.subscribe(
+        //     res => {
+        // //        console.log(res);
+        //     }
+        // )
+        const results = pizzaResults.pipe(merge(saladsResult));
+        results.subscribe(
+            resu => {
+                this.results.push(resu[0]);
+                console.log(this.results);
+            }
+        )
     }
     
 }

@@ -10,6 +10,7 @@ import { ProductItemComponent } from './product-item/product-item.component';
 import { FiltersComponent } from './filters/filters.component';
 import { FilterProductsPipe } from './filter-products.pipe';
 import { PdpComponent } from './pdp/pdp.component';
+import { ProductSearchComponent } from './product-search/product-search.component';
 
 @NgModule({
     declarations: [
@@ -19,6 +20,7 @@ import { PdpComponent } from './pdp/pdp.component';
        FiltersComponent,
        FilterProductsPipe,
        PdpComponent,
+       ProductSearchComponent,
     ],
     imports: [
         CommonModule,
