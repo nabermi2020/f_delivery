@@ -3,7 +3,12 @@
     <img src="../../../assets/loop.png" id="searchIcon">
   </div>
   <input type="text"
-         id="searchQuery">
+         id="searchQuery"
+         #query
+         (keydown.enter)="searchProducts(query)"
+         (keyup)="searchProducts(query)">
    <button class="btn btn-success"
-           id="search">Search</button>
+           id="search"
+           (click)="searchProducts(query)"
+           >Search</button>
 </div>

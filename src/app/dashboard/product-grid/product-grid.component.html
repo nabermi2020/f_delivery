@@ -4,14 +4,18 @@
       <app-filters (activeCategorySelected)="setFilterCategory($event)"></app-filters>
     </div>
     <div class="col-md-6">
-      <app-product-search></app-product-search>
+      <app-product-search (onSearchDone)="setProducts($event)"></app-product-search>
     </div>
   </div>
   
   
-    <div class="row">
-        <div class="col-md-4 col-sm-6" *ngFor="let product of products | filterProducts:activeFilter">
-          <app-product-item [productData]='product'></app-product-item>
-        </div>
+    <div class="row" >
+       
+          <div class="col-md-4 col-sm-6" *ngFor="let product of products | filterProducts:activeFilter" >
+              <app-product-item [productData]='product'></app-product-item>
+          </div>
+          
+          <div *ngIf="!products" class="noProducts"> <h3>No Products!</h3></div>
+        
     </div>
   </div>

@@ -85,10 +85,36 @@ export class ProductService {
         const results = pizzaResults.pipe(merge(saladsResult));
         results.subscribe(
             resu => {
-                this.results.push(resu[0]);
-                console.log(this.results);
+                // this.results.push(resu[0]);
+                // console.log(this.results);
             }
         )
+    }
+
+    searchProducts(query) {
+        
+        let requestedWords = query.split(' ');
+        let queryTepmlate = '';
+        
+        if (requestedWords.length > 1) {
+            queryTepmlate = requestedWords.join('%20');
+        } else {
+            queryTepmlate = query;
+        }
+        
+        const pizzaResults = this.http.get(`${this.apiUrl}/pizza?productTitle=${queryTepmlate}`);
+        const saladsResults = this.http.get(`${this.apiUrl}/salads?productTitle=${queryTepmlate}`);
+        const drinksResults = this.http.get(`${this.apiUrl}/drinks?productTitle=${queryTepmlate}`); 
+        const result = pizzaResults.pipe(merge(saladsResults));
+   
+
+        
+        console.log(queryTepmlate);
+        return result;
+    }
+
+    getResults() {
+        return this.results;
     }
     
 }
