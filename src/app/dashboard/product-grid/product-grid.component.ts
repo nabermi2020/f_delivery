@@ -84,20 +84,13 @@ export class ProductGridComponent implements OnInit, OnDestroy {
   }
 
   setProducts(products) {
-     console.log(products);
-    // this.products = [];
     if (products.length > 0 && products != 'All') {
       this.products = products;
-      alert('1');
     } else if (products == "All") {
       this.getProducts();
-      alert('2');
     } else {
-      alert('3');
       this.products = [];
     }
-     
-    // console.log(products);
   }
 
 }

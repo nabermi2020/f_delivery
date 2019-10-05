@@ -2,7 +2,7 @@ import { Product } from '../product.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpHeaderResponse } from '@angular/common/http';
 import { Observable, Subscription, Subject } from 'rxjs';
-import { mapTo } from 'rxjs/operators';
+import { mapTo, combineLatest } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { merge } from 'rxjs/operators';
 
@@ -92,10 +92,10 @@ export class ProductService {
     }
 
     searchProducts(query) {
-        
         let requestedWords = query.split(' ');
         let queryTepmlate = '';
         
+        // Refactor
         if (requestedWords.length > 1) {
             queryTepmlate = requestedWords.join('%20');
         } else {
@@ -105,11 +105,8 @@ export class ProductService {
         const pizzaResults = this.http.get(`${this.apiUrl}/pizza?productTitle=${queryTepmlate}`);
         const saladsResults = this.http.get(`${this.apiUrl}/salads?productTitle=${queryTepmlate}`);
         const drinksResults = this.http.get(`${this.apiUrl}/drinks?productTitle=${queryTepmlate}`); 
-        const result = pizzaResults.pipe(merge(saladsResults));
-   
-
+        const result = pizzaResults.pipe(combineLatest(saladsResults, drinksResults));       
         
-        console.log(queryTepmlate);
         return result;
     }
 

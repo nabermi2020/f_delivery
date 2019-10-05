@@ -10,7 +10,7 @@ import { EventEmitter } from '@angular/core';
 export class ProductSearchComponent implements OnInit {
   @Output() onSearchDone = new EventEmitter();
   constructor(private productService: ProductService) { }
-  results = [];
+  results: Array<any>;
 
   ngOnInit() {
     
@@ -24,30 +24,31 @@ export class ProductSearchComponent implements OnInit {
       
       this.productService.searchProducts(query)
         .subscribe( 
-         
-          res => {
-             
-                    if (res[0]) {
-                        
-                        this.results.push(res[0]);
-                        console.log(this.results);
-                        
-                    } else {
-                       
-                       
-                       this.results = [];
-                    }  
-                    //this.onSearchDone.emit(this.results);
+          (searchResults: Array<any>) => {
+          if (searchResults) {
+              this.results = this.getformattedResults(searchResults);
+          } else {             
+              this.results = [];
+          }  
+            
+          this.onSearchDone.emit(this.results);
           }
-         
-        )
-    } else if (query.length == 0) {
-     
-      this.onSearchDone.emit('All');
-    }
-    //console.log(this.results);
-     //console.log(this.productService.results);
-    
+        );
+     } else if (query.length == 0) {     
+       this.onSearchDone.emit('All');
+     }
   }
 
+  getformattedResults(searchResults) {
+    const results = [];
+    searchResults.forEach(searchResByProdCategory => {
+      searchResByProdCategory.forEach(item => {
+        results.push(item);
+      });
+    });
+
+    return results;
+  }
 }
+
+
