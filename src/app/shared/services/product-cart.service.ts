@@ -60,6 +60,8 @@ export class ProductCart {
   * Add products to the cart and sync it with server
   */     
     addProducts(product: Product) {
+        console.log(product);
+        console.log(this.cart);
         this.cart.addProduct(product);
         this.synchCartWithServer();
         this.onProductAdded.next(this.cart.getCart());
@@ -148,6 +150,18 @@ export class ProductCart {
  */    
     deleteProductById(id) {
         this.cart.deleteProductById(id);
+        this.onProductAdded.next(this.cart.getCart());
+        this.synchCartWithServer();
+    }
+
+    addOneProductToCart(id) {
+        this.cart.addOneProductToCart(id);
+        this.onProductAdded.next(this.cart.getCart());
+        this.synchCartWithServer();
+    }
+
+    deleteOneProductFromCart(id) {
+        this.cart.deleteOneProductFromCart(id);
         this.onProductAdded.next(this.cart.getCart());
         this.synchCartWithServer();
     }

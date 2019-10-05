@@ -59,6 +59,26 @@ export class Cart {
         this.products.splice(deleteWithId, 1);
     }
 
+    addOneProductToCart(id) {
+        console.log(id);
+        this.products.forEach( product => {
+            if (product.id == id) {
+                ++product.productQuantity;
+            }
+        });
+        
+    }
+
+    deleteOneProductFromCart(id) {
+        console.log(id);
+        this.products.forEach( product => {
+            if (product.id == id && product.productQuantity != 1) {
+                --product.productQuantity;
+            }
+        });
+        
+    }
+
     checkForDublicates(id): boolean {
         let isDublicated = false;
         this.products.forEach( item => {

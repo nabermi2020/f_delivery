@@ -38,4 +38,16 @@ export class CartComponent implements OnInit {
     this.router.navigate(['/dashboard/order-confirmation']);
   }
 
+  addOneProduct(product: Product) {
+    const productId = product.id;
+    this.productCart.addOneProductToCart(productId);
+    this.totalPrice = this.productCart.getTotalPrice();
+  }
+
+  deleteOneProduct(product: Product) {
+    const productId = product.id;
+    this.productCart.deleteOneProductFromCart(productId);
+    this.totalPrice = this.productCart.getTotalPrice();
+  }
+
 }

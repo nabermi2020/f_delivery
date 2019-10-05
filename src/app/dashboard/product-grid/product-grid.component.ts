@@ -62,6 +62,7 @@ export class ProductGridComponent implements OnInit, OnDestroy {
           this.products = res;
           this.loadingService.toggleLoading();
           this.editModal.toggleEditMode();
+          
       }, 
       err => {
           console.log(err);

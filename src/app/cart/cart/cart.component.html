@@ -20,13 +20,16 @@
                 <h5> {{ product.productTitle }} X {{ product.productQuantity || ''}} </h5>
             </div>
 
-            <!--Section-->
-            <!--
-            -  1  +
-            -->   
-
             <div class="productPrice">
                 <h5>{{ product.productPrice * product.productQuantity}} $</h5>
+            </div>
+
+            <div class="productQuantity">
+                <button (click)="deleteOneProduct(product)">-</button>
+                <input type="text"
+                       [value]="product.productQuantity"
+                       class="prodQuantity">
+                <button (click)="addOneProduct(product)">+</button>
             </div>
 
             <div class="deleteItem">
