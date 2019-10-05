@@ -8,7 +8,7 @@ import { EventEmitter } from '@angular/core';
   styleUrls: ['./product-search.component.scss']
 })
 export class ProductSearchComponent implements OnInit {
-  @Output() onSearchDone = new EventEmitter();
+  @Output() searchDone = new EventEmitter();
   constructor(private productService: ProductService) { }
   results: Array<any>;
 
@@ -31,11 +31,11 @@ export class ProductSearchComponent implements OnInit {
               this.results = [];
           }  
             
-          this.onSearchDone.emit(this.results);
+          this.searchDone.emit(this.results);
           }
         );
      } else if (query.length == 0) {     
-       this.onSearchDone.emit('All');
+       this.searchDone.emit('All');
      }
   }
 

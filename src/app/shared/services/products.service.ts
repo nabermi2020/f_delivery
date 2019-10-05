@@ -23,7 +23,7 @@ export class ProductService {
     };
 
     constructor(private http: HttpClient) { 
-        this.test();
+        
     }
  
  /**
@@ -69,30 +69,8 @@ export class ProductService {
         return this.selectedProduct;
     }
 
-    test() {
-        let query = "C";
-        const pizzaResults = this.http.get(`${this.apiUrl}/pizza?productTitle=With%20Prosciutto`);
-        // pizzaResults.subscribe( res =>{
-        //   //  console.log(res);
-        // });
-
-        const saladsResult = this.http.get(`${this.apiUrl}/salads?productTitle=With%20Prosciutto`);
-        // saladsResult.subscribe(
-        //     res => {
-        // //        console.log(res);
-        //     }
-        // )
-        const results = pizzaResults.pipe(merge(saladsResult));
-        results.subscribe(
-            resu => {
-                // this.results.push(resu[0]);
-                // console.log(this.results);
-            }
-        )
-    }
-
     searchProducts(query) {
-        let requestedWords = query.split(' ');
+        const requestedWords = query.split(' ');
         let queryTepmlate = '';
         
         // Refactor
