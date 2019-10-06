@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { SharedModule } from './../shared/shared.module';
 import { CartModule } from './../cart/cart.module';
 import { ProfileModule } from './../userprofile/profile.module';
@@ -27,7 +28,8 @@ import { ProductSearchComponent } from './product-search/product-search.componen
         DashboardRoutingModule,
         ProfileModule,
         SharedModule,
-        CartModule
+        CartModule,
+        FormsModule
     ],
     exports: [
 

@@ -12,18 +12,21 @@ import { Router } from '@angular/router';
 export class ProductItemComponent implements OnInit {
   @Input() productData: Product;
   success: boolean = false;
+  productQuantity: number = 1;
   
 
   constructor(private productCartService: ProductCart, private router: Router, private productService: ProductService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+   // this.productData["productQuantity"] = 1;
+   }
 
  /**
   * Add product to cart
   */ 
   addProductToCart() {
     this.success = true;
-    // console.log(this.productData);
+    this.productData.productQuantity = this.productQuantity;
     this.productCartService.addProducts(this.productData);
     setTimeout(() => {
       this.success = false;
@@ -35,4 +38,23 @@ export class ProductItemComponent implements OnInit {
     this.productService.setSelectedProduct(this.productData);
     this.router.navigate(['dashboard/product-details', this.productData.id]);
   }
+
+  increaseProdCounterOnOne() {
+    ++this.productQuantity;
+  
+    this.productData.productQuantity = this.productQuantity;
+    console.log(this.productData);
+  }
+
+  decreaseProdCounterOnOne() {
+    if (this.productQuantity != 1) {
+      --this.productQuantity;
+    }
+    
+    this.productData.productQuantity = this.productQuantity;
+    console.log(this.productData);
+  }
+
+  
+
 }

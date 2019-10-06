@@ -35,12 +35,12 @@ export class Cart {
         const productId = product.id;
        
         if (!this.checkForDublicates(productId)) {
-            product["productQuantity"] = 1;
+            product["productQuantity"] = product.productQuantity;
             this.products.push(product);
         } else {
             this.products.forEach( item => {
                 if (item.id == productId ) {
-                    item["productQuantity"] += 1;
+                    item["productQuantity"] += product.productQuantity;
                 }
             });
         }
