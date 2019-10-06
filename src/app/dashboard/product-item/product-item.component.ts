@@ -31,6 +31,7 @@ export class ProductItemComponent implements OnInit {
     setTimeout(() => {
       this.success = false;
     }, 1000);
+    this.productQuantity = 1;
   }
 
   navigateToPdp() {
