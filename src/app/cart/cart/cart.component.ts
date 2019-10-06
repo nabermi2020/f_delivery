@@ -38,12 +38,20 @@ export class CartComponent implements OnInit {
     this.router.navigate(['/dashboard/order-confirmation']);
   }
 
+/**
+ * Add one product to cart, calling the bill for that service
+ * @param {Product} product data
+ */  
   addOneProduct(product: Product) {
     const productId = product.id;
     this.productCart.addOneProductToCart(productId);
     this.totalPrice = this.productCart.getTotalPrice();
   }
 
+ /**
+  * Delete one product from cart, calling the bill for that service
+  * @param {Product} product data
+  */   
   deleteOneProduct(product: Product) {
     const productId = product.id;
     this.productCart.deleteOneProductFromCart(productId);

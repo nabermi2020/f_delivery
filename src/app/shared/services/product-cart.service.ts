@@ -154,12 +154,20 @@ export class ProductCart {
         this.synchCartWithServer();
     }
 
+/**
+ * Increase product quantity on 1 for appropriate product in the cart
+ * @param {number} product's id 
+ */    
     addOneProductToCart(id) {
         this.cart.addOneProductToCart(id);
         this.onProductAdded.next(this.cart.getCart());
         this.synchCartWithServer();
     }
 
+/**
+ * Decrease product quantity on 1 for appropriate product in the cart
+ * @param {number} product's id 
+ */    
     deleteOneProductFromCart(id) {
         this.cart.deleteOneProductFromCart(id);
         this.onProductAdded.next(this.cart.getCart());

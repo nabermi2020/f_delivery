@@ -15,7 +15,11 @@
 
   <div class="addToCartWrapper" [ngStyle]="{'background-color': success ? 'green' : 'red'}">
     <div class="productQuantity">
-     <!-- - 1 +-->
+      <button id="decreaseProdQuantity">-</button>
+      <input type="text"
+             class="prodQuantity"
+             value="1">
+      <button id="increaseProdQuantity">+</button>
     </div>
 
     <div class="addToCart" (click)="addProductToCart()">
