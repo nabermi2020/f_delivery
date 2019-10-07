@@ -55,7 +55,4 @@ export class ProductItemComponent implements OnInit {
     this.productData.productQuantity = this.productQuantity;
     console.log(this.productData);
   }
-
-  
-
 }

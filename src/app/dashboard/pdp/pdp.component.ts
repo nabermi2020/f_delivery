@@ -28,6 +28,7 @@ export class PdpComponent implements OnInit {
 
   addToCart() {
     console.log(this.productDetails);
+    this.productDetails.productQuantity = 1;
     this.productCartService.addProducts(this.productDetails);
   }
 

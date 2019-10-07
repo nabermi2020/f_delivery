@@ -32,11 +32,11 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
     this.pages = Math.ceil(this.orders.length / this.ordersPerPage);
     this.ordersOnLastPage = this.orders.length % this.ordersPerPage;
     
-    let pageIndices = [];
+    const pageIndices = [];
 
-    for(let i = 1; i <= this.pages; i++) {
+    for (let i = 1; i <= this.pages; i++) {
       
-      let currentPageOrders = {pageNumber: i, orders: this.getOrdersForCurrentPage(i)};
+      const currentPageOrders = {pageNumber: i, orders: this.getOrdersForCurrentPage(i)};
       console.log(currentPageOrders);
       pageIndices.push(currentPageOrders);
     }
@@ -46,11 +46,11 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
 
   getOrdersForCurrentPage(pageNumber) {
     const from = pageNumber * this.ordersPerPage - this.ordersPerPage;
-    const to = pageNumber != this.pages ? from + this.ordersPerPage -1 : from + this.ordersOnLastPage - 1;    
-    let orders = [];
+    const to = pageNumber != this.pages ? from + this.ordersPerPage - 1 : from + this.ordersOnLastPage - 1;    
+    const orders = [];
 
-    for(let i = from; i <= to; i ++) {
-      //console.log(this.orders[i]);
+    for (let i = from; i <= to; i ++) {
+      // console.log(this.orders[i]);
       orders.push(this.orders[i]);
     }
     console.log(from);
