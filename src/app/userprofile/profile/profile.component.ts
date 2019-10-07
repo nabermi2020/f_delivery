@@ -18,9 +18,7 @@ export class ProfileComponent implements OnInit {
               private authService: AuthService,
               private editModal: EditModalService) { }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   // It's not used
   navigateToOrderHistory() {

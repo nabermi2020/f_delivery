@@ -74,14 +74,12 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
       .subscribe(
         res => {
           if (res[0]) {
-            this.orders = res;
-          
+            this.orders = res;  
             this.editModal.toggleEditMode();
             this.loadingService.toggleLoading();
             this.ordersForPages = this.calculatePagination();
             this.orders = this.ordersForPages[0].orders;
           }
-         
         },
 
         err => {
