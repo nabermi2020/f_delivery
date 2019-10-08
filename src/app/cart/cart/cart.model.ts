@@ -65,8 +65,7 @@ export class Cart {
             if (product.id == id) {
                 ++product.productQuantity;
             }
-        });
-        
+        });  
     }
 
     deleteOneProductFromCart(id) {
@@ -76,7 +75,6 @@ export class Cart {
                 --product.productQuantity;
             }
         });
-        
     }
 
     checkForDublicates(id): boolean {

@@ -35,7 +35,7 @@ export class ProductItemComponent implements OnInit {
   }
 
   navigateToPdp() {
-    console.log(this.productData);
+     console.log(this.productData);
     this.productService.setSelectedProduct(this.productData);
     this.router.navigate(['dashboard/product-details', this.productData.id]);
   }
@@ -44,7 +44,7 @@ export class ProductItemComponent implements OnInit {
     ++this.productQuantity;
   
     this.productData.productQuantity = this.productQuantity;
-    console.log(this.productData);
+    // console.log(this.productData);
   }
 
   decreaseProdCounterOnOne() {
@@ -53,6 +53,6 @@ export class ProductItemComponent implements OnInit {
     }
     
     this.productData.productQuantity = this.productQuantity;
-    console.log(this.productData);
+    // console.log(this.productData);
   }
 }

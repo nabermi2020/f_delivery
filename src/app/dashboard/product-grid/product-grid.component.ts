@@ -45,7 +45,7 @@ export class ProductGridComponent implements OnInit, OnDestroy {
               },
       
               err => {
-              console.log(err);
+                // console.log(err);
               });
       });
   }
@@ -61,9 +61,9 @@ export class ProductGridComponent implements OnInit, OnDestroy {
       res => {
           this.products = res;
           this.loadingService.toggleLoading();
-          this.editModal.toggleEditMode();
-          
-      }, 
+          this.editModal.toggleEditMode();  
+      },
+       
       err => {
           console.log(err);
       }

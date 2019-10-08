@@ -29,7 +29,6 @@ export class Order {
         this.orderId = this.generateOrderId(1, 1000);
         this.totalPrice = cart.getTotalPrice();
         this.products = cart.getCart();
-
     }
 
     setUserId(id) {

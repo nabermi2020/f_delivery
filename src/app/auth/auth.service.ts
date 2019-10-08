@@ -39,12 +39,7 @@ export class AuthService {
   signInn(login: string, password: string) {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
     let authStatus;
- 
-
-
-    // this.loadingService.toggleLoading();
-    // this.editModal.toggleEditMode();
-
+    
     this.http.get(`${this.apiUrl}/users?login=${login}&&password=${password}`, { headers })
       .subscribe(
         (res: Array<any>) => {
@@ -54,14 +49,6 @@ export class AuthService {
             this.isUserAuthorized.next(this.isAuthenticated);
             authStatus =  true;
             this.userData.next(res[0]);
-            // this.loadingService.toggleLoading();
-            
-            setTimeout(
-              () => {
-                // this.loadingService.toggleLoading();
-                // this.editModal.toggleEditMode();
-              }, 2000
-            );
             return true;
           } else {
             console.log('Authentication error!');
@@ -80,7 +67,6 @@ export class AuthService {
  * Update user data
  */
   updateUserData() {
-    
     this.signInn(this.currentUser.login, this.currentUser.password);
   }
 
@@ -92,7 +78,6 @@ export class AuthService {
     this.isUserAuthorized.next(this.isAuthenticated);
     localStorage.removeItem('userInfo');
   }
-
 
  /**
   * Register new user and navigate to the 'sign-in'
@@ -111,7 +96,6 @@ export class AuthService {
         }
       );
   }
-
 
 /**
  * Check user's login existence in DB

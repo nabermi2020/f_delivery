@@ -34,9 +34,6 @@ export class PdpComponent implements OnInit {
 
   getIngredients() {
     this.ingredients = this.productDetails.productDescription.split(', ');
-    
   }
-
- 
 
 }

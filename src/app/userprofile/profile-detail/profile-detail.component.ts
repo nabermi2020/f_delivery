@@ -31,10 +31,7 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
               private editModal: EditModalService) { }
 
   ngOnInit() {
-    // this.subscription = this.route.params.subscribe( (par: Params
-    //   ) => {
-    //  this.id = par["id"];
-    // });
+
   //  this.id = this.route.snapshot.children[0].params.id;
     // console.log(this.id);
 

@@ -31,7 +31,6 @@ export class ProductDashboardComponent implements OnInit, OnDestroy {
         this.isModalEnabled = res;
         this.changeDetector.detectChanges();
       }
-    
     );
 
     this.cartService.checkCartExistenseByUserId();

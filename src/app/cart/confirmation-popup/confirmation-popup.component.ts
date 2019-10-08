@@ -13,9 +13,7 @@ export class ConfirmationPopupComponent implements OnInit {
 
   constructor(private editModal: EditModalService, private loadingService: LoadingService) { }
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() { }
 
   confirmAnOrder() {
     this.isOrderConfirmed = true; 

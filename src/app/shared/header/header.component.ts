@@ -36,7 +36,8 @@ export class HeaderComponent implements OnInit {
           this.productsQuantity = this.productCartService.calculateProductsQuantity();
           // console.log(this.productsQuantity);
           // console.log(res);
-        },   
+        },
+
         err => {
           alert('Something went wrong!');
         }
@@ -49,6 +50,7 @@ export class HeaderComponent implements OnInit {
           this.totalPrice = this.productCartService.getTotalPrice();
           // console.log(this.productsQuantity);
         },
+        
         err => {
           alert('something went wrong!');
         }
