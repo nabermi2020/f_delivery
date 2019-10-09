@@ -34,8 +34,6 @@ export class HeaderComponent implements OnInit {
         res => {
           this.activeUser =  this.authService.getCurrentUser();
           this.productsQuantity = this.productCartService.calculateProductsQuantity();
-          // console.log(this.productsQuantity);
-          // console.log(res);
         },
 
         err => {
@@ -48,7 +46,6 @@ export class HeaderComponent implements OnInit {
         res => {
           this.productsQuantity = this.productCartService.calculateProductsQuantity();
           this.totalPrice = this.productCartService.getTotalPrice();
-          // console.log(this.productsQuantity);
         },
         
         err => {

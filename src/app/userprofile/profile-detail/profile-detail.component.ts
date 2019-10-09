@@ -31,16 +31,11 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
               private editModal: EditModalService) { }
 
   ngOnInit() {
-
-  //  this.id = this.route.snapshot.children[0].params.id;
-    // console.log(this.id);
-
     this.userData = this.authService.getCurrentUser();
     this.userDataMap();
 
     this.editSubscription = this.editModal.onEditChange.subscribe(
       res => {
-        // console.log('Edit mode - true');
         this.editMode = res;
       }
     );
@@ -62,7 +57,6 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
  *  Show modal window for editting user data
  */
   editProfile() {
-    console.log('Edit Profile ' + this.id);
     this.editModal.toggleEditMode();
   }
 
@@ -70,7 +64,6 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
  * Destroy subsription
  */
   ngOnDestroy() {
-    // this.subscription.unsubscribe();
     this.editSubscription.unsubscribe();
   }
 

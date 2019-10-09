@@ -25,7 +25,6 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getOrders();
-    
   }
 
   calculatePagination() {
@@ -35,9 +34,7 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
     const pageIndices = [];
 
     for (let i = 1; i <= this.pages; i++) {
-      
       const currentPageOrders = {pageNumber: i, orders: this.getOrdersForCurrentPage(i)};
-      console.log(currentPageOrders);
       pageIndices.push(currentPageOrders);
     }
 
@@ -50,12 +47,9 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
     const orders = [];
 
     for (let i = from; i <= to; i ++) {
-      // console.log(this.orders[i]);
       orders.push(this.orders[i]);
     }
-    console.log(from);
-    console.log(to);
-
+    
     return orders;
   }
 

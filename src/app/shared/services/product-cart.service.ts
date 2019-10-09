@@ -74,8 +74,6 @@ export class ProductCart {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
         const userData = this.authService.getCurrentUser();
 
-        console.log(userData);   
-
         this.http.put(`${this.apiUrl}/cart/${this.cart.id}`, this.cart, { headers })
             .subscribe(
                 res => {
@@ -96,17 +94,24 @@ export class ProductCart {
         this.gettingProducts = this.http.get(`${this.apiUrl}/cart/${userId}`, { headers })
             .subscribe(
                 res => {
-                    // console.log('Getted from server!');
-                    this.cart.setProducts(res["products"]);
-                    this.cart.setCartId(res["cartId"]);
-                    this.onProductAdded.next(this.cart.getCart());     
-                    // console.log(this.cart);
-                    // alert('Success getting cart!!!');
+                    this.onGetCartSuccess(res);
                 },
                 err => {
-                    alert('Error while getting cart from server!');
+                    this.onGetCartFailure(err);    
                 }
             );
+    }
+
+    onGetCartSuccess(cart) {
+         this.cart.setProducts(cart["products"]);
+         this.cart.setCartId(cart["cartId"]);
+         this.onProductAdded.next(this.cart.getCart());     
+         // console.log(this.cart);
+    }
+
+    onGetCartFailure(error) {
+        console.log(error);
+        alert('Error while getting cart from server!');
     }
 
 /**

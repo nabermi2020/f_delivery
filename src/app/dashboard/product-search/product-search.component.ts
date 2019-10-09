@@ -12,15 +12,12 @@ export class ProductSearchComponent implements OnInit {
   constructor(private productService: ProductService) { }
   results: Array<any>;
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
 
   searchProducts(requestedQuery) {
     const query = (requestedQuery.value).trim().replace(/(\s\s\s*)/g, ' ');
     this.results = [];
     if (query.length >= 3) {
-      // console.log(query);
       
       this.productService.searchProducts(query)
         .subscribe( 

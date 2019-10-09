@@ -11,23 +11,59 @@ import { ProductGridComponent } from './product-grid/product-grid.component';
 import { OrderHistoryComponent } from '../userprofile/order-history/order-history.component';
 
 const dashboardRoutes: Routes = [
-    { path: '', component: ProductDashboardComponent, canActivate: [AuthGuard], children: [
-        { path: 'profile', component: ProfileComponent, children: [
-           
-           { path: 'user-info', component: ProfileDetailComponent },
-           { path: 'order-history', component: OrderHistoryComponent }, 
-        ]},
+    { 
+        path: '',
+        component: ProductDashboardComponent,
+        canActivate: [AuthGuard],
+        children: [
+            { 
+                path: 'profile',
+                component: ProfileComponent,
+                children: [
+                    { 
+                        path: 'user-info',
+                        component: ProfileDetailComponent 
+                    },
+                    { 
+                        path: 'order-history',
+                        component: OrderHistoryComponent 
+                    }, 
+                ]
+            },
         
-        { path: "products", component: ProductGridComponent, children: [
-           { path: ':cat', component: ProductGridComponent, canActivate: [AuthGuard]},
-        ] },
+            { 
+                path: "products",
+                component: ProductGridComponent,
+                children: [
+                   { 
+                        path: ':cat',
+                        component: ProductGridComponent,
+                        canActivate: [AuthGuard]
+                   },
+                ] 
+            },
         
-        { path: 'cart', component: CartComponent },
-        { path: 'product-details', component: PdpComponent, children: [
-            { path: ':id', component: PdpComponent }
-        ] },
-        { path: 'order-confirmation', component: OrderConfirmationComponent}
-    ]},
+            { 
+                path: 'cart',
+                component: CartComponent
+            },
+
+            { 
+                path: 'product-details',
+                component: PdpComponent,
+                children: [
+                    { 
+                      path: ':id',
+                      component: PdpComponent 
+                    }
+                ] 
+            },
+            { 
+                path: 'order-confirmation',
+                component: OrderConfirmationComponent
+            }
+        ]
+    },
 ];
 
 @NgModule({

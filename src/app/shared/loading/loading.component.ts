@@ -15,15 +15,13 @@ export class LoadingComponent implements OnInit, OnDestroy {
               private changeDetector: ChangeDetectorRef ) {}
   
   ngOnInit() {
-  
    this.changeDetector.detectChanges();
    this.loadingService.onLoadingChange
-   .subscribe(
-     (res: boolean) => { 
-        this.showLoading = res;
-        // console.log(res);
-     }
-   );
+     .subscribe(
+       (res: boolean) => { 
+          this.showLoading = res;
+       }
+     );
   }
 
   ngOnDestroy() {

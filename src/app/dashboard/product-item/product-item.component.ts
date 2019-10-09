@@ -17,9 +17,7 @@ export class ProductItemComponent implements OnInit {
 
   constructor(private productCartService: ProductCart, private router: Router, private productService: ProductService) { }
 
-  ngOnInit() {
-   // this.productData["productQuantity"] = 1;
-   }
+  ngOnInit() { }
 
  /**
   * Add product to cart
@@ -35,16 +33,13 @@ export class ProductItemComponent implements OnInit {
   }
 
   navigateToPdp() {
-     console.log(this.productData);
     this.productService.setSelectedProduct(this.productData);
     this.router.navigate(['dashboard/product-details', this.productData.id]);
   }
 
   increaseProdCounterOnOne() {
     ++this.productQuantity;
-  
     this.productData.productQuantity = this.productQuantity;
-    // console.log(this.productData);
   }
 
   decreaseProdCounterOnOne() {
@@ -53,6 +48,5 @@ export class ProductItemComponent implements OnInit {
     }
     
     this.productData.productQuantity = this.productQuantity;
-    // console.log(this.productData);
   }
 }

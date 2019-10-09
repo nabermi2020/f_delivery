@@ -13,7 +13,9 @@ import { EditModalService } from 'src/app/shared/services/edit-modal.service';
 export class SignInComponent implements OnInit {
   authStatus: boolean = true;
    
-  constructor(private authService: AuthService, private loadingService: LoadingService, private editModal: EditModalService) { }
+  constructor(private authService: AuthService,
+              private loadingService: LoadingService,
+              private editModal: EditModalService) { }
 
   ngOnInit() {}
 
@@ -32,12 +34,7 @@ export class SignInComponent implements OnInit {
     this.authStatus =  this.authService.signInn(login, password); 
     if (this.authService) {
       localStorage.setItem("userInfo", JSON.stringify(credentials));
-   
     }   
-
-    // this.loadingService.toggleLoading();
-    // //this.loadingService.toggleLoading();
-    // this.editModal.toggleEditMode();
   }
 
 }

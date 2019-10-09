@@ -30,7 +30,6 @@ export class EditProfileComponent implements OnInit, OnDestroy {
         this.id = par["id"];
         this.currentUser = this.authService.getCurrentUser();
         this.initForm();
-        // console.log(this.currentUser);
     });
   }
 

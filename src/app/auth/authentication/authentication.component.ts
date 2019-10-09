@@ -13,13 +13,15 @@ export class AuthenticationComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
+    this.checkAuthenticationStatus();  
+  }
+
+  checkAuthenticationStatus() {
     this.authService.isUserAuthorized.subscribe (
-      sub => {
-        if (sub) {
-         // console.log(sub);
+      authStatus => {
+        if (authStatus) {
           this.router.navigate(['/dashboard/products/pizza']);
         } else {
-         // console.log("auth error");
           this.router.navigate(['']);
         }
       }
@@ -31,8 +33,6 @@ export class AuthenticationComponent implements OnInit {
   isAuthenticated() {
     const userData = localStorage.getItem("userInfo");
     if (userData) {
-      console.log(userData);
-
       const userCredentials = JSON.parse(userData);
       this.authService.signInn(userCredentials.login, userCredentials.password);
     } else {

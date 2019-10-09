@@ -35,7 +35,6 @@ export class OrderConfirmationComponent implements OnInit, OnDestroy {
     this.totalPrice = this.productCart.getTotalPrice();
     this.userData = this.authService.getCurrentUser();
     this.preFillForm();
-    console.log(this.cart);
 
     this.editModalSubscription = this.editModal.onEditChange.subscribe(
       (res: boolean) => {
@@ -77,7 +76,6 @@ export class OrderConfirmationComponent implements OnInit, OnDestroy {
                           this.productCart.getProductCart());
                       
     this.ordersService.makeAnOrder(order);
-    // console.log(order);
   }
 
 
@@ -87,10 +85,8 @@ export class OrderConfirmationComponent implements OnInit, OnDestroy {
 
   showConfirmationPopUp(form) {
     this.formData = form;
-    console.log(this.formData);
     this.isConfirmationPopUpEnabled = !this.isConfirmationPopUpEnabled;
     this.editModal.toggleEditMode();
-    // alert('Hello');
   }
   
  /**
@@ -105,7 +101,6 @@ export class OrderConfirmationComponent implements OnInit, OnDestroy {
     if (this.cart.length == 0 ) {
       this.router.navigate(['dashboard/products/pizza']);
     }
-    
   }
 
   ngOnDestroy() {

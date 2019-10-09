@@ -43,24 +43,35 @@ export class AuthService {
     this.http.get(`${this.apiUrl}/users?login=${login}&&password=${password}`, { headers })
       .subscribe(
         (res: Array<any>) => {
-          if (res && res.length > 0 ) {
-            this.currentUser = res[0];
-            this.isAuthenticated = true;
-            this.isUserAuthorized.next(this.isAuthenticated);
-            authStatus =  true;
-            this.userData.next(res[0]);
-            return true;
-          } else {
-            console.log('Authentication error!');
-          }
+          authStatus = this.onSignInSuccess(res) == true ? true : false;
         },
 
         err => {
-          console.log(err);
+          this.onSignInError(err);  
         }
       );
       
-    return authStatus ? true : false; 
+    return authStatus; 
+  }
+
+  onSignInSuccess(res) {
+    let authStatus;
+    if (res && res.length > 0 ) {
+      this.currentUser = res[0];
+      this.isAuthenticated = true;
+      this.isUserAuthorized.next(this.isAuthenticated);
+      authStatus =  true;
+      this.userData.next(res[0]);
+      return true;
+    } else {
+      console.log('Authentication error!');
+    }
+
+    return authStatus;
+  }
+
+  onSignInError(err) {
+    console.log(err);
   }
 
 /**
@@ -89,12 +100,19 @@ export class AuthService {
     this.http.post(`${this.apiUrl}/users`, users, { headers })
       .subscribe(
         res => {
-          this.router.navigate(['']);
-
+          this.onSignUpSuccess(res);
         }, err => {
-          alert('Something went wrong, try again!!!');
+          this.onSignUpFailure(err);
         }
       );
+  }
+
+  onSignUpSuccess(res) {
+    this.router.navigate(['']);  
+  }
+
+  onSignUpFailure(err) {
+    alert('Something went wrong, try again!!!');
   }
 
 /**
@@ -126,7 +144,7 @@ export class AuthService {
   }
 
  /**
-  *  Return current user's info
+  * Return current user's info
   * @return {obj} user's data
   */ 
   getCurrentUser(): any {

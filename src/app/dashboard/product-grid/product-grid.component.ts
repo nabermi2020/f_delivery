@@ -28,7 +28,6 @@ export class ProductGridComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getProducts();
  
-
     this.urlParSubscription = this.route.firstChild.params
       .subscribe( 
         (par: Params) => {

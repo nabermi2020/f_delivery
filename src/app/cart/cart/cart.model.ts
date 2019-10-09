@@ -23,7 +23,6 @@ export class Cart {
     }
 
     getCart(): Array<Product> {
-       // console.log(this.products);
         return this.products;
     }
 
@@ -60,7 +59,6 @@ export class Cart {
     }
 
     addOneProductToCart(id) {
-        console.log(id);
         this.products.forEach( product => {
             if (product.id == id) {
                 ++product.productQuantity;
@@ -69,7 +67,6 @@ export class Cart {
     }
 
     deleteOneProductFromCart(id) {
-        console.log(id);
         this.products.forEach( product => {
             if (product.id == id && product.productQuantity != 1) {
                 --product.productQuantity;

@@ -8,10 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class FooterComponent implements OnInit {
   author: string = 'M.Naberezhnyi';
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   getCurrentYear() {
     return new Date().getFullYear();

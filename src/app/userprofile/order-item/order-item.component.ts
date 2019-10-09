@@ -12,9 +12,7 @@ export class OrderItemComponent implements OnInit {
   isOrderDetailExpanded: boolean = false;
   constructor() { }
 
-  ngOnInit() {
-    // console.log(this.order);
-  }
+  ngOnInit() { }
 
 /**
  * Get order's date
@@ -46,7 +44,7 @@ getProductsQuantity(item) {
   item['products'].forEach( product => {
     productQuantity += product.productQuantity;
   });
- // console.log(item);
+ 
   return productQuantity;
 }
 

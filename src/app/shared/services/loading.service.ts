@@ -16,7 +16,6 @@ export class LoadingService {
   toggleLoading() {
     this.isLoadingEnabled = !this.isLoadingEnabled;
     this.onLoadingChange.next(this.isLoadingEnabled);
-    // console.log(this.isLoadingEnabled);
   }
 
 }

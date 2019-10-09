@@ -31,23 +31,31 @@ export class OrdersService {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
     const id = this.authService.getCurrentUser().id;
     order.setUserId(id);
-    console.log(order);
     // this.loadingService.toggleLoading();
     // this.editModal.toggleEditMode();
+
     this.http.post(`${this.apiUrl}/orders`, order, { headers })
         .subscribe(
             res => {
-                this.productCart.cleanCart();
-                // this.loadingService.toggleLoading();
-                // this.editModal.toggleEditMode();   
-                this.router.navigate(['dashboard/products/pizza']);
+                this.onMakeOrderSuccess(res);
             },
 
             err => {
-                // console.log(err);
-                // alert('Something went wrong!');
+                this.onMakeOrderError(err);
             }
         );
+  }
+
+  onMakeOrderSuccess(orderStatus) {
+    this.productCart.cleanCart();
+    // this.loadingService.toggleLoading();
+    // this.editModal.toggleEditMode();   
+    this.router.navigate(['dashboard/products/pizza']);
+  }
+
+  onMakeOrderError(error) {
+    console.log(error);
+    alert('Something went wrong!');
   }
 
 /**
