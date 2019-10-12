@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 
 export class ProductGridComponent implements OnInit, OnDestroy {
   products: any;
+  isSearchFailure: boolean = true;
   activeCategory: string = "pizza";
   activeFilter: string = "All";
   urlParSubscription = new Subscription();
@@ -32,6 +33,7 @@ export class ProductGridComponent implements OnInit, OnDestroy {
       .subscribe( 
         (par: Params) => {
           this.activeCategory = par["cat"];
+          this.isSearchFailure = true;
           this.loadingService.toggleLoading();
           this.editModal.toggleEditMode();
           this.productsByCategorySubscription = this.productsService.getProductsByCategory(this.activeCategory)
@@ -86,10 +88,13 @@ export class ProductGridComponent implements OnInit, OnDestroy {
   setProducts(products) {
     if (products.length > 0 && products != 'All') {
       this.products = products;
+      this.isSearchFailure = true;
     } else if (products == "All") {
       this.getProducts();
+      this.isSearchFailure = true;
     } else {
       this.products = [];
+      this.isSearchFailure = false;
     }
   }
 

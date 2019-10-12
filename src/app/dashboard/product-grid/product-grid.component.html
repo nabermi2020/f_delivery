@@ -1,7 +1,7 @@
 <div id="products-grid">
   <div class="row">
     <div class="col-md-6">
-      <app-filters (activeCategorySelected)="setFilterCategory($event)"></app-filters>
+      <app-filters (activeCategorySelected)="setFilterCategory($event)" *ngIf="isSearchFailure"></app-filters>
     </div>
     <div class="col-md-6">
       <app-product-search (searchDone)="setProducts($event)"></app-product-search>
@@ -15,7 +15,10 @@
               <app-product-item [productData]='product'></app-product-item>
           </div>
           
-          <div *ngIf="!products" class="noProducts"> <h3>No Products!</h3></div>
-        
+          <div *ngIf="!isSearchFailure" class="noProducts"> 
+            <img src="../../../assets/Error_Empty states.png" style="width: 42%;
+            min-width: 450px; margin-top: -59px;">
+          </div>
+          
     </div>
   </div>
