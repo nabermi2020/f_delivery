@@ -17,13 +17,11 @@ export class AuthenticationComponent implements OnInit {
   }
 
   checkAuthenticationStatus() {
-    this.authService.isUserAuthorized.subscribe (
+    this.authService.isUserAuthorized.subscribe(
       authStatus => {
-        console.log(authStatus);
-        if (authStatus.authStatus && authStatus.onlineMode != false) {
+        if (authStatus.authStatus && authStatus.onlineMode) {
           this.router.navigate(['/dashboard/products/pizza']);
-        } else {
-          alert('here');
+        } else { 
           this.router.navigate(['']);
         }
       }

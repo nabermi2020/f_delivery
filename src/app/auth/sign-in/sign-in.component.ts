@@ -11,15 +11,24 @@ import { EditModalService } from 'src/app/shared/services/edit-modal.service';
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
-  authStatus: boolean = true;
-  authStatusMsg: String;
-  authResults;
+  authResults = {
+    authStatus: true,
+    onlineMode: navigator.onLine
+  };
    
   constructor(private authService: AuthService,
               private loadingService: LoadingService,
               private editModal: EditModalService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.authService.isUserAuthorized
+      .subscribe(
+        authRes => {
+          this.authResults  = authRes;
+          console.log(authRes);
+        }
+      )
+  }
 
 /**
  * Provide user login using appropriate credentials
@@ -32,15 +41,11 @@ export class SignInComponent implements OnInit {
       "login": login,
       "password": password
     };
-    let authResults;
-
+    
     this.authService.signIn(login, password);
    
     if (this.authService) {
       localStorage.setItem("userInfo", JSON.stringify(credentials));
-    }   
-    
-    
+    }      
   }
-
 }

@@ -56,7 +56,9 @@
 
         <p *ngIf="login.errors && login.touched " class="validationError">Login isn't valid!</p>
         <p *ngIf="login?.errors?.minlength && login.touched " class="validationError">Min length should be 4 !</p>
-        <p *ngIf="login?.errors?.loginIsForbidden && login.touched " class="validationError">User with such login is already exist!</p>
+        <p *ngIf="login?.errors?.loginIsForbidden && login.touched" class="validationError">User with such login is already exist!</p>
+        <p *ngIf="login?.errors?.isNetworkEnabled && login.touched" class="validationError">There's no internet connection!</p>
+        
       </div>
 
     <div class="col-md-6 col-xs-6">
@@ -139,6 +141,7 @@
       <p *ngIf="email?.errors?.minlength && email.touched " class="validationError">Min length should be 4 !</p>
       <p *ngIf="email?.errors?.emailIsForbidden && email.touched " class="validationError">User with such email is already exist!</p>
       <p *ngIf="email?.errors?.email && email.touched " class="validationError">Email doensn't much the pattern!</p>
+      <p *ngIf="email?.errors?.isNetworkEnabled && email.touched " class="validationError">There's no internet connection!</p>
     </div>
 
     <div class="col-md-6 col-xs-6">
@@ -159,11 +162,13 @@
     </div>
 
     </div>
+    <p *ngIf="!onlineMode" class="validationError">There's no internet connection!</p>
 
     <button class="btn btn-success"
             type="submit"
-            [disabled]="!registrationForm.valid">
+            >
       Sign Up
     </button>
   </form>
 </div>
+<!--[disabled]="!registrationForm.valid"-->

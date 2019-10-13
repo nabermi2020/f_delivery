@@ -46,13 +46,11 @@ export class AuthService {
           },
   
           err => {
-            //console.log(err);
             authObserver.error(err);
             authObserver.next({ authStatus: false, onlineMode: onlineMode }); 
           }
         );
       } else {
-        alert('Offline mode!');
         authObserver.next({ authStatus: false, onlineMode: false });
       }
     });
@@ -61,7 +59,6 @@ export class AuthService {
   }          
   
   signIn(login, password) {
-
     this.authenticateUser(login, password)
       .subscribe(
         (authStatus: any) => {
@@ -74,8 +71,6 @@ export class AuthService {
           console.log(this.authResults);
         }
       );
-
-    
   }
 
   onSignInSuccess(res) {
@@ -93,10 +88,6 @@ export class AuthService {
 
     return authStatus;
   }
-
-  // onSignInError(err) {
-  //   console.log(err);
-  // }
 
 /**
  * Update user data

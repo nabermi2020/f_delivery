@@ -13,11 +13,14 @@ export class SignUpComponent implements OnInit {
   registrationForm: FormGroup;
   userPassword: string;
   userRepeatedPassword: string;
+  onlineMode: boolean;
 
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.initForm();
+    this.onlineMode = navigator.onLine;
+
   }
 
 /**
@@ -98,25 +101,32 @@ export class SignUpComponent implements OnInit {
     const login = control.value;
     let queryResult;
     const promise = new Promise( (resolve, reject) => {
-      if (login.length >= 4) {
-        this.authService.checkUser(login).subscribe(
-          res => {
-            console.log('Result=');
-            queryResult = res[0];
-            if (res[0]) {
-              if (res[0].login == login) {
-                resolve({'loginIsForbidden': true});
+      if (navigator.onLine) {
+        if (login.length >= 4) {
+          this.authService.checkUser(login).subscribe(
+            res => {
+              console.log('Result=');
+              queryResult = res[0];
+              if (res[0]) {
+                if (res[0].login == login) {
+                  resolve({'loginIsForbidden': true, 'isNetworkEnabled': false});
+                }
+              } else {
+                  resolve(null);
               }
-            } else {
-                resolve(null);
+            },
+  
+            err => {
+              alert('Something went wrong!');
+              console.log(err);
             }
-          },
-
-          err => {
-            alert('Something went wrong!');
-          }
-        );
+          );
+        }
+      } else {
+       
+       // resolve({'isNetworkEnabled': true});
       }
+
     });
     
     return promise;
@@ -130,22 +140,27 @@ export class SignUpComponent implements OnInit {
   forbiddenEmail(control: FormControl): Promise<any> | Observable<any> {
     const email = control.value;
     const promise  = new Promise( (resolve, reject) => {
-      if (email.length >= 6) {
-        this.authService.checkEmail(email).subscribe(
-          res => {
-            console.log('Email= ');
-            if (res[0]) {
-              if (res[0].email == email) {
-                resolve({'emailIsForbidden': true});
+      if (navigator.onLine) {
+        if (email.length >= 6) {
+          this.authService.checkEmail(email).subscribe(
+            res => {
+              console.log('Email= ');
+              if (res[0]) {
+                if (res[0].email == email) {
+                  
+                  resolve({'emailIsForbidden': true, 'isNetworkEnabled': false});
+                }
+              } else {
+                resolve(null);
               }
-            } else {
-              resolve(null);
+            }, 
+            err => {
+              alert(err);
             }
-          }, 
-          err => {
-            alert(err);
-          }
-        );
+          );
+        }
+      } else {
+        //resolve({'isNetworkEnabled': true});
       }
     });
 
@@ -180,16 +195,18 @@ export class SignUpComponent implements OnInit {
   onSignUp() {
     console.log(this.registrationForm.value);
     console.log(this.registrationForm);
+    this.onlineMode = navigator.onLine;
     const userInfo = this.registrationForm.value;
     const newUser = new User(userInfo.firstName, userInfo.lastName,
                            userInfo.login, userInfo.passwords.password,
                            userInfo.phone, userInfo.email,
                            userInfo.address);
-    console.log(newUser);
-
-    if (this.registrationForm.valid) {
+    
+    if (this.registrationForm.valid && this.onlineMode) {
       this.authService.signUp(newUser);
-    }                         
+    } else if (!this.onlineMode && !this.registrationForm.valid) {
+      this.registrationForm.patchValue({login: "", email: ""});
+    }                  
   }
 
     // It's not used
