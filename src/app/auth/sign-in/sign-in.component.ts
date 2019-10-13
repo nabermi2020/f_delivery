@@ -12,6 +12,8 @@ import { EditModalService } from 'src/app/shared/services/edit-modal.service';
 })
 export class SignInComponent implements OnInit {
   authStatus: boolean = true;
+  authStatusMsg: String;
+  authResults;
    
   constructor(private authService: AuthService,
               private loadingService: LoadingService,
@@ -31,10 +33,13 @@ export class SignInComponent implements OnInit {
       "password": password
     };
    
-    this.authStatus =  this.authService.signInn(login, password); 
+    this.authResults =  this.authService.signInn(login, password);
+   // this.authStatus = this.authResults.authStatus; 
     if (this.authService) {
       localStorage.setItem("userInfo", JSON.stringify(credentials));
     }   
+    
+   // console.log(this.authResults);
   }
 
 }

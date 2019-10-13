@@ -3,7 +3,7 @@ import { ProductCart } from '../shared/services/product-cart.service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, Observer } from 'rxjs';
 import { User } from './user.model';
 import { EditModalService } from '../shared/services/edit-modal.service';
 import { environment } from 'src/environments/environment';
@@ -30,6 +30,30 @@ export class AuthService {
               private editModal: EditModalService
                ) { }
 
+
+  signIn(login: string, password: string) {
+    const authObserver = Observable.create((authObserver: Observer<any>) => {
+      // if (login == 'misha') {
+      //   authObserver.next('yes');
+      //   authObserver.complete();
+      // } else {
+      //   authObserver.error('fuck!');
+      // }
+      
+    });
+
+    authObserver.subscribe(
+      (data: any) => {
+        console.log(data);
+      },
+      (err: any) => {
+        console.log(err);
+      },
+      () => {
+        console.log('completed!');
+      }
+    );
+  }               
 /**
  * User authentication
  * @param {String} user's login
@@ -38,20 +62,36 @@ export class AuthService {
  */               
   signInn(login: string, password: string) {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
+    this.signIn('missha', '777');
     let authStatus;
-    
-    this.http.get(`${this.apiUrl}/users?login=${login}&&password=${password}`, { headers })
+    //let authResults;
+    let onlineMode = navigator.onLine;
+    if (onlineMode) {
+      this.http.get(`${this.apiUrl}/users?login=${login}&&password=${password}`, { headers })
       .subscribe(
         (res: Array<any>) => {
           authStatus = this.onSignInSuccess(res) == true ? true : false;
+          // console.log(authStatus);
+          // authResults = {
+          //   authStatus: authStatus,
+          //   onlineMode: true
+          // };
         },
 
         err => {
-          this.onSignInError(err);  
+          // this.onSignInError(err); 
+          console.log(err); 
         }
       );
+    } else {
+      // authResults =  {
+      //   authStatus: false,
+      //   onlineMode: false
+      // }
+    }
+    
       
-    return authStatus; 
+   return authStatus;
   }
 
   onSignInSuccess(res) {
@@ -65,14 +105,15 @@ export class AuthService {
       return true;
     } else {
       console.log('Authentication error!');
+      authStatus = false;
     }
 
     return authStatus;
   }
 
-  onSignInError(err) {
-    console.log(err);
-  }
+  // onSignInError(err) {
+  //   console.log(err);
+  // }
 
 /**
  * Update user data
