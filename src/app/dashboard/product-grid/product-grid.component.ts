@@ -3,7 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductService } from 'src/app/shared/services/products.service';
 import { EditModalService } from 'src/app/shared/services/edit-modal.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-product-grid',
@@ -16,6 +16,7 @@ export class ProductGridComponent implements OnInit, OnDestroy {
   isSearchFailure: boolean = true;
   activeCategory: string = "pizza";
   activeFilter: string = "All";
+  onlineMode: boolean = true;
   urlParSubscription = new Subscription();
   productSubscription = new Subscription();
   productsByCategorySubscription = new Subscription();
@@ -33,12 +34,14 @@ export class ProductGridComponent implements OnInit, OnDestroy {
       .subscribe( 
         (par: Params) => {
           this.activeCategory = par["cat"];
+          //this.onlineMode = true;
           this.isSearchFailure = true;
           this.loadingService.toggleLoading();
           this.editModal.toggleEditMode();
           this.productsByCategorySubscription = this.productsService.getProductsByCategory(this.activeCategory)
             .subscribe(
               res => {
+                this.onlineMode = true;
                 this.products = res;
                 this.activeFilter = "All";
                 this.loadingService.toggleLoading();
@@ -59,16 +62,21 @@ export class ProductGridComponent implements OnInit, OnDestroy {
     this.editModal.toggleEditMode();
     this.productSubscription = this.productsService.getProducts()
     .subscribe(
-      res => {
-          this.products = res;
-          this.loadingService.toggleLoading();
-          this.editModal.toggleEditMode();  
-      },
-       
-      err => {
-          console.log(err);
-      }
+      this.onGetProductsSuccess.bind(this),       
+      this.onGetProductError.bind(this)
     );
+  }
+
+  onGetProductsSuccess(products: Observable<any>) {
+    this.products = products;
+    this.onlineMode = true;
+    this.loadingService.toggleLoading();
+    this.editModal.toggleEditMode();  
+  }
+
+  onGetProductError(err) {
+    this.onlineMode = false;
+    console.log(err);
   }
 
  /**

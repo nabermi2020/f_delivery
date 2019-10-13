@@ -1,7 +1,7 @@
 import { Product } from '../product.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpHeaderResponse } from '@angular/common/http';
-import { Observable, Subscription, Subject, combineLatest } from 'rxjs';
+import { Observable, Subscription, Subject, combineLatest, Observer } from 'rxjs';
 import { mapTo } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { merge } from 'rxjs/operators';
@@ -48,7 +48,33 @@ export class ProductService {
  */    
     getProducts() {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
-        return this.http.get(`${this.apiUrl}/pizza`, {headers});
+        const productsObservable = Observable.create( (observer: Observer<any>) => {
+        let onlineMode = navigator.onLine;
+        if (onlineMode) {
+            this.http.get(`${this.apiUrl}/pizza`, {headers})
+                .subscribe(
+                  (productList: Array<any>) => {
+                      observer.next(this.onProductGetSuccess(productList));
+                  },
+                    err => {
+                        observer.error('error while getting products! ' + err);
+                    } 
+                ); 
+            } else {
+                observer.error("Offline mode!");
+            }
+        });
+        return productsObservable;
+    }
+
+    onProductGetSuccess(productList: Array<any>) { 
+        let products;
+        if (productList.length > 0) {
+            console.log(productList);
+            products = productList;
+            this.products = productList;
+        }   
+        return products;   
     }
 
 /**
