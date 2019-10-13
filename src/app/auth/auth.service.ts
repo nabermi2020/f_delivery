@@ -17,6 +17,7 @@ export class AuthService {
   isUserAuthorized = new Subject<any>();
   userData = new Subject<any>();
   currentUser: any;
+  authResults: any;
   
   users = [
     new User('John', 'Smith', 'john_smith777', 'john777', '+380501654784', 'john777@gmail.com', 'NY, Green Valley 15/64'),
@@ -31,67 +32,50 @@ export class AuthService {
                ) { }
 
 
-  signIn(login: string, password: string) {
-    const authObserver = Observable.create((authObserver: Observer<any>) => {
-      // if (login == 'misha') {
-      //   authObserver.next('yes');
-      //   authObserver.complete();
-      // } else {
-      //   authObserver.error('fuck!');
-      // }
-      
+  authenticateUser(login: string, password: string) {
+      const authObserver = Observable.create((authObserver: Observer<any>) => {
+      const headers = new HttpHeaders({'Content-type': 'application/json'});
+      let authStatus;
+      let onlineMode = navigator.onLine;
+      if (onlineMode) {
+        this.http.get(`${this.apiUrl}/users?login=${login}&&password=${password}`, { headers })
+        .subscribe(
+          (res: Array<any>) => {
+            authStatus = this.onSignInSuccess(res) == true ? true : false;
+            authObserver.next({ authStatus: authStatus, onlineMode: onlineMode });
+          },
+  
+          err => {
+            //console.log(err);
+            authObserver.error(err);
+            authObserver.next({ authStatus: false, onlineMode: onlineMode }); 
+          }
+        );
+      } else {
+        alert('Offline mode!');
+        authObserver.next({ authStatus: false, onlineMode: false });
+      }
     });
 
-    authObserver.subscribe(
-      (data: any) => {
-        console.log(data);
-      },
-      (err: any) => {
-        console.log(err);
-      },
-      () => {
-        console.log('completed!');
-      }
-    );
-  }               
-/**
- * User authentication
- * @param {String} user's login
- * @param {String} user's password
- * @return {Boolean} returns authentication status
- */               
-  signInn(login: string, password: string) {
-    const headers = new HttpHeaders({'Content-type': 'application/json'});
-    this.signIn('missha', '777');
-    let authStatus;
-    //let authResults;
-    let onlineMode = navigator.onLine;
-    if (onlineMode) {
-      this.http.get(`${this.apiUrl}/users?login=${login}&&password=${password}`, { headers })
-      .subscribe(
-        (res: Array<any>) => {
-          authStatus = this.onSignInSuccess(res) == true ? true : false;
-          // console.log(authStatus);
-          // authResults = {
-          //   authStatus: authStatus,
-          //   onlineMode: true
-          // };
-        },
+    return authObserver;
+  }          
+  
+  signIn(login, password) {
 
-        err => {
-          // this.onSignInError(err); 
-          console.log(err); 
+    this.authenticateUser(login, password)
+      .subscribe(
+        (authStatus: any) => {
+          this.authResults = authStatus;
+          this.isUserAuthorized.next(this.authResults);
+          console.log(this.authResults);
+        },
+        (authErr: any) => {
+          this.authResults = authErr;
+          console.log(this.authResults);
         }
       );
-    } else {
-      // authResults =  {
-      //   authStatus: false,
-      //   onlineMode: false
-      // }
-    }
+
     
-      
-   return authStatus;
   }
 
   onSignInSuccess(res) {
@@ -99,7 +83,6 @@ export class AuthService {
     if (res && res.length > 0 ) {
       this.currentUser = res[0];
       this.isAuthenticated = true;
-      this.isUserAuthorized.next(this.isAuthenticated);
       authStatus =  true;
       this.userData.next(res[0]);
       return true;
@@ -119,15 +102,16 @@ export class AuthService {
  * Update user data
  */
   updateUserData() {
-    this.signInn(this.currentUser.login, this.currentUser.password);
+    this.signIn(this.currentUser.login, this.currentUser.password);
   }
 
 /**
  * Logout user from the active session
  */  
   logOut() {
-    this.isAuthenticated = false;
-    this.isUserAuthorized.next(this.isAuthenticated);
+    this.authResults.authStatus = false;
+    //console.log(this.authResults);
+    this.isUserAuthorized.next(this.authResults);
     localStorage.removeItem('userInfo');
   }
 

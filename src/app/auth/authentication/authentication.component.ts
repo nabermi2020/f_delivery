@@ -19,9 +19,11 @@ export class AuthenticationComponent implements OnInit {
   checkAuthenticationStatus() {
     this.authService.isUserAuthorized.subscribe (
       authStatus => {
-        if (authStatus) {
+        console.log(authStatus);
+        if (authStatus.authStatus && authStatus.onlineMode != false) {
           this.router.navigate(['/dashboard/products/pizza']);
         } else {
+          alert('here');
           this.router.navigate(['']);
         }
       }
@@ -34,7 +36,7 @@ export class AuthenticationComponent implements OnInit {
     const userData = localStorage.getItem("userInfo");
     if (userData) {
       const userCredentials = JSON.parse(userData);
-      this.authService.signInn(userCredentials.login, userCredentials.password);
+      this.authService.signIn(userCredentials.login, userCredentials.password);
     } else {
       console.log('No active session data available!');
     }

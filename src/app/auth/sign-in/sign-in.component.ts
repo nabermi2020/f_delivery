@@ -32,14 +32,15 @@ export class SignInComponent implements OnInit {
       "login": login,
       "password": password
     };
+    let authResults;
+
+    this.authService.signIn(login, password);
    
-    this.authResults =  this.authService.signInn(login, password);
-   // this.authStatus = this.authResults.authStatus; 
     if (this.authService) {
       localStorage.setItem("userInfo", JSON.stringify(credentials));
     }   
     
-   // console.log(this.authResults);
+    
   }
 
 }
