@@ -29,30 +29,35 @@ export class ProductGridComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getProducts();
- 
-    this.urlParSubscription = this.route.firstChild.params
-      .subscribe( 
-        (par: Params) => {
-          this.activeCategory = par["cat"];
-          //this.onlineMode = true;
-          this.isSearchFailure = true;
-          this.loadingService.toggleLoading();
-          this.editModal.toggleEditMode();
-          //Create separate function for this 
-          this.productsByCategorySubscription = this.productsService.getProductsByCategory(this.activeCategory)
-            .subscribe(
-              res => {
-                this.onlineMode = res.length > 0 ? true : false;
-                this.products = res;
-                this.activeFilter = "All";
+    this.getProductByCategory();
+  }
 
-                this.loadingService.toggleLoading();
-                this.editModal.toggleEditMode();
-              },
-              
-              this.onGetProductError.bind(this)
-             );
-      });
+  getProductByCategory() {
+    this.urlParSubscription = this.route.firstChild.params
+    .subscribe( 
+      (par: Params) => {
+        this.activeCategory = par["cat"];
+        this.isSearchFailure = true;
+        this.loadingService.toggleLoading();
+        this.editModal.toggleEditMode();
+        this.getProductByActiveCategory();
+    });
+  }
+
+  getProductByActiveCategory() {
+    this.productsByCategorySubscription = this.productsService.getProductsByCategory(this.activeCategory)
+    .subscribe(
+      this.onGetProductByActiveCategorySuccess.bind(this),    
+      this.onGetProductError.bind(this)
+     );  
+  }
+
+  onGetProductByActiveCategorySuccess(productList) {
+      this.onlineMode = productList.length > 0 ? true : false;
+      this.products = productList;
+      this.activeFilter = "All";
+      this.loadingService.toggleLoading();
+      this.editModal.toggleEditMode();
   }
 
 /**

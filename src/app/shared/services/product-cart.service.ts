@@ -19,7 +19,10 @@ export class ProductCart {
                 private http: HttpClient) {
                 // this.unsubscribeFromProductsGettedFromServer();  
                 this.checkCartExistenseByUserId();
-                this.getCartFromServer();
+                if (navigator.onLine) { 
+                    this.getCartFromServer();    
+                }
+                
     }
     
 /**
@@ -62,9 +65,17 @@ export class ProductCart {
     addProducts(product: Product) {
         console.log(product);
         console.log(this.cart);
+        let onlineMode = navigator.onLine;
         this.cart.addProduct(product);
-        this.synchCartWithServer();
         this.onProductAdded.next(this.cart.getCart());
+        
+        if (onlineMode) {
+            this.synchCartWithServer();
+            localStorage.setItem('productCart', JSON.stringify(this.cart));
+        } else {
+            localStorage.setItem('productCart', JSON.stringify(this.cart));
+        }
+        
     }
 
  /**
@@ -73,7 +84,8 @@ export class ProductCart {
     synchCartWithServer() {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
         const userData = this.authService.getCurrentUser();
-
+        console.log('here');
+        console.log(this.cart);
         this.http.put(`${this.apiUrl}/cart/${this.cart.id}`, this.cart, { headers })
             .subscribe(
                 res => {
@@ -103,15 +115,32 @@ export class ProductCart {
     }
 
     onGetCartSuccess(cart) {
-         this.cart.setProducts(cart["products"]);
-         this.cart.setCartId(cart["cartId"]);
-         this.onProductAdded.next(this.cart.getCart());     
-         // console.log(this.cart);
+         let localCart = JSON.parse(localStorage.getItem("productCart"));
+         let localCartInstanse = new Cart(localCart["products"]);
+
+         if (localCartInstanse) {
+            this.cart.setProducts(localCart["products"]);
+            this.cart.setCartId(localCart["cartId"]);
+         } else {
+            this.cart.setProducts(cart["products"]);
+            this.cart.setCartId(cart["cartId"]);
+         }
+
+         this.onProductAdded.next(this.cart.getCart());
+         localStorage.setItem('productCart', JSON.stringify(this.cart));     
     }
 
     onGetCartFailure(error) {
         console.log(error);
         alert('Error while getting cart from server!');
+    }
+
+    getCartFromLocalStorage() {
+        let cart = JSON.parse(localStorage.getItem('productCart'));
+        this.cart.setProducts(cart["products"]);
+        this.cart.setCartId(cart["cartId"]);
+        this.onProductAdded.next(this.cart);
+        return this.cart.getCart();
     }
 
 /**
@@ -156,7 +185,13 @@ export class ProductCart {
     deleteProductById(id) {
         this.cart.deleteProductById(id);
         this.onProductAdded.next(this.cart.getCart());
-        this.synchCartWithServer();
+        let onlineMode = navigator.onLine;
+        if (onlineMode) {
+            this.synchCartWithServer();
+            localStorage.setItem('productCart', JSON.stringify(this.cart));
+        } else {
+            localStorage.setItem('productCart', JSON.stringify(this.cart));
+        }
     }
 
 /**
@@ -166,7 +201,13 @@ export class ProductCart {
     addOneProductToCart(id) {
         this.cart.addOneProductToCart(id);
         this.onProductAdded.next(this.cart.getCart());
-        this.synchCartWithServer();
+        let onlineMode = navigator.onLine;
+        if (onlineMode) {
+            this.synchCartWithServer();
+            localStorage.setItem('productCart', JSON.stringify(this.cart));
+        } else {
+            localStorage.setItem('productCart', JSON.stringify(this.cart));
+        }
     }
 
 /**
@@ -176,7 +217,13 @@ export class ProductCart {
     deleteOneProductFromCart(id) {
         this.cart.deleteOneProductFromCart(id);
         this.onProductAdded.next(this.cart.getCart());
-        this.synchCartWithServer();
+        let onlineMode = navigator.onLine;
+        if (onlineMode) {
+            this.synchCartWithServer();
+            localStorage.setItem('productCart', JSON.stringify(this.cart));
+        } else {
+            localStorage.setItem('productCart', JSON.stringify(this.cart));
+        }
     }
 
  /**
@@ -200,7 +247,13 @@ export class ProductCart {
   */   
     cleanCart() {
         this.cart.cleanCart();
-        this.synchCartWithServer();
+        let onlineMode = navigator.onLine;
+        if (onlineMode) {
+            this.synchCartWithServer();
+            localStorage.setItem('productCart', JSON.stringify(this.cart));
+        } else {
+            localStorage.setItem('productCart', JSON.stringify(this.cart));
+        }
         this.onProductAdded.next(this.cart);
     }
 

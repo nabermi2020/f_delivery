@@ -57,13 +57,13 @@ export class ProductService {
                       observer.next(this.onProductGetSuccess(productList));
                       localStorage.setItem("productList", JSON.stringify({category: "pizza", products: productList}));
                   },
-                    err => {
-                        observer.error('error while getting products! ' + err);
-                    } 
+                  err => {
+                      observer.error('error while getting products! ' + err);
+                  } 
                 ); 
-            } else {
-                observer.error("Offline mode!");
-            }
+        } else {
+            observer.error("Offline mode!");
+        }
         });
         return productsObservable;
     }
@@ -71,7 +71,7 @@ export class ProductService {
     onProductGetSuccess(productList: Array<any>) { 
         let products;
         if (productList.length > 0) {
-            console.log(productList);
+            // console.log(productList);
             products = productList;
             this.products = productList;
         }   
@@ -87,6 +87,7 @@ export class ProductService {
         const productsObserver = Observable.create((observer: Observer<any>) => {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
         let online = navigator.onLine;
+        // Need to separate to 2 functions  - online && offline mode
         if (online) {
             this.http.get(`${this.apiUrl}/${category}`, {headers})
             .subscribe(

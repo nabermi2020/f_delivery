@@ -16,9 +16,16 @@ export class CartComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.cart = this.productCart.getProducts();
-    console.log(this.cart);
-    this.totalPrice = this.productCart.getTotalPrice();
+     
+    if (navigator.onLine) {
+      this.cart = this.productCart.getProducts();
+     // console.log(this.cart);
+      this.totalPrice = this.productCart.getTotalPrice();
+    } else {
+      this.cart = this.productCart.getCartFromLocalStorage();
+      this.totalPrice = this.productCart.getTotalPrice();
+    }
+    
   }
 
  /**
