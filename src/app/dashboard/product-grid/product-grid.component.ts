@@ -38,19 +38,20 @@ export class ProductGridComponent implements OnInit, OnDestroy {
           this.isSearchFailure = true;
           this.loadingService.toggleLoading();
           this.editModal.toggleEditMode();
+          //Create separate function for this 
           this.productsByCategorySubscription = this.productsService.getProductsByCategory(this.activeCategory)
             .subscribe(
               res => {
-                this.onlineMode = true;
+                this.onlineMode = res.length > 0 ? true : false;
                 this.products = res;
                 this.activeFilter = "All";
+
                 this.loadingService.toggleLoading();
                 this.editModal.toggleEditMode();
               },
-      
-              err => {
-                // console.log(err);
-              });
+              
+              this.onGetProductError.bind(this)
+             );
       });
   }
 
@@ -76,6 +77,8 @@ export class ProductGridComponent implements OnInit, OnDestroy {
 
   onGetProductError(err) {
     this.onlineMode = false;
+    this.loadingService.toggleLoading();
+    this.editModal.toggleEditMode();
     console.log(err);
   }
 

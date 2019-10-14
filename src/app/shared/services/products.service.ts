@@ -55,6 +55,7 @@ export class ProductService {
                 .subscribe(
                   (productList: Array<any>) => {
                       observer.next(this.onProductGetSuccess(productList));
+                      localStorage.setItem("productList", JSON.stringify({category: "pizza", products: productList}));
                   },
                     err => {
                         observer.error('error while getting products! ' + err);
@@ -83,8 +84,37 @@ export class ProductService {
  * @return {Observable} products which are matched search query
  */    
     getProductsByCategory(category: string): Observable<any> {
+        const productsObserver = Observable.create((observer: Observer<any>) => {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
-        return this.http.get(`${this.apiUrl}/${category}`, {headers});
+        let online = navigator.onLine;
+        if (online) {
+            this.http.get(`${this.apiUrl}/${category}`, {headers})
+            .subscribe(
+                (products: Array<any>) => {
+                    if (products.length > 0) {
+                        observer.next(products);
+                        localStorage.setItem("productList", JSON.stringify({category: category, products: products}));
+                    } else {
+                        observer.error('No Products!');
+                    }
+                },
+            
+                err => {
+                    observer.error(err);
+                }
+            );
+        } else {
+            let productList = JSON.parse(localStorage.getItem('productList'));
+            if (productList.category == category) {
+                observer.next(productList.products);
+            } else {
+                observer.error('Offline mode!');
+            }
+        }
+     
+        });
+        
+        return productsObserver;
     }
 
     setSelectedProduct(productInfo) {
