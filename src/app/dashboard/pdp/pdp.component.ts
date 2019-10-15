@@ -29,8 +29,9 @@ export class PdpComponent implements OnInit {
 
   addToCart() {
     console.log(this.productDetails);
-    this.productDetails.productQuantity = 1;
+    this.productDetails.productQuantity = this.productQuantity;
     this.productCartService.addProducts(this.productDetails);
+    this.productQuantity = 1;
   }
 
   getIngredients() {
@@ -38,11 +39,16 @@ export class PdpComponent implements OnInit {
   }
 
   decreaseProdCounterOnOne() {
+    if (this.productQuantity != 1) {
+      --this.productQuantity;
+    }
 
+    this.productDetails.productQuantity = this.productQuantity;
   }
 
   increaseProductCounterOnOne() {
-
+    ++this.productQuantity;
+    this.productDetails.productQuantity = this.productQuantity;
   }
 
 }
