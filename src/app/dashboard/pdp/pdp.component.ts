@@ -10,6 +10,7 @@ import { ProductCart } from 'src/app/shared/services/product-cart.service';
 })
 export class PdpComponent implements OnInit {
   productDetails;
+  productQuantity: number = 1;
   ingredients: string[];
   constructor(private activeRoute: ActivatedRoute,
               private productService: ProductService,
@@ -34,6 +35,14 @@ export class PdpComponent implements OnInit {
 
   getIngredients() {
     this.ingredients = this.productDetails.productDescription.split(', ');
+  }
+
+  decreaseProdCounterOnOne() {
+
+  }
+
+  increaseProductCounterOnOne() {
+
   }
 
 }

@@ -84,7 +84,6 @@ export class OrderConfirmationComponent implements OnInit, OnDestroy {
     
   }
 
-
   submitAnOrder(formConfirmation) {
     this.onOrderSubmit(this.formData);
   }

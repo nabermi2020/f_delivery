@@ -15,6 +15,18 @@
                 {{ productDetails.productPrice }} $
             </div>
 
+            <div class="productQuantityWrapper">
+              <button id="decreaseProductQuantity"
+                      (click)="decreaseProdCounterOnOne()">-</button>
+              <input type="text"
+                     class="productQuantity"
+                     disabled
+                     value="1"
+                     [(ngModel)]="productQuantity">
+              <button id="increaseProdQuantity"
+                      (click)="increaseProductCounterOnOne()">+</button>
+            </div>
+
             <div class="addToCartWrapper">
               <button class="btn btn-success" (click)="addToCart()">Add To Cart</button>
             </div>
