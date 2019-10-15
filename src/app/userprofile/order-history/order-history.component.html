@@ -11,6 +11,12 @@
           (click)="getOrdersForPage(page.pageNumber)">
           {{ page.pageNumber }}
   </button>
+
+
   
+</div>
+
+<div *ngIf="!onlineMode">
+  <img src="../../../assets/no-internet-connection.png" class="networkConnectionError">
 </div>
  

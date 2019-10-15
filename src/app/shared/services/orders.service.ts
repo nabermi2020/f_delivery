@@ -5,7 +5,7 @@ import { AuthService } from '../../auth/auth.service';
 import { Injectable } from '@angular/core';
 import { Order } from 'src/app/cart/order.model';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Observer } from 'rxjs';
 import { EditModalService } from './edit-modal.service';
 import { environment } from 'src/environments/environment';
 
@@ -66,6 +66,38 @@ export class OrdersService {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
     const id = this.authService.getCurrentUser().id;
     return this.http.get(`${this.apiUrl}/orders?userId=${id}`, { headers });
+  }
+
+  getOrderss(): Observable<any> {
+    const ordersObservable = Observable.create( (observer: Observer<any>) => {
+      const headers = new HttpHeaders({'Content-type': 'application/json'});
+      const id = this.authService.getCurrentUser().id;
+      let onlineMode = navigator.onLine;
+      //Need refactoring
+      if (onlineMode) {
+        this.http.get(`${this.apiUrl}/orders?userId=${id}`, { headers })
+          .subscribe(
+            (orders: Array<any>) => {
+              localStorage.setItem('orderHistory', JSON.stringify(orders));
+              observer.next(orders);
+            },    
+            (error) => {
+              observer.error(error);
+            }
+          );  
+      } else {
+        let localOrderHistory = JSON.parse(localStorage.getItem("orderHistory"));
+        if (localOrderHistory.length > 0) {
+          observer.next(localOrderHistory);
+        } else {
+          observer.error("offline mode");
+        }
+      }
+
+     
+    });
+
+     return ordersObservable;
   }
 
 }

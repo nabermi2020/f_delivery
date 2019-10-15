@@ -11,6 +11,7 @@ import { EditModalService } from 'src/app/shared/services/edit-modal.service';
 })
 export class OrderHistoryComponent implements OnInit, OnDestroy {
   orders: Array<any>;
+  onlineMode: boolean = navigator.onLine;
   pages: number;
   ordersPerPage: number = 10;
   ordersOnLastPage: number;
@@ -64,22 +65,29 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
     this.loadingService.toggleLoading();
     this.editModal.toggleEditMode();
 
-    this.orderSubscription =  this.orderService.getOrders()
+    this.orderSubscription = this.orderService.getOrderss()
       .subscribe(
-        res => {
-          if (res[0]) {
-            this.orders = res;  
-            this.editModal.toggleEditMode();
-            this.loadingService.toggleLoading();
-            this.ordersForPages = this.calculatePagination();
-            this.orders = this.ordersForPages[0].orders;
-          }
-        },
-
-        err => {
-          alert('Something went wrong!');
-        }
+         this.onGetOrderSuccess.bind(this),
+         this.onGetOrderFailure.bind(this)
       );
+  }
+
+  onGetOrderSuccess(orders) {
+    if (orders[0]) {
+      this.orders = orders;  
+      this.editModal.toggleEditMode();
+      this.loadingService.toggleLoading();
+      this.ordersForPages = this.calculatePagination();
+      this.orders = this.ordersForPages[0].orders;
+      this.onlineMode = this.orders.length > 0 ? true : false;
+    }
+  }
+
+  onGetOrderFailure(err) {
+    this.editModal.toggleEditMode();
+    this.loadingService.toggleLoading();
+    console.log(err);
+    this.onlineMode = false;
   }
 
 /**
