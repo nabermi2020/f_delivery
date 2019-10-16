@@ -1,3 +1,4 @@
+import { ProductService } from 'src/app/shared/services/products.service';
 import { Component, OnInit } from '@angular/core';
 import { ProductCart } from 'src/app/shared/services/product-cart.service';
 import { Product } from 'src/app/shared/product.model';
@@ -13,7 +14,8 @@ export class CartComponent implements OnInit {
   totalPrice: any;
  
   constructor(private productCart: ProductCart,
-              private router: Router) { }
+              private router: Router,
+              private productService: ProductService) { }
 
   ngOnInit() {
      
@@ -63,6 +65,11 @@ export class CartComponent implements OnInit {
     const productId = product.id;
     this.productCart.deleteOneProductFromCart(productId);
     this.totalPrice = this.productCart.getTotalPrice();
+  }
+
+  navigateToProductDetailsPage(product) {
+    this.productService.setSelectedProduct(product);
+    this.router.navigate([`dashboard/product-details/${product.id}`]);
   }
 
 }

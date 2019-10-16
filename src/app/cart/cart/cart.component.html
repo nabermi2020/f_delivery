@@ -12,12 +12,12 @@
 
         <div *ngFor="let product of cart"
               class="product">
-            <div class="productLogoWrapper">
+            <div class="productLogoWrapper" (click)="navigateToProductDetailsPage(product)">
                 <img [src]="product.imgPath" class="img-responsive"  >
             </div>
 
             <div class="productTitle">
-                <h5> {{ product.productTitle }}</h5>
+                <h5> {{ product.productTitle }} </h5>
             </div>
 
             <div class="productPrice">
