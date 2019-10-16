@@ -93,7 +93,13 @@ export class AuthService {
  * Update user data
  */
   updateUserData() {
-    this.signIn(this.currentUser.login, this.currentUser.password);
+    let onlineMode = navigator.onLine;
+    if (onlineMode) {
+      this.signIn(this.currentUser.login, this.currentUser.password);
+    } else {
+      let activeCategory = JSON.parse(localStorage.getItem("productList")).category;
+      this.router.navigate([`dashboard/products/${activeCategory}`]);
+    }
   }
 
 /**
@@ -173,10 +179,31 @@ export class AuthService {
   * @return {Observable} array of 1 user if search was successfull 
   */ 
   checkUserInfo(userData): Observable<any> {
-    const headers = new HttpHeaders({'Content-type': 'application/json'});
-    const login = this.currentUser.login;
-    const password = userData.passwords.password;
-    return this.http.get(`${this.apiUrl}/users?login=${login}&&password=${password}`, { headers });
+    const checkObservable = Observable.create( (observer: Observer<any>) => {
+      const headers = new HttpHeaders({'Content-type': 'application/json'});
+      const login = this.currentUser.login;
+      const password = userData.passwords.password;
+      let onlineMode = navigator.onLine;
+      
+      if (onlineMode) {
+        this.http.get(`${this.apiUrl}/users?login=${login}&&password=${password}`, { headers })
+          .subscribe(
+            (checkResults: Array<any>) => {
+              if (checkResults.length > 0) {
+                observer.next(checkResults);
+              }
+            },
+
+            (checkErrors) => {  
+              observer.error('User not found! ' + checkErrors);
+            }
+          )
+      } else {
+        observer.error("offline mode!");
+      }
+    });
+    
+    return checkObservable;
   }
 
 /**

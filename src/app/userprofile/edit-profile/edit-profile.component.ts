@@ -1,6 +1,6 @@
 import { LoadingService } from './../../shared/services/loading.service';
 import { AuthService } from './../../auth/auth.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { EditModalService } from 'src/app/shared/services/edit-modal.service';
@@ -20,6 +20,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
   constructor(private editProfile: EditModalService,
               private route: ActivatedRoute,
+              private router: Router,
               private authService: AuthService,
               private editModal: EditModalService,
               private loadingService: LoadingService) { }
@@ -94,30 +95,40 @@ export class EditProfileComponent implements OnInit, OnDestroy {
  */
   saveChanges() {
     const formData = this.editForm.value;
-
     this.checkUserInfoSubscription = this.authService.checkUserInfo(formData)
       .subscribe(
-        res => {
-          if (res.length > 0 ) {
-            this.authService.updateUserInfo(formData)
-              .subscribe(
-                res => {
-                  console.log(res);
-                  this.closeModal();
-                  this.authService.updateUserData();
-                },
-
-                err => {
-                  console.log('something went wrong!!!');
-                }
-              );
-          }
-        },
-
-        err => {
-          console.log('Something went wrong!');
-        }
+        this.onSaveChangesSuccess.bind(this),
+        this.onSaveChangesFailure.bind(this)
       );
+  }
+
+  onSaveChangesSuccess() {
+    const formData = this.editForm.value;
+    
+    this.authService.updateUserInfo(formData)
+      .subscribe(
+        this.onUpdateUserInfoSuccess.bind(this),
+        this.onUpdateUserInfoFailure.bind(this)
+      );
+  }
+
+  onUpdateUserInfoSuccess() {
+    this.closeModal();
+    this.authService.updateUserData();
+  }
+
+  onUpdateUserInfoFailure() {
+    this.closeModal();
+    let activeCategory = JSON.parse(localStorage.getItem("productList")).category;
+    this.router.navigate([`dashboard/products/${activeCategory}`]);
+    console.log('something went wrong!');
+  }
+
+  onSaveChangesFailure() {
+      this.closeModal();
+      alert('offline mode');
+      let activeCategory = JSON.parse(localStorage.getItem("productList")).category;
+      this.router.navigate([`dashboard/products/${activeCategory}`]);
   }
 
   ngOnDestroy() {
