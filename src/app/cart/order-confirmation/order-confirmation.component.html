@@ -149,7 +149,7 @@
              
               <div id="productList">
                 <div *ngFor="let product of cart" class="productItem">
-                    <div class="productImgWrapper">
+                    <div class="productImgWrapper" (click)="navigateToProductDetailPage(product)">
                         <img [src]="product.imgPath"  >
                     </div>
 

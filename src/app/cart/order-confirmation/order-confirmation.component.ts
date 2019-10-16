@@ -1,3 +1,4 @@
+import { ProductService } from './../../shared/services/products.service';
 import { AuthService } from './../../auth/auth.service';
 import { ProductCart } from 'src/app/shared/services/product-cart.service';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
@@ -28,7 +29,8 @@ export class OrderConfirmationComponent implements OnInit, OnDestroy {
               private ordersService: OrdersService,
               private authService: AuthService,
               private router: Router,
-              private editModal: EditModalService) { }
+              private editModal: EditModalService,
+              private productsService: ProductService) { }
 
   ngOnInit() {
     this.cart = this.productCart.getProducts();
@@ -106,6 +108,11 @@ export class OrderConfirmationComponent implements OnInit, OnDestroy {
     if (this.cart.length == 0 ) {
       this.router.navigate(['dashboard/products/pizza']);
     }
+  }
+
+  navigateToProductDetailPage(product) {
+    this.productsService.setSelectedProduct(product);
+    this.router.navigate([`dashboard/product-details/${product.id}`])
   }
 
   ngOnDestroy() {
