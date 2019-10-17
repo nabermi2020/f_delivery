@@ -9,34 +9,38 @@ import { EventEmitter } from '@angular/core';
 })
 export class ProductSearchComponent implements OnInit {
   @Output() searchDone = new EventEmitter();
-  constructor(private productService: ProductService) { }
+  minQueryLength: number = 3;
   results: Array<any>;
 
+  constructor(private productService: ProductService) { }
+  
   ngOnInit() {}
 
   searchProducts(requestedQuery) {
     const query = (requestedQuery.value).trim().replace(/(\s\s\s*)/g, ' ');
     this.results = [];
-    if (query.length >= 3) {
-      
+    if (query.length >= this.minQueryLength) {
       this.productService.searchProducts(query)
         .subscribe( 
-          (searchResults: Array<any>) => {
-          if (searchResults) {
-              this.results = this.getformattedResults(searchResults);
-          } else {             
-              this.results = [];
-          }  
-            
-          this.searchDone.emit(this.results);
-          }
+          this.onGetSearchResultsSuccess.bind(this),
+          this.onGetSearchResultsFailure.bind(this)
         );
-     } else if (query.length == 0) {     
-       this.searchDone.emit('All');
-     }
+    } else if (query.length == 0) {     
+      this.searchDone.emit('All');
+    }
   }
 
-  getformattedResults(searchResults) {
+  onGetSearchResultsSuccess(searchResults) {
+      this.results = searchResults;
+      this.searchDone.emit(this.results);
+  }
+
+  onGetSearchResultsFailure(searchError) {
+    console.log(searchError);
+    this.searchDone.emit(searchError);  
+  }
+
+  getFormattedResults(searchResults) {
     const results = [];
     searchResults.forEach(searchResByProdCategory => {
       searchResByProdCategory.forEach(item => {

@@ -72,4 +72,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['dashboard/cart']);
   }
 
+  navigateToError() {
+    this.router.navigate(["dashboard/error"]);
+  }
+
 }

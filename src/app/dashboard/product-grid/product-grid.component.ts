@@ -17,6 +17,7 @@ export class ProductGridComponent implements OnInit, OnDestroy {
   activeCategory: string = "pizza";
   activeFilter: string = "All";
   onlineMode: boolean = true;
+  searchAvailability: boolean = true;
   urlParSubscription = new Subscription();
   productSubscription = new Subscription();
   productsByCategorySubscription = new Subscription();
@@ -29,6 +30,7 @@ export class ProductGridComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getProducts();
+    this.searchAvailability = JSON.parse(localStorage.getItem('productList')).products.length > 0;
     this.getProductByCategory();
   }
 

@@ -83,7 +83,6 @@ export class OrderConfirmationComponent implements OnInit, OnDestroy {
       this.router.navigate([`dashboard/products/${activeCategory}`]);
       alert('offline mode');
     }
-    
   }
 
   submitAnOrder(formConfirmation) {
