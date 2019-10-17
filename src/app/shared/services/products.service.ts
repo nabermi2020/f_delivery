@@ -154,7 +154,7 @@ export class ProductService {
             observer.next(searchRes);
         } else if (searchRes.length == 0) {
             //Should be fixed
-            observer.error([]);
+            observer.next([]);
         }
     }
 

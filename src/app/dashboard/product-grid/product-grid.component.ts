@@ -108,7 +108,13 @@ export class ProductGridComponent implements OnInit, OnDestroy {
       this.products = products;
       this.isSearchFailure = true;
     } else if (products == "All") {
-      this.getProducts();
+      if (navigator.onLine) {
+        this.getProducts();
+      } else {
+        this.loadingService.toggleLoading();
+        this.editModal.toggleEditMode();
+        this.getProductByActiveCategory();
+      }
       this.isSearchFailure = true;
     } else {
       this.products = [];
