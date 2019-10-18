@@ -59,7 +59,7 @@ export class ProductService {
                 },
                 err => {
                     observer.error('error while getting products! ' + err);
-                } 
+                }
             ); 
         } else {
             observer.error("Offline mode!");
