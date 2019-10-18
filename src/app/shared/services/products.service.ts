@@ -52,15 +52,15 @@ export class ProductService {
         let onlineMode = navigator.onLine;
         if (onlineMode) {
             this.http.get(`${this.apiUrl}/pizza`, {headers})
-                .subscribe(
-                  (productList: Array<any>) => {
-                      observer.next(this.onProductGetSuccess(productList));
-                      localStorage.setItem("productList", JSON.stringify({category: "pizza", products: productList}));
-                  },
-                  err => {
-                      observer.error('error while getting products! ' + err);
-                  } 
-                ); 
+            .subscribe(
+                (productList: Array<any>) => {
+                    observer.next(this.onProductGetSuccess(productList));
+                    localStorage.setItem("productList", JSON.stringify({category: "pizza", products: productList}));
+                },
+                err => {
+                    observer.error('error while getting products! ' + err);
+                } 
+            ); 
         } else {
             observer.error("Offline mode!");
         }
