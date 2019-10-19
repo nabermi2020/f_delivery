@@ -1,3 +1,4 @@
+import { ErrorService } from './shared/services/error.service';
 import { LoadingService } from './shared/services/loading.service';
 import { OrdersService } from './shared/services/orders.service';
 import { EditModalService } from './shared/services/edit-modal.service';
@@ -6,7 +7,7 @@ import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth-guard.service';
 import { AuthModule } from './auth/auth.module';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,7 +31,8 @@ import { SharedModule } from './shared/shared.module';
     ProductCart,
     EditModalService,
     OrdersService,
-    LoadingService
+    LoadingService,
+    ErrorService
   ],
   bootstrap: [AppComponent]
 })

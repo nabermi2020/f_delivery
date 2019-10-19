@@ -65,7 +65,7 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
     this.loadingService.toggleLoading();
     this.editModal.toggleEditMode();
 
-    this.orderSubscription = this.orderService.getOrderss()
+    this.orderSubscription = this.orderService.getOrders()
       .subscribe(
          this.onGetOrderSuccess.bind(this),
          this.onGetOrderFailure.bind(this)

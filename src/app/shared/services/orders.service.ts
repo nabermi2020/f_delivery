@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { Observable, Observer } from 'rxjs';
 import { EditModalService } from './edit-modal.service';
 import { environment } from 'src/environments/environment';
+import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,8 @@ export class OrdersService {
               private productCart: ProductCart,
               private router: Router,
               private loadingService: LoadingService,
-              private editModal: EditModalService) {
+              private editModal: EditModalService,
+              private errorService: ErrorService) {
   }
 
 /**
@@ -36,26 +38,19 @@ export class OrdersService {
 
     this.http.post(`${this.apiUrl}/orders`, order, { headers })
         .subscribe(
-            res => {
-                this.onMakeOrderSuccess(res);
-            },
-
-            err => {
-                this.onMakeOrderError(err);
-            }
+            this.onMakeOrderSuccess.bind(this),
+            this.onMakeOrderError.bind(this)
         );
   }
 
   onMakeOrderSuccess(orderStatus) {
-    this.productCart.cleanCart();
-    // this.loadingService.toggleLoading();
-    // this.editModal.toggleEditMode();   
+    this.productCart.cleanCart(); 
     this.router.navigate(['dashboard/products/pizza']);
   }
 
   onMakeOrderError(error) {
     console.log(error);
-    alert('Something went wrong!');
+    this.errorService.handleError(error);
   }
 
 /**
@@ -63,41 +58,42 @@ export class OrdersService {
  * @return {Observable} user's orders
  */  
   getOrders(): Observable<any> {
-    const headers = new HttpHeaders({'Content-type': 'application/json'});
-    const id = this.authService.getCurrentUser().id;
-    return this.http.get(`${this.apiUrl}/orders?userId=${id}`, { headers });
-  }
-
-  getOrderss(): Observable<any> {
     const ordersObservable = Observable.create( (observer: Observer<any>) => {
-      const headers = new HttpHeaders({'Content-type': 'application/json'});
-      const id = this.authService.getCurrentUser().id;
       let onlineMode = navigator.onLine;
-      //Need refactoring
-      if (onlineMode) {
-        this.http.get(`${this.apiUrl}/orders?userId=${id}`, { headers })
-          .subscribe(
-            (orders: Array<any>) => {
-              localStorage.setItem('orderHistory', JSON.stringify(orders));
-              observer.next(orders);
-            },    
-            (error) => {
-              observer.error(error);
-            }
-          );  
-      } else {
-        let localOrderHistory = JSON.parse(localStorage.getItem("orderHistory"));
-        if (localOrderHistory.length > 0) {
-          observer.next(localOrderHistory);
-        } else {
-          observer.error("offline mode");
-        }
-      }
 
-     
+      if (onlineMode) {
+        this.getOrdersFromServer(observer);  
+      } else {
+        this.getOrdersFromLocalStorage(observer);
+      }  
     });
 
      return ordersObservable;
   }
 
+  getOrdersFromServer(observer: Observer<any>) {
+    const headers = new HttpHeaders({'Content-type': 'application/json'});
+    const id = this.authService.getCurrentUser().id;
+    this.http.get(`${this.apiUrl}/orders?userId=${id}`, { headers })
+    .subscribe(
+      (orders: Array<any>) => {
+        localStorage.setItem('orderHistory', JSON.stringify(orders));
+        observer.next(orders);
+      },
+
+      (error: Response) => {
+        observer.error(error);
+        this.errorService.handleError(error);
+      }
+    );
+  }
+
+  getOrdersFromLocalStorage(observer: Observer<any>) {
+    let localOrderHistory = JSON.parse(localStorage.getItem("orderHistory"));
+    if (localOrderHistory.length > 0) {
+      observer.next(localOrderHistory);
+    } else {
+      observer.error("offline mode");
+    }
+  }
 }

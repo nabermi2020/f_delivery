@@ -1,10 +1,17 @@
+import { ErrorService } from './error.service';
+import { LoadingService } from './loading.service';
+import { AppNotFoundErr } from './../app-not-found-err';
 import { Product } from '../product.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpHeaderResponse } from '@angular/common/http';
 import { Observable, Subscription, Subject, combineLatest, Observer } from 'rxjs';
-import { mapTo } from 'rxjs/operators';
+import { mapTo, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { merge } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { EditModalService } from './edit-modal.service';
+import { throwError } from 'rxjs';
+
 
 @Injectable()
 export class ProductService {
@@ -22,7 +29,11 @@ export class ProductService {
         // ]    
     };
 
-    constructor(private http: HttpClient) { 
+    constructor(private http: HttpClient,
+                private router: Router,
+                private loadingService: LoadingService,
+                private editModal: EditModalService,
+                private errorService: ErrorService) { 
         
     }
  
@@ -50,6 +61,7 @@ export class ProductService {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
         const productsObservable = Observable.create( (observer: Observer<any>) => {
         let onlineMode = navigator.onLine;
+        
         if (onlineMode) {
             this.http.get(`${this.apiUrl}/pizza`, {headers})
             .subscribe(
@@ -57,7 +69,7 @@ export class ProductService {
                     observer.next(this.onProductGetSuccess(productList));
                     localStorage.setItem("productList", JSON.stringify({category: "pizza", products: productList}));
                 },
-                err => {
+                (err: Response) => {
                     observer.error('error while getting products! ' + err);
                 }
             ); 
@@ -84,11 +96,12 @@ export class ProductService {
  * @return {Observable} products which are matched search query
  */    
     getProductsByCategory(category: string): Observable<any> {
+      
         const productsObserver = Observable.create((observer: Observer<any>) => {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
         let online = navigator.onLine;
         // Need to separate to 2 functions  - online && offline mode
-        if (online) {
+        if (online) {     
             this.http.get(`${this.apiUrl}/${category}`, {headers})
             .subscribe(
                 (products: Array<any>) => {
@@ -100,7 +113,7 @@ export class ProductService {
                     }
                 },
             
-                err => {
+                (err: Response) => {
                     observer.error(err);
                 }
             );

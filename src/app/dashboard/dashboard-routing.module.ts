@@ -65,7 +65,13 @@ const dashboardRoutes: Routes = [
             },
             {
                 path: 'error',
-                component: ErrorComponent
+                component: ErrorComponent,
+                children: [
+                    { 
+                      path: ':id',
+                      component: ErrorComponent 
+                    }
+                ] 
             }
         ]
     },

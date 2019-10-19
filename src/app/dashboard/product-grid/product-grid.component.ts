@@ -1,6 +1,6 @@
 import { LoadingService } from '../../shared/services/loading.service';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { ProductService } from 'src/app/shared/services/products.service';
 import { EditModalService } from 'src/app/shared/services/edit-modal.service';
 import { Subscription, Observable } from 'rxjs';
@@ -12,7 +12,7 @@ import { Subscription, Observable } from 'rxjs';
 })
 
 export class ProductGridComponent implements OnInit, OnDestroy {
-  products: any;
+  products: Array<any>;
   isSearchFailure: boolean = true;
   activeCategory: string = "pizza";
   activeFilter: string = "All";
@@ -30,8 +30,16 @@ export class ProductGridComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getProducts();
-    this.searchAvailability = JSON.parse(localStorage.getItem('productList')).products.length > 0;
+    this.checkSearchAvailability();
     this.getProductByCategory();
+           
+  }
+
+  private checkSearchAvailability() {
+    let localProductList = localStorage.getItem('productList');
+    if (localProductList) {
+      this.searchAvailability = JSON.parse(localStorage.getItem('productList')).products.length > 0;
+    }
   }
 
   getProductByCategory() {
@@ -47,6 +55,7 @@ export class ProductGridComponent implements OnInit, OnDestroy {
   }
 
   getProductByActiveCategory() {
+ 
     this.productsByCategorySubscription = this.productsService.getProductsByCategory(this.activeCategory)
     .subscribe(
       this.onGetProductByActiveCategorySuccess.bind(this),    
@@ -75,7 +84,7 @@ export class ProductGridComponent implements OnInit, OnDestroy {
     );
   }
 
-  onGetProductsSuccess(products: Observable<any>) {
+  onGetProductsSuccess(products: Array<any>) {
     this.products = products;
     this.onlineMode = true;
     this.loadingService.toggleLoading();
@@ -86,7 +95,6 @@ export class ProductGridComponent implements OnInit, OnDestroy {
     this.onlineMode = false;
     this.loadingService.toggleLoading();
     this.editModal.toggleEditMode();
-    console.log(err);
   }
 
  /**
@@ -121,5 +129,16 @@ export class ProductGridComponent implements OnInit, OnDestroy {
       this.isSearchFailure = false;
     }
   }
+
+  @HostListener("window:scroll", ["$event"])
+onWindowScroll() {
+// //In chrome and some browser scroll is given to body tag
+// let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
+// let max = document.documentElement.scrollHeight;
+// // pos/max will give you the distance between scroll bottom and and bottom of screen in percentage.
+//  if(pos == max )   {
+//  //Do your action here
+//  }
+}
 
 }

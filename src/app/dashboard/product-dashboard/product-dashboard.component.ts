@@ -3,7 +3,7 @@ import { ProductCart } from '../../shared/services/product-cart.service';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../shared/services/products.service';
 import { AuthService } from './../../auth/auth.service';
-import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy, HostListener } from '@angular/core';
 import { EditModalService } from 'src/app/shared/services/edit-modal.service';
 import { Subscription } from 'rxjs';
 
@@ -41,4 +41,21 @@ export class ProductDashboardComponent implements OnInit, OnDestroy {
     this.editMode.unsubscribe();
   }
 
+  sayHi() {
+    
+    
+      
+        // // нижняя граница документа
+        // let windowRelativeBottom = document.documentElement.getBoundingClientRect().bottom;
+    
+        // // если пользователь прокрутил достаточно далеко (< 100px до конца)
+        // if (windowRelativeBottom < document.documentElement.clientHeight + 10) {
+        //   // добавим больше данных
+        //   console.log('bottom');
+        // }
+     
+    
+  }
+
 }
+
