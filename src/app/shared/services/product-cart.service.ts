@@ -15,14 +15,9 @@ export class ProductCart {
     gettingProducts = new Subscription();
     apiUrl: any = environment.apiUrl;
 
-    constructor(private authService: AuthService,
-                private http: HttpClient) {
-                // this.unsubscribeFromProductsGettedFromServer();  
-                this.checkCartExistenseByUserId();
-                if (navigator.onLine) { 
-                    this.getCartFromServer();    
-                }
-                
+    constructor(private authService: AuthService, private http: HttpClient) {  
+        this.checkCartExistenseByUserId();
+        this.getCartFromServer();                
     }
     
 /**
@@ -33,30 +28,23 @@ export class ProductCart {
         const userId = this.authService.getCurrentUser().id;
         const headers = new HttpHeaders({'Content-type': 'application/json'});
         this.http.get(`${this.apiUrl}/cart?id=${userId}`, { headers })
-            .subscribe(
-                (res: Array<any>) => {
-                    if (res.length != 0) {
-                     //  alert('Cart exists!');
-                        // console.log(res);
-                    } else {
-                       // alert('Cart doesn\'t exist!');
-                        this.createCartOnServer();
-                    }
-                }
-            );
+            .subscribe(this.createCartOnServer.bind(this));
     }
 
 /**
  * Create cart on the server if it doesn't exist
  */
-    createCartOnServer() {
+    createCartOnServer(response) {
+        if (response.length == 0) {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
         this.http.post(`${this.apiUrl}/cart`, this.cart, { headers })
-            .subscribe(
-                res => {
-                    alert('Cart is  created!');
-                }
-            );    
+            .subscribe(this.onCreateCartSuccess.bind(this));   
+        } 
+    }
+
+    onCreateCartSuccess(successRes) {
+        console.log('Cart is created!');
+        console.log(successRes);
     }
 
  /**
@@ -75,7 +63,6 @@ export class ProductCart {
         } else {
             localStorage.setItem('productCart', JSON.stringify(this.cart));
         }
-        
     }
 
  /**
@@ -89,10 +76,10 @@ export class ProductCart {
         this.http.put(`${this.apiUrl}/cart/${this.cart.id}`, this.cart, { headers })
             .subscribe(
                 res => {
-                   // alert('successfully added');
+                   console.log('successfully added');
                 },
                 err => {
-                    // alert('error added');
+                    console.log('Error while adding product to the cart!');
                 }
             );
     }
@@ -101,17 +88,15 @@ export class ProductCart {
   * Get appropriate cart from server
   */   
     getCartFromServer() {
+        if (navigator.onLine) {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
         const userId = this.authService.getCurrentUser().id;
         this.gettingProducts = this.http.get(`${this.apiUrl}/cart/${userId}`, { headers })
             .subscribe(
-                res => {
-                    this.onGetCartSuccess(res);
-                },
-                err => {
-                    this.onGetCartFailure(err);    
-                }
+                this.onGetCartSuccess.bind(this),
+                this.onGetCartFailure.bind(this)
             );
+        }
     }
 
     onGetCartSuccess(cart) {
@@ -142,24 +127,6 @@ export class ProductCart {
         this.onProductAdded.next(this.cart);
         return this.cart.getCart();
     }
-
-/**
- * Unsubscribe from subscription in case of user isn't authorized 
- */     
-    unsubscribeFromProductsGettedFromServer() {
-        this.authService.isUserAuthorized
-        .subscribe(
-            res => {
-                if (!res) {
-                   this.gettingProducts.unsubscribe(); 
-                }
-            },
-
-            err => {
-                alert(err);
-            }
-        );
-    }
   
 /**
  * Calculate product's quantity in the cart
@@ -185,13 +152,16 @@ export class ProductCart {
     deleteProductById(id) {
         this.cart.deleteProductById(id);
         this.onProductAdded.next(this.cart.getCart());
+        this.syncCartWithServerAndLocalStorage();
+    }
+
+    syncCartWithServerAndLocalStorage() {
         let onlineMode = navigator.onLine;
+        
         if (onlineMode) {
             this.synchCartWithServer();
-            localStorage.setItem('productCart', JSON.stringify(this.cart));
-        } else {
-            localStorage.setItem('productCart', JSON.stringify(this.cart));
         }
+        localStorage.setItem('productCart', JSON.stringify(this.cart));   
     }
 
 /**
@@ -201,13 +171,7 @@ export class ProductCart {
     addOneProductToCart(id) {
         this.cart.addOneProductToCart(id);
         this.onProductAdded.next(this.cart.getCart());
-        let onlineMode = navigator.onLine;
-        if (onlineMode) {
-            this.synchCartWithServer();
-            localStorage.setItem('productCart', JSON.stringify(this.cart));
-        } else {
-            localStorage.setItem('productCart', JSON.stringify(this.cart));
-        }
+        this.syncCartWithServerAndLocalStorage();
     }
 
 /**
@@ -217,13 +181,7 @@ export class ProductCart {
     deleteOneProductFromCart(id) {
         this.cart.deleteOneProductFromCart(id);
         this.onProductAdded.next(this.cart.getCart());
-        let onlineMode = navigator.onLine;
-        if (onlineMode) {
-            this.synchCartWithServer();
-            localStorage.setItem('productCart', JSON.stringify(this.cart));
-        } else {
-            localStorage.setItem('productCart', JSON.stringify(this.cart));
-        }
+        this.syncCartWithServerAndLocalStorage();
     }
 
  /**
@@ -247,23 +205,8 @@ export class ProductCart {
   */   
     cleanCart() {
         this.cart.cleanCart();
-        let onlineMode = navigator.onLine;
-        if (onlineMode) {
-            this.synchCartWithServer();
-            localStorage.setItem('productCart', JSON.stringify(this.cart));
-        } else {
-            localStorage.setItem('productCart', JSON.stringify(this.cart));
-        }
+        this.syncCartWithServerAndLocalStorage();
         this.onProductAdded.next(this.cart);
     }
-
-    // It's not realized
-    onOrderSuccess() {
-        // TODO
-    }
-
-    // It's not realized
-    onOrderError() {
-        // TODO
-    }    
+  
 }
