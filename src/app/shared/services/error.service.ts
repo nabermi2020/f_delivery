@@ -19,8 +19,6 @@ export class ErrorService implements ErrorHandler {
               private router: Router) { }
 
   handleError(error: Response) {
-
-    if (error.status == 404) {
       this.errorStatus = error.status;
       this.errorMsg = error.statusText;
       this.errorDetails.next({
@@ -29,11 +27,6 @@ export class ErrorService implements ErrorHandler {
       });
       
       this.router.navigate(['dashboard/error']);
-    } else {
-      console.error("an error occurred here broo");
-       
-     
-    }
   }
 
   getErrorInfo() {

@@ -6,6 +6,7 @@ import { Product } from '../product.model';
 import { Subject, Subscription, Observable } from 'rxjs';
 import { Order } from 'src/app/cart/order.model';
 import { environment } from 'src/environments/environment';
+import { ErrorService } from './error.service';
 
 
 @Injectable()
@@ -15,7 +16,7 @@ export class ProductCart {
     gettingProducts = new Subscription();
     apiUrl: any = environment.apiUrl;
 
-    constructor(private authService: AuthService, private http: HttpClient) {  
+    constructor(private authService: AuthService, private http: HttpClient, private errorService: ErrorService) {  
         this.checkCartExistenseByUserId();
         this.getCartFromServer();                
     }
@@ -28,23 +29,39 @@ export class ProductCart {
         const userId = this.authService.getCurrentUser().id;
         const headers = new HttpHeaders({'Content-type': 'application/json'});
         this.http.get(`${this.apiUrl}/cart?id=${userId}`, { headers })
-            .subscribe(this.createCartOnServer.bind(this));
+            .subscribe(
+                this.onCheckCartExistenseSuccess.bind(this),
+                this.onCheckCartExistenseFailure.bind(this)
+            );
+            
     }
 
 /**
  * Create cart on the server if it doesn't exist
  */
-    createCartOnServer(response) {
+    onCheckCartExistenseSuccess(response) {
         if (response.length == 0) {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
         this.http.post(`${this.apiUrl}/cart`, this.cart, { headers })
-            .subscribe(this.onCreateCartSuccess.bind(this));   
+            .subscribe(
+                this.onCreateCartSuccess.bind(this),
+                this.onCreateCartFailure.bind(this)
+            );   
         } 
+    }
+
+    onCheckCartExistenseFailure(error: Response) {
+        this.errorService.handleError(error);
     }
 
     onCreateCartSuccess(successRes) {
         console.log('Cart is created!');
         console.log(successRes);
+    }
+
+    onCreateCartFailure(error) {
+        console.log("Something went wrong while creating cart!");
+        this.errorService.handleError(error); 
     }
 
  /**
@@ -70,18 +87,21 @@ export class ProductCart {
   */   
     synchCartWithServer() {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
-        const userData = this.authService.getCurrentUser();
-        console.log('here');
-        console.log(this.cart);
         this.http.put(`${this.apiUrl}/cart/${this.cart.id}`, this.cart, { headers })
             .subscribe(
-                res => {
-                   console.log('successfully added');
-                },
-                err => {
-                    console.log('Error while adding product to the cart!');
-                }
+               this.onSynchCartWithServerSuccess.bind(this),
+               this.onSynchCartWithServerFailure.bind(this)
             );
+    }
+
+    onSynchCartWithServerSuccess(synchStatus) {
+        console.log('Cart is successfully synchronized with server!');
+        console.log(synchStatus);
+    }
+    
+    onSynchCartWithServerFailure(error) {
+        console.log('Error while synchronizing product cart with server!');
+        this.errorService.handleError(error);
     }
 
  /**
@@ -102,22 +122,20 @@ export class ProductCart {
     onGetCartSuccess(cart) {
          let localCart = JSON.parse(localStorage.getItem("productCart"));
          let localCartInstanse = new Cart(localCart["products"]);
-
-         if (localCartInstanse) {
-            this.cart.setProducts(localCart["products"]);
-            this.cart.setCartId(localCart["cartId"]);
-         } else {
-            this.cart.setProducts(cart["products"]);
-            this.cart.setCartId(cart["cartId"]);
-         }
-
+         this.setProductsToCartFromServerOrLocalSt(localCartInstanse ? localCart : cart);
          this.onProductAdded.next(this.cart.getCart());
          localStorage.setItem('productCart', JSON.stringify(this.cart));     
+    }
+
+    setProductsToCartFromServerOrLocalSt(cart) {
+        this.cart.setProducts(cart["products"]);
+        this.cart.setCartId(cart["cartId"]);
     }
 
     onGetCartFailure(error) {
         console.log(error);
         alert('Error while getting cart from server!');
+        this.errorService.handleError(error);
     }
 
     getCartFromLocalStorage() {
