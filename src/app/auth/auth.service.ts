@@ -7,6 +7,7 @@ import { Subject, Observable, Observer } from 'rxjs';
 import { User } from './user.model';
 import { EditModalService } from '../shared/services/edit-modal.service';
 import { environment } from 'src/environments/environment';
+import { ErrorService } from '../shared/services/error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,67 +20,80 @@ export class AuthService {
   currentUser: any;
   authResults: any;
   
-  users = [
-    new User('John', 'Smith', 'john_smith777', 'john777', '+380501654784', 'john777@gmail.com', 'NY, Green Valley 15/64'),
-    new User('Michael', 'Naberezhnyi', 'michael777', 'test123', '+380501865210', 'mnabe777@gmail.com', 'LA, Red Valley 7/32'),
-    new User('Johh', 'Doe', 'johnl777', 'demo1234', '+380502565210', 'john_doe@gmail.com', 'Las Vegas, Yellow Road 7/32')
-  ];
-
   constructor(private router: Router,
               private http: HttpClient,
+              private errorService: ErrorService,
               private loadingService: LoadingService,
               private editModal: EditModalService
-               ) { }
-
+              ) {}
 
   authenticateUser(login: string, password: string) {
-      const authObserver = Observable.create((authObserver: Observer<any>) => {
-      const headers = new HttpHeaders({'Content-type': 'application/json'});
-      let authStatus;
+    const authObserver = Observable.create((authObserver: Observer<any>) => {
       let onlineMode = navigator.onLine;
       if (onlineMode) {
-        this.http.get(`${this.apiUrl}/users?login=${login}&&password=${password}`, { headers })
-        .subscribe(
-          (res: Array<any>) => {
-            authStatus = this.onSignInSuccess(res) == true ? true : false;
-            authObserver.next({ authStatus: authStatus, onlineMode: onlineMode });
-          },
-  
-          err => {
-            authObserver.error(err);
-            authObserver.next({ authStatus: false, onlineMode: onlineMode }); 
-          }
-        );
+        this.aunthenticateUserOnline(login, password, authObserver);
       } else {
         authObserver.next({ authStatus: false, onlineMode: false });
       }
     });
-
+    
     return authObserver;
-  }          
+  }   
+  
+  aunthenticateUserOnline(login: string, password: string, authObserver: Observer<any>) {
+    const headers = new HttpHeaders({'Content-type': 'application/json'});
+    this.http.get(`${this.apiUrl}/users?login=${login}&&password=${password}`, { headers })
+      .subscribe(
+        (authResults: Response) => {
+          this.onAunthenticateUserOnlineSuccess(authResults, authObserver);
+        },
+
+        (err: Response) => {
+          this.onAunthenticateUserOnlineFailure(err, authObserver); 
+        }
+      );  
+  }
+
+  onAunthenticateUserOnlineSuccess(authResults, authObserver: Observer<any>) {
+      let onlineMode = navigator.onLine;
+      localStorage.setItem('userInfo', JSON.stringify(authResults[0]));
+      let authStatus = this.getAuthStatus(authResults) == true ? true : false;
+      authObserver.next({ authStatus: authStatus, onlineMode: onlineMode });
+  }
+
+  onAunthenticateUserOnlineFailure(error, authObserver: Observer<any>) {
+      let onlineMode = navigator.onLine;
+      authObserver.error(error);
+      authObserver.next({ authStatus: false, onlineMode: onlineMode }); 
+  }
   
   signIn(login, password) {
     this.authenticateUser(login, password)
       .subscribe(
-        (authStatus: any) => {
-          this.authResults = authStatus;
-          this.isUserAuthorized.next(this.authResults);
-          console.log(this.authResults);
-        },
-        (authErr: any) => {
-          this.authResults = authErr;
-          console.log(this.authResults);
-        }
+        this.onSignInSuccess.bind(this),
+        this.onSignInFailure.bind(this)
       );
   }
 
-  onSignInSuccess(res) {
+  onSignInSuccess(authStatus) {
+    this.authResults = authStatus;
+    this.isUserAuthorized.next(this.authResults);
+    console.log(this.authResults);
+  }
+
+  onSignInFailure(authErr) {
+    this.authResults = authErr;
+    console.log(authErr.status)
+    console.log(this.authResults);
+  }
+
+  getAuthStatus(userData) {
     let authStatus;
-    if (res && res.length > 0 ) {
-      this.currentUser = res[0];
+    if (userData && userData.length > 0 ) {
+      this.currentUser = userData[0];
       this.isAuthenticated = true;
       authStatus =  true;
-      this.userData.next(res[0]);
+      this.userData.next(userData[0]);
       return true;
     } else {
       console.log('Authentication error!');
@@ -107,7 +121,6 @@ export class AuthService {
  */  
   logOut() {
     this.authResults.authStatus = false;
-    //console.log(this.authResults);
     this.isUserAuthorized.next(this.authResults);
     localStorage.removeItem('userInfo');
   }
@@ -121,11 +134,8 @@ export class AuthService {
      
     this.http.post(`${this.apiUrl}/users`, users, { headers })
       .subscribe(
-        res => {
-          this.onSignUpSuccess(res);
-        }, err => {
-          this.onSignUpFailure(err);
-        }
+        this.onSignUpSuccess.bind(this),
+        this.onSignUpFailure.bind(this)
       );
   }
 
@@ -142,19 +152,9 @@ export class AuthService {
  * @param {User} user's login 
  * @return {Observable} result with array of 1 user if there's user with the same login
  */
-  checkUser(login: User): Observable<any> {
+  checkFieldExistense(field: string, value: string): Observable<any> {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
-    return this.http.get(`${this.apiUrl}/users?login=${login}`, { headers });
-  }
-
-/**
- * Check existense of user email in DB
- * @param {string} user's email 
- * @return {Observable} array with 1 email if there's user withthe same email
- */
-  checkEmail(email: string): Observable<any> {
-    const headers = new HttpHeaders({'Content-type': 'application/json'});
-    return this.http.get(`${this.apiUrl}/users?email=${email}`, { headers });
+    return this.http.get(`${this.apiUrl}/users?${field}=${value}`, { headers });
   }
 
 /**
@@ -180,30 +180,34 @@ export class AuthService {
   */ 
   checkUserInfo(userData): Observable<any> {
     const checkObservable = Observable.create( (observer: Observer<any>) => {
-      const headers = new HttpHeaders({'Content-type': 'application/json'});
       const login = this.currentUser.login;
       const password = userData.passwords.password;
       let onlineMode = navigator.onLine;
       
       if (onlineMode) {
-        this.http.get(`${this.apiUrl}/users?login=${login}&&password=${password}`, { headers })
-          .subscribe(
-            (checkResults: Array<any>) => {
-              if (checkResults.length > 0) {
-                observer.next(checkResults);
-              }
-            },
-
-            (checkErrors) => {  
-              observer.error('User not found! ' + checkErrors);
-            }
-          )
+        this.getUserInfo(login, password, observer);
       } else {
         observer.error("offline mode!");
       }
     });
     
     return checkObservable;
+  }
+
+  getUserInfo(login, password, observer) {
+    const headers = new HttpHeaders({'Content-type': 'application/json'});
+    this.http.get(`${this.apiUrl}/users?login=${login}&&password=${password}`, { headers })
+    .subscribe(
+      (checkResults: Array<any>) => {
+        if (checkResults.length > 0) {
+          observer.next(checkResults);
+        }
+      },
+
+      (checkErrors) => {  
+        observer.error('User not found! ' + checkErrors);
+      }
+    )  
   }
 
 /**
@@ -217,7 +221,6 @@ export class AuthService {
                         userData.phone, this.currentUser.email, userData.address);
     
     const headers = new HttpHeaders({'Content-type': 'application/json'});
-     
     return this.http.put(`${this.apiUrl}/users/${this.currentUser.id}`,  user, { headers });
   }
 

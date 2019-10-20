@@ -20,7 +20,6 @@ export class SignUpComponent implements OnInit {
   ngOnInit() {
     this.initForm();
     this.onlineMode = navigator.onLine;
-
   }
 
 /**
@@ -44,52 +43,8 @@ export class SignUpComponent implements OnInit {
     });
   }
 
-  // Need refactoring
-  get firstName() {
-    return this.registrationForm.get('firstName');
-  }
-
- // Need refactoring
-  get lastName() {
-    return this.registrationForm.get('lastName');
-  }
-
-// Need refactoring
-  get login() {
-    return this.registrationForm.get('login');
-  }
-
-// Need refactoring
-  get email() {
-    return this.registrationForm.get('email');
-  }
-
-// Need refactoring  
-  get password() {
-    return this.registrationForm.get('passwords.password');  
-  }
-
-// Need refactoring  
-  get passwordRepeat() {
-    return this.registrationForm.get('passwords.passwordRepeat');  
-  }
-
-// Need refactoring  
-  get phone() {
-    return this.registrationForm.get('phone');
-  }
-
-// Need refactoring  
-  get address() {
-    return this.registrationForm.get('address');
-  }
-
-/**
- * Return passwords from appropriate fields
- * @return {FormGroup} return FormGroup with represents passwords  
- */  
-  get passwords() {
-    return this.registrationForm.get('passwords');
+  get formField() {
+    return this.registrationForm;
   }
 
 /**
@@ -97,18 +52,19 @@ export class SignUpComponent implements OnInit {
  * @param {FormControl} user's login
  * @return {Promise | Observable} returns checking results
  */
-  forbiddenLogin(control: FormControl): Promise<any> | Observable<any> {    
+  forbiddenLogin(control: FormControl, fieldName): Promise<any> | Observable<any> {    
     const login = control.value;
-    let queryResult;
+    console.log(fieldName);
+
     const promise = new Promise( (resolve, reject) => {
       if (navigator.onLine) {
         if (login.length >= 4) {
-          this.authService.checkUser(login).subscribe(
-            res => {
+          this.authService.checkFieldExistense('login', login).subscribe(
+            
+            (fieldCheckingRes: Response) => {
               console.log('Result=');
-              queryResult = res[0];
-              if (res[0]) {
-                if (res[0].login == login) {
+              if (fieldCheckingRes[0]) {
+                if (fieldCheckingRes[0].login == login) {
                   resolve({'loginIsForbidden': true, 'isNetworkEnabled': false});
                 }
               } else {
@@ -116,17 +72,13 @@ export class SignUpComponent implements OnInit {
               }
             },
   
-            err => {
+            (error: Response) => {
               alert('Something went wrong!');
-              console.log(err);
+              console.log(error);
             }
           );
         }
-      } else {
-       
-       // resolve({'isNetworkEnabled': true});
       }
-
     });
     
     return promise;
@@ -142,12 +94,10 @@ export class SignUpComponent implements OnInit {
     const promise  = new Promise( (resolve, reject) => {
       if (navigator.onLine) {
         if (email.length >= 6) {
-          this.authService.checkEmail(email).subscribe(
+          this.authService.checkFieldExistense('email', email).subscribe(
             res => {
-              console.log('Email= ');
               if (res[0]) {
                 if (res[0].email == email) {
-                  
                   resolve({'emailIsForbidden': true, 'isNetworkEnabled': false});
                 }
               } else {
@@ -159,8 +109,6 @@ export class SignUpComponent implements OnInit {
             }
           );
         }
-      } else {
-        //resolve({'isNetworkEnabled': true});
       }
     });
 
@@ -175,8 +123,7 @@ export class SignUpComponent implements OnInit {
   validatePasswords(registrationFormGroup: FormGroup) {
     const password = registrationFormGroup.controls.password.value;
     const repeatPassword = registrationFormGroup.controls.passwordRepeat.value;
-    // console.log(password);
-    // console.log(repeatPassword);
+
     if (repeatPassword.length <= 0) {
         return null;
     }
@@ -193,8 +140,8 @@ export class SignUpComponent implements OnInit {
  * Create new user object and sign up it using 'authService'
  */
   onSignUp() {
-    console.log(this.registrationForm.value);
-    console.log(this.registrationForm);
+    // console.log(this.registrationForm.value);
+    // console.log(this.registrationForm);
     this.onlineMode = navigator.onLine;
     const userInfo = this.registrationForm.value;
     const newUser = new User(userInfo.firstName, userInfo.lastName,
@@ -209,25 +156,4 @@ export class SignUpComponent implements OnInit {
     }                  
   }
 
-    // It's not used
-    forbiddenPassword(control: FormControl): Promise<any> | Observable<any> {
-      this.userPassword = control.value;
-      const promise = new Promise( (resolve, reject) => {
-        if (this.userPassword != this.userRepeatedPassword) {
-          resolve({"isPasswordDifferent": true});
-          console.log('y');
-        } else {
-          console.log('n');
-          resolve(null);
-        }
-      });
-      return promise;
-    }
-  
-    // It's not used
-    forbiddenRepeatedPassword(control: FormControl): {[s: string]: boolean} {
-      this.userRepeatedPassword = control.value;
-      console.log(this.userRepeatedPassword);
-      return {'password': true};
-    }
 }

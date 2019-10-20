@@ -18,8 +18,8 @@
           </label>
         </div>
         
-        <p *ngIf="!firstName.valid && firstName.touched" class="validationError">First name is not valid!</p>
-        <p *ngIf="firstName.errors && firstName.touched" class="validationError">Minimal length should be at least 4!</p>
+        <p *ngIf="!formField.get('firstName').valid && formField.get('firstName').touched" class="validationError">First name is not valid!</p>
+        <p *ngIf="formField.get('firstName').errors && formField.get('firstName').touched" class="validationError">Minimal length should be at least 4!</p>
       </div>
 
       <div class="col-md-6 col-xs-6">
@@ -36,8 +36,8 @@
           </label>
         </div>
 
-        <p *ngIf="!lastName.valid && lastName.touched" class="validationError">Last name is not valid!</p>
-        <p *ngIf="lastName.errors && lastName.touched" class="validationError">Minimal length should be at least 4!</p>
+        <p *ngIf="!formField.get('lastName').valid && formField.get('lastName').touched" class="validationError">Last name is not valid!</p>
+        <p *ngIf="formField.get('lastName').errors && formField.get('lastName').touched" class="validationError">Minimal length should be at least 4!</p>
       </div>
 
       <div class="col-md-6 col-xs-6">
@@ -54,10 +54,10 @@
           </label>
         </div>
 
-        <p *ngIf="login.errors && login.touched " class="validationError">Login isn't valid!</p>
-        <p *ngIf="login?.errors?.minlength && login.touched " class="validationError">Min length should be 4 !</p>
-        <p *ngIf="login?.errors?.loginIsForbidden && login.touched" class="validationError">User with such login is already exist!</p>
-        <p *ngIf="login?.errors?.isNetworkEnabled && login.touched" class="validationError">There's no internet connection!</p>
+        <p *ngIf="formField.get('login').errors && formField.get('login').touched " class="validationError">Login isn't valid!</p>
+        <p *ngIf="formField.get('login')?.errors?.minlength && formField.get('login').touched " class="validationError">Min length should be 4 !</p>
+        <p *ngIf="formField.get('login')?.errors?.loginIsForbidden && formField.get('login').touched" class="validationError">User with such login is already exist!</p>
+        <p *ngIf="formField.get('login')?.errors?.isNetworkEnabled && formField.get('login').touched" class="validationError">There's no internet connection!</p>
         
       </div>
 
@@ -74,8 +74,8 @@
         </label>
       </div>
 
-      <p *ngIf="phone.errors && phone.touched " class="validationError">Phone isn't valid!</p>
-      <p *ngIf="phone?.errors?.minlength && phone.touched " class="validationError">Min length should be 10 !</p>
+      <p *ngIf="formField.get('phone').errors && formField.get('phone').touched " class="validationError">Phone isn't valid!</p>
+      <p *ngIf="formField.get('phone')?.errors?.minlength && formField.get('phone').touched " class="validationError">Min length should be 10 !</p>
     </div>
 
     <div formGroupName = passwords class="col-md-12 col-xs-12" >
@@ -95,9 +95,9 @@
           </label>
           </div>
           
-          <p *ngIf="password.errors && password.touched " class="validationError">Password isn't valid!</p>
-          <p *ngIf="password?.errors?.minlength && password.touched " class="validationError">Min length should be 4 !</p>
-          <p *ngIf="passwords?.errors?.doesMatchPassword && password.touched " class="validationError">Passwords don't match!</p>
+          <p *ngIf="formField.get('passwords.password').errors && formField.get('passwords.password').touched " class="validationError">Password isn't valid!</p>
+          <p *ngIf="formField.get('passwords.password').password?.errors?.minlength && formField.get('passwords.password').touched " class="validationError">Min length should be 4 !</p>
+          <p *ngIf="formField.get('passwords')?.errors?.doesMatchPassword && formField.get('passwords').touched " class="validationError">Passwords don't match!</p>
         </div>
 
         <div class="col-md-6 col-xs-6">
@@ -115,9 +115,9 @@
             </label>
           </div>
 
-          <p *ngIf="passwordRepeat.errors && passwordRepeat.touched " class="validationError">Password isn't valid!</p>
-          <p *ngIf="passwordRepeat?.errors?.minlength && passwordRepeat.touched " class="validationError">Min length should be 4 !</p>
-          <p *ngIf="passwords?.errors?.doesMatchPassword && password.touched " class="validationError">Passwords don't match!</p>
+          <p *ngIf="formField.get('passwords.passwordRepeat').errors && formField.get('passwords.passwordRepeat').touched " class="validationError">Password isn't valid!</p>
+          <p *ngIf="formField.get('passwords.passwordRepeat')?.errors?.minlength && formField.get('passwords.passwordRepeat').touched " class="validationError">Min length should be 4 !</p>
+          <p *ngIf="formField.get('passwords')?.errors?.doesMatchPassword && formField.get('passwords').touched " class="validationError">Passwords don't match!</p>
         </div>
       </div>
     </div>
@@ -137,11 +137,11 @@
         </label>
       </div>
 
-      <p *ngIf="email.errors && email.touched " class="validationError">Email isn't valid!</p>
-      <p *ngIf="email?.errors?.minlength && email.touched " class="validationError">Min length should be 4 !</p>
-      <p *ngIf="email?.errors?.emailIsForbidden && email.touched " class="validationError">User with such email is already exist!</p>
-      <p *ngIf="email?.errors?.email && email.touched " class="validationError">Email doensn't much the pattern!</p>
-      <p *ngIf="email?.errors?.isNetworkEnabled && email.touched " class="validationError">There's no internet connection!</p>
+      <p *ngIf="formField.get('email').errors && formField.get('email').touched " class="validationError">Email isn't valid!</p>
+      <p *ngIf="formField.get('email')?.errors?.minlength && formField.get('email').touched " class="validationError">Min length should be 4 !</p>
+      <p *ngIf="formField.get('email')?.errors?.emailIsForbidden && formField.get('email').touched " class="validationError">User with such email is already exist!</p>
+      <p *ngIf="formField.get('email')?.errors?.email && formField.get('email').touched " class="validationError">Email doensn't much the pattern!</p>
+      <p *ngIf="formField.get('email')?.errors?.isNetworkEnabled && formField.get('email').touched " class="validationError">There's no internet connection!</p>
     </div>
 
     <div class="col-md-6 col-xs-6">
@@ -157,8 +157,8 @@
         </label>
       </div>
 
-      <p *ngIf="address.errors && address.touched " class="validationError">Address isn't valid!</p>
-      <p *ngIf="address?.errors?.minlength && address.touched " class="validationError">Min length should be 4 !</p>
+      <p *ngIf="formField.get('address').errors && formField.get('address').touched " class="validationError">Address isn't valid!</p>
+      <p *ngIf="formField.get('address')?.errors?.minlength && formField.get('address').touched " class="validationError">Min length should be 4 !</p>
     </div>
 
     </div>

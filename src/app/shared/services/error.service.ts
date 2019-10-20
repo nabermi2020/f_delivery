@@ -1,6 +1,6 @@
 import { Subject } from 'rxjs';
 import { LoadingService } from './loading.service';
-import { Injectable, ErrorHandler, Injector, NgZone } from '@angular/core';
+import { Injectable, ErrorHandler, Injector} from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { EditModalService } from './edit-modal.service';
@@ -12,11 +12,7 @@ export class ErrorService implements ErrorHandler {
   private errorStatus: number;
   private errorMsg: string;
   errorDetails = new Subject();
-  constructor(private injector: Injector,
-              private loadingService: LoadingService,
-              private editModal: EditModalService,
-             
-              private router: Router) { }
+  constructor(private router: Router) { }
 
   handleError(error: Response) {
       this.errorStatus = error.status;
@@ -36,7 +32,4 @@ export class ErrorService implements ErrorHandler {
       }
   }
 
-  public navigateTo(commands: any[]): void {
-    //this.ngZone.run(() => this.router.navigate(commands)).then();
-  }
 }

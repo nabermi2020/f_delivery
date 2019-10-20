@@ -25,15 +25,16 @@ export class ProductCart {
  * Checking cart existense on the server
  */
     checkCartExistenseByUserId() {
-        this.cart.setUserId(this.authService.getCurrentUser());
-        const userId = this.authService.getCurrentUser().id;
-        const headers = new HttpHeaders({'Content-type': 'application/json'});
-        this.http.get(`${this.apiUrl}/cart?id=${userId}`, { headers })
-            .subscribe(
-                this.onCheckCartExistenseSuccess.bind(this),
-                this.onCheckCartExistenseFailure.bind(this)
-            );
-            
+        if (navigator.onLine) {
+            this.cart.setUserId(this.authService.getCurrentUser());
+            const userId = this.authService.getCurrentUser().id;
+            const headers = new HttpHeaders({'Content-type': 'application/json'});
+            this.http.get(`${this.apiUrl}/cart?id=${userId}`, { headers })
+                .subscribe(
+                    this.onCheckCartExistenseSuccess.bind(this),
+                    this.onCheckCartExistenseFailure.bind(this)
+                );
+        }        
     }
 
 /**
@@ -61,7 +62,7 @@ export class ProductCart {
 
     onCreateCartFailure(error) {
         console.log("Something went wrong while creating cart!");
-        this.errorService.handleError(error); 
+        //this.errorService.handleError(error); 
     }
 
  /**
