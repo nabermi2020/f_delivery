@@ -46,7 +46,7 @@ export class ProductService {
         const productsObservable = Observable.create( (observer: Observer<any>) => {
         let onlineMode = navigator.onLine;
         
-        if (onlineMode) {
+        if (!onlineMode) {
             this.http.get(`${this.apiUrl}/pizza`, {headers})
             .subscribe(
                 (productList: Array<any>) => {
@@ -86,7 +86,7 @@ export class ProductService {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
         let online = navigator.onLine;
         
-        if (online) {     
+        if (!online) {     
             this.http.get(`${this.apiUrl}/${category}`, {headers})
                 .subscribe(
                     (products: Array<any>) => {
@@ -128,7 +128,7 @@ export class ProductService {
         const searchObservable = Observable.create( (observer: Observer<any>) => {
         let onlineMode = navigator.onLine;
         
-        if (onlineMode) {
+        if (!onlineMode) {
             this.searchProductsOnline(query, observer);
         } else {
             this.searchProductOffline(query, observer);

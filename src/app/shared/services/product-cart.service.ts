@@ -25,7 +25,7 @@ export class ProductCart {
  * Checking cart existense on the server
  */
     checkCartExistenseByUserId() {
-        if (navigator.onLine) {
+        if (!navigator.onLine) {
             this.cart.setUserId(this.authService.getCurrentUser());
             const userId = this.authService.getCurrentUser().id;
             const headers = new HttpHeaders({'Content-type': 'application/json'});
@@ -75,7 +75,7 @@ export class ProductCart {
         this.cart.addProduct(product);
         this.onProductAdded.next(this.cart.getCart());
         
-        if (onlineMode) {
+        if (!onlineMode) {
             this.synchCartWithServer();
             localStorage.setItem('productCart', JSON.stringify(this.cart));
         } else {
@@ -109,7 +109,7 @@ export class ProductCart {
   * Get appropriate cart from server
   */   
     getCartFromServer() {
-        if (navigator.onLine) {
+        if (!navigator.onLine) {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
         const userId = this.authService.getCurrentUser().id;
         this.gettingProducts = this.http.get(`${this.apiUrl}/cart/${userId}`, { headers })
@@ -177,7 +177,7 @@ export class ProductCart {
     syncCartWithServerAndLocalStorage() {
         let onlineMode = navigator.onLine;
         
-        if (onlineMode) {
+        if (!onlineMode) {
             this.synchCartWithServer();
         }
         localStorage.setItem('productCart', JSON.stringify(this.cart));   

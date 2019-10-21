@@ -59,7 +59,7 @@ export class OrdersService {
     const ordersObservable = Observable.create( (observer: Observer<any>) => {
       let onlineMode = navigator.onLine;
 
-      if (onlineMode) {
+      if (!onlineMode) {
         this.getOrdersFromServer(observer);  
       } else {
         this.getOrdersFromLocalStorage(observer);

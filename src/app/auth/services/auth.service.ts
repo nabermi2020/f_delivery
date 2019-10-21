@@ -108,7 +108,7 @@ export class AuthService {
  */
   updateUserData() {
     let onlineMode = navigator.onLine;
-    if (onlineMode) {
+    if (!onlineMode) {
       this.signIn(this.currentUser.login, this.currentUser.password);
     } else {
       let activeCategory = JSON.parse(localStorage.getItem("productList")).category;
@@ -184,7 +184,7 @@ export class AuthService {
       const password = userData.passwords.password;
       let onlineMode = navigator.onLine;
       
-      if (onlineMode) {
+      if (!onlineMode) {
         this.getUserInfo(login, password, observer);
       } else {
         observer.error("offline mode!");
