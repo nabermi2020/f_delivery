@@ -1,17 +1,19 @@
 import { ProductService } from './../../shared/services/products.service';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductCart } from 'src/app/shared/services/product-cart.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-pdp',
   templateUrl: './pdp.component.html',
   styleUrls: ['./pdp.component.scss']
 })
-export class PdpComponent implements OnInit {
+export class PdpComponent implements OnInit, OnDestroy {
   productDetails;
   productQuantity: number = 1;
   ingredients: string[];
+  activeRouteSub = new Subscription();
   constructor(private activeRoute: ActivatedRoute,
               private productService: ProductService,
               private productCartService: ProductCart) { }
@@ -19,12 +21,16 @@ export class PdpComponent implements OnInit {
   ngOnInit() {
     this.productDetails = this.productService.getSelectedProduct();
     this.getIngredients();
-    this.activeRoute.children[0].params
-      .subscribe (
-        res => {
-          console.log(res);
-        }
-      );
+    this.subscribeToUrlChanges();
+  }
+
+  subscribeToUrlChanges() {
+    this.activeRouteSub = this.activeRoute.children[0].params
+    .subscribe (
+      res => {
+        console.log(res);
+      }
+    );
   }
 
   addToCart() {
@@ -49,6 +55,10 @@ export class PdpComponent implements OnInit {
   increaseProductCounterOnOne() {
     ++this.productQuantity;
     this.productDetails.productQuantity = this.productQuantity;
+  }
+
+  ngOnDestroy() {
+    this.activeRouteSub.unsubscribe();
   }
 
 }

@@ -1,13 +1,13 @@
-import { LoadingService } from '../shared/services/loading.service';
-import { ProductCart } from '../shared/services/product-cart.service';
+import { LoadingService } from '../../shared/services/loading.service';
+import { ProductCart } from '../../shared/services/product-cart.service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, Observable, Observer } from 'rxjs';
-import { User } from './user.model';
-import { EditModalService } from '../shared/services/edit-modal.service';
+import { User } from '../user.model';
+import { EditModalService } from '../../shared/services/edit-modal.service';
 import { environment } from 'src/environments/environment';
-import { ErrorService } from '../shared/services/error.service';
+import { ErrorService } from '../../shared/services/error.service';
 
 @Injectable({
   providedIn: 'root'

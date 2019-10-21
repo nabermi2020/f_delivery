@@ -1,8 +1,8 @@
 import { User } from './../user.model';
-import { AuthService } from './../auth.service';
+import { AuthService } from '../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Observer } from 'rxjs';
 
 @Component({
   selector: 'app-sign-up',
@@ -29,7 +29,7 @@ export class SignUpComponent implements OnInit {
     this.registrationForm = new FormGroup({
       "firstName": new FormControl('', [Validators.required, Validators.minLength(4)]),
       "lastName": new FormControl('', [Validators.required, Validators.minLength(4)]),
-      "login": new FormControl('', [Validators.required, Validators.minLength(4)], this.forbiddenLogin.bind(this)),
+      "login": new FormControl('', [Validators.required, Validators.minLength(4)], this.checkDataUniquenessByField.bind(this)),
       passwords: new FormGroup({
         "password": new FormControl('', [Validators.required, Validators.minLength(4), ]),
         "passwordRepeat": new FormControl('', [Validators.required, Validators.minLength(4)]),
@@ -38,7 +38,7 @@ export class SignUpComponent implements OnInit {
         }  
     ),
       "phone": new FormControl('', [Validators.required, Validators.minLength(10)]),
-      "email": new FormControl('', [Validators.required, Validators.email, Validators.minLength(4)], this.forbiddenEmail.bind(this)),
+      "email": new FormControl('', [Validators.required, Validators.email, Validators.minLength(4)], this.checkDataUniquenessByField.bind(this)),
       "address": new FormControl('', [Validators.required, Validators.minLength(5)])
     });
   }
@@ -52,67 +52,52 @@ export class SignUpComponent implements OnInit {
  * @param {FormControl} user's login
  * @return {Promise | Observable} returns checking results
  */
-  forbiddenLogin(control: FormControl, fieldName): Promise<any> | Observable<any> {    
-    const login = control.value;
-    console.log(fieldName);
+  checkDataUniquenessByField(control: FormControl): Observable<any> {      
+    const onlineMode = navigator.onLine;
+    const maxFieldLength = 4;
 
-    const promise = new Promise( (resolve, reject) => {
-      if (navigator.onLine) {
-        if (login.length >= 4) {
-          this.authService.checkFieldExistense('login', login).subscribe(
+    const forbiddenField = Observable.create( (forbiddenObserver: Observer<any>) => {
+      const keyField = control.value;
+      console.log(this.registrationForm);
+      const fieldName = this.searchKeyField(control, keyField);
+
+      if (onlineMode && keyField.length >= maxFieldLength) {
+          this.authService.checkFieldExistense(fieldName, keyField).subscribe(
             
             (fieldCheckingRes: Response) => {
-              console.log('Result=');
               if (fieldCheckingRes[0]) {
-                if (fieldCheckingRes[0].login == login) {
-                  resolve({'loginIsForbidden': true, 'isNetworkEnabled': false});
+                if (fieldCheckingRes[0][fieldName] == keyField) {
+                  forbiddenObserver.next({'fieldIsForbidden': true, 'isNetworkEnabled': false});
+                  forbiddenObserver.complete();          
                 }
               } else {
-                  resolve(null);
+                forbiddenObserver.next(null);
+                forbiddenObserver.complete();
               }
             },
   
             (error: Response) => {
-              alert('Something went wrong!');
-              console.log(error);
+              forbiddenObserver.error(error);
+              forbiddenObserver.complete();
             }
           );
-        }
-      }
-    });
-    
-    return promise;
+      } 
+  });
+
+    return forbiddenField;
   }
 
-/**
- * Check existence user with the same login
- * @param {FormControl} user's email
- * @return {Promise | Observable} returns checking results
- */
-  forbiddenEmail(control: FormControl): Promise<any> | Observable<any> {
-    const email = control.value;
-    const promise  = new Promise( (resolve, reject) => {
-      if (navigator.onLine) {
-        if (email.length >= 6) {
-          this.authService.checkFieldExistense('email', email).subscribe(
-            res => {
-              if (res[0]) {
-                if (res[0].email == email) {
-                  resolve({'emailIsForbidden': true, 'isNetworkEnabled': false});
-                }
-              } else {
-                resolve(null);
-              }
-            }, 
-            err => {
-              alert(err);
-            }
-          );
-        }
+  searchKeyField(control: FormControl, keyField) {
+    const field = control.value;
+    let searchedField;
+    let formFields = Object.entries(this.registrationForm.controls);
+    
+    for(let key of formFields) {
+      if (key[1].value == field) {
+        searchedField = key[0];
       }
-    });
-
-    return promise;
+    }
+    return searchedField; 
   }
   
  /**
@@ -140,8 +125,6 @@ export class SignUpComponent implements OnInit {
  * Create new user object and sign up it using 'authService'
  */
   onSignUp() {
-    // console.log(this.registrationForm.value);
-    // console.log(this.registrationForm);
     this.onlineMode = navigator.onLine;
     const userInfo = this.registrationForm.value;
     const newUser = new User(userInfo.firstName, userInfo.lastName,
@@ -155,5 +138,4 @@ export class SignUpComponent implements OnInit {
       this.registrationForm.patchValue({login: "", email: ""});
     }                  
   }
-
 }

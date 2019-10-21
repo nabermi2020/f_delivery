@@ -1,6 +1,6 @@
 import { ProductCart } from '../services/product-cart.service';
 import { User } from '../../auth/user.model';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../auth/services/auth.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';

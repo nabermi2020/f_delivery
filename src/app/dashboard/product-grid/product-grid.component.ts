@@ -44,23 +44,22 @@ export class ProductGridComponent implements OnInit, OnDestroy {
 
   getProductByCategory() {
     this.urlParSubscription = this.route.firstChild.params
-    .subscribe( 
-      (par: Params) => {
-        this.activeCategory = par["cat"];
-        this.isSearchFailure = true;
-        this.loadingService.toggleLoading();
-        this.editModal.toggleEditMode();
-        this.getProductByActiveCategory();
-    });
+      .subscribe( 
+        (par: Params) => {
+          this.activeCategory = par["cat"];
+          this.isSearchFailure = true;
+          this.loadingService.toggleLoading();
+          this.editModal.toggleEditMode();
+          this.getProductByActiveCategory();
+      });
   }
 
   getProductByActiveCategory() {
- 
     this.productsByCategorySubscription = this.productsService.getProductsByCategory(this.activeCategory)
-    .subscribe(
-      this.onGetProductByActiveCategorySuccess.bind(this),    
-      this.onGetProductError.bind(this)
-     );  
+      .subscribe(
+        this.onGetProductByActiveCategorySuccess.bind(this),    
+        this.onGetProductError.bind(this)
+       );  
   }
 
   onGetProductByActiveCategorySuccess(productList) {
@@ -130,15 +129,5 @@ export class ProductGridComponent implements OnInit, OnDestroy {
     }
   }
 
-  @HostListener("window:scroll", ["$event"])
-onWindowScroll() {
-// //In chrome and some browser scroll is given to body tag
-// let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
-// let max = document.documentElement.scrollHeight;
-// // pos/max will give you the distance between scroll bottom and and bottom of screen in percentage.
-//  if(pos == max )   {
-//  //Do your action here
-//  }
-}
 
 }

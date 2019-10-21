@@ -10,6 +10,7 @@ import { FormatPhonePipe } from './format-phone.pipe';
 import { FooterComponent } from './footer/footer.component';
 import { LoadingComponent } from './loading/loading.component';
 import { ErrorComponent } from './error/error.component';
+import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ErrorComponent } from './error/error.component';
        FormatPhonePipe,
        FooterComponent,
        LoadingComponent,
-       ErrorComponent,     
+       ErrorComponent,
+       ConfirmationPopupComponent    
     ],
     imports: [
         CommonModule,  
@@ -32,7 +34,8 @@ import { ErrorComponent } from './error/error.component';
         FormatPhonePipe,
         FooterComponent,
         LoadingComponent,
-        ErrorComponent
+        ErrorComponent,
+        ConfirmationPopupComponent
     ]
 
 })

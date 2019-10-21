@@ -2,7 +2,7 @@ import { LoadingService } from '../../shared/services/loading.service';
 import { ProductCart } from '../../shared/services/product-cart.service';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../shared/services/products.service';
-import { AuthService } from './../../auth/auth.service';
+import { AuthService } from '../../auth/services/auth.service';
 import { Component, OnInit, ChangeDetectorRef, OnDestroy, HostListener } from '@angular/core';
 import { EditModalService } from 'src/app/shared/services/edit-modal.service';
 import { Subscription } from 'rxjs';

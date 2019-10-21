@@ -56,7 +56,7 @@
 
         <p *ngIf="formField.get('login').errors && formField.get('login').touched " class="validationError">Login isn't valid!</p>
         <p *ngIf="formField.get('login')?.errors?.minlength && formField.get('login').touched " class="validationError">Min length should be 4 !</p>
-        <p *ngIf="formField.get('login')?.errors?.loginIsForbidden && formField.get('login').touched" class="validationError">User with such login is already exist!</p>
+        <p *ngIf="formField.get('login')?.errors?.fieldIsForbidden && formField.get('login').touched" class="validationError">User with such login is already exist!</p>
         <p *ngIf="formField.get('login')?.errors?.isNetworkEnabled && formField.get('login').touched" class="validationError">There's no internet connection!</p>
         
       </div>
@@ -139,7 +139,7 @@
 
       <p *ngIf="formField.get('email').errors && formField.get('email').touched " class="validationError">Email isn't valid!</p>
       <p *ngIf="formField.get('email')?.errors?.minlength && formField.get('email').touched " class="validationError">Min length should be 4 !</p>
-      <p *ngIf="formField.get('email')?.errors?.emailIsForbidden && formField.get('email').touched " class="validationError">User with such email is already exist!</p>
+      <p *ngIf="formField.get('email')?.errors?.fieldIsForbidden && formField.get('email').touched " class="validationError">User with such email is already exist!</p>
       <p *ngIf="formField.get('email')?.errors?.email && formField.get('email').touched " class="validationError">Email doensn't much the pattern!</p>
       <p *ngIf="formField.get('email')?.errors?.isNetworkEnabled && formField.get('email').touched " class="validationError">There's no internet connection!</p>
     </div>

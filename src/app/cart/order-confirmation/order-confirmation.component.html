@@ -185,7 +185,7 @@
 </div>
 
 <ng-container *ngIf="isConfirmationPopUpEnabled">
-    <app-confirmation-popup (orderConfirmed)="submitAnOrder($event)"></app-confirmation-popup>
+    <app-confirmation-popup (orderConfirmed)="onOrderSubmit(this.formData)"></app-confirmation-popup>
 </ng-container>
 
 <app-loading></app-loading>

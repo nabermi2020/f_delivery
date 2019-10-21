@@ -1,5 +1,5 @@
 import { ProductService } from './../../shared/services/products.service';
-import { AuthService } from './../../auth/auth.service';
+import { AuthService } from '../../auth/services/auth.service';
 import { ProductCart } from 'src/app/shared/services/product-cart.service';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Product } from 'src/app/shared/product.model';
@@ -83,10 +83,6 @@ export class OrderConfirmationComponent implements OnInit, OnDestroy {
       this.router.navigate([`dashboard/products/${activeCategory}`]);
       alert('offline mode');
     }
-  }
-
-  submitAnOrder(formConfirmation) {
-    this.onOrderSubmit(this.formData);
   }
 
   showConfirmationPopUp(form) {

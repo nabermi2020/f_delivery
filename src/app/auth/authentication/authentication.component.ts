@@ -1,14 +1,17 @@
-import { AuthService } from './../auth.service';
+import { AuthService } from '../services/auth.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-authentication',
   templateUrl: './authentication.component.html',
   styleUrls: ['./authentication.component.scss']
 })
-export class AuthenticationComponent implements OnInit {
-  
+export class AuthenticationComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject();
+
   constructor(private authService: AuthService,
               private router: Router) { }
 
@@ -17,15 +20,17 @@ export class AuthenticationComponent implements OnInit {
   }
 
   checkAuthenticationStatus() {
-    this.authService.isUserAuthorized.subscribe(
-      authStatus => {
-        if (authStatus.authStatus && authStatus.onlineMode) {
-          this.router.navigate(['/dashboard/products/pizza']);
-        } else { 
-          this.router.navigate(['']);
+    this.authService.isUserAuthorized
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
+        authStatus => {
+          if (authStatus.authStatus && authStatus.onlineMode) {
+            this.router.navigate(['/dashboard/products/pizza']);
+          } else { 
+            this.router.navigate(['']);
+          }
         }
-      }
-    );
+      );
 
     this.isAuthenticated();
   }
@@ -33,8 +38,13 @@ export class AuthenticationComponent implements OnInit {
   isAuthenticated() {
     const userData = localStorage.getItem("userInfo");
     if (navigator.onLine && userData) {
-      const userCredentials = JSON.parse(userData);
-      this.authService.signIn(userCredentials.login, userCredentials.password);
+      const { login, password } = JSON.parse(userData);
+      this.authService.signIn(login, password);
     }    
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

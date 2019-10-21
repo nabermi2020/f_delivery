@@ -1,5 +1,5 @@
 import { Cart } from '../../cart/cart/cart.model';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../auth/services/auth.service';
 import { Injectable  } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Product } from '../product.model';

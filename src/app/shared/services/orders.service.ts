@@ -1,7 +1,7 @@
 import { LoadingService } from './loading.service';
 import { ProductCart } from './product-cart.service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../auth/services/auth.service';
 import { Injectable } from '@angular/core';
 import { Order } from 'src/app/cart/order.model';
 import { Router } from '@angular/router';

@@ -1,5 +1,5 @@
 import { EditModalService } from '../../shared/services/edit-modal.service';
-import { AuthService } from './../../auth/auth.service';
+import { AuthService } from '../../auth/services/auth.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { User } from 'src/app/auth/user.model';

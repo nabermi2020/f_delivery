@@ -1,5 +1,5 @@
 import { LoadingService } from '../../shared/services/loading.service';
-import { AuthService } from './../auth.service';
+import { AuthService } from '../services/auth.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { EditModalService } from 'src/app/shared/services/edit-modal.service';
@@ -26,21 +26,20 @@ export class SignInComponent implements OnInit, OnDestroy {
 
   subscribeToAuthResults() {
     this.authStatus = this.authService.isUserAuthorized
-      .subscribe(
-        authRes => {
-          this.authResults  = authRes;
-          console.log(authRes);
-        }
-      );
-    }
+      .subscribe(this.onUserAuthorizedSuccess.bind(this));
+  }
+
+  onUserAuthorizedSuccess(authStatus) {
+    this.authResults  = authStatus;
+    console.log(authStatus);
+  }
 
 /**
  * Provide user login using appropriate credentials
  * @param {NgForm} login and password.
  */
   onLogin(form: NgForm) {
-    const login = form.value.login;
-    const password = form.value.password;
+    const { login, password } = form.value;
     const credentials = {
       "login": login,
       "password": password
