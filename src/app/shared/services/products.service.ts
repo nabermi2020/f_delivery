@@ -18,7 +18,6 @@ export class ProductService {
     apiUrl: string = environment.apiUrl;
     selectedProduct;
     results = [];
-
     products = {};
 
     constructor(private http: HttpClient,
@@ -35,14 +34,7 @@ export class ProductService {
     saveProducts() {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
         this.http.post(this.apiUrl, this.products, { headers})
-            .subscribe(
-                res => {   
-                    console.log(res);
-                },
-                err => {
-                    console.log(err);
-                }
-            );
+            .subscribe();
     }
 
 /**
@@ -74,11 +66,12 @@ export class ProductService {
 
     onProductGetSuccess(productList: Array<any>) { 
         let products;
+
         if (productList.length > 0) {
-            // console.log(productList);
             products = productList;
             this.products = productList;
         }   
+
         return products;   
     }
 
@@ -92,23 +85,23 @@ export class ProductService {
         const productsObserver = Observable.create((observer: Observer<any>) => {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
         let online = navigator.onLine;
-        // Need to separate to 2 functions  - online && offline mode
+        
         if (online) {     
             this.http.get(`${this.apiUrl}/${category}`, {headers})
-            .subscribe(
-                (products: Array<any>) => {
-                    if (products.length > 0) {
-                        observer.next(products);
-                        localStorage.setItem("productList", JSON.stringify({category: category, products: products}));
-                    } else {
-                        observer.error('No Products!');
+                .subscribe(
+                    (products: Array<any>) => {
+                        if (products.length > 0) {
+                            observer.next(products);
+                            localStorage.setItem("productList", JSON.stringify({category: category, products: products}));
+                        } else {
+                            observer.error('No Products!');
+                        }
+                    },
+                
+                    (err: Response) => {
+                        observer.error(err);
                     }
-                },
-            
-                (err: Response) => {
-                    observer.error(err);
-                }
-            );
+                );
         } else {
             let productList = JSON.parse(localStorage.getItem('productList'));
             if (productList.category == category) {
@@ -149,6 +142,7 @@ export class ProductService {
         let productsDetail = JSON.parse(localStorage.getItem('productList'));
         let localeProductList = productsDetail.products;
         let searchRes = [];
+        
         localeProductList.filter( (item) => {
             if (item.productTitle == query) {
                 searchRes.push(item);
@@ -158,7 +152,6 @@ export class ProductService {
         if (searchRes.length > 0) {
             observer.next(searchRes);
         } else if (searchRes.length == 0) {
-            //Should be fixed
             observer.next([]);
         }
     }

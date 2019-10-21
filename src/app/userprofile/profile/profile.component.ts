@@ -19,17 +19,4 @@ export class ProfileComponent implements OnInit {
               private editModal: EditModalService) { }
 
   ngOnInit() {}
-
-  // It's not used
-  navigateToOrderHistory() {
-    this.router.navigate(['dashboard/profile/order-history']);
-    console.log('here');
-  }
-
-  // It's not used
-  navigateToProfile() {
-    this.router.navigate([`dashboard/profile/`]);
-    console.log('here2');
-    console.log(this.id);
-  }
 }

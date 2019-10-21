@@ -86,7 +86,7 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
   onGetOrderFailure(err) {
     this.editModal.toggleEditMode();
     this.loadingService.toggleLoading();
-    console.log(err);
+    //console.log(err);
     this.onlineMode = false;
   }
 

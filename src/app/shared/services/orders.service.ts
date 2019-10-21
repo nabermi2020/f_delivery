@@ -33,9 +33,7 @@ export class OrdersService {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
     const id = this.authService.getCurrentUser().id;
     order.setUserId(id);
-    // this.loadingService.toggleLoading();
-    // this.editModal.toggleEditMode();
-
+  
     this.http.post(`${this.apiUrl}/orders`, order, { headers })
         .subscribe(
             this.onMakeOrderSuccess.bind(this),

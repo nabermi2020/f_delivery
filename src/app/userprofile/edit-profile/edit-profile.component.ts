@@ -26,6 +26,10 @@ export class EditProfileComponent implements OnInit, OnDestroy {
               private loadingService: LoadingService) { }
 
   ngOnInit() {
+    this.subscribeToRouteParams();
+  }
+
+  subscribeToRouteParams() {
     this.checkRouteParamsSub = this.route.params.subscribe( 
       (par: Params) => {
         this.id = par["id"];

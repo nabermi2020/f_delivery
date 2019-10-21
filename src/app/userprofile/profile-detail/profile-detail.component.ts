@@ -33,7 +33,10 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userData = this.authService.getCurrentUser();
     this.userDataMap();
+    this.subscribeToModalToggling();
+  }
 
+  subscribeToModalToggling() {
     this.editSubscription = this.editModal.onEditChange.subscribe(
       res => {
         this.editMode = res;
