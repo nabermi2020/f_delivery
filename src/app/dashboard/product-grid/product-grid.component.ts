@@ -31,8 +31,7 @@ export class ProductGridComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getProducts();
     this.checkSearchAvailability();
-    this.getProductByCategory();
-           
+    this.getProductByCategory();        
   }
 
   private checkSearchAvailability() {
@@ -77,10 +76,10 @@ export class ProductGridComponent implements OnInit, OnDestroy {
     this.loadingService.toggleLoading();
     this.editModal.toggleEditMode();
     this.productSubscription = this.productsService.getProducts()
-    .subscribe(
-      this.onGetProductsSuccess.bind(this),       
-      this.onGetProductError.bind(this)
-    );
+      .subscribe(
+        this.onGetProductsSuccess.bind(this),       
+        this.onGetProductError.bind(this)
+      );
   }
 
   onGetProductsSuccess(products: Array<any>) {
@@ -128,6 +127,5 @@ export class ProductGridComponent implements OnInit, OnDestroy {
       this.isSearchFailure = false;
     }
   }
-
 
 }

@@ -21,14 +21,18 @@ export class FiltersComponent implements OnInit, OnDestroy {
   constructor(private activeRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.subscribeToActiveRoute();
+  }
+
+  subscribeToActiveRoute() {
     this.activeFilterSubscription = this.activeRoute.children[0].params
-      .subscribe(
-        res => {
-          this.activeCategory = res["cat"];
-          this.activeFilter = this.filters[this.activeCategory];
-          this.activeCategory = 'All';
-        }
-      );
+    .subscribe(
+      res => {
+        this.activeCategory = res["cat"];
+        this.activeFilter = this.filters[this.activeCategory];
+        this.activeCategory = 'All';
+      }
+    );
   }
 
  /**

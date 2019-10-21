@@ -11,15 +11,12 @@ import { SharedModule } from '../shared/shared.module';
     declarations: [
         CartComponent,
         OrderConfirmationComponent
-        
     ],
     imports: [
         CommonModule,
         FormsModule,
         SharedModule 
     ],
-    exports: [
-
-    ]
+    exports: []
 })
 export class CartModule {}

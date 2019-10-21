@@ -37,11 +37,15 @@ export class OrderConfirmationComponent implements OnInit, OnDestroy {
     this.totalPrice = this.productCart.getTotalPrice();
     this.userData = this.authService.getCurrentUser();
     this.preFillForm();
+    this.subscribeToModalToggling();
+  }
 
+  subscribeToModalToggling() {
     this.editModalSubscription = this.editModal.onEditChange.subscribe(
       (res: boolean) => {
         this.isConfirmationPopUpEnabled = res;
-      });
+      }
+    );
   }
 
 /**
@@ -81,7 +85,7 @@ export class OrderConfirmationComponent implements OnInit, OnDestroy {
     } else {
       let activeCategory = JSON.parse(localStorage.getItem("productList")).category;
       this.router.navigate([`dashboard/products/${activeCategory}`]);
-      alert('offline mode');
+      //alert('offline mode');
     }
   }
 

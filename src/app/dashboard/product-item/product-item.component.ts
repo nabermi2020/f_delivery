@@ -26,9 +26,11 @@ export class ProductItemComponent implements OnInit {
     this.success = true;
     this.productData.productQuantity = this.productQuantity;
     this.productCartService.addProducts(this.productData);
+
     setTimeout(() => {
       this.success = false;
     }, 1000);
+    
     this.productQuantity = 1;
   }
 

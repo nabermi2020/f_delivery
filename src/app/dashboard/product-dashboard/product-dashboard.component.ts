@@ -26,35 +26,22 @@ export class ProductDashboardComponent implements OnInit, OnDestroy {
               private loadingService: LoadingService) { }
 
   ngOnInit() {
+    this.subscribeToModalToggling();
+    this.cartService.checkCartExistenseByUserId();
+    this.cartService.getCartFromServer();
+  }
+
+  subscribeToModalToggling() {
     this.editMode = this.editModal.onEditChange.subscribe(
       (res: boolean) => {
         this.isModalEnabled = res;
         this.changeDetector.detectChanges();
       }
     );
-
-    this.cartService.checkCartExistenseByUserId();
-    this.cartService.getCartFromServer();
   }
 
   ngOnDestroy() {
     this.editMode.unsubscribe();
-  }
-
-  sayHi() {
-    
-    
-      
-        // // нижняя граница документа
-        // let windowRelativeBottom = document.documentElement.getBoundingClientRect().bottom;
-    
-        // // если пользователь прокрутил достаточно далеко (< 100px до конца)
-        // if (windowRelativeBottom < document.documentElement.clientHeight + 10) {
-        //   // добавим больше данных
-        //   console.log('bottom');
-        // }
-     
-    
   }
 
 }

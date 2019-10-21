@@ -19,6 +19,7 @@ export class ProductSearchComponent implements OnInit {
   searchProducts(requestedQuery) {
     const query = (requestedQuery.value).trim().replace(/(\s\s\s*)/g, ' ');
     this.results = [];
+    
     if (query.length >= this.minQueryLength) {
       this.productService.searchProducts(query)
         .subscribe( 
@@ -31,8 +32,8 @@ export class ProductSearchComponent implements OnInit {
   }
 
   onGetSearchResultsSuccess(searchResults) {
-      this.results = searchResults;
-      this.searchDone.emit(this.results);
+    this.results = searchResults;
+    this.searchDone.emit(this.results);
   }
 
   onGetSearchResultsFailure(searchError) {
