@@ -69,13 +69,8 @@ export class OrderConfirmationComponent implements OnInit, OnDestroy {
  * @param {ngForm} form data
  */  
   onOrderSubmit(form) {
-    const firstName = form.value.firstName;
-    const lastName = form.value.lastName;
-    const email = form.value.email;
-    const phone = form.value.phone;
-    const address = form.value.address;
-    const orderTime = form.value.orderTime;
-    
+    // create interface
+    const { firstName, lastName, email, phone, address, orderTime } = form.value
     const order = new Order(firstName, lastName,
                           email, phone,
                           address, orderTime,

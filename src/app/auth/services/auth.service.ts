@@ -108,7 +108,7 @@ export class AuthService {
  */
   updateUserData() {
     let onlineMode = navigator.onLine;
-    if (!onlineMode) {
+    if (onlineMode) {
       this.signIn(this.currentUser.login, this.currentUser.password);
     } else {
       let activeCategory = JSON.parse(localStorage.getItem("productList")).category;

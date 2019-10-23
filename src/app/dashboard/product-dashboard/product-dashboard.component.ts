@@ -44,5 +44,11 @@ export class ProductDashboardComponent implements OnInit, OnDestroy {
     this.editMode.unsubscribe();
   }
 
+  @HostListener('scroll', ['$event.target'])
+  onDashboardScroll(event) {
+    if (event.target.offsetHeight + event.target.scrollTop == event.target.scrollHeight) {
+          console.log('end of the page!');
+    }
+ }
 }
 

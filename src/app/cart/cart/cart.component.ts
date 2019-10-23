@@ -22,11 +22,12 @@ export class CartComponent implements OnInit {
   }
 
   getCartInfo() {
-    if (navigator.onLine) {
+    if (!navigator.onLine) {
       this.cart = this.productCart.getProducts();
       this.totalPrice = this.productCart.getTotalPrice();
     } else {
       this.cart = this.productCart.getCartFromLocalStorage();
+      console.log(this.cart);
       this.totalPrice = this.productCart.getTotalPrice();
     }
   }
