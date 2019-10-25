@@ -8,7 +8,7 @@
       <div class="productWeight">{{ productData.productWeight }} gram {{ productData.productSize }} sm</div>
       <div class="prPrice">{{ productData.productPrice }} $</div>
     </div>
-  
+
     <div class="productTitle"><h4>{{ productData.productTitle }}</h4></div>
     <div class="ingredients">{{ productData.productDescription }}</div>
   </div>
@@ -27,6 +27,7 @@
     </div>
 
     <div class="addToCart" (click)="addProductToCart()">
+      // better to use getter
       {{ success ? 'Product is added!': 'Add To Cart'}}
     </div>
 

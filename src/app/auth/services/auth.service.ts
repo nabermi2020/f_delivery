@@ -19,7 +19,7 @@ export class AuthService {
   userData = new Subject<any>();
   currentUser: any;
   authResults: any;
-  
+
   constructor(private router: Router,
               private http: HttpClient,
               private errorService: ErrorService,
@@ -36,10 +36,10 @@ export class AuthService {
         authObserver.next({ authStatus: false, onlineMode: false });
       }
     });
-    
+
     return authObserver;
-  }   
-  
+  }
+
   aunthenticateUserOnline(login: string, password: string, authObserver: Observer<any>) {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
     this.http.get(`${this.apiUrl}/users?login=${login}&&password=${password}`, { headers })
@@ -49,9 +49,9 @@ export class AuthService {
         },
 
         (err: Response) => {
-          this.onAunthenticateUserOnlineFailure(err, authObserver); 
+          this.onAunthenticateUserOnlineFailure(err, authObserver);
         }
-      );  
+      );
   }
 
   onAunthenticateUserOnlineSuccess(authResults, authObserver: Observer<any>) {
@@ -64,9 +64,9 @@ export class AuthService {
   onAunthenticateUserOnlineFailure(error, authObserver: Observer<any>) {
       let onlineMode = navigator.onLine;
       authObserver.error(error);
-      authObserver.next({ authStatus: false, onlineMode: onlineMode }); 
+      authObserver.next({ authStatus: false, onlineMode: onlineMode });
   }
-  
+
   signIn(login, password) {
     this.authenticateUser(login, password)
       .subscribe(
@@ -118,7 +118,7 @@ export class AuthService {
 
 /**
  * Logout user from the active session
- */  
+ */
   logOut() {
     this.authResults.authStatus = false;
     this.isUserAuthorized.next(this.authResults);
@@ -128,10 +128,11 @@ export class AuthService {
  /**
   * Register new user and navigate to the 'sign-in'
   * @param {User} new user instance
-  */ 
+  */
   signUp(users) {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
-     
+
+    // for working with http I whould create httpBeckend service or like that and there will be all logic with http, and inside this service, you can do like this.httpBeckendService.post()
     this.http.post(`${this.apiUrl}/users`, users, { headers })
       .subscribe(
         this.onSignUpSuccess.bind(this),
@@ -140,7 +141,7 @@ export class AuthService {
   }
 
   onSignUpSuccess(res) {
-    this.router.navigate(['']);  
+    this.router.navigate(['']);
   }
 
   onSignUpFailure(err) {
@@ -149,7 +150,7 @@ export class AuthService {
 
 /**
  * Check user's login existence in DB
- * @param {User} user's login 
+ * @param {User} user's login
  * @return {Observable} result with array of 1 user if there's user with the same login
  */
   checkFieldExistense(field: string, value: string): Observable<any> {
@@ -168,7 +169,7 @@ export class AuthService {
  /**
   * Return current user's info
   * @return {obj} user's data
-  */ 
+  */
   getCurrentUser(): any {
     return this.currentUser;
   }
@@ -176,21 +177,22 @@ export class AuthService {
  /**
   * Check user credentials
   * @param {obj} object with credentials
-  * @return {Observable} array of 1 user if search was successfull 
-  */ 
+  * @return {Observable} array of 1 user if search was successfull
+  */
   checkUserInfo(userData): Observable<any> {
+    // can be like - return Observable.create( (observer: Observer<any>) => {, without checkObservable
     const checkObservable = Observable.create( (observer: Observer<any>) => {
       const login = this.currentUser.login;
       const password = userData.passwords.password;
       let onlineMode = navigator.onLine;
-      
+
       if (!onlineMode) {
         this.getUserInfo(login, password, observer);
       } else {
         observer.error("offline mode!");
       }
     });
-    
+
     return checkObservable;
   }
 
@@ -204,10 +206,10 @@ export class AuthService {
         }
       },
 
-      (checkErrors) => {  
+      (checkErrors) => {
         observer.error('User not found! ' + checkErrors);
       }
-    )  
+    )
   }
 
 /**
@@ -216,10 +218,10 @@ export class AuthService {
  * @return {Observable} updating result
  */
   updateUserInfo(userData): Observable<any> {
-    const user = new User(userData.firstName, userData.lastName, 
+    const user = new User(userData.firstName, userData.lastName,
                         this.currentUser.login, userData.passwords.password,
                         userData.phone, this.currentUser.email, userData.address);
-    
+
     const headers = new HttpHeaders({'Content-type': 'application/json'});
     return this.http.put(`${this.apiUrl}/users/${this.currentUser.id}`,  user, { headers });
   }

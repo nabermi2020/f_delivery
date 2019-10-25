@@ -13,6 +13,7 @@ import { EditModalService } from 'src/app/shared/services/edit-modal.service';
 export class ProfileComponent implements OnInit {
   id: number;
 
+  // I think we can use here only id
   constructor(private route: ActivatedRoute,
               private router: Router,
               private authService: AuthService,

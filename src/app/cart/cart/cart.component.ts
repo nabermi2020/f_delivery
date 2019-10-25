@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class CartComponent implements OnInit {
   cart: Array<Product> = [];
   totalPrice: any;
- 
+
   constructor(private productCart: ProductCart,
               private router: Router,
               private productService: ProductService) { }
@@ -22,6 +22,9 @@ export class CartComponent implements OnInit {
   }
 
   getCartInfo() {
+    // this.cart = !navigator.onLine ? this.productCart.getProducts() : this.productCart.getCartFromLocalStorage();
+    // this.totalPrice = this.productCart.getTotalPrice();
+    // it can be shorter, for example - please take a look at code above
     if (!navigator.onLine) {
       this.cart = this.productCart.getProducts();
       this.totalPrice = this.productCart.getTotalPrice();
@@ -33,10 +36,12 @@ export class CartComponent implements OnInit {
   }
 
  /**
-  * 
-  * @param {Product} selected product 
-  */ 
+  *
+  * @param {Product} selected product
+  */
   deleteCurrentProduct(product: Product) {
+    // no needs to declare - productId
+    // and if you need only id, better to path id instead whole product object, like - deleteCurrentProduct(id: string) {
     const productId = product.id;
     this.productCart.deleteProductById(productId);
     this.totalPrice = this.productCart.getTotalPrice();
@@ -44,7 +49,7 @@ export class CartComponent implements OnInit {
 
 /**
  * Navigating to 'dashboard' after order is made
- */  
+ */
   makeAnOrder() {
     this.router.navigate(['/dashboard/order-confirmation']);
   }
@@ -52,7 +57,7 @@ export class CartComponent implements OnInit {
 /**
  * Add one product to cart, calling the bill for that service
  * @param {Product} product data
- */  
+ */
   addOneProduct(product: Product) {
     const productId = product.id;
     this.productCart.addOneProductToCart(productId);
@@ -62,7 +67,7 @@ export class CartComponent implements OnInit {
  /**
   * Delete one product from cart, calling the bill for that service
   * @param {Product} product data
-  */   
+  */
   deleteOneProduct(product: Product) {
     const productId = product.id;
     this.productCart.deleteOneProductFromCart(productId);

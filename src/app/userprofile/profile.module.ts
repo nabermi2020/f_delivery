@@ -24,7 +24,7 @@ import { OrderItemComponent } from './order-item/order-item.component';
         DashboardRoutingModule
     ],
     exports: [
-
+      // if you do not use exports then no needs to keep it, less code - less problems
     ]
 })
 export class ProfileModule {}

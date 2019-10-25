@@ -1,12 +1,13 @@
 <div class="orderItem">
+<!--  camel naming it is usuaaly format for declaring ID's for classes better to use, for example - orderInfo, and for class names better to use BEM, please take a look at - https://ru.bem.info/methodology/ -->
   <div class="orderInfo" (click)="toggleOrderDetail()">
     <div class="orderId">№ {{ order.orderId }}</div>
     <div class="orderDate"> <b>Date:</b> {{ getDate(order.orderTime) }}</div>
     <div class="totalOrderAmount"><b>Total: </b> {{ order.totalPrice }} $</div>
-    <div class="productsQuantity">{{ getProductsQuantity(order) }} <i>{{ getProductsQuantity(order) == 1 ? 'product' : 'products' }}</i></div> 
+    <div class="productsQuantity">{{ getProductsQuantity(order) }} <i>{{ getProductsQuantity(order) == 1 ? 'product' : 'products' }}</i></div>
     <div class="orderTime"> <b>Time:</b> {{ getTime(order.orderTime) }}</div>
   </div>
-  
+
   <div class="orderDetail" *ngIf="isOrderDetailExpanded">
     <div class="orderedProducts" *ngFor='let order of order.products'>
       <div class="productImgWrapper" (click)="navigateToProductDetailPage(order)">
@@ -22,5 +23,5 @@
       </div>
     </div>
   </div>
-   
+
 </div>

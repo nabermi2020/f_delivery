@@ -15,6 +15,7 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
   pages: number;
   ordersPerPage: number = 10;
   ordersOnLastPage: number;
+  // please remove unused variables
   activePage: number = 0;
   ordersForPages: Array<any>;
   orderSubscription = new Subscription();
@@ -31,7 +32,7 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
   calculatePagination() {
     this.pages = Math.ceil(this.orders.length / this.ordersPerPage);
     this.ordersOnLastPage = this.orders.length % this.ordersPerPage;
-    
+
     const pageIndices = [];
 
     for (let i = 1; i <= this.pages; i++) {
@@ -42,15 +43,16 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
     return pageIndices;
   }
 
+  // good, like +1
   getOrdersForCurrentPage(pageNumber) {
     const from = pageNumber * this.ordersPerPage - this.ordersPerPage;
-    const to = pageNumber != this.pages ? from + this.ordersPerPage - 1 : from + this.ordersOnLastPage - 1;    
+    const to = pageNumber != this.pages ? from + this.ordersPerPage - 1 : from + this.ordersOnLastPage - 1;
     const orders = [];
 
     for (let i = from; i <= to; i ++) {
       orders.push(this.orders[i]);
     }
-    
+
     return orders;
   }
 
@@ -72,13 +74,15 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
       );
   }
 
+  // no type for orders =(
   onGetOrderSuccess(orders) {
     if (orders[0]) {
-      this.orders = orders;  
+      this.orders = orders;
       this.editModal.toggleEditMode();
       this.loadingService.toggleLoading();
       this.ordersForPages = this.calculatePagination();
       this.orders = this.ordersForPages[0].orders;
+      // sometimes better to listen your IDE, my says - can be simplified to 'this.orders.length > 0'
       this.onlineMode = this.orders.length > 0 ? true : false;
     }
   }
@@ -86,6 +90,7 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
   onGetOrderFailure(err) {
     this.editModal.toggleEditMode();
     this.loadingService.toggleLoading();
+    // please use consoles only locally and do not push them to branch
     //console.log(err);
     this.onlineMode = false;
   }

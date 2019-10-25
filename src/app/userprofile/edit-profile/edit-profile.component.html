@@ -1,18 +1,19 @@
 <div id="editModal">
     <div id="editModalHeader">
-        <header> 
+        <header>
             <h4 id="editModalTitle">Edit profile</h4>
             <button class="btn btn-danger" (click)="closeModal()">X</button>
-        </header> 
+        </header>
     </div>
- 
+
     <form [formGroup]="editForm">
         <div class="row">
             <div class="col-md-6 col-xs-6">
+<!--              all form groups almost similar so I think we can use ngFor* here-->
                 <div class="form-group">
                     <label for="First Name">
                         First Name:
-                        
+
                         <input type="text"
                                placeholder="Enter First Name"
                                class="form-control"
@@ -21,18 +22,20 @@
                                formControlName="firstName">
                       </label>
                       <div *ngIf="getDataByFieldName('firstName').touched">
+<!--                        For validation messages it is good practise to store them in some Constant-->
                         <p *ngIf="getDataByFieldName('firstName').errors" class="validationError">First Name isn't valid!</p>
+<!--                        I see pattern here, for "Min length should be 4 !" better to use getter method with parameter - maxLength-->
                         <p *ngIf="getDataByFieldName('firstName')?.errors?.minlength" class="validationError">Min length should be 4 !</p>
                       </div>
                 </div>
-          
+
             </div>
 
             <div class="col-md-6 col-xs-6">
                 <div class="form-group">
                     <label for="Last Name">
                         Last Name:
-                        
+
                         <input type="text"
                                placeholder="Enter Last Name"
                                class="form-control"
@@ -51,7 +54,7 @@
                 <div class="form-group">
                     <label for="phone">
                         Phone:
-                        
+
                         <input type="text"
                                placeholder="Enter phone"
                                class="form-control"
@@ -70,7 +73,7 @@
                 <div class="form-group">
                     <label for="address">
                         Address:
-                        
+
                         <input type="text"
                                placeholder="Enter address"
                                class="form-control"
@@ -91,7 +94,7 @@
                 <div class="form-group">
                     <label for="password">
                         Password:
-                        
+
                         <input type="text"
                                placeholder="Enter password"
                                class="form-control"
@@ -104,16 +107,16 @@
                 <div *ngIf="getDataByFieldName('passwords.password').touched">
                     <p *ngIf="getDataByFieldName('passwords.password').errors" class="validationError">Password isn't valid!</p>
                     <p *ngIf="getDataByFieldName('passwords.password')?.errors?.minlength" class="validationError">Min length should be 4 !</p>
-                    <p *ngIf="getDataByFieldName('passwords')?.errors?.doesMatchPassword" class="validationError">Passwords don't match!</p>     
+                    <p *ngIf="getDataByFieldName('passwords')?.errors?.doesMatchPassword" class="validationError">Passwords don't match!</p>
                 </div>
-               
+
             </div>
 
             <div class="col-md-6 col-xs-6">
                 <div class="form-group">
                     <label for="passwordRepeat">
                         Repeat Password:
-                        
+
                         <input type="text"
                                placeholder="Repeat password"
                                class="form-control"
@@ -123,7 +126,7 @@
                                formControlName="passwordRepeat">
                       </label>
                 </div>
-               
+
                 <div *ngIf="getDataByFieldName('passwords.passwordRepeat').touched">
                     <p *ngIf="getDataByFieldName('passwords.passwordRepeat').errors" class="validationError">Password isn't valid!</p>
                     <p *ngIf="getDataByFieldName('passwords.passwordRepeat')?.errors?.minlength" class="validationError">Min length should be 4 !</p>
@@ -131,10 +134,10 @@
                 </div>
             </div>
 
-           
+
                 </div>
             </div>
-
+<!--            Please do not use inline styles, it is not really good practise-->
             <div class="col-md-12 col-xs-12 " style="text-align: center">
                 <button class="btn btn-success"
                         type="button"
@@ -143,6 +146,6 @@
             </div>
         </div>
     </form>
-    
-   
+
+
 </div>

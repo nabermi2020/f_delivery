@@ -16,6 +16,7 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
   userData: User;
   editSubscription: Subscription;
   objectKeys = Object.keys;
+  // better to have it like Constant, because in future you might be need to reset state, so it can useful
   userViewTemplate = {
     'First Name': '',
     'Last Name': '',
@@ -48,6 +49,7 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
   * Map appropriate values getted from 'authService' with values from viewModel
   */
   userDataMap() {
+     // are you kidding me? - please use destructing and for loop
      this.userViewTemplate['First Name'] = this.userData.firstName;
      this.userViewTemplate['Last Name'] = this.userData.lastName;
      this.userViewTemplate['Login'] = this.userData.login;

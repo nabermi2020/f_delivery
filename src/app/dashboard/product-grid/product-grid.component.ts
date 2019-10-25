@@ -21,7 +21,7 @@ export class ProductGridComponent implements OnInit, OnDestroy {
   urlParSubscription = new Subscription();
   productSubscription = new Subscription();
   productsByCategorySubscription = new Subscription();
-  
+
   constructor(private productsService: ProductService,
               private route: ActivatedRoute,
               private editMode: EditModalService,
@@ -31,7 +31,7 @@ export class ProductGridComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getProducts();
     this.checkSearchAvailability();
-    this.getProductByCategory();        
+    this.getProductByCategory();
   }
 
   private checkSearchAvailability() {
@@ -43,7 +43,7 @@ export class ProductGridComponent implements OnInit, OnDestroy {
 
   getProductByCategory() {
     this.urlParSubscription = this.route.firstChild.params
-      .subscribe( 
+      .subscribe(
         (par: Params) => {
           this.activeCategory = par["cat"];
           this.isSearchFailure = true;
@@ -56,9 +56,9 @@ export class ProductGridComponent implements OnInit, OnDestroy {
   getProductByActiveCategory() {
     this.productsByCategorySubscription = this.productsService.getProductsByCategory(this.activeCategory)
       .subscribe(
-        this.onGetProductByActiveCategorySuccess.bind(this),    
+        this.onGetProductByActiveCategorySuccess.bind(this),
         this.onGetProductError.bind(this)
-       );  
+       );
   }
 
   onGetProductByActiveCategorySuccess(productList) {
@@ -71,13 +71,13 @@ export class ProductGridComponent implements OnInit, OnDestroy {
 
 /**
  * Get products using 'productService'
- */  
+ */
   getProducts() {
     this.loadingService.toggleLoading();
     this.editModal.toggleEditMode();
     this.productSubscription = this.productsService.getProducts()
       .subscribe(
-        this.onGetProductsSuccess.bind(this),       
+        this.onGetProductsSuccess.bind(this),
         this.onGetProductError.bind(this)
       );
   }
@@ -86,7 +86,7 @@ export class ProductGridComponent implements OnInit, OnDestroy {
     this.products = products;
     this.onlineMode = true;
     this.loadingService.toggleLoading();
-    this.editModal.toggleEditMode();  
+    this.editModal.toggleEditMode();
   }
 
   onGetProductError(err) {
@@ -97,8 +97,8 @@ export class ProductGridComponent implements OnInit, OnDestroy {
 
  /**
   * Set filter category
-  * @param {String} product category 
-  */ 
+  * @param {String} product category
+  */
   setFilterCategory(cat) {
     this.activeFilter = cat;
   }
@@ -110,6 +110,7 @@ export class ProductGridComponent implements OnInit, OnDestroy {
   }
 
   setProducts(products) {
+    // OMG, please split it to 2 or 3 methods, and I would recommend for you, to check
     if (products.length > 0 && products != 'All') {
       this.products = products;
       this.isSearchFailure = true;

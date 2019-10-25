@@ -10,13 +10,15 @@ import { Router } from '@angular/router';
 })
 export class OrderItemComponent implements OnInit {
   @Input() order;
-  
+
   isOrderDetailExpanded: boolean = false;
   constructor(private productsService: ProductService,
               private router: Router) { }
 
+              // please remove
   ngOnInit() { }
 
+  // again and again, formatting!
 /**
  * Get order's date
  * @param {String} order's date
@@ -47,12 +49,12 @@ getProductsQuantity(item) {
   item['products'].forEach( product => {
     productQuantity += product.productQuantity;
   });
- 
+
   return productQuantity;
 }
 
 /**
- * Toggle order details block 
+ * Toggle order details block
  */
 toggleOrderDetail() {
   this.isOrderDetailExpanded = !this.isOrderDetailExpanded;
