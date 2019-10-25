@@ -1,8 +1,8 @@
 import { User } from './../user.model';
-import { AuthService } from './../auth.service';
+import { AuthService } from '../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Observer } from 'rxjs';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,11 +13,13 @@ export class SignUpComponent implements OnInit {
   registrationForm: FormGroup;
   userPassword: string;
   userRepeatedPassword: string;
+  onlineMode: boolean;
 
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.initForm();
+    this.onlineMode = navigator.onLine;
   }
 
 /**
@@ -27,66 +29,22 @@ export class SignUpComponent implements OnInit {
     this.registrationForm = new FormGroup({
       "firstName": new FormControl('', [Validators.required, Validators.minLength(4)]),
       "lastName": new FormControl('', [Validators.required, Validators.minLength(4)]),
-      "login": new FormControl('', [Validators.required, Validators.minLength(4)], this.forbiddenLogin.bind(this)),
+      "login": new FormControl('', [Validators.required, Validators.minLength(4)], this.checkDataUniquenessByField.bind(this)),
       passwords: new FormGroup({
         "password": new FormControl('', [Validators.required, Validators.minLength(4), ]),
         "passwordRepeat": new FormControl('', [Validators.required, Validators.minLength(4)]),
         }, {
-          validators: this.validatePasswords.bind(this)
-        }
+          validators: this.validatePasswords.bind(this) 
+        }  
     ),
       "phone": new FormControl('', [Validators.required, Validators.minLength(10)]),
-      "email": new FormControl('', [Validators.required, Validators.email, Validators.minLength(4)], this.forbiddenEmail.bind(this)),
+      "email": new FormControl('', [Validators.required, Validators.email, Validators.minLength(4)], this.checkDataUniquenessByField.bind(this)),
       "address": new FormControl('', [Validators.required, Validators.minLength(5)])
     });
   }
 
-  // Need refactoring
-  get firstName() {
-    return this.registrationForm.get('firstName');
-  }
-
- // Need refactoring
-  get lastName() {
-    return this.registrationForm.get('lastName');
-  }
-
-// Need refactoring
-  get login() {
-    return this.registrationForm.get('login');
-  }
-
-// Need refactoring
-  get email() {
-    return this.registrationForm.get('email');
-  }
-
-// Need refactoring
-  get password() {
-    return this.registrationForm.get('passwords.password');
-  }
-
-// Need refactoring
-  get passwordRepeat() {
-    return this.registrationForm.get('passwords.passwordRepeat');
-  }
-
-// Need refactoring
-  get phone() {
-    return this.registrationForm.get('phone');
-  }
-
-// Need refactoring
-  get address() {
-    return this.registrationForm.get('address');
-  }
-
-/**
- * Return passwords from appropriate fields
- * @return {FormGroup} return FormGroup with represents passwords
- */
-  get passwords() {
-    return this.registrationForm.get('passwords');
+  get formField() {
+    return this.registrationForm;
   }
 
 /**
@@ -94,77 +52,63 @@ export class SignUpComponent implements OnInit {
  * @param {FormControl} user's login
  * @return {Promise | Observable} returns checking results
  */
-  forbiddenLogin(control: FormControl): Promise<any> | Observable<any> {
-    const login = control.value;
-    let queryResult;
-    // please refactor it to use observables
-    const promise = new Promise( (resolve, reject) => {
-      // why 4, please avoid random values, better to add 4 to variable and call is something like maxLoginCharactersSize
-      if (login.length >= 4) {
-        this.authService.checkUser(login).subscribe(
-          res => {
-            console.log('Result=');
-            queryResult = res[0];
-            if (res[0]) {
-              if (res[0].login == login) {
-                resolve({'loginIsForbidden': true});
+  checkDataUniquenessByField(control: FormControl): Observable<any> {      
+    const onlineMode = navigator.onLine;
+    const maxFieldLength = 4;
+
+    const forbiddenField = Observable.create( (forbiddenObserver: Observer<any>) => {
+      const keyField = control.value;
+      console.log(this.registrationForm);
+      const fieldName = this.searchKeyField(control, keyField);
+
+      if (onlineMode && keyField.length >= maxFieldLength) {
+          this.authService.checkFieldExistense(fieldName, keyField).subscribe(
+            
+            (fieldCheckingRes: Response) => {
+              if (fieldCheckingRes[0]) {
+                if (fieldCheckingRes[0][fieldName] == keyField) {
+                  forbiddenObserver.next({'fieldIsForbidden': true, 'isNetworkEnabled': false});
+                  forbiddenObserver.complete();          
+                }
+              } else {
+                forbiddenObserver.next(null);
+                forbiddenObserver.complete();
               }
-            } else {
-                resolve(null);
+            },
+  
+            (error: Response) => {
+              forbiddenObserver.error(error);
+              forbiddenObserver.complete();
             }
-          },
+          );
+      } 
+  });
 
-          err => {
-            alert('Something went wrong!');
-          }
-        );
-      }
-    });
-
-    return promise;
+    return forbiddenField;
   }
 
-/**
- * Check existence user with the same login
- * @param {FormControl} user's email
- * @return {Promise | Observable} returns checking results
- */
-// this method is really simmilar to forbiddenLogin maybe we can combine them and use only one, please take a look
-  forbiddenEmail(control: FormControl): Promise<any> | Observable<any> {
-    const email = control.value;
-    const promise  = new Promise( (resolve, reject) => {
-      if (email.length >= 6) {
-        this.authService.checkEmail(email).subscribe(
-          res => {
-            console.log('Email= ');
-            if (res[0]) {
-              if (res[0].email == email) {
-                resolve({'emailIsForbidden': true});
-              }
-            } else {
-              resolve(null);
-            }
-          },
-          err => {
-            alert(err);
-          }
-        );
+  searchKeyField(control: FormControl, keyField) {
+    const field = control.value;
+    let searchedField;
+    let formFields = Object.entries(this.registrationForm.controls);
+    
+    for(let key of formFields) {
+      if (key[1].value == field) {
+        searchedField = key[0];
       }
-    });
-
-    return promise;
+    }
+    return searchedField; 
   }
-
+  
  /**
   * Compare two passwords which were entered by user in appropriate fields
   * @param {FormGroup} users' passwords
   * @return {null || Obj} returns checking results
-  */
+  */ 
   validatePasswords(registrationFormGroup: FormGroup) {
     const password = registrationFormGroup.controls.password.value;
     const repeatPassword = registrationFormGroup.controls.passwordRepeat.value;
-    // console.log(password);
-    // console.log(repeatPassword);
+
     if (repeatPassword.length <= 0) {
         return null;
     }
@@ -181,46 +125,17 @@ export class SignUpComponent implements OnInit {
  * Create new user object and sign up it using 'authService'
  */
   onSignUp() {
-    console.log(this.registrationForm.value);
-    console.log(this.registrationForm);
+    this.onlineMode = navigator.onLine;
     const userInfo = this.registrationForm.value;
     const newUser = new User(userInfo.firstName, userInfo.lastName,
                            userInfo.login, userInfo.passwords.password,
                            userInfo.phone, userInfo.email,
                            userInfo.address);
-    console.log(newUser);
-
-    // again I would better do:
-    // if (!valid) {
-    //   do something
-    // }
-    //
-    // happy path
-
-    if (this.registrationForm.valid) {
+    
+    if (this.registrationForm.valid && this.onlineMode) {
       this.authService.signUp(newUser);
-    }
+    } else if (!this.onlineMode && !this.registrationForm.valid) {
+      this.registrationForm.patchValue({login: "", email: ""});
+    }                  
   }
-
-    // It's not used
-    forbiddenPassword(control: FormControl): Promise<any> | Observable<any> {
-      this.userPassword = control.value;
-      const promise = new Promise( (resolve, reject) => {
-        if (this.userPassword != this.userRepeatedPassword) {
-          resolve({"isPasswordDifferent": true});
-          console.log('y');
-        } else {
-          console.log('n');
-          resolve(null);
-        }
-      });
-      return promise;
-    }
-
-    // It's not used
-    forbiddenRepeatedPassword(control: FormControl): {[s: string]: boolean} {
-      this.userRepeatedPassword = control.value;
-      console.log(this.userRepeatedPassword);
-      return {'password': true};
-    }
 }

@@ -1,5 +1,7 @@
+import { ProductService } from 'src/app/shared/services/products.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Order } from 'src/app/cart/order.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-item',
@@ -10,11 +12,10 @@ export class OrderItemComponent implements OnInit {
   @Input() order;
   
   isOrderDetailExpanded: boolean = false;
-  constructor() { }
+  constructor(private productsService: ProductService,
+              private router: Router) { }
 
-  ngOnInit() {
-    console.log(this.order);
-  }
+  ngOnInit() { }
 
 /**
  * Get order's date
@@ -46,7 +47,7 @@ getProductsQuantity(item) {
   item['products'].forEach( product => {
     productQuantity += product.productQuantity;
   });
- // console.log(item);
+ 
   return productQuantity;
 }
 
@@ -55,6 +56,11 @@ getProductsQuantity(item) {
  */
 toggleOrderDetail() {
   this.isOrderDetailExpanded = !this.isOrderDetailExpanded;
+}
+
+navigateToProductDetailPage(product) {
+  this.productsService.setSelectedProduct(product);
+  this.router.navigate([`dashboard/product-details/${product.id}`])
 }
 
 }

@@ -1,9 +1,9 @@
 import { LoadingService } from '../../shared/services/loading.service';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { ProductService } from 'src/app/shared/services/products.service';
 import { EditModalService } from 'src/app/shared/services/edit-modal.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-product-grid',
@@ -12,13 +12,16 @@ import { Subscription } from 'rxjs';
 })
 
 export class ProductGridComponent implements OnInit, OnDestroy {
-  products: any;
+  products: Array<any>;
+  isSearchFailure: boolean = true;
   activeCategory: string = "pizza";
   activeFilter: string = "All";
+  onlineMode: boolean = true;
+  searchAvailability: boolean = true;
   urlParSubscription = new Subscription();
   productSubscription = new Subscription();
   productsByCategorySubscription = new Subscription();
-
+  
   constructor(private productsService: ProductService,
               private route: ActivatedRoute,
               private editMode: EditModalService,
@@ -27,53 +30,75 @@ export class ProductGridComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getProducts();
+    this.checkSearchAvailability();
+    this.getProductByCategory();        
+  }
 
-    // subscribe inside subscribe not good practice, please take a look - https://stackoverflow.com/questions/52317494/is-it-good-way-to-call-subscribe-inside-subscribe
-    // or check it more deeply
+  private checkSearchAvailability() {
+    let localProductList = localStorage.getItem('productList');
+    if (localProductList) {
+      this.searchAvailability = JSON.parse(localStorage.getItem('productList')).products.length > 0;
+    }
+  }
+
+  getProductByCategory() {
     this.urlParSubscription = this.route.firstChild.params
-      .subscribe(
+      .subscribe( 
         (par: Params) => {
           this.activeCategory = par["cat"];
+          this.isSearchFailure = true;
           this.loadingService.toggleLoading();
           this.editModal.toggleEditMode();
-          this.productsByCategorySubscription = this.productsService.getProductsByCategory(this.activeCategory)
-            .subscribe(
-              res => {
-                this.products = res;
-                this.activeFilter = "All";
-                this.loadingService.toggleLoading();
-                this.editModal.toggleEditMode();
-              },
-
-              err => {
-              console.log(err);
-              });
+          this.getProductByActiveCategory();
       });
+  }
+
+  getProductByActiveCategory() {
+    this.productsByCategorySubscription = this.productsService.getProductsByCategory(this.activeCategory)
+      .subscribe(
+        this.onGetProductByActiveCategorySuccess.bind(this),    
+        this.onGetProductError.bind(this)
+       );  
+  }
+
+  onGetProductByActiveCategorySuccess(productList) {
+      this.onlineMode = productList.length > 0 ? true : false;
+      this.products = productList;
+      this.activeFilter = "All";
+      this.loadingService.toggleLoading();
+      this.editModal.toggleEditMode();
   }
 
 /**
  * Get products using 'productService'
- */
+ */  
   getProducts() {
     this.loadingService.toggleLoading();
     this.editModal.toggleEditMode();
     this.productSubscription = this.productsService.getProducts()
-    .subscribe(
-      res => {
-          this.products = res;
-          this.loadingService.toggleLoading();
-          this.editModal.toggleEditMode();
-      },
-      err => {
-          console.log(err);
-      }
-    );
+      .subscribe(
+        this.onGetProductsSuccess.bind(this),       
+        this.onGetProductError.bind(this)
+      );
+  }
+
+  onGetProductsSuccess(products: Array<any>) {
+    this.products = products;
+    this.onlineMode = true;
+    this.loadingService.toggleLoading();
+    this.editModal.toggleEditMode();  
+  }
+
+  onGetProductError(err) {
+    this.onlineMode = false;
+    this.loadingService.toggleLoading();
+    this.editModal.toggleEditMode();
   }
 
  /**
   * Set filter category
-  * @param {String} product category
-  */
+  * @param {String} product category 
+  */ 
   setFilterCategory(cat) {
     this.activeFilter = cat;
   }
@@ -82,6 +107,25 @@ export class ProductGridComponent implements OnInit, OnDestroy {
     this.urlParSubscription.unsubscribe();
     this.productSubscription.unsubscribe();
     this.productsByCategorySubscription.unsubscribe();
+  }
+
+  setProducts(products) {
+    if (products.length > 0 && products != 'All') {
+      this.products = products;
+      this.isSearchFailure = true;
+    } else if (products == "All") {
+      if (!navigator.onLine) {
+        this.getProducts();
+      } else {
+        this.loadingService.toggleLoading();
+        this.editModal.toggleEditMode();
+        this.getProductByActiveCategory();
+      }
+      this.isSearchFailure = true;
+    } else {
+      this.products = [];
+      this.isSearchFailure = false;
+    }
   }
 
 }

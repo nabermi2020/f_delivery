@@ -1,47 +1,58 @@
 import { LoadingService } from '../../shared/services/loading.service';
-import { AuthService } from './../auth.service';
-import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { EditModalService } from 'src/app/shared/services/edit-modal.service';
-
+import { Subscription } from 'rxjs';
+ 
 
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss']
 })
-export class SignInComponent implements OnInit {
-  authStatus: boolean = true;
+export class SignInComponent implements OnInit, OnDestroy {
+  authStatus = new Subscription();
+  authResults = {
+    authStatus: true,
+    onlineMode: navigator.onLine
+  };
+   
+  constructor(private authService: AuthService) {}
 
-  constructor(private authService: AuthService, private loadingService: LoadingService, private editModal: EditModalService) { }
+  ngOnInit() {
+    this.subscribeToAuthResults();
+  }
 
-  ngOnInit() {}
+  subscribeToAuthResults() {
+    this.authStatus = this.authService.isUserAuthorized
+      .subscribe(this.onUserAuthorizedSuccess.bind(this));
+  }
+
+  onUserAuthorizedSuccess(authStatus) {
+    this.authResults  = authStatus;
+    console.log(authStatus);
+  }
 
 /**
  * Provide user login using appropriate credentials
  * @param {NgForm} login and password.
  */
-  // jfyi: if you will use reactive forms there will be no needs to pass it through the method you will have access to the form in whole component
   onLogin(form: NgForm) {
-    // again better to write:
-    // const { login, password } = form.value;
-    const login = form.value.login;
-    const password = form.value.password;
+    const { login, password } = form.value;
     const credentials = {
       "login": login,
       "password": password
     };
-
-    this.authStatus =  this.authService.signInn(login, password);
+    
+    this.authService.signIn(login, password);
+   
     if (this.authService) {
       localStorage.setItem("userInfo", JSON.stringify(credentials));
-      // please try to write clean code, and evoid using unnecessary empty spaces like on line below
-
-    }
-
-    // this.loadingService.toggleLoading();
-    // //this.loadingService.toggleLoading();
-    // this.editModal.toggleEditMode();
+    }      
   }
 
+  ngOnDestroy() {
+    this.authStatus.unsubscribe();
+  }
 }

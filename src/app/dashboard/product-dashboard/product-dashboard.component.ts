@@ -2,8 +2,8 @@ import { LoadingService } from '../../shared/services/loading.service';
 import { ProductCart } from '../../shared/services/product-cart.service';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../shared/services/products.service';
-import { AuthService } from './../../auth/auth.service';
-import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { AuthService } from '../../auth/services/auth.service';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy, HostListener } from '@angular/core';
 import { EditModalService } from 'src/app/shared/services/edit-modal.service';
 import { Subscription } from 'rxjs';
 
@@ -26,20 +26,29 @@ export class ProductDashboardComponent implements OnInit, OnDestroy {
               private loadingService: LoadingService) { }
 
   ngOnInit() {
+    this.subscribeToModalToggling();
+    this.cartService.checkCartExistenseByUserId();
+    this.cartService.getCartFromServer();
+  }
+
+  subscribeToModalToggling() {
     this.editMode = this.editModal.onEditChange.subscribe(
       (res: boolean) => {
         this.isModalEnabled = res;
         this.changeDetector.detectChanges();
       }
-    
     );
-
-    this.cartService.checkCartExistenseByUserId();
-    this.cartService.getCartFromServer();
   }
 
   ngOnDestroy() {
     this.editMode.unsubscribe();
   }
 
+  @HostListener('scroll', ['$event.target'])
+  onDashboardScroll(event) {
+    if (event.target.offsetHeight + event.target.scrollTop == event.target.scrollHeight) {
+          console.log('end of the page!');
+    }
+ }
 }
+

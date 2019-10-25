@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'food-delivery';
+
+  onActivate(event) {
+    window.scrollTo(0, 0);
+  } 
 }

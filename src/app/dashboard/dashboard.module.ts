@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { SharedModule } from './../shared/shared.module';
 import { CartModule } from './../cart/cart.module';
 import { ProfileModule } from './../userprofile/profile.module';
@@ -10,6 +11,7 @@ import { ProductItemComponent } from './product-item/product-item.component';
 import { FiltersComponent } from './filters/filters.component';
 import { FilterProductsPipe } from './filter-products.pipe';
 import { PdpComponent } from './pdp/pdp.component';
+import { ProductSearchComponent } from './product-search/product-search.component';
 
 @NgModule({
     declarations: [
@@ -19,13 +21,15 @@ import { PdpComponent } from './pdp/pdp.component';
        FiltersComponent,
        FilterProductsPipe,
        PdpComponent,
+       ProductSearchComponent,
     ],
     imports: [
         CommonModule,
         DashboardRoutingModule,
         ProfileModule,
         SharedModule,
-        CartModule
+        CartModule,
+        FormsModule
     ],
     exports: [
 

@@ -1,5 +1,5 @@
 import { EditModalService } from '../../shared/services/edit-modal.service';
-import { AuthService } from './../../auth/auth.service';
+import { AuthService } from '../../auth/services/auth.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { User } from 'src/app/auth/user.model';
@@ -31,19 +31,14 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
               private editModal: EditModalService) { }
 
   ngOnInit() {
-    // this.subscription = this.route.params.subscribe( (par: Params
-    //   ) => {
-    //  this.id = par["id"];
-    // });
-  //  this.id = this.route.snapshot.children[0].params.id;
-    // console.log(this.id);
-
     this.userData = this.authService.getCurrentUser();
     this.userDataMap();
+    this.subscribeToModalToggling();
+  }
 
+  subscribeToModalToggling() {
     this.editSubscription = this.editModal.onEditChange.subscribe(
       res => {
-        // console.log('Edit mode - true');
         this.editMode = res;
       }
     );
@@ -65,7 +60,6 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
  *  Show modal window for editting user data
  */
   editProfile() {
-    console.log('Edit Profile ' + this.id);
     this.editModal.toggleEditMode();
   }
 
@@ -73,7 +67,6 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
  * Destroy subsription
  */
   ngOnDestroy() {
-    // this.subscription.unsubscribe();
     this.editSubscription.unsubscribe();
   }
 

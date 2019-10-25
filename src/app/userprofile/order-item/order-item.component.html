@@ -9,7 +9,7 @@
   
   <div class="orderDetail" *ngIf="isOrderDetailExpanded">
     <div class="orderedProducts" *ngFor='let order of order.products'>
-      <div class="productImgWrapper">
+      <div class="productImgWrapper" (click)="navigateToProductDetailPage(order)">
         <img [src]="order.imgPath"  >
       </div>
 

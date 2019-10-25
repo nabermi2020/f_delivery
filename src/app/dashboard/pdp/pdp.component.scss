@@ -2,6 +2,7 @@
     width: 100%;
     min-height: 700px;
     height: auto;
+    margin-top: 25px;
     position: relative;
   //  border: 1px solid red;
 
@@ -39,6 +40,19 @@
             font-size: 30px;
             color: rgb(233, 25, 25);
            // border: 1px solid red;
+        }
+        
+        .productQuantityWrapper {
+            display: inline-block;
+            //border: 1px solid red;
+            height: 30px;
+
+            .productQuantity {
+                width: 45px;
+                text-align: center;
+                font-weight: 600;
+            }
+
         }
 
         .addToCartWrapper {

@@ -23,7 +23,6 @@ export class Cart {
     }
 
     getCart(): Array<Product> {
-       // console.log(this.products);
         return this.products;
     }
 
@@ -35,12 +34,12 @@ export class Cart {
         const productId = product.id;
        
         if (!this.checkForDublicates(productId)) {
-            product["productQuantity"] = 1;
+            product["productQuantity"] = product.productQuantity;
             this.products.push(product);
         } else {
             this.products.forEach( item => {
                 if (item.id == productId ) {
-                    item["productQuantity"] += 1;
+                    item["productQuantity"] += product.productQuantity;
                 }
             });
         }
@@ -57,6 +56,22 @@ export class Cart {
         });
 
         this.products.splice(deleteWithId, 1);
+    }
+
+    addOneProductToCart(id) {
+        this.products.forEach( product => {
+            if (product.id == id) {
+                ++product.productQuantity;
+            }
+        });  
+    }
+
+    deleteOneProductFromCart(id) {
+        this.products.forEach( product => {
+            if (product.id == id && product.productQuantity != 1) {
+                --product.productQuantity;
+            }
+        });
     }
 
     checkForDublicates(id): boolean {

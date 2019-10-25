@@ -69,6 +69,13 @@
                     position: relative;
                     display: inline-block;
                     background-size: cover; 
+                    opacity: 0.9;
+
+                    &:hover {
+                        cursor: pointer;
+                        opacity: 1;
+                        transform: scale(1.015, 1.015);
+                    }
                     
                     img {
                         width: 50px;

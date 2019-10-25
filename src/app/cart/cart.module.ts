@@ -3,23 +3,20 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { CartComponent } from './cart/cart.component';
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
-import { ConfirmationPopupComponent } from './confirmation-popup/confirmation-popup.component';
+import { ConfirmationPopupComponent } from '../shared/confirmation-popup/confirmation-popup.component';
 import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
     declarations: [
         CartComponent,
-        OrderConfirmationComponent,
-        ConfirmationPopupComponent
+        OrderConfirmationComponent
     ],
     imports: [
         CommonModule,
         FormsModule,
         SharedModule 
     ],
-    exports: [
-
-    ]
+    exports: []
 })
 export class CartModule {}

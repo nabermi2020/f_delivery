@@ -1,10 +1,11 @@
-import { AuthService } from './../../auth/auth.service';
+import { ProductService } from './../../shared/services/products.service';
+import { AuthService } from '../../auth/services/auth.service';
 import { ProductCart } from 'src/app/shared/services/product-cart.service';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Product } from 'src/app/shared/product.model';
 import { Order } from '../order.model';
 import { OrdersService } from 'src/app/shared/services/orders.service';
-
+ 
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EditModalService } from 'src/app/shared/services/edit-modal.service';
@@ -28,24 +29,28 @@ export class OrderConfirmationComponent implements OnInit, OnDestroy {
               private ordersService: OrdersService,
               private authService: AuthService,
               private router: Router,
-              private editModal: EditModalService) { }
+              private editModal: EditModalService,
+              private productsService: ProductService) { }
 
   ngOnInit() {
     this.cart = this.productCart.getProducts();
     this.totalPrice = this.productCart.getTotalPrice();
     this.userData = this.authService.getCurrentUser();
     this.preFillForm();
-    console.log(this.cart);
+    this.subscribeToModalToggling();
+  }
 
+  subscribeToModalToggling() {
     this.editModalSubscription = this.editModal.onEditChange.subscribe(
       (res: boolean) => {
         this.isConfirmationPopUpEnabled = res;
-      });
+      }
+    );
   }
 
 /**
  * Prefill order confirmation screen
- */
+ */  
   preFillForm() {
     setTimeout( () => {
       this.form.setValue({
@@ -62,42 +67,33 @@ export class OrderConfirmationComponent implements OnInit, OnDestroy {
 /**
  * Order confirmation
  * @param {ngForm} form data
- */
+ */  
   onOrderSubmit(form) {
-    // it can be shorter
-    const firstName = form.value.firstName;
-    const lastName = form.value.lastName;
-    const email = form.value.email;
-    const phone = form.value.phone;
-    const address = form.value.address;
-    const orderTime = form.value.orderTime;
-
+    // create interface
+    const { firstName, lastName, email, phone, address, orderTime } = form.value
     const order = new Order(firstName, lastName,
                           email, phone,
                           address, orderTime,
                           this.productCart.getProductCart());
-
-    this.ordersService.makeAnOrder(order);
-    // console.log(order);
-  }
-
-  // this method looks strange for me, why just not call onOrderSubmit instead submitAnOrder? and why do you need formConfirmation?
-  submitAnOrder(formConfirmation) {
-    this.onOrderSubmit(this.formData);
+    if (!navigator.onLine) {
+      this.ordersService.makeAnOrder(order);
+    } else {
+      let activeCategory = JSON.parse(localStorage.getItem("productList")).category;
+      this.router.navigate([`dashboard/products/${activeCategory}`]);
+      //alert('offline mode');
+    }
   }
 
   showConfirmationPopUp(form) {
     this.formData = form;
-    console.log(this.formData);
     this.isConfirmationPopUpEnabled = !this.isConfirmationPopUpEnabled;
     this.editModal.toggleEditMode();
-    // alert('Hello');
   }
-
+  
  /**
   * Delete product by id
-  * @param {Product} selected product
-  */
+  * @param {Product} selected product 
+  */ 
   deleteProductFromList(product: Product) {
     const productId = product.id;
     this.productCart.deleteProductById(productId);
@@ -106,7 +102,11 @@ export class OrderConfirmationComponent implements OnInit, OnDestroy {
     if (this.cart.length == 0 ) {
       this.router.navigate(['dashboard/products/pizza']);
     }
+  }
 
+  navigateToProductDetailPage(product) {
+    this.productsService.setSelectedProduct(product);
+    this.router.navigate([`dashboard/product-details/${product.id}`])
   }
 
   ngOnDestroy() {

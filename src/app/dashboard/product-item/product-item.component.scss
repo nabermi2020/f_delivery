@@ -48,17 +48,51 @@
 }
 
 .productQuantity {
-    width: 25%;
+    width: 33%;
     position: relative;
-    height: 100%;
+    top: 14%; 
+    height: 35px;
+    //border: 1px solid white;
     float: left;
     color: white;
+
+    .prodQuantity {
+        width: 35px;
+        height: 35px;
+        position: relative;
+        top: -1px;
+        background: black;
+        color: white;
+        text-align: center;
+        outline-offset: 0;
+        border: 0;
+        font-weight: 600;
+    }
+
+    #increaseProdQuantity,
+    #decreaseProdQuantity {
+        height: 35px;
+        text-align: center;
+        line-height: 25px;
+        font-weight: 600;
+        background: transparent;
+        border: 0;
+        outline: 0;
+        font-size: 22px;
+
+        &:hover {
+            color: white;
+        }
+    }
+
+
 }
 
 .addToCart {
     float: left;
-    width: 50%;
-    height: 100%;
+    width: 40%;
+    height: 47px;
+    line-height: 47px;
     color: white;
     transition: margin-top .5s ease-in .3s;
 }
@@ -68,6 +102,9 @@
     width: 25%;
     height: 100%;
     color: white;
+    height: 47px;
+    line-height: 47px;
+    font-weight: 600;
 }
 
 .productInfoAndPrice {

@@ -1,3 +1,4 @@
+import { ProductService } from 'src/app/shared/services/products.service';
 import { Component, OnInit } from '@angular/core';
 import { ProductCart } from 'src/app/shared/services/product-cart.service';
 import { Product } from 'src/app/shared/product.model';
@@ -13,12 +14,22 @@ export class CartComponent implements OnInit {
   totalPrice: any;
  
   constructor(private productCart: ProductCart,
-              private router: Router) { }
+              private router: Router,
+              private productService: ProductService) { }
 
   ngOnInit() {
-    this.cart = this.productCart.getProducts();
-    console.log(this.cart);
-    this.totalPrice = this.productCart.getTotalPrice();
+    this.getCartInfo();
+  }
+
+  getCartInfo() {
+    if (!navigator.onLine) {
+      this.cart = this.productCart.getProducts();
+      this.totalPrice = this.productCart.getTotalPrice();
+    } else {
+      this.cart = this.productCart.getCartFromLocalStorage();
+      console.log(this.cart);
+      this.totalPrice = this.productCart.getTotalPrice();
+    }
   }
 
  /**
@@ -36,6 +47,31 @@ export class CartComponent implements OnInit {
  */  
   makeAnOrder() {
     this.router.navigate(['/dashboard/order-confirmation']);
+  }
+
+/**
+ * Add one product to cart, calling the bill for that service
+ * @param {Product} product data
+ */  
+  addOneProduct(product: Product) {
+    const productId = product.id;
+    this.productCart.addOneProductToCart(productId);
+    this.totalPrice = this.productCart.getTotalPrice();
+  }
+
+ /**
+  * Delete one product from cart, calling the bill for that service
+  * @param {Product} product data
+  */   
+  deleteOneProduct(product: Product) {
+    const productId = product.id;
+    this.productCart.deleteOneProductFromCart(productId);
+    this.totalPrice = this.productCart.getTotalPrice();
+  }
+
+  navigateToProductDetailsPage(product) {
+    this.productService.setSelectedProduct(product);
+    this.router.navigate([`dashboard/product-details/${product.id}`]);
   }
 
 }

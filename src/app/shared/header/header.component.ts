@@ -1,6 +1,6 @@
 import { ProductCart } from '../services/product-cart.service';
 import { User } from '../../auth/user.model';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../auth/services/auth.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -8,7 +8,8 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  
 })
 export class HeaderComponent implements OnInit {
   // activeCategory: string = "Pizza";
@@ -28,31 +29,44 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.activeUser = this.authService.getCurrentUser();
-     
-    this.userDataSubscription = this.authService.userData
-      .subscribe(
-        res => {
-          this.activeUser =  this.authService.getCurrentUser();
-          this.productsQuantity = this.productCartService.calculateProductsQuantity();
-          // console.log(this.productsQuantity);
-          // console.log(res);
-        },   
-        err => {
-          alert('Something went wrong!');
-        }
-      );
+    this.getUserData();    
     this.id = this.activeUser.userId;
+    this.onProdAdded();
+  }
+
+  getUserData() {
+    this.userDataSubscription = this.authService.userData
+    .subscribe(
+      this.onGetUserDataSuccess.bind(this),
+      this.onGetUserDataFailure.bind(this)
+    ); 
+  }
+
+  onGetUserDataSuccess(userData) {
+    this.activeUser =  this.authService.getCurrentUser();
+    this.productsQuantity = this.productCartService.calculateProductsQuantity();
+  }
+
+  onGetUserDataFailure(error) {
+    alert('Something went wrong!');
+    console.log(error);
+  }
+
+  onProdAdded() {
     this.checkProdutsSubscription = this.productCartService.onProductAdded  
       .subscribe( 
-        res => {
-          this.productsQuantity = this.productCartService.calculateProductsQuantity();
-          this.totalPrice = this.productCartService.getTotalPrice();
-          // console.log(this.productsQuantity);
-        },
-        err => {
-          alert('something went wrong!');
-        }
+        this.onProdAddedSuccess.bind(this),
+        this.onProdAddedFailure.bind(this)
       );
+  }
+    
+  onProdAddedSuccess(prodAddStatus) {
+    this.productsQuantity = this.productCartService.calculateProductsQuantity();
+    this.totalPrice = this.productCartService.getTotalPrice(); 
+  }
+
+  onProdAddedFailure(error) {
+    alert('something went wrong!');
   }
 
 /**
@@ -60,10 +74,10 @@ export class HeaderComponent implements OnInit {
  */  
   logOut() {
     this.authService.logOut();
-    // this.productCartService.onProductAdded.unsubscribe();
     this.userDataSubscription.unsubscribe();
     this.checkProdutsSubscription.unsubscribe();
-    this.router.navigate(['/']); 
+    this.router.navigate(['/']);
+    // this.productCartService.onProductAdded.unsubscribe(); 
   }
 
  /**
@@ -72,5 +86,4 @@ export class HeaderComponent implements OnInit {
   openCart() {
     this.router.navigate(['dashboard/cart']);
   }
-
 }
