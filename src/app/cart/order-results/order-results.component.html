@@ -1,0 +1,13 @@
+<div id="orderResultsWrapper">
+  <div class="orderLogoWrapper">
+    <img [src]="orderLogoStatus" id="orderStatusImg">
+  </div>  
+  <div id="orderDetails">
+    <div id="orderId" *ngIf="orderStatus === 'orderSuccess'">Order Number: {{ order.orderId }}</div>
+    <div id="totalPrice" *ngIf="orderStatus === 'orderSuccess'">Total Amount: {{ order.totalPrice }}$</div>
+    <div id="orderStatusMsg">{{ orderStatusMsg }}</div> 
+    <button id="goToDashboard" 
+            class="btn btn-danger"
+            (click)="navToDashboard()">To Dashboard</button> 
+  </div>
+</div>

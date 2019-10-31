@@ -15,6 +15,7 @@ import { ErrorService } from './error.service';
 })
 export class OrdersService {
   apiUrl: any = environment.apiUrl;
+  order: Order;
 
   constructor(private authService: AuthService,
               private http: HttpClient,
@@ -33,22 +34,27 @@ export class OrdersService {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
     const id = this.authService.getCurrentUser().id;
     order.setUserId(id);
-  
+    console.log(order);
+    this.order = order;
     this.http.post(`${this.apiUrl}/orders`, order, { headers })
         .subscribe(
-            this.onMakeOrderSuccess.bind(this),
-            this.onMakeOrderError.bind(this)
+          this.onMakeOrderSuccess.bind(this),
+          this.onMakeOrderError.bind(this)
         );
   }
 
   onMakeOrderSuccess(orderStatus) {
     this.productCart.cleanCart(); 
-    this.router.navigate(['dashboard/products/pizza']);
+    this.router.navigate(['dashboard/order-results', 'orderSuccess']);
   }
 
   onMakeOrderError(error) {
-    console.log(error);
-    this.errorService.handleError(error);
+    this.productCart.cleanCart(); 
+    this.router.navigate(['dashboard/order-results', 'orderFailure']);
+  }
+
+  public getLastOrder(): Order {
+    return this.order;
   }
 
 /**

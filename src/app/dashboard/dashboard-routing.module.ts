@@ -10,6 +10,7 @@ import { NgModule } from '@angular/core';
 import { ProductGridComponent } from './product-grid/product-grid.component';
 import { OrderHistoryComponent } from '../userprofile/order-history/order-history.component';
 import { ErrorComponent } from '../shared/error/error.component';
+import { OrderResultsComponent } from '../cart/order-results/order-results.component';
 
 const dashboardRoutes: Routes = [
     { 
@@ -62,6 +63,16 @@ const dashboardRoutes: Routes = [
             { 
                 path: 'order-confirmation',
                 component: OrderConfirmationComponent
+            },
+            {
+                path: 'order-results',
+                component: OrderResultsComponent,
+                children: [
+                    {
+                        path: ':orderStatus',
+                        component: OrderResultsComponent
+                    }
+                ]
             },
             {
                 path: 'error',
