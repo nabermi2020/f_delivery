@@ -184,7 +184,7 @@ export class AuthService {
       const password = userData.passwords.password;
       let onlineMode = navigator.onLine;
       
-      if (!onlineMode) {
+      if (onlineMode) {
         this.getUserInfo(login, password, observer);
       } else {
         observer.error("offline mode!");

@@ -54,6 +54,7 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
      this.userViewTemplate['Phone'] = this.userData.phone;
      this.userViewTemplate['Email'] = this.userData.email;
      this.userViewTemplate['Address'] = this.userData.address;
+     console.log(this.userData);
   }
 
 /**
