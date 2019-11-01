@@ -16,6 +16,7 @@ import { ErrorService } from './error.service';
 export class OrdersService {
   apiUrl: any = environment.apiUrl;
   order: Order;
+  offlineOrders: Array<any> = [];
 
   constructor(private authService: AuthService,
               private http: HttpClient,
@@ -26,29 +27,40 @@ export class OrdersService {
               private errorService: ErrorService) {
   }
 
-/**
- * Make an order and send it on server in case of success clean order cart
- * @param { Order} order 
- */  
-  makeAnOrder(order: Order) {
+  public makeAnOrder(order: Order) {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
     const id = this.authService.getCurrentUser().id;
     order.setUserId(id);
     console.log(order);
     this.order = order;
-    this.http.post(`${this.apiUrl}/orders`, order, { headers })
+    if (navigator.onLine) {
+      this.http.post(`${this.apiUrl}/orders`, order, { headers })
         .subscribe(
           this.onMakeOrderSuccess.bind(this),
           this.onMakeOrderError.bind(this)
         );
+    } else {
+      this.handleOfflineOrderOperation(order);
+    }
+    
   }
 
-  onMakeOrderSuccess(orderStatus) {
+  public handleOfflineOrderOperation(order: Order): void {
+    
+    console.log(order);
+    this.offlineOrders.push(order);
+    this.productCart.cleanCart(); 
+    console.log(this.offlineOrders);
+    this.router.navigate(['dashboard/order-results', 'offlineMode']);
+
+  }
+
+  private onMakeOrderSuccess(orderStatus): void {
     this.productCart.cleanCart(); 
     this.router.navigate(['dashboard/order-results', 'orderSuccess']);
   }
 
-  onMakeOrderError(error) {
+  private onMakeOrderError(error): void {
     this.productCart.cleanCart(); 
     this.router.navigate(['dashboard/order-results', 'orderFailure']);
   }
@@ -57,11 +69,7 @@ export class OrdersService {
     return this.order;
   }
 
-/**
- * Get order history for appropriate user
- * @return {Observable} user's orders
- */  
-  getOrders(): Observable<any> {
+  public getOrders(): Observable<any> {
     const ordersObservable = Observable.create( (observer: Observer<any>) => {
       let onlineMode = navigator.onLine;
 
@@ -75,7 +83,7 @@ export class OrdersService {
      return ordersObservable;
   }
 
-  getOrdersFromServer(observer: Observer<any>) {
+  public getOrdersFromServer(observer: Observer<any>): void {
     const headers = new HttpHeaders({'Content-type': 'application/json'});
     const id = this.authService.getCurrentUser().id;
     this.http.get(`${this.apiUrl}/orders?userId=${id}`, { headers })
@@ -92,7 +100,7 @@ export class OrdersService {
     );
   }
 
-  getOrdersFromLocalStorage(observer: Observer<any>) {
+  public getOrdersFromLocalStorage(observer: Observer<any>): void {
     let localOrderHistory = JSON.parse(localStorage.getItem("orderHistory"));
     if (localOrderHistory.length > 0) {
       observer.next(localOrderHistory);

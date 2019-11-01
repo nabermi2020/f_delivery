@@ -15,6 +15,7 @@ export class OrderResultsComponent implements OnInit {
   orderStatusMsg: string;
   orderSuccessLogoPath: string = './../../../assets/success.png';
   orderFailureLogoPath: string = './../../../assets/orderError.png';
+  orderNetworkDisabledLogoPath: string = './../../../assets/errorNetwork.png';
 
   constructor(private activeRoute: ActivatedRoute,
               private orderService: OrdersService,
@@ -23,6 +24,24 @@ export class OrderResultsComponent implements OnInit {
 
   ngOnInit() {
     this.checkOrderStatus();
+
+    switch(this.orderStatus) {
+      case 'orderSuccess': 
+        this.orderLogoStatus = this.orderSuccessLogoPath;
+        this.orderStatusMsg = 'You\'ve successfully made an order :)';
+      break;
+
+      case 'orderFailure': 
+        this.orderLogoStatus = this.orderFailureLogoPath;
+        this.orderStatusMsg = 'Something went wrong(';
+      break;
+
+      case 'offlineMode':  
+        this.orderLogoStatus = this.orderNetworkDisabledLogoPath;
+        this.orderStatusMsg = 'You\'re in the offline mode(:';
+      break;
+    }  
+  
     this.checkLastOrder();
     
   }
@@ -30,10 +49,10 @@ export class OrderResultsComponent implements OnInit {
   private checkLastOrder(): void {
     this.order = this.orderService.getLastOrder();
     console.log(this.orderStatus);
-    this.orderStatusMsg = this.orderStatus === 'orderSuccess' ?
-      'You\'ve successfully made an order :)' : 'Something went wrong(';
-    this.orderLogoStatus = this.orderStatus === 'orderSuccess' ? 
-      this.orderSuccessLogoPath : this.orderFailureLogoPath;
+    // this.orderStatusMsg = this.orderStatus === 'orderSuccess' ?
+    //   'You\'ve successfully made an order :)' : 'Something went wrong(';
+      
+  
   }
 
   private checkOrderStatus(): void {
