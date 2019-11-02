@@ -57,18 +57,22 @@ export class OrdersService {
   }
 
   private checkOfflineOrders(): void {
-    let localOrders = JSON.parse(localStorage.getItem("offlineOrders"));
+    let localOrders = JSON.parse(localStorage.getItem('offlineOrders'));
     const offlineOrders = localOrders ? localOrders : []; 
     this.offlineOrders = offlineOrders.length > 0 ? offlineOrders : []; 
   }
+//Problems
+  private syncOfflineOrdersWithServer(): void {
+    const offlineOrders = JSON.parse(localStorage.getItem('offlineOrders'));
+    const headers = new HttpHeaders({'Content-type': 'application/json'});
 
-  // private syncOfflineOrdersWithServer(): void {
-
-  // }
+    this.http.post(`${this.apiUrl}/orders`, offlineOrders, { headers }).subscribe();
+  }
 
   private onMakeOrderSuccess(orderStatus): void {
-
+    
     this.productCart.cleanCart(); 
+    this.syncOfflineOrdersWithServer();
     this.router.navigate(['dashboard/order-results', 'orderSuccess']);
   }
 

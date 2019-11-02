@@ -123,6 +123,9 @@ export class AuthService {
     this.authResults.authStatus = false;
     this.isUserAuthorized.next(this.authResults);
     localStorage.removeItem('userInfo');
+    localStorage.removeItem('offlineOrders');
+    localStorage.removeItem('orderHistory');
+    localStorage.removeItem('productCart');
   }
 
  /**

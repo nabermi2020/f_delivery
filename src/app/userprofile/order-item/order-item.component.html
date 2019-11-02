@@ -4,6 +4,7 @@
     <div class="orderDate"> <b>Date:</b> {{ getDate(order.orderTime) }}</div>
     <div class="totalOrderAmount"><b>Total: </b> {{ order.totalPrice }} $</div>
     <div class="productsQuantity">{{ getProductsQuantity(order) }} <i>{{ getProductsQuantity(order) == 1 ? 'product' : 'products' }}</i></div> 
+    <div class="orderStatus"><i>{{ order.orderStatus }}</i></div>
     <div class="orderTime"> <b>Time:</b> {{ getTime(order.orderTime) }}</div>
   </div>
   
