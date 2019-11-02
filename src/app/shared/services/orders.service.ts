@@ -25,6 +25,7 @@ export class OrdersService {
               private loadingService: LoadingService,
               private editModal: EditModalService,
               private errorService: ErrorService) {
+    this.checkOfflineOrders();
   }
 
   public makeAnOrder(order: Order) {
@@ -34,6 +35,7 @@ export class OrdersService {
     console.log(order);
     this.order = order;
     if (navigator.onLine) {
+      this.order.setOrderStatus('done');
       this.http.post(`${this.apiUrl}/orders`, order, { headers })
         .subscribe(
           this.onMakeOrderSuccess.bind(this),
@@ -46,16 +48,26 @@ export class OrdersService {
   }
 
   public handleOfflineOrderOperation(order: Order): void {
-    
-    console.log(order);
+    this.order.setOrderStatus('pending');
     this.offlineOrders.push(order);
-    this.productCart.cleanCart(); 
-    console.log(this.offlineOrders);
-    this.router.navigate(['dashboard/order-results', 'offlineMode']);
+    localStorage.setItem("offlineOrders", JSON.stringify(this.offlineOrders));
 
+    this.productCart.cleanCart(); 
+    this.router.navigate(['dashboard/order-results', 'offlineMode']);
   }
 
+  private checkOfflineOrders(): void {
+    let localOrders = JSON.parse(localStorage.getItem("offlineOrders"));
+    const offlineOrders = localOrders ? localOrders : []; 
+    this.offlineOrders = offlineOrders.length > 0 ? offlineOrders : []; 
+  }
+
+  // private syncOfflineOrdersWithServer(): void {
+
+  // }
+
   private onMakeOrderSuccess(orderStatus): void {
+
     this.productCart.cleanCart(); 
     this.router.navigate(['dashboard/order-results', 'orderSuccess']);
   }

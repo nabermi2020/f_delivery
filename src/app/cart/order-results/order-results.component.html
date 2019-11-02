@@ -1,6 +1,6 @@
 <div id="orderResultsWrapper">
   <div class="orderLogoWrapper">
-    <img [src]="orderLogoStatus" id="orderStatusImg">
+    <img [src]="orderLogoStatus" class="orderStatusImg" *ngIf="!isNetworkDisabled">
   </div>  
   <div id="orderDetails">
     <div id="orderId" *ngIf="orderStatus === 'orderSuccess'">Order Number: {{ order.orderId }}</div>

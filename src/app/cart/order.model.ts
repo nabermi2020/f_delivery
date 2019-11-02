@@ -14,6 +14,7 @@ export class Order {
     public cart: Cart;
     public totalPrice: any;
     public products: Array<Product>;
+    public orderStatus: string;
 
     constructor(firstName, lastName,
                 email, phone,
@@ -33,6 +34,10 @@ export class Order {
 
     setUserId(id) {
         this.userId = id;   
+    }
+
+    setOrderStatus(status) {
+        this.orderStatus = status;
     }
 
     generateOrderId(upperLimit: number, lowerLimit: number) {

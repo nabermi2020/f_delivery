@@ -163,6 +163,10 @@ export class ProductCart {
         return this.cart.getCart();
     }
 
+    getCartId(): number {
+        return this.cart.getCartId();
+    }
+
 
 /**
  * Delete product with appropriate number
@@ -227,5 +231,5 @@ export class ProductCart {
         this.syncCartWithServerAndLocalStorage();
         this.onProductAdded.next(this.cart);
     }
-  
+    
 }

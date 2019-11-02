@@ -11,11 +11,11 @@ import { OrdersService } from 'src/app/shared/services/orders.service';
 export class OrderResultsComponent implements OnInit {
   order: Order;
   orderStatus: string;
+  isNetworkDisabled: boolean = false;
   orderLogoStatus: string;
   orderStatusMsg: string;
   orderSuccessLogoPath: string = './../../../assets/success.png';
   orderFailureLogoPath: string = './../../../assets/orderError.png';
-  orderNetworkDisabledLogoPath: string = './../../../assets/errorNetwork.png';
 
   constructor(private activeRoute: ActivatedRoute,
               private orderService: OrdersService,
@@ -24,35 +24,34 @@ export class OrderResultsComponent implements OnInit {
 
   ngOnInit() {
     this.checkOrderStatus();
+    this.updateOrderStatus();
+    this.checkLastOrder();
+  }
 
+  private updateOrderStatus(): void {
     switch(this.orderStatus) {
       case 'orderSuccess': 
         this.orderLogoStatus = this.orderSuccessLogoPath;
+        this.isNetworkDisabled = false;
         this.orderStatusMsg = 'You\'ve successfully made an order :)';
       break;
 
       case 'orderFailure': 
         this.orderLogoStatus = this.orderFailureLogoPath;
+        this.isNetworkDisabled = false;
         this.orderStatusMsg = 'Something went wrong(';
       break;
 
       case 'offlineMode':  
-        this.orderLogoStatus = this.orderNetworkDisabledLogoPath;
+        this.isNetworkDisabled = true;
         this.orderStatusMsg = 'You\'re in the offline mode(:';
       break;
-    }  
-  
-    this.checkLastOrder();
-    
+    } 
   }
 
   private checkLastOrder(): void {
     this.order = this.orderService.getLastOrder();
-    console.log(this.orderStatus);
-    // this.orderStatusMsg = this.orderStatus === 'orderSuccess' ?
-    //   'You\'ve successfully made an order :)' : 'Something went wrong(';
-      
-  
+    console.log(this.orderStatus);  
   }
 
   private checkOrderStatus(): void {
