@@ -1,9 +1,4 @@
-import { Subscription } from 'rxjs';
-import { AuthService } from '../../auth/services/auth.service';
-import { User } from './../../auth/user.model';
-import { ActivatedRoute, Router, Params } from '@angular/router';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { EditModalService } from 'src/app/shared/services/edit-modal.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-profile',
@@ -13,10 +8,7 @@ import { EditModalService } from 'src/app/shared/services/edit-modal.service';
 export class ProfileComponent implements OnInit {
   id: number;
 
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              private authService: AuthService,
-              private editModal: EditModalService) { }
+  constructor() { }
 
   ngOnInit() {}
 }
