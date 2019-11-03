@@ -1,4 +1,5 @@
-import { LoadingService } from './../../shared/services/loading.service';
+import { User } from './../../auth/user.model';
+
 import { AuthService } from '../../auth/services/auth.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -13,43 +14,48 @@ import { Subscription } from 'rxjs';
 })
 export class EditProfileComponent implements OnInit, OnDestroy {
   editForm: FormGroup;
-  id: any;
-  currentUser: any;
+  id: number;
+  currentUser: User;
   checkUserInfoSubscription = new Subscription();
   checkRouteParamsSub = new Subscription();
+  firstNameMinLength: number = 4;
+  lastNameMinLength: number = 4;
+  phoneMinLength: number = 10;
+  addressMinLength: number = 5;
+  passwordMinLength: number = 5;
 
   constructor(private editProfile: EditModalService,
               private route: ActivatedRoute,
               private router: Router,
-              private authService: AuthService,
-              private editModal: EditModalService,
-              private loadingService: LoadingService) { }
+              private authService: AuthService) { }
 
   ngOnInit() {
     this.subscribeToRouteParams();
   }
 
-  subscribeToRouteParams() {
+  ngOnDestroy() {
+    this.checkUserInfoSubscription.unsubscribe();
+    this.checkRouteParamsSub.unsubscribe();
+  }
+
+  public subscribeToRouteParams(): void {
     this.checkRouteParamsSub = this.route.params.subscribe( 
-      (par: Params) => {
-        this.id = par["id"];
+      (userData: Params) => {
+        this.id = userData["id"];
         this.currentUser = this.authService.getCurrentUser();
         this.initForm();
     });
   }
 
-/**
- * Init form on the component initialization
- */
-  initForm() {
+  private initForm(): void {
     this.editForm = new FormGroup({
-      'firstName': new FormControl(this.currentUser["firstName"], [Validators.required, Validators.minLength(4)]),
-      'lastName': new FormControl(this.currentUser["lastName"], [Validators.required, Validators.minLength(4)]),
-      'phone': new FormControl(this.currentUser["phone"], [Validators.required, Validators.minLength(10)]),
-      'address': new FormControl(this.currentUser["address"], [Validators.required, Validators.minLength(5)]),
+      'firstName': new FormControl(this.currentUser["firstName"], [Validators.required, Validators.minLength(this.firstNameMinLength)]),
+      'lastName': new FormControl(this.currentUser["lastName"], [Validators.required, Validators.minLength(this.lastNameMinLength)]),
+      'phone': new FormControl(this.currentUser["phone"], [Validators.required, Validators.minLength(this.phoneMinLength)]),
+      'address': new FormControl(this.currentUser["address"], [Validators.required, Validators.minLength(this.addressMinLength)]),
       passwords: new FormGroup({
-        "password": new FormControl('', [Validators.required, Validators.minLength(4) ]),
-        "passwordRepeat": new FormControl('', [Validators.required, Validators.minLength(4) ]),
+        "password": new FormControl('', [Validators.required, Validators.minLength(this.passwordMinLength) ]),
+        "passwordRepeat": new FormControl('', [Validators.required, Validators.minLength(this.passwordMinLength) ]),
         }, {
           validators: this.validatePasswords.bind(this)
         }
@@ -57,29 +63,18 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     });
   }
 
-/**
- * Get data from appropriate input
- * @param {String} control's name 
- * @return {FormControl} return control's info
- */ 
-  getDataByFieldName(data) {
+  public getDataByFieldName(data: string) {
     return this.editForm.get(data);
   }
-
- /**
-  * Compare 2 passwords
-  * @param {registrationFormGroup} password and repeated password which were entered in the edit form 
-  * @return { Obj | null } passwords' comparison result
-  */ 
-  validatePasswords(registrationFormGroup: FormGroup) {
-    const password = registrationFormGroup.controls.password.value;
-    const repeatPassword = registrationFormGroup.controls.passwordRepeat.value;
+ 
+  private validatePasswords(registrationFormGroup: FormGroup): null | {doesMatchPassword: boolean} {
+    const { password, passwordRepeat } = registrationFormGroup.value;
     
-    if (repeatPassword.length <= 0) {
+    if (passwordRepeat.length <= 0) {
         return null;
     }
 
-    if (repeatPassword !== password) {
+    if (passwordRepeat !== password) {
         return {
             doesMatchPassword: true
         };
@@ -87,17 +82,11 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     return null;
 }
 
-/**
- * Close modal window
- */
-  closeModal() {
+  public closeModal(): void {
     this.editProfile.toggleEditMode();
   }
 
-/**
- * Save changes after editing user's profile info
- */
-  saveChanges() {
+  public saveChanges(): void {
     const formData = this.editForm.value;
     this.checkUserInfoSubscription = this.authService.checkUserInfo(formData)
       .subscribe(
@@ -106,37 +95,33 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       );
   }
 
-  onSaveChangesSuccess() {
-    const formData = this.editForm.value;
-    
-    this.authService.updateUserInfo(formData)
+  private onSaveChangesSuccess(): void {
+    this.authService.updateUserInfo(this.editForm.value)
       .subscribe(
         this.onUpdateUserInfoSuccess.bind(this),
         this.onUpdateUserInfoFailure.bind(this)
       );
   }
 
-  onUpdateUserInfoSuccess() {
+  private onUpdateUserInfoSuccess(): void {
     this.closeModal();
     this.authService.updateUserData();
   }
 
-  onUpdateUserInfoFailure() {
+  private onUpdateUserInfoFailure(): void {
     this.closeModal();
-    let activeCategory = JSON.parse(localStorage.getItem("productList")).category;
+    let activeCategory = this.getLocalProductList().category;
     this.router.navigate([`dashboard/products/${activeCategory}`]);
     console.log('something went wrong!');
   }
 
-  onSaveChangesFailure() {
+  private onSaveChangesFailure(): void {
       this.closeModal();
-      alert('offline mode');
-      let activeCategory = JSON.parse(localStorage.getItem("productList")).category;
+      let activeCategory = this.getLocalProductList().category;
       this.router.navigate([`dashboard/products/${activeCategory}`]);
   }
 
-  ngOnDestroy() {
-    this.checkUserInfoSubscription.unsubscribe();
-    this.checkRouteParamsSub.unsubscribe();
+  private getLocalProductList() {
+    return JSON.parse(localStorage.getItem("productList"));
   }
 }
