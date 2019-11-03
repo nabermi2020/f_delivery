@@ -18,14 +18,9 @@ export class ProductService {
     selectedProduct;
     results = [];
     products = {};
+    newProducts = new Subject();
 
-    constructor(private http: HttpClient,
-                private router: Router,
-                private loadingService: LoadingService,
-                private editModal: EditModalService,
-                private errorService: ErrorService) { 
-        
-    }
+    constructor(private http: HttpClient) {}
  
  /**
   * Save products on the server

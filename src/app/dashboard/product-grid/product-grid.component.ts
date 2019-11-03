@@ -1,5 +1,5 @@
 import { LoadingService } from "../../shared/services/loading.service";
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute, Params, Router, NavigationEnd } from "@angular/router";
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ProductService } from "src/app/shared/services/products.service";
 import { EditModalService } from "src/app/shared/services/edit-modal.service";
@@ -12,7 +12,8 @@ import { Product } from "src/app/shared/product.model";
   styleUrls: ["./product-grid.component.scss"]
 })
 export class ProductGridComponent implements OnInit, OnDestroy {
-  products: Array<Product> | string;
+  products: Array<Product>;
+  //| string;
   isSearchFailure: boolean = true;
   activeCategory: string = "pizza";
   activeFilter: string = "All";
@@ -25,6 +26,7 @@ export class ProductGridComponent implements OnInit, OnDestroy {
   constructor(
     private productsService: ProductService,
     private route: ActivatedRoute,
+    private router: Router,
     private loadingService: LoadingService,
     private editModal: EditModalService
   ) {}
@@ -33,12 +35,24 @@ export class ProductGridComponent implements OnInit, OnDestroy {
     this.getProducts();
     this.checkSearchAvailability();
     this.getProductByCategory();
+    this.subscribeToProductLoadOnScrollDown();
   }
 
   ngOnDestroy() {
     this.urlParSubscription.unsubscribe();
     this.productSubscription.unsubscribe();
     this.productsByCategorySubscription.unsubscribe();
+    this.productsService.newProducts.unsubscribe();
+  }
+
+  private subscribeToProductLoadOnScrollDown(): void {
+    this.productsService.newProducts.subscribe(
+      (isEndOfPage: boolean) => {
+        //fake implementation, using mock
+        //new extend existing logic in product service
+        this.products = [...this.products, ...this.products];
+      }
+    )
   }
 
   private checkSearchAvailability(): void {
@@ -57,6 +71,7 @@ export class ProductGridComponent implements OnInit, OnDestroy {
         this.loadingService.toggleLoading();
         this.editModal.toggleEditMode();
         this.getProductByActiveCategory();
+        document.getElementById('rightSection').scrollTo(0,0);
       }
     );
   }
