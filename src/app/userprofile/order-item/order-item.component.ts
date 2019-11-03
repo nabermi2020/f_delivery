@@ -1,7 +1,8 @@
 import { ProductService } from 'src/app/shared/services/products.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter  } from '@angular/core';
 import { Order } from 'src/app/cart/order.model';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-order-item',
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class OrderItemComponent implements OnInit {
   @Input() order;
+  @Output('onOrderConfirmed') onOrderConfirmed = new EventEmitter();
   
   isOrderDetailExpanded: boolean = false;
   constructor(private productsService: ProductService,
@@ -17,50 +19,38 @@ export class OrderItemComponent implements OnInit {
 
   ngOnInit() { }
 
-/**
- * Get order's date
- * @param {String} order's date
- * @return {String} order's date
- */
-getDate(date) {
-  const orderDate = (new Date(date)).toLocaleDateString();
-  return orderDate;
-}
+  getDate(date) {
+    const orderDate = (new Date(date)).toLocaleDateString();
+    return orderDate;
+  }
 
-/**
- * Get order's time
- * @param {String} order's date
- * @return {String} order's time
- */
-getTime(date) {
-  const orderTime = (new Date(date)).toLocaleTimeString();
-  return orderTime;
-}
+  submitOrder() {
+    this.onOrderConfirmed.emit(this.order);
+  }
 
-/**
- * Calculate products quantity
- * @param {Order} object which represent object
- * @return { number} product's quantity;
- */
-getProductsQuantity(item) {
-  let productQuantity = 0;
-  item['products'].forEach( product => {
-    productQuantity += product.productQuantity;
-  });
- 
-  return productQuantity;
-}
+  getTime(date) {
+    const orderTime = (new Date(date)).toLocaleTimeString();
+    return orderTime;
+  }
 
-/**
- * Toggle order details block 
- */
-toggleOrderDetail() {
-  this.isOrderDetailExpanded = !this.isOrderDetailExpanded;
-}
+  
+  getProductsQuantity(item) {
+    let productQuantity = 0;
+    item['products'].forEach( product => {
+      productQuantity += product.productQuantity;
+    });
+   
+    return productQuantity;
+  }
 
-navigateToProductDetailPage(product) {
-  this.productsService.setSelectedProduct(product);
-  this.router.navigate([`dashboard/product-details/${product.id}`])
-}
+
+  toggleOrderDetail() {
+    this.isOrderDetailExpanded = !this.isOrderDetailExpanded;
+  }
+  
+  navigateToProductDetailPage(product) {
+    this.productsService.setSelectedProduct(product);
+    this.router.navigate([`dashboard/product-details/${product.id}`])
+  }
 
 }

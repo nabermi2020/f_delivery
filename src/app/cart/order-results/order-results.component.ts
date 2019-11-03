@@ -46,6 +46,16 @@ export class OrderResultsComponent implements OnInit {
         this.isNetworkDisabled = true;
         this.orderStatusMsg = 'You\'re in the offline mode(:';
       break;
+
+      case 'submitSuccess':
+        this.isNetworkDisabled = true;
+        this.orderStatusMsg  = 'Order has been successfully submitted';
+        break;
+
+        case 'submitFailure':
+          this.isNetworkDisabled = true;
+          this.orderStatusMsg  = 'Something went wrong( You\'re in offline mode';
+          break;
     } 
   }
 

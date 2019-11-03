@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { OrdersService } from 'src/app/shared/services/orders.service';
 import { EditModalService } from 'src/app/shared/services/edit-modal.service';
+import { Order } from 'src/app/cart/order.model';
 
 @Component({
   selector: 'app-order-history',
@@ -19,6 +20,9 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
   ordersForPages: Array<any>;
   orderSubscription = new Subscription();
   showCurrentOrderDetail = false;
+  isConfirmationPopUpEnabled: boolean = false;
+  editModalSubscription = new Subscription();
+  offlineOrder: Order;
 
   constructor(private orderService: OrdersService,
               private loadingService: LoadingService,
@@ -26,6 +30,27 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getOrders();
+    this.subscribeToModalToggling();
+    
+  }
+
+  subscribeToModalToggling() {
+    this.editModalSubscription = this.editModal.onEditChange.subscribe(
+      (res: boolean) => {
+        this.isConfirmationPopUpEnabled = false;
+      }
+    );
+  }
+
+  showConfirmationPopUp(order) {
+    this.offlineOrder = order;
+    this.editModal.toggleEditMode();
+    this.isConfirmationPopUpEnabled = true;
+  }
+
+  onOrderSubmit() {
+    console.log(this.offlineOrder);
+    this.orderService.submitOrderFromOrderHistory(this.offlineOrder);
   }
 
   calculatePagination() {
@@ -95,6 +120,7 @@ export class OrderHistoryComponent implements OnInit, OnDestroy {
  */
   ngOnDestroy() {
     this.orderSubscription.unsubscribe();
+    this.editModalSubscription.unsubscribe()
   }
 
 }
