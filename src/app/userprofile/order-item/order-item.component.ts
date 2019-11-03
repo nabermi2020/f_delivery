@@ -1,56 +1,53 @@
-import { ProductService } from 'src/app/shared/services/products.service';
-import { Component, OnInit, Input, Output, EventEmitter  } from '@angular/core';
-import { Order } from 'src/app/cart/order.model';
-import { Router } from '@angular/router';
-
+import { ProductService } from "src/app/shared/services/products.service";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Order } from "src/app/cart/order.model";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-order-item',
-  templateUrl: './order-item.component.html',
-  styleUrls: ['./order-item.component.scss']
+  selector: "app-order-item",
+  templateUrl: "./order-item.component.html",
+  styleUrls: ["./order-item.component.scss"]
 })
 export class OrderItemComponent implements OnInit {
   @Input() order;
-  @Output('onOrderConfirmed') onOrderConfirmed = new EventEmitter();
-  
+  @Output("onOrderConfirmed") onOrderConfirmed = new EventEmitter();
+
   isOrderDetailExpanded: boolean = false;
-  constructor(private productsService: ProductService,
-              private router: Router) { }
+  constructor(
+    private productsService: ProductService,
+    private router: Router
+  ) {}
+  ngOnInit() {}
 
-  ngOnInit() { }
-
-  getDate(date) {
-    const orderDate = (new Date(date)).toLocaleDateString();
+  public getDate(date): string {
+    const orderDate = new Date(date).toLocaleDateString();
     return orderDate;
   }
 
-  submitOrder() {
+  public submitOrder(): void {
     this.onOrderConfirmed.emit(this.order);
   }
 
-  getTime(date) {
-    const orderTime = (new Date(date)).toLocaleTimeString();
+  public getTime(date): string {
+    const orderTime = new Date(date).toLocaleTimeString();
     return orderTime;
   }
 
-  
-  getProductsQuantity(item) {
+  public getProductsQuantity(item): number {
     let productQuantity = 0;
-    item['products'].forEach( product => {
+    item["products"].forEach(product => {
       productQuantity += product.productQuantity;
     });
-   
+
     return productQuantity;
   }
 
-
-  toggleOrderDetail() {
+  public toggleOrderDetail(): void {
     this.isOrderDetailExpanded = !this.isOrderDetailExpanded;
   }
-  
-  navigateToProductDetailPage(product) {
-    this.productsService.setSelectedProduct(product);
-    this.router.navigate([`dashboard/product-details/${product.id}`])
-  }
 
+  public navigateToProductDetailPage(product): void {
+    this.productsService.setSelectedProduct(product);
+    this.router.navigate([`dashboard/product-details/${product.id}`]);
+  }
 }
