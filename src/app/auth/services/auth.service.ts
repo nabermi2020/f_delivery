@@ -1,3 +1,4 @@
+import { HttpClientService } from './http-client.service';
 import { LoadingService } from '../../shared/services/loading.service';
 import { ProductCart } from '../../shared/services/product-cart.service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
@@ -22,9 +23,7 @@ export class AuthService {
   
   constructor(private router: Router,
               private http: HttpClient,
-              private errorService: ErrorService,
-              private loadingService: LoadingService,
-              private editModal: EditModalService
+              private httpClient: HttpClientService
               ) {}
 
   authenticateUser(login: string, password: string) {
@@ -41,8 +40,7 @@ export class AuthService {
   }   
   
   aunthenticateUserOnline(login: string, password: string, authObserver: Observer<any>) {
-    const headers = new HttpHeaders({'Content-type': 'application/json'});
-    this.http.get(`${this.apiUrl}/users?login=${login}&&password=${password}`, { headers })
+    this.httpClient.get(`${this.apiUrl}/users?login=${login}&&password=${password}`)
       .subscribe(
         (authResults: Response) => {
           this.onAunthenticateUserOnlineSuccess(authResults, authObserver);
@@ -125,7 +123,6 @@ export class AuthService {
     localStorage.removeItem('userInfo');
     localStorage.removeItem('offlineOrders');
     localStorage.removeItem('orderHistory');
-    localStorage.removeItem('productCart');
   }
 
  /**
@@ -133,13 +130,11 @@ export class AuthService {
   * @param {User} new user instance
   */ 
   signUp(users) {
-    const headers = new HttpHeaders({'Content-type': 'application/json'});
-     
-    this.http.post(`${this.apiUrl}/users`, users, { headers })
-      .subscribe(
-        this.onSignUpSuccess.bind(this),
-        this.onSignUpFailure.bind(this)
-      );
+    this.httpClient.post(`${this.apiUrl}/users`, users)
+    .subscribe(
+      this.onSignUpSuccess.bind(this),
+      this.onSignUpFailure.bind(this)
+    );
   }
 
   onSignUpSuccess(res) {
@@ -182,7 +177,7 @@ export class AuthService {
   * @return {Observable} array of 1 user if search was successfull 
   */ 
   checkUserInfo(userData): Observable<any> {
-    const checkObservable = Observable.create( (observer: Observer<any>) => {
+    return Observable.create( (observer: Observer<any>) => {
       const login = this.currentUser.login;
       const password = userData.passwords.password;
       let onlineMode = navigator.onLine;
@@ -193,8 +188,6 @@ export class AuthService {
         observer.error("offline mode!");
       }
     });
-    
-    return checkObservable;
   }
 
   getUserInfo(login, password, observer) {

@@ -121,7 +121,7 @@ export class ProductCart {
     }
 
     onGetCartSuccess(cart) {
-         let localCart = JSON.parse(localStorage.getItem("productCart"));
+         let localCart = JSON.parse(localStorage.getItem("productCart")) ? JSON.parse(localStorage.getItem("productCart")) : new Cart();
          let localCartInstanse = new Cart(localCart["products"]);
          this.setProductsToCartFromServerOrLocalSt(localCartInstanse ? localCart : cart);
          this.onProductAdded.next(this.cart.getCart());
