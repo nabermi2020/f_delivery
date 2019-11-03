@@ -1,6 +1,5 @@
 import { EditModalService } from '../../shared/services/edit-modal.service';
 import { AuthService } from '../../auth/services/auth.service';
-import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { User } from 'src/app/auth/user.model';
 import { Subscription } from 'rxjs';
@@ -19,15 +18,13 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
   userViewTemplate = {
     'First Name': '',
     'Last Name': '',
-    'Login': '',
-    'Phone': '',
-    'Email': '',
-    'Address': ''
+    'login': '',
+    'phone': '',
+    'email': '',
+    'address': ''
   };
 
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              private authService: AuthService,
+  constructor(private authService: AuthService,
               private editModal: EditModalService) { }
 
   ngOnInit() {
@@ -36,39 +33,26 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
     this.subscribeToModalToggling();
   }
 
-  subscribeToModalToggling() {
-    this.editSubscription = this.editModal.onEditChange.subscribe(
-      res => {
-        this.editMode = res;
-      }
-    );
-  }
-
- /**
-  * Map appropriate values getted from 'authService' with values from viewModel
-  */
-  userDataMap() {
-     this.userViewTemplate['First Name'] = this.userData.firstName;
-     this.userViewTemplate['Last Name'] = this.userData.lastName;
-     this.userViewTemplate['Login'] = this.userData.login;
-     this.userViewTemplate['Phone'] = this.userData.phone;
-     this.userViewTemplate['Email'] = this.userData.email;
-     this.userViewTemplate['Address'] = this.userData.address;
-     console.log(this.userData);
-  }
-
-/**
- *  Show modal window for editting user data
- */
-  editProfile() {
-    this.editModal.toggleEditMode();
-  }
-
-/**
- * Destroy subsription
- */
   ngOnDestroy() {
     this.editSubscription.unsubscribe();
   }
 
+  public subscribeToModalToggling(): void {
+    this.editSubscription = this.editModal.onEditChange.subscribe(
+      (togglingRes: boolean) => {
+        this.editMode = togglingRes;
+      }
+    );
+  }
+
+  public userDataMap() {
+    for ( let {'First Name': firstName, 'Last Name': lastName, login, phone, email, address} of [this.userViewTemplate]) {
+      const {firstName, lastName, login, phone, email, address} = this.userData;
+      this.userViewTemplate = { 'First Name': firstName, 'Last Name': lastName, login, phone, email, address};
+    }
+  }
+
+  public editProfile(): void {
+    this.editModal.toggleEditMode();
+  }
 }
