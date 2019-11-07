@@ -41,6 +41,25 @@
         right: 5%;
     }
 
+    .orderStatus {
+        display: inline-block;
+        margin-left: 10px;
+        color: green;
+    }
+
+    .orderSubmit {
+        color: red;
+        display: inline-block;
+        font-size: 14px;
+        margin-left: 25px;
+
+        &:hover {
+            cursor: pointer;
+            font-style: italic;
+            font-weight: bold;
+        }
+    }
+
     .productsQuantity {
         display: inline-block;
         margin-left: 20px;

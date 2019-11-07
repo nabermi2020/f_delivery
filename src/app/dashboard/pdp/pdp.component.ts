@@ -22,6 +22,7 @@ export class PdpComponent implements OnInit, OnDestroy {
     this.productDetails = this.productService.getSelectedProduct();
     this.getIngredients();
     this.subscribeToUrlChanges();
+    document.getElementById('rightSection').scrollTo(0,0);
   }
 
   subscribeToUrlChanges() {

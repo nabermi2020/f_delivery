@@ -9,7 +9,7 @@ import { Subject } from 'rxjs';
   templateUrl: './authentication.component.html',
   styleUrls: ['./authentication.component.scss']
 })
-export class AuthenticationComponent implements OnInit, OnDestroy {
+export class AuthenticationComponent implements OnInit, OnDestroy {  
   private destroy$ = new Subject();
 
   constructor(private authService: AuthService,

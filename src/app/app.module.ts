@@ -1,3 +1,4 @@
+import { HttpClientService } from './auth/services/http-client.service';
 import { ErrorService } from './shared/services/error.service';
 import { LoadingService } from './shared/services/loading.service';
 import { OrdersService } from './shared/services/orders.service';
@@ -12,7 +13,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductCart } from './shared/services/product-cart.service';
-import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,8 @@ import { SharedModule } from './shared/shared.module';
     EditModalService,
     OrdersService,
     LoadingService,
-    ErrorService
+    ErrorService,
+    HttpClientService
   ],
   bootstrap: [AppComponent]
 })

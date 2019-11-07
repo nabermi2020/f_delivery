@@ -22,6 +22,10 @@ export class Cart {
         this.cartId = id;
     }
 
+    getCartId() {
+        return this.cartId;
+    }
+
     getCart(): Array<Product> {
         return this.products;
     }

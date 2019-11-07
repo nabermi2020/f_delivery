@@ -1,8 +1,6 @@
-import { LoadingService } from '../../shared/services/loading.service';
 import { ProductCart } from '../../shared/services/product-cart.service';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../shared/services/products.service';
-import { AuthService } from '../../auth/services/auth.service';
 import { Component, OnInit, ChangeDetectorRef, OnDestroy, HostListener } from '@angular/core';
 import { EditModalService } from 'src/app/shared/services/edit-modal.service';
 import { Subscription } from 'rxjs';
@@ -17,13 +15,11 @@ export class ProductDashboardComponent implements OnInit, OnDestroy {
   isModalEnabled: boolean = false;
   editMode = new Subscription();
 
-  constructor(private authService: AuthService,
-              private productsService: ProductService,
+  constructor(private productsService: ProductService,
               private route: ActivatedRoute,
               private editModal: EditModalService,
               private cartService: ProductCart,
-              private changeDetector: ChangeDetectorRef,
-              private loadingService: LoadingService) { }
+              private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.subscribeToModalToggling();
@@ -31,23 +27,31 @@ export class ProductDashboardComponent implements OnInit, OnDestroy {
     this.cartService.getCartFromServer();
   }
 
-  subscribeToModalToggling() {
+  ngOnDestroy() {
+    this.editMode.unsubscribe();
+  }
+
+  public subscribeToModalToggling(): void {
     this.editMode = this.editModal.onEditChange.subscribe(
-      (res: boolean) => {
-        this.isModalEnabled = res;
+      (isEditModalEnabled: boolean) => {
+        this.isModalEnabled = isEditModalEnabled;
         this.changeDetector.detectChanges();
       }
     );
   }
 
-  ngOnDestroy() {
-    this.editMode.unsubscribe();
-  }
-
   @HostListener('scroll', ['$event.target'])
-  onDashboardScroll(event) {
+  public onDashboardScroll(event): void {
     if (event.target.offsetHeight + event.target.scrollTop == event.target.scrollHeight) {
-          console.log('end of the page!');
+       this.route.children[0].children[0].params.subscribe(
+         (category) => {
+           if (category["cat"] == "pizza" ||
+               category["cat"] == "drinks" ||
+               category["cat"] == "salads") {
+            this.productsService.newProducts.next(true);
+           }
+         }
+       );
     }
  }
 }

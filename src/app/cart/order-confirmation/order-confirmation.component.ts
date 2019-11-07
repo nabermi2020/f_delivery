@@ -75,13 +75,14 @@ export class OrderConfirmationComponent implements OnInit, OnDestroy {
                           email, phone,
                           address, orderTime,
                           this.productCart.getProductCart());
-    if (!navigator.onLine) {
-      this.ordersService.makeAnOrder(order);
-    } else {
-      let activeCategory = JSON.parse(localStorage.getItem("productList")).category;
-      this.router.navigate([`dashboard/products/${activeCategory}`]);
-      //alert('offline mode');
-    }
+    this.ordersService.makeAnOrder(order);                      
+    // if (navigator.onLine) {
+    //   this.ordersService.makeAnOrder(order);
+    // //Should be modified
+    // } else {
+    //   let activeCategory = JSON.parse(localStorage.getItem("productList")).category;
+    //   this.router.navigate([`dashboard/products/${activeCategory}`]);
+    // }
   }
 
   showConfirmationPopUp(form) {

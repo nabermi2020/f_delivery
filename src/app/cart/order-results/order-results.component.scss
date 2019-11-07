@@ -1,0 +1,27 @@
+#orderResultsWrapper {
+    
+    .orderLogoWrapper {
+        text-align: center;
+        position: relative;
+        margin-top: 14%;
+
+        .orderStatusImg {
+            width: 140px;
+            height: 150px;
+        }
+    }
+
+    #orderDetails {
+        width: 60%;
+        text-align: center;
+        margin: 0 auto;
+        line-height: 35px;
+        font-weight: 300;
+        font-family: 'Arial';
+        font-size: 18px;
+
+        #goToDashboard {
+            margin-top: 10px;
+        }
+    }
+}

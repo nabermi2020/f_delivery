@@ -1,6 +1,5 @@
 import { ErrorService } from './error.service';
 import { LoadingService } from './loading.service';
-import { AppNotFoundErr } from './../app-not-found-err';
 import { Product } from '../product.model';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpHeaderResponse } from '@angular/common/http';
@@ -19,14 +18,9 @@ export class ProductService {
     selectedProduct;
     results = [];
     products = {};
+    newProducts = new Subject();
 
-    constructor(private http: HttpClient,
-                private router: Router,
-                private loadingService: LoadingService,
-                private editModal: EditModalService,
-                private errorService: ErrorService) { 
-        
-    }
+    constructor(private http: HttpClient) {}
  
  /**
   * Save products on the server
@@ -46,7 +40,7 @@ export class ProductService {
         const productsObservable = Observable.create( (observer: Observer<any>) => {
         let onlineMode = navigator.onLine;
         
-        if (!onlineMode) {
+        if (onlineMode) {
             this.http.get(`${this.apiUrl}/pizza`, {headers})
             .subscribe(
                 (productList: Array<any>) => {
@@ -86,7 +80,7 @@ export class ProductService {
         const headers = new HttpHeaders({'Content-type': 'application/json'});
         let online = navigator.onLine;
         
-        if (!online) {     
+        if (online) {     
             this.http.get(`${this.apiUrl}/${category}`, {headers})
                 .subscribe(
                     (products: Array<any>) => {
@@ -128,7 +122,7 @@ export class ProductService {
         const searchObservable = Observable.create( (observer: Observer<any>) => {
         let onlineMode = navigator.onLine;
         
-        if (!onlineMode) {
+        if (onlineMode) {
             this.searchProductsOnline(query, observer);
         } else {
             this.searchProductOffline(query, observer);
