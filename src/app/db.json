@@ -17,7 +17,7 @@
     {
       "id": 468,
       "productTitle": "Carbonara",
-      "imgPath": "https://pizzaletta.com/uploads/pizza/image/19/pl-pizza-12.jpg",
+      "imgPath": "./../../assets/pizza2.jpg",
       "productWeight": "550",
       "productSize": "30",
       "productDescription": "Ham, mozzarella, tomatoes, corn, garlic sauce",

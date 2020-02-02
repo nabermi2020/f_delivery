@@ -18,7 +18,7 @@
     {
       "id": 468,
       "productTitle": "Carbonara",
-      "imgPath": "https://pizzaletta.com/uploads/pizza/image/19/pl-pizza-12.jpg",
+      "imgPath": "./../../assets/pizza2.jpg",
       "productWeight": "550",
       "productSize": "30",
       "productDescription": "Ham, mozzarella, tomatoes, corn, garlic sauce",
@@ -47,7 +47,7 @@
     {
       "id": 430,
       "productTitle": "Super Meat",
-      "imgPath": "https://pizzaletta.com/uploads/pizza/image/55/IMG_5128p.jpg",
+      "imgPath": "./../../assets/pizza6.jpg",
       "productWeight": "550",
       "productSize": "30",
       "productDescription": "Ham, mozzarella, tomatoes, corn, garlic sauce",
@@ -62,7 +62,7 @@
     {
       "id": 485,
       "productTitle": "Cesare",
-      "imgPath": "https://pizzaletta.com/uploads/pizza/image/23/pl-pizza-16.jpg",
+      "imgPath": "./../../assets/pizza7.jpg",
       "productWeight": "550",
       "productSize": "30",
       "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
@@ -76,7 +76,7 @@
     {
       "id": 325,
       "productTitle": "Hot Chili",
-      "imgPath": "https://pizzaletta.com/uploads/pizza/image/27/IMG_8769_compress.jpg",
+      "imgPath": "./../../assets/pizza8.jpg",
       "productWeight": "550",
       "productSize": "30",
       "productDescription": "Ham, mozzarella, tomatoes, corn, garlic sauce",
@@ -90,7 +90,7 @@
     {
       "id": 311,
       "productTitle": "With Prosciutto",
-      "imgPath": "https://pizzaletta.com/uploads/pizza/image/29/IMG_7181_compress.jpg",
+      "imgPath": "./../../assets/pizza9.jpg",
       "productWeight": "550",
       "productSize": "30",
       "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
@@ -104,7 +104,7 @@
     {
       "id": 300,
       "productTitle": "From Cheff",
-      "imgPath": "https://pizzaletta.com/uploads/pizza/image/53/IMG_5105%D1%80.jpg",
+      "imgPath": "./../../assets/pizza10.jpg",
       "productWeight": "550",
       "productSize": "30",
       "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
@@ -120,7 +120,7 @@
     {
       "id": 2,
       "productTitle": "Schweppes Pink",
-      "imgPath": "https://pizzaletta.com/uploads/drink/image/23/5D50DFB9-0DF8-4A21-904D-48AFD33B8804.jpeg",
+      "imgPath": "./../../assets/drink2.jpeg",
       "productWeight": "550",
       "productSize": "30",
       "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
@@ -135,7 +135,7 @@
     {
       "id": 4,
       "productTitle": "Doctor Pepper Cherry",
-      "imgPath": "https://pizzaletta.com/uploads/drink/image/18/IMG_5887.JPG",
+      "imgPath": "./../../assets/drink1.jpg",
       "productWeight": "550",
       "productSize": "30",
       "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
@@ -151,7 +151,7 @@
     {
       "id": 5,
       "productTitle": "Cesar with Chicken",
-      "imgPath": "https://pizzaletta.com/uploads/salat/image/1/%D0%A6%D0%B5%D0%B7%D0%B0%D1%80_%D0%B7_%D0%BA%D1%83%D1%80%D0%BA%D0%BE%D1%8E_150%D0%B3.JPG",
+      "imgPath": "./../../assets/salad1.jpg",
       "productWeight": "550",
       "productSize": "30",
       "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
@@ -166,7 +166,7 @@
     {
       "id": 6,
       "productTitle": "With Prosciutto",
-      "imgPath": "https://pizzaletta.com/uploads/salat/image/5/%D0%97_%D0%BF%D1%80%D0%BE%D1%88%D1%83%D1%82%D0%BE_150%D0%B3.JPG",
+      "imgPath": "./../../assets/salad4.jpg",
       "productWeight": "550",
       "productSize": "30",
       "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
@@ -180,7 +180,7 @@
     {
       "id": 7,
       "productTitle": "Vegetable Plateau",
-      "imgPath": "https://pizzaletta.com/uploads/salat/image/8/IMG_7157.jpg",
+      "imgPath": "./../../assets/salad3.jpg",
       "productWeight": "550",
       "productSize": "30",
       "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
@@ -194,7 +194,7 @@
     {
       "id": 8,
       "productTitle": "Cheese Plateau",
-      "imgPath": "https://pizzaletta.com/uploads/salat/image/6/IMG_7143.jpg",
+      "imgPath": "./../../assets/salad2.jpg",
       "productWeight": "550",
       "productSize": "30",
       "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
@@ -447,8 +447,8 @@
     },
     {
       "products": [],
-      "cartId": 3776,
-      "totalPrice": 600,
+      "cartId": 3638,
+      "totalPrice": 597,
       "id": 24,
       "userId": 988
     },
@@ -2777,6 +2777,211 @@
       "userId": 24,
       "orderStatus": "done",
       "id": 62
+    },
+    {
+      "firstName": "johnny",
+      "lastName": "sidness",
+      "email": "nab@op.op",
+      "phone": "0501865210",
+      "address": "LA, New Walley 145/85",
+      "deliveryTime": "1200",
+      "orderTime": "2019-11-28T11:28:04.023Z",
+      "orderId": 359,
+      "totalPrice": 800,
+      "products": [
+        {
+          "id": 468,
+          "productTitle": "Carbonara",
+          "imgPath": "./../../assets/pizza2.jpg",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Ham, mozzarella, tomatoes, corn, garlic sauce",
+          "productsDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab dolore omnis velit autem consequatur sit? Nemo temporibus earum, nisi iure optio nostrum dolore unde consequatur laboriosam ab. Provident enim voluptatem aliquam sequi voluptatibus molestias ut atque est. Expedita omnis pariatur non atque dolore odio, laborum quidem optio voluptatibus, ut veniam.",
+          "productPrice": 200,
+          "productCategories": [
+            "All",
+            "With Cheese",
+            "Vegetarian"
+          ],
+          "productQuantity": 4
+        }
+      ],
+      "userId": 24,
+      "orderStatus": "done",
+      "id": 63
+    },
+    {
+      "firstName": "johnny",
+      "lastName": "sidness",
+      "email": "nab@op.op",
+      "phone": "0501865210",
+      "address": "LA, New Walley 145/85",
+      "deliveryTime": "1300",
+      "orderTime": "2019-11-28T12:03:40.831Z",
+      "orderId": 66,
+      "totalPrice": 1200,
+      "products": [
+        {
+          "id": 468,
+          "productTitle": "Carbonara",
+          "imgPath": "./../../assets/pizza2.jpg",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Ham, mozzarella, tomatoes, corn, garlic sauce",
+          "productsDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab dolore omnis velit autem consequatur sit? Nemo temporibus earum, nisi iure optio nostrum dolore unde consequatur laboriosam ab. Provident enim voluptatem aliquam sequi voluptatibus molestias ut atque est. Expedita omnis pariatur non atque dolore odio, laborum quidem optio voluptatibus, ut veniam.",
+          "productPrice": 200,
+          "productCategories": [
+            "All",
+            "With Cheese",
+            "Vegetarian"
+          ],
+          "productQuantity": 3
+        },
+        {
+          "id": 325,
+          "productTitle": "Hot Chili",
+          "imgPath": "./../../assets/pizza8.jpg",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Ham, mozzarella, tomatoes, corn, garlic sauce",
+          "productsDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab dolore omnis velit autem consequatur sit? Nemo temporibus earum, nisi iure optio nostrum dolore unde consequatur laboriosam ab. Provident enim voluptatem aliquam sequi voluptatibus molestias ut atque est. Expedita omnis pariatur non atque dolore odio, laborum quidem optio voluptatibus, ut veniam.",
+          "productPrice": 200,
+          "productCategories": [
+            "All",
+            "With Meat"
+          ],
+          "productQuantity": 3
+        }
+      ],
+      "userId": 24,
+      "orderStatus": "done",
+      "id": 64
+    },
+    {
+      "firstName": "johnny",
+      "lastName": "sidness",
+      "email": "nab@op.op",
+      "phone": "0501865210",
+      "address": "LA, New Walley 145/85",
+      "deliveryTime": "1300",
+      "orderTime": "2019-12-12T15:45:47.541Z",
+      "orderId": 220,
+      "totalPrice": 999,
+      "products": [
+        {
+          "id": 2,
+          "productTitle": "Schweppes Pink",
+          "imgPath": "./../../assets/drink2.jpeg",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
+          "productsDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab dolore omnis velit autem consequatur sit? Nemo temporibus earum, nisi iure optio nostrum dolore unde consequatur laboriosam ab. Provident enim voluptatem aliquam sequi voluptatibus molestias ut atque est. Expedita omnis pariatur non atque dolore odio, laborum quidem optio voluptatibus, ut veniam.",
+          "productPrice": 199,
+          "productCategories": [
+            "All",
+            "Non alcoholic",
+            "Lemonades"
+          ],
+          "productQuantity": 1
+        },
+        {
+          "id": 468,
+          "productTitle": "Carbonara",
+          "imgPath": "./../../assets/pizza2.jpg",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Ham, mozzarella, tomatoes, corn, garlic sauce",
+          "productsDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab dolore omnis velit autem consequatur sit? Nemo temporibus earum, nisi iure optio nostrum dolore unde consequatur laboriosam ab. Provident enim voluptatem aliquam sequi voluptatibus molestias ut atque est. Expedita omnis pariatur non atque dolore odio, laborum quidem optio voluptatibus, ut veniam.",
+          "productPrice": 200,
+          "productCategories": [
+            "All",
+            "With Cheese",
+            "Vegetarian"
+          ],
+          "productQuantity": 1
+        },
+        {
+          "id": 325,
+          "productTitle": "Hot Chili",
+          "imgPath": "./../../assets/pizza8.jpg",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Ham, mozzarella, tomatoes, corn, garlic sauce",
+          "productsDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab dolore omnis velit autem consequatur sit? Nemo temporibus earum, nisi iure optio nostrum dolore unde consequatur laboriosam ab. Provident enim voluptatem aliquam sequi voluptatibus molestias ut atque est. Expedita omnis pariatur non atque dolore odio, laborum quidem optio voluptatibus, ut veniam.",
+          "productPrice": 200,
+          "productCategories": [
+            "All",
+            "With Meat"
+          ],
+          "productQuantity": 3
+        }
+      ],
+      "userId": 24,
+      "orderStatus": "done",
+      "id": 65
+    },
+    {
+      "firstName": "johnny",
+      "lastName": "sidness",
+      "email": "nab@op.op",
+      "phone": "0501865210",
+      "address": "LA, New Walley 145/85",
+      "deliveryTime": "1400",
+      "orderTime": "2019-12-18T15:16:04.191Z",
+      "orderId": 610,
+      "totalPrice": 800,
+      "products": [
+        {
+          "id": 468,
+          "productTitle": "Carbonara",
+          "imgPath": "./../../assets/pizza2.jpg",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Ham, mozzarella, tomatoes, corn, garlic sauce",
+          "productsDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab dolore omnis velit autem consequatur sit? Nemo temporibus earum, nisi iure optio nostrum dolore unde consequatur laboriosam ab. Provident enim voluptatem aliquam sequi voluptatibus molestias ut atque est. Expedita omnis pariatur non atque dolore odio, laborum quidem optio voluptatibus, ut veniam.",
+          "productPrice": 200,
+          "productCategories": [
+            "All",
+            "With Cheese",
+            "Vegetarian"
+          ],
+          "productQuantity": 4
+        }
+      ],
+      "userId": 24,
+      "orderStatus": "done",
+      "id": 66
+    },
+    {
+      "firstName": "johnny",
+      "lastName": "sidness",
+      "email": "nab@op.op",
+      "phone": "0501865210",
+      "address": "LA, New Walley 145/85",
+      "deliveryTime": "1400",
+      "orderTime": "2020-02-02T01:03:13.178Z",
+      "orderId": 262,
+      "totalPrice": 597,
+      "products": [
+        {
+          "id": 417,
+          "productTitle": "Four Cheeses Classic",
+          "imgPath": "./../../assets/pizza3.jpg",
+          "productWeight": "550",
+          "productSize": "30",
+          "productDescription": "Mozzarella, parmesan cheese, cheddar cheese, Dor blue cheese, cream sauce, white Brie cheese",
+          "productsDetails": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab dolore omnis velit autem consequatur sit? Nemo temporibus earum, nisi iure optio nostrum dolore unde consequatur laboriosam ab. Provident enim voluptatem aliquam sequi voluptatibus molestias ut atque est. Expedita omnis pariatur non atque dolore odio, laborum quidem optio voluptatibus, ut veniam.",
+          "productPrice": 199,
+          "productCategories": [
+            "All",
+            "With Cheese"
+          ],
+          "productQuantity": 3
+        }
+      ],
+      "userId": 24,
+      "orderStatus": "done",
+      "id": 67
     }
   ]
 }
