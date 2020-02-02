@@ -42,7 +42,6 @@ export class ProductGridComponent implements OnInit, OnDestroy {
     this.urlParSubscription.unsubscribe();
     this.productSubscription.unsubscribe();
     this.productsByCategorySubscription.unsubscribe();
-    this.productsService.newProducts.unsubscribe();
   }
 
   private subscribeToProductLoadOnScrollDown(): void {
@@ -88,6 +87,7 @@ export class ProductGridComponent implements OnInit, OnDestroy {
   private onGetProductByActiveCategorySuccess(productList): void {
     this.onlineMode = productList.length > 0 ? true : false;
     this.products = productList;
+    console.log(this.products);
     this.activeFilter = "All";
     this.loadingService.toggleLoading();
     this.editModal.toggleEditMode();
