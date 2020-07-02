@@ -1,0 +1,9 @@
+language: node_js
+node_js: 12.16.3
+cache: npm
+
+install: npm i
+script:
+  - npm run list
+  - npm run test:cov
+  - npm run build
