@@ -4,6 +4,5 @@ cache: npm
 
 install: npm i
 script:
-  - npm run list
-  - npm run test:cov
+  - npm run test
   - npm run build
